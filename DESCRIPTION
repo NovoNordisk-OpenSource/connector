@@ -1,5 +1,5 @@
-Package: Rtemplate
-Title: Template repository for new ATMOS R packages
+Package: connector
+Title: The connector package helps connecting R to databases that contains ADAM, STDM and so on. The package defines an interface that can be reuse for any databases 
 Version: 0.0.0.9000
 Authors@R: c(
     person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
@@ -10,12 +10,8 @@ Description: Defines common standards, workflows, and actions for new R packages
 License: Apache License (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.2.0
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 URL: https://jubilant-adventure-yr95p3g.pages.github.io/
-Imports: 
-    cli,
-    gh,
-    jsonlite
