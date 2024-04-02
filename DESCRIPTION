@@ -1,0 +1,21 @@
+Package: Rtemplate
+Title: Template repository for new ATMOS R packages
+Version: 0.0.0.9000
+Authors@R: c(
+    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID")),
+    person("Novo Nordisk A/S", role = c("cph"))
+  )
+Description: Defines common standards, workflows, and actions for new R packages.
+License: Apache License (>= 2)
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.2.3
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+URL: https://jubilant-adventure-yr95p3g.pages.github.io/
+Imports: 
+    cli,
+    gh,
+    jsonlite

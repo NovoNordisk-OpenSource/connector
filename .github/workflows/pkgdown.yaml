@@ -1,0 +1,87 @@
+# Workflow adjusted from usethis::use_pkgdown_github_pages() to also publish pages from PRs in a subfolder
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  release:
+    types: [published]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+name: pkgdown
+
+jobs:
+  pkgdown:
+    runs-on: ubuntu-latest
+    # Only restrict concurrency for non-PR jobs
+    concurrency:
+      group: pkgdown-${{ github.event_name != 'pull_request' || github.run_id }}
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::pkgdown, local::.
+          needs: website
+
+      - name: Build site
+        run: pkgdown::build_site_github_pages(new_process = FALSE, install = FALSE)
+        shell: Rscript {0}
+
+      # If not pull request a brand new webpage is deployed
+
+      - name: Deploy to GitHub pages 🚀
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        with:
+          clean: false
+          branch: gh-pages
+          folder: docs
+
+      # If pull request the webpage is deployed inside a dev/"PR number" folder for review
+
+      - name: Add pkgdown PR Comment
+        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request'
+        with:
+          recreate: true
+          header: pkgdown
+          message: |
+            # Github pages
+            Review the pkgdown webpage for the PR [here](https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/dev/${{ github.event.pull_request.number }})
+
+      - name: Copy page to temp folder
+        if: github.event_name == 'pull_request'
+        run: |
+          mkdir -p /home/runner/work/dev
+          cp -r ./docs/* /home/runner/work/dev
+
+      - name: Check out gh-pages branch
+        if: github.event_name == 'pull_request'
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+
+      - name: Copy and push to gh-pages
+        if: github.event_name == 'pull_request'
+        run: |
+          mkdir -p dev/${{ github.event.pull_request.number }}
+          cp -r /home/runner/work/dev/* ./dev/${{ github.event.pull_request.number }}
+          git config --global user.email "actions-robot@novonordisk.com"
+          git config --global user.name "Actions Robot From Github Actions"
+          git add .
+          git commit -m "Update gh pages from the PR"
+          git push

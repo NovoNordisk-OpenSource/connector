@@ -1,0 +1,11 @@
+---
+language: en
+ignorePaths:
+  - github
+  - man
+  - README.md
+patterns:
+  - name: code_chunk
+    pattern: "`{3}.*?`{3}"
+ignoreRegExpList:
+  - code_chunk
