@@ -8,3 +8,5 @@
 ^\.lintr$
 ^\.github$
 ^cspell\.yaml$
+^connector\.Rproj$
+^dev$

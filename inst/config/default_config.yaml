@@ -1,0 +1,16 @@
+# A example of the configuration file more as R6 view
+connector:
+  study:
+    trial: "0003"
+    project: "nn1234"
+    instance: "current"
+  fs:
+    root_path: "~/training"
+  dbi: 
+    driver: "RSQLite"
+    path_to_file: "memory"
+  layers:
+    adam:
+      conn: "fs" # will use the config above and default behavior for databricks for NN
+    stdm:
+      conn: "dbi"
