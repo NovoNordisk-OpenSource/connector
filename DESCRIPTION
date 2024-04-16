@@ -2,8 +2,7 @@ Package: connector
 Title: The connector package helps connecting R to databases that contains ADAM, STDM and so on. The package defines an interface that can be reuse for any databases 
 Version: 0.0.0.9000
 Authors@R: c(
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID")),
+    person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
     person("Novo Nordisk A/S", role = c("cph"))
   )
 Description: Defines common standards, workflows, and actions for new R packages.
