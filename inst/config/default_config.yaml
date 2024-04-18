@@ -1,16 +1,25 @@
 # A example of the configuration file more as R6 view
 connector:
+  # connection:
+  #   fs:
+  #     root_path: "~/training"
+  #   dbi: 
+  #     driver: "RSQLite"
+  #     path_to_file: "/root/training.db"
   study:
     trial: "0003"
     project: "nn1234"
     instance: "current"
-  fs:
-    root_path: "~/training"
-  dbi: 
-    driver: "RSQLite"
-    path_to_file: "memory"
   layers:
     adam:
-      conn: "fs" # will use the config above and default behavior for databricks for NN
+      conn: 
+        fs:
+          root_path: # will use the config above and default behavior for databricks for NN
     stdm:
+      conn: 
+        dbi:
+          driver: "RSQLite"
+          path_to_file: "/root/training.db"
+
+    output:
       conn: "dbi"
