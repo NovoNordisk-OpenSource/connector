@@ -20,11 +20,12 @@ library(S7)
 library(R6)
 library(NNaccess) 
 library(dplyr) 
+pkgload::load_all()
 ```
 
 ## Understand the need for the connector package
 
-After years with pDrive and the good pakage NNaccess, NovoNordisk have decided to change the infrastructure of clinical trails. We will use Databricks to store and interact with datasets. 
+After years with pDrive and the package NNaccess, NovoNordisk have decided to change the infrastructure of clinical trails. **We will use Databricks to store and interact with datasets.** 
 
 In this context, we have rethink the NNaccess package to be more genral and be able to use any kind of databases or file system file. The inspiration comes to the DBI package it gives you the possibility this the same package to use different kind of databases. 
 
@@ -93,22 +94,21 @@ getMethod(RPostgres::dbReadTable, c("PqConnection", "character"))
 
 ```
 
-We would like to mimic this kind of behavior. Our aim is to imitate the DBI package but for a file system and Databricks. 
+Our aim is to imitate the DBI package but for more diverse and varied systems, such as a filesystem or databricks.
 
-> Give the opportunity to use differents backend but with the same interface. The API for a user will be the same for all backends.
+> We want to make it possible to use different backends but with the same interface. The API for a user will be the same for all the backends.
 
-The inspiration of this comme from the DBI package but also for interfaces in golang. **Set up a structure for differents backend.**
+The inspiration comes from the DBI package, but also from the [interfaces](https://medium.com/@jamal.kaksouri/understanding-the-power-of-go-interfaces-a-comprehensive-guide-835954101b7e) in golang.
 
 ## Try first draft with S3 and S7
 
-#### Testing around the best implementation
+### Testing around the best implementation
 
 Tis part is only here to test some code and see how it works.
 
 We will keep it in this document to have a trace of the work done.
 
-
-#### First test with S3
+### First test with S3
 
 Pseudo code for S3 :
 
@@ -121,6 +121,7 @@ nn_infra <- list(
     numtrial = "numtrial",
     root_path = system.file("trials", package = "connector")
 )
+
 nn_infra$path_to_trial <- file.path(nn_infra$root_path, paste0(nn_infra$id, "_", nn_infra$numtrial))
 
 adam <- list(
@@ -150,20 +151,20 @@ con %>%
     read_adam("adae")
 
 
-nn_fs <- file_system(
-    nn_way()
-)
+# nn_fs <- file_system(
+#     nn_way()
+# )
 
-con <- connector(
-    adam = nn_fs()
-)
+# con <- connector(
+#     adam = nn_fs()
+# )
 ``` 
 
 ### Working around S7
 
 Try to understand how it works and how we can use it for the connector package.
 
-dispath methods looks like a good idea to implement the connector package.
+Dispath methods looks like a good idea to implement the connector package.
 
 Example with pseudo code :
 
@@ -367,8 +368,7 @@ con |> read_layer_(name = "test")
 ```
 
 
-
-### Examples with FS and S7
+#### Examples with FS and S7
 
 Concrete example with FS and S7
 
@@ -418,12 +418,15 @@ fs <- new_class(
 
 adam <- layer("adam")
 
+# Our methods
+
 construct_path <- new_generic("construct_path", c("fs", "configuration"))
 
 read <- new_generic("read", c("layer", "backend", "configuration"))
 
 write <- new_generic("write", c("layer","backend", "configuration"))
 
+## Define methods
 method(construct_path, list(fs, novo_nordisk)) <- function(fs, configuration) {
     file.path(
         fs@root_path,
@@ -479,9 +482,9 @@ read(
 
 This example give the idea of how we can use S7 to implement the connector package.
 
-### Adding a new way to read with config
+#### Dispatching different methods according to a new configuration
 
-How to benefit from dispatching different methods based on the backend and the configuration ?
+How can you benefit from dispatching different methods depending on the backend and configuration?
 
 ```{r, eval=FALSE}
 
@@ -570,13 +573,14 @@ What we have learn :
 - What could be dispatch for the backend is the way of read, write, list and so on based on the backend and the extension files for a filesystem. In this case a s3 or s7 class could be a good idea.
 - Based on the classes, you can exercise very precise control and distribution over the different combinations.
 
-## Example with FS, DBI and R6
+## Combinaison of R6 and S3, a structured object with generics methods
 
-#### What about NNaccess first ?
+### A first project to illustrate the idea of using R6
 
 <!-- first draft with R6 -->
 
-```{r, include=FALSE}
+
+```{r, eval=FALSE}
 ## test for implem
 
 # connection <- R6Class(
@@ -690,7 +694,9 @@ What we have learn :
 # }
 ```
 
-#### Implementing a R6 class for file system
+Using only R6 will require to define a new object for differents backend. It is not really flexible and not really adapted to the need of the package.
+
+### Implementing a R6 class for file system with S3 dispatch
 
 The code below is a first draft to implement a R6 class for a file system. We will use the S3 capabilities to dispatch methods based on the backend and the configuration.
 
@@ -701,6 +707,8 @@ The code below is a first draft to implement a R6 class for a file system. We wi
 ## Test NNaccess
 
 nn <- NNaccess::nnaccess("0001", project = "nn2123", root = "~/training")
+
+nn$paths
 
 # View(nn)
 
@@ -752,13 +760,12 @@ create_layer_fs <- function(
 
 This is a example of our R6 object for a file system. As you can notice, we have a `read`, `write` and `list_tables` methods. We will use the S3 capabilities to dispatch methods based on the backend and the configuration.
 
-The create layer function give us the opportunity to add a specific class to the layer object. This is a way to add a specific method to a specific layer or a specific *FS* backend.
+The create layer function give us the opportunity to add a specific class to the layer object. This is a way to add a specific method to a specific layer or a specific *FS* backend. You can also notice that we have a builder parameter. This is a way to define a new  **fs** builder for our specific needs. Because of inheritance, this object have a "fs" class and allow us to define defaults methods for all file system backend.
 
-Because of inheritance, this object have a "fs" class and allow us to define defaults methods for all file system bakcend.
 
-##### Using S3 to dispatch methods
+#### Using S3 to dispatch methods
 
-Define defaults methods for the file system backend
+Define default methods for the file system backend :
 
 ```{r}	
 read <- function(x, ...) {
@@ -792,7 +799,7 @@ list_tables.default <- function(x) {
 
 Now goes the really interest of using S3, because of the inheritance, we can define a specific method for our **fs** class.
 
-This example is already a bit complex because our read.fs method is also a generic method that will give us the opportunity to define methos for different kind of files.
+This example is already a bit complex because our read.fs method is also a generic method that will give us the opportunity to define methods for different kind of files: csv, parquet, rds and so on.
 
 ```{r}	
 ## Specific methods
@@ -834,7 +841,9 @@ read_fs.rds <- function(x) {
 
 Our methods are now defined and we can use them with our object.
 
-#### Concrete example 
+#### Concrete example for ADAM dataset
+
+So, we are now able to use our object with the methods we have defined to read and write adam datasets.
 
 ```{r}
 
@@ -842,20 +851,17 @@ adam <- create_layer_fs("adam",
 system.file("trials", "id_numtrial", "adam", package = "connector")
 )
 
-### Example for xlsx
-# adam_xlsx <- create_layer_fs("adam", system.file("trials", "id_numtrial", "adam", package = "connector"), extra_class = "xlsx")
-
-
 adam |> read(name = "adae")
 
-
-fs <- create_layer_fs
 ```
 
 
-#### And with a pseudo configuration
+#### Giving only a yaml file or a list to configure the backend
 
 ```{r}
+fs <- create_layer_fs
+
+### Small example of a connector function
 connector_test <- function(config) {
     root_path_to_tral <- file.path(config$root_path, paste0(config$trial, "_", config$project))
 
@@ -872,6 +878,8 @@ connector_test <- function(config) {
     )
 }
 
+
+### Our configuration for the backend
 config <- list(
     trial = "id",
     project = "numtrial",
@@ -889,6 +897,8 @@ con$adam$read(name = "adae")
 
 con$output$write()
 
+# A tidyverse way to do that
+
 # read <- function(x, layer, name) {
 #   x[[layer]] |> read(name)
 # }
@@ -897,11 +907,13 @@ con$output$write()
 
 # con |> read("whatever", "adae")
 
+# Could also be :
+
 # con |> adam$read("adae")
 
 ```
 
-### Example with a DBI connection
+### Reuse the same logic for a DBI connection : smooth transition between different backend
 
 We can define a new backend for a DBI connection.
 
@@ -928,7 +940,7 @@ builder_dbi <- R6Class(
             self |> list_tables(...)
         },
         get_conn = function() {
-            self$conn
+            se lf$conn
         },
         close = function() {
             DBI::dbDisconnect(self$conn)
@@ -936,8 +948,8 @@ builder_dbi <- R6Class(
     )
 )
 
-create_layer_dbi <- function(layer, conn, extra_class = NULL) {
-    layer_ <- builder_dbi$new(layer, conn)
+create_layer_dbi <- function(layer, conn, extra_class = NULL, builder = builder_dbi) {
+    layer_ <- builder$new(layer, conn)
 
     ## Add class for methods
     if(!is.null(extra_class)){
@@ -949,6 +961,14 @@ create_layer_dbi <- function(layer, conn, extra_class = NULL) {
     )
 }
 
+```
+
+This our new builder for dbi connection. We have the same methods as for the file system backend. We can define a new class for the dbi backend and add specific methods for this backend.
+
+
+Example of a specific method for the dbi backend :
+
+```{r}
 ## small tools
 
 connection_or_not <- function(x) {
@@ -993,48 +1013,60 @@ adam_dbi$read("mtcars")
 
 ```
 
-This concrete example show how we can use the same interface for different backend. We have a file system backend and a DBI backend. We can use the same methods for both backend.
+This concrete example show how we can use the same interface for different backend. We have a file system backend and a DBI backend. User will use the same methods for both backend.
 
 So scripts will be the same for a user, only the configuration will change.
 
-##### Example with a extra class
+### The extra class implementation to define a specific backend or configuration
 
 What happen if a compagny want to add a specific method for a specific backend or a specific layer ?
 
-> They can use the extra class to modify a specific method for a specific backend.
+> They can use the extra class parameter to modify a specific method for a specific backend.
 
 For now, we have define extra class to be design such as : 
 
-**extra class + previous class**
+**extra class_previous class**
 
 For a DBI example :
 
-If you want a extra class for a compagny, you will use a the extra class param :
+If you want a extra class for a company, you will use a the extra class param :
 
 **extra_class = "my_company"**
 
-And you will have a specific class for your compagny for the DBI backend : **my_company_dbi**
-
+And you will have a specific class for your company for the DBI backend : **my_company_dbi**
 
 If it was for fs, you will have : **my_company_fs**
 
 Here a concrete example :
 
+
+- Create a extra class for a specific stdm 
+
 ```{r}
 
-### Because of the inherit class
+
 stdm_dbi_extra_class <- create_layer_dbi(
     "stdm",
      DBI::dbConnect(RSQLite::SQLite(), ":memory:"),
       "my_com"
       )
 
+```
+
+- Because of the inherit class, read and write work
+
+```{r}
+
 stdm_dbi_extra_class$write("mtcars", mtcars)
 stdm_dbi_extra_class$read("mtcars") 
 
 class(stdm_dbi_extra_class)
+```
 
-### But it is to overwrite by define a method
+
+- You can overwrite methods by using the class name
+
+```{r}
 
 list_tables.my_com_dbi <- function(x) {
     message("a my_com method for list_tables")
@@ -1054,9 +1086,13 @@ tables <- stdm_dbi_extra_class$list_tables()
 
 tables
 
-### About a speficic method for a specific layer
-#### The simplest way to do that is to add a id to the extra class
+```
 
+##### About a speficic method for a specific layer
+
+The simplest way to do that is to add a id to the extra class.
+
+```{r}
 my_specific_stdm <- create_layer_dbi("stdm", DBI::dbConnect(RSQLite::SQLite(), ":memory:"), "spec_stdm")
 
 class(my_specific_stdm)
@@ -1149,7 +1185,7 @@ con$stdm$read("mtcars")
 
 ```
 
-This small example show, based on a yaml file, how we can create a connection object.
+This small example show, based on a yaml file, how we can create a connection object. We will have to define the buisness logic for the trial and the backend.
 
 ### Add a specific method for a backend
 
@@ -1165,24 +1201,31 @@ To proceed, we have three possibilities :
 
 1. First option is the best way (in my opinion): 
 
+- copy the builder 
+
 ```{r}
-## copy the builder
+
 new_fs <- R6Class(
     "new_fs",
     inherit = builder_fs
 )
+```
 
+- Add a new method 
 
-## Add a new method
-
+```{r}
 new_fs$set("public","get_info", function(name) {
     message("get info for a file")
     file.info(file.path(self$root_path, name))
 })
 
-## Create a new layer
+```
 
-adam_new <- create_layer_fs("adam", system.file("trials", "id_numtrial", "adam", package = "connector"), builder = new_fs)
+- Create a new layer 
+
+```{r}
+adam_new <- create_layer_fs("adam", system.file("trials", "id_numtrial", "adam", package = "connector"),
+ builder = new_fs)
 
 adam_new$get_info("adae.csv")
 
@@ -1208,7 +1251,7 @@ This is a simple example.
 2. Second option is to create a new object and play with it.
 
 ```{r}
-## Create a new object
+
 adam_second <- create_layer_fs("adam", system.file("trials", "id_numtrial", "adam", package = "connector"))
 
 adam_second$get_info("adae.csv")
@@ -1222,9 +1265,137 @@ adam_second$set("public","get_info", function(name) {
 
 ```
 
-### What about a different configuration for a other compagny ?
-
+3. Third option is to add a new method to the ***fs*** object generator itself.
 
 ```{r}
+builder_fs$set("public","get_info", function(name) {
+    message("get info for a file")
+    file.info(file.path(self$root_path, name))
+})
+```
 
+This method will be available for all ***fs*** backend for the package used. In a way, this is a best way to ad a new method if is for all users. But if it is only for you, the first option is the best way and less intrusive.
+
+### What about a different configuration for a other compagny ?
+
+Last but not least, how to add a new method for a specific compagny ?
+
+This is probably the most complex part of the package. Define our own schema for trials depends on the compagny. 
+
+We also have to define some rules for different backend.
+
+- If we are using FileSystem, we have decide that at the end we need a path to the folder. No matter what is the configuration for the compagny, we need a path to the folder.
+- If we are using a database, we will work around a logic like this:
+    - If you give a path to a file, we will use it.
+    - If you give a collection, we will list schemas
+    - If you give a schema, we will list tables
+
+We could also working around keyword for the configuration. For example, if we have a keyword **path_to_file**, we will use it for the connection.
+
+##### Priority for backend implementation
+
+This is the list of priority for the backend implementation :
+    - FileSystem
+    - databricks tables/ databricks volumes
+    - Postgres (DBI)
+    - MongoDB (implemented by someone outside form the project)
+
+#### For company buisness logic
+
+The idea behind is to define a generic way to interact with specific company configuration.
+
+Because of R, we will use a "glue-like" specification for the configuration: 
+
+**{root_path}/{compound}_{indication}/{compound}_{indication}_{trial}_{instance}/{level}**/*{ifelse(ext != "sas7bdat", ext, "")}/{object}.{ext}*
+
+For example, for a company, we will have a configuration like this :
+
+
+```{yaml}
+connector:
+  company:
+    compound: "test"
+    indication: "indic"
+    trial: "trial"
+    instance: "inst"
+    path_definition: {root_path}/{compound}_{indication}/{compound}_{indication}_{trial}_{instance}
+  layers:
+    adam:
+      conn: fs
+        compound: "test"
+        indication: "indic"
+        trial: "trial"
+        instance: "inst"
+        path_definition: {root_path}/{compound}_{indication}/{compound}_{indication}_{trial}_{instance}/stats/data/{layer}
+    stdm:
+      conn: fs
+
+```
+
+This is a simple example of a configuration for a company. We have a compound, an indication, a trial and an instance. The path definition will give us the information to get the trial folder.
+
+Based on this idea, we will try to implement this for 3 differents companies with different configuration.
+
+##### Company 1
+
+The novonordisk way.
+
+pdrive/nn2123/nn2123-0001/current
+
+##### Company 2
+
+```
+system_root/{compound}_{indication}/{compound}_{indication}_{trialnr}_{instance}
+ 
+	/DATA
+	/SDTM
+	/ADAM
+		/Code
+			/LLM
+		/XPT
+		/CSV
+		/Docs
+		/Standard
+	/Stats/Output
+		/Demog
+			/Code
+				/LLM
+		/Efficacy
+		/Safety
+		/Listing
+		/Intext
+```
+
+##### Company 3
+
+```
+ Products/Non-Products
+           /Global Safety
+              /Product
+                /instance
+                   /programs
+	             /tfls
+                     /adam
+                     /sdtm
+                   /outputs
+                     /tfls
+                     /adam
+                     /sdtm
+                   /documents
+         /Product
+       	   /Study ID
+             /Biostats
+               /documents
+             /gsp
+               /Therapeutic Area
+                 /instance
+                   /programs
+	             /tfls
+                     /adam
+                     /sdtm
+                   /outputs
+                     /tfls
+                     /adam
+                     /sdtm
+                   /documents
 ```
