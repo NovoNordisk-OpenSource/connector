@@ -1,39 +1,38 @@
 ---
 title: "Architecture Decision Record: which type of OO should we use for connector ?"
 format: html
-editor: visual
+editor: source
 ---
 
+This documentation will explain why we will use a specific implementation. It is a support for a discussion to take the best decision a the moment with what we know today.
 
-This documentation will explain why we will use a specific implementation. It is a support for a discution to take the best decicion a the moment with what we know today.
+-   Understand the need for the connector package
+-   Investigate the best way of implementing the package
+-   Give an overview of all possibilities R6, S7 or something else ?
 
-* Understand the need for the connector package
-* Investigate the best way of implementing the package
-* Give an overview of all posibilities R6, S7 or something else ?
-
-We will give examples only for ADAM dataset and two sources of datasets : File system, Databricks
+We will give examples only for ADAM data sets and two sources of data sets : File system, Databricks
 
 <!-- Configuration for the quarto doc -->
 
 ```{r, include=FALSE}
 library(S7)
 library(R6)
-library(NNaccess) 
+# library(NNaccess) 
 library(dplyr) 
 pkgload::load_all()
 ```
 
 ## Understand the need for the connector package
 
-After years with pDrive and the package NNaccess, NovoNordisk have decided to change the infrastructure of clinical trails. **We will use Databricks to store and interact with datasets.** 
+After years with p-Drive and the package NNaccess, Novo Nordisk have decided to change the infrastructure of clinical trails. **We will use Databricks to store and interact with data sets.**
 
-In this context, we have rethink the NNaccess package to be more genral and be able to use any kind of databases or file system file. The inspiration comes to the DBI package it gives you the possibility this the same package to use different kind of databases. 
+In this context, we have rethink the NNaccess package to be more general and be able to use any kind of databases or file system file. The inspiration comes to the DBI package it gives you the possibility this the same package to use different kind of databases.
 
 The aim is to provide to users the same way of interacting with databases into scripts:
 
 Example just to show the idea :
 
-```{r, eval = FALE}
+```{r, eval = FALSE}
 my_trial <- connector(
     adam = File_system(
         NovoNordisk_way(
@@ -76,22 +75,18 @@ method(read_adam, list(adam, backend, compagny)) <- function(adam, backend, comp
 }
 ```
 
-
-
 ## Investigate the best way of implementing the package
 
 How it is today into DBI :
 
-DBI is based on S4 and give the opportuity to create a new class to a new database :
+DBI is based on S4 and give the opportunity to create a new class to a new database:
 
 ```{r, eval=FALSE}
 RPostgres::dbWriteTable()
 
-
 showMethods(RPostgres::dbReadTable)
 
 getMethod(RPostgres::dbReadTable, c("PqConnection", "character"))
-
 ```
 
 Our aim is to imitate the DBI package but for more diverse and varied systems, such as a filesystem or databricks.
@@ -104,7 +99,7 @@ The inspiration comes from the DBI package, but also from the [interfaces](https
 
 ### Testing around the best implementation
 
-Tis part is only here to test some code and see how it works.
+This part is only here to test some code and see how it works.
 
 We will keep it in this document to have a trace of the work done.
 
@@ -158,13 +153,13 @@ con %>%
 # con <- connector(
 #     adam = nn_fs()
 # )
-``` 
+```
 
 ### Working around S7
 
 Try to understand how it works and how we can use it for the connector package.
 
-Dispath methods looks like a good idea to implement the connector package.
+Dispatch methods looks like a good idea to implement the connector package.
 
 Example with pseudo code :
 
@@ -367,7 +362,6 @@ con |> read_layer_(name = "test")
 
 ```
 
-
 #### Examples with FS and S7
 
 Concrete example with FS and S7
@@ -564,21 +558,19 @@ read(
 
 ```
 
-In conclusion, technicly, using S7 is a possibility but it is not the best way to implement the connector package. 
-It is too complex and not really adapted to the need of the package. The configuration class is too linked to the backend class and it is not really flexible. We will not go for a full solution with S7. 
+In conclusion, technically, using S7 is a possibility but it is not the best way to implement the connector package. It is too complex and not really adapted to the need of the package. The configuration class is too linked to the backend class and it is not really flexible. We will not go for a full solution with S7.
 
-What we have learn : 
+What we have learn :
 
-- We need a connection class that provide a interface for the user to interact with the data. For example a NovoNordisk filesystem way to acess to the data.
-- What could be dispatch for the backend is the way of read, write, list and so on based on the backend and the extension files for a filesystem. In this case a s3 or s7 class could be a good idea.
-- Based on the classes, you can exercise very precise control and distribution over the different combinations.
+-   We need a connection class that provide a interface for the user to interact with the data. For example a NovoNordisk filesystem way to acess to the data.
+-   What could be dispatch for the backend is the way of read, write, list and so on based on the backend and the extension files for a filesystem. In this case a s3 or s7 class could be a good idea.
+-   Based on the classes, you can exercise very precise control and distribution over the different combinations.
 
-## Combinaison of R6 and S3, a structured object with generics methods
+## Combination of R6 and S3, a structured object with generics methods
 
 ### A first project to illustrate the idea of using R6
 
 <!-- first draft with R6 -->
-
 
 ```{r, eval=FALSE}
 ## test for implem
@@ -706,9 +698,9 @@ The code below is a first draft to implement a R6 class for a file system. We wi
 
 ## Test NNaccess
 
-nn <- NNaccess::nnaccess("0001", project = "nn2123", root = "~/training")
-
-nn$paths
+# nn <- NNaccess::nnaccess("0001", project = "nn2123", root = "~/training")
+# 
+# nn$paths
 
 # View(nn)
 
@@ -760,14 +752,13 @@ create_layer_fs <- function(
 
 This is a example of our R6 object for a file system. As you can notice, we have a `read`, `write` and `list_tables` methods. We will use the S3 capabilities to dispatch methods based on the backend and the configuration.
 
-The create layer function give us the opportunity to add a specific class to the layer object. This is a way to add a specific method to a specific layer or a specific *FS* backend. You can also notice that we have a builder parameter. This is a way to define a new  **fs** builder for our specific needs. Because of inheritance, this object have a "fs" class and allow us to define defaults methods for all file system backend.
-
+The create layer function give us the opportunity to add a specific class to the layer object. This is a way to add a specific method to a specific layer or a specific *FS* backend. You can also notice that we have a builder parameter. This is a way to define a new **fs** builder for our specific needs. Because of inheritance, this object have a "fs" class and allow us to define defaults methods for all file system backend.
 
 #### Using S3 to dispatch methods
 
 Define default methods for the file system backend :
 
-```{r}	
+```{r}
 read <- function(x, ...) {
     UseMethod("read")
 }
@@ -801,7 +792,7 @@ Now goes the really interest of using S3, because of the inheritance, we can def
 
 This example is already a bit complex because our read.fs method is also a generic method that will give us the opportunity to define methods for different kind of files: csv, parquet, rds and so on.
 
-```{r}	
+```{r}
 ## Specific methods
 
 read.fs <- function(x, name,...) {
@@ -854,7 +845,6 @@ system.file("trials", "id_numtrial", "adam", package = "connector")
 adam |> read(name = "adae")
 
 ```
-
 
 #### Giving only a yaml file or a list to configure the backend
 
@@ -940,7 +930,7 @@ builder_dbi <- R6Class(
             self |> list_tables(...)
         },
         get_conn = function() {
-            se lf$conn
+            self$conn
         },
         close = function() {
             DBI::dbDisconnect(self$conn)
@@ -964,7 +954,6 @@ create_layer_dbi <- function(layer, conn, extra_class = NULL, builder = builder_
 ```
 
 This our new builder for dbi connection. We have the same methods as for the file system backend. We can define a new class for the dbi backend and add specific methods for this backend.
-
 
 Example of a specific method for the dbi backend :
 
@@ -1023,7 +1012,7 @@ What happen if a compagny want to add a specific method for a specific backend o
 
 > They can use the extra class parameter to modify a specific method for a specific backend.
 
-For now, we have define extra class to be design such as : 
+For now, we have define extra class to be design such as :
 
 **extra class_previous class**
 
@@ -1039,8 +1028,7 @@ If it was for fs, you will have : **my_company_fs**
 
 Here a concrete example :
 
-
-- Create a extra class for a specific stdm 
+-   Create a extra class for a specific stdm
 
 ```{r}
 
@@ -1053,7 +1041,7 @@ stdm_dbi_extra_class <- create_layer_dbi(
 
 ```
 
-- Because of the inherit class, read and write work
+-   Because of the inherit class, read and write work
 
 ```{r}
 
@@ -1063,8 +1051,7 @@ stdm_dbi_extra_class$read("mtcars")
 class(stdm_dbi_extra_class)
 ```
 
-
-- You can overwrite methods by using the class name
+-   You can overwrite methods by using the class name
 
 ```{r}
 
@@ -1088,7 +1075,7 @@ tables
 
 ```
 
-##### About a speficic method for a specific layer
+##### About a specific method for a specific layer
 
 The simplest way to do that is to add a id to the extra class.
 
@@ -1106,21 +1093,20 @@ my_specific_stdm$list_tables()
 
 ```
 
-
 ### A example with a yaml configuration
 
 This example is here to illustrate how we can use a yaml configuration to define the backend and the configuration for a specific compagny.
 
 Read the yaml file
+
 ```{r}
 yaml_config <- yaml::read_yaml(system.file("config", "default_config.yaml", package = "connector"))
 yaml_config
 ```
 
-
 Based on the information in the yaml file, we can create a connection object.
 
-```{r}
+```{r, eval=FALSE}
 create_connection <- function(yaml_config) {
     ## logic for our trial
 
@@ -1185,23 +1171,23 @@ con$stdm$read("mtcars")
 
 ```
 
-This small example show, based on a yaml file, how we can create a connection object. We will have to define the buisness logic for the trial and the backend.
+This small example show, based on a yaml file, how we can create a connection object. We will have to define the business logic for the trial and the backend.
 
 ### Add a specific method for a backend
 
-How to add a new method for an exiting backend ? 
+How to add a new method for an exiting backend ?
 
 For example, inside our **fs** backend, we would like to add a new method to get information on one file.
 
 To proceed, we have three possibilities :
 
-- Add a new method to **a copy** of the ***fs*** object generator itself, but you will have to use this instanciation and not *builder_fs*.
-- Create a specific object and play with, make it harder for the user to use it.
-- Add a new method to the ***fs*** object generator itself, but it will be available for all **fs** backend for the package used.
+-   Add a new method to **a copy** of the ***fs*** object generator itself, but you will have to use this instanciation and not *builder_fs*.
+-   Create a specific object and play with, make it harder for the user to use it.
+-   Add a new method to the ***fs*** object generator itself, but it will be available for all **fs** backend for the package used.
 
-1. First option is the best way (in my opinion): 
+1.  First option is the best way (in my opinion):
 
-- copy the builder 
+-   copy the builder
 
 ```{r}
 
@@ -1211,7 +1197,7 @@ new_fs <- R6Class(
 )
 ```
 
-- Add a new method 
+-   Add a new method
 
 ```{r}
 new_fs$set("public","get_info", function(name) {
@@ -1221,7 +1207,7 @@ new_fs$set("public","get_info", function(name) {
 
 ```
 
-- Create a new layer 
+-   Create a new layer
 
 ```{r}
 adam_new <- create_layer_fs("adam", system.file("trials", "id_numtrial", "adam", package = "connector"),
@@ -1231,12 +1217,11 @@ adam_new$get_info("adae.csv")
 
 adam_new$read("adae")
 
-```	
+```
 
-So as a developer, you just have to create a new builder with the previous builder as parent and add a new method to it. 
-Everything related to the ***fs*** backend still works. But you can customize your own standard methods for reading, writing, and so on.
+So as a developer, you just have to create a new builder with the previous builder as parent and add a new method to it. Everything related to the ***fs*** backend still works. But you can customize your own standard methods for reading, writing, and so on.
 
-Example : 
+Example :
 
 ```{r}
 read.new_fs <- function(x, name) {
@@ -1248,9 +1233,9 @@ adam_new$read("adae")
 
 This is a simple example.
 
-2. Second option is to create a new object and play with it.
+2.  Second option is to create a new object and play with it.
 
-```{r}
+```{r, eval=FALSE}
 
 adam_second <- create_layer_fs("adam", system.file("trials", "id_numtrial", "adam", package = "connector"))
 
@@ -1265,7 +1250,7 @@ adam_second$set("public","get_info", function(name) {
 
 ```
 
-3. Third option is to add a new method to the ***fs*** object generator itself.
+3.  Third option is to add a new method to the ***fs*** object generator itself.
 
 ```{r}
 builder_fs$set("public","get_info", function(name) {
@@ -1280,36 +1265,36 @@ This method will be available for all ***fs*** backend for the package used. In 
 
 Last but not least, how to add a new method for a specific compagny ?
 
-This is probably the most complex part of the package. Define our own schema for trials depends on the compagny. 
+This is probably the most complex part of the package. Define our own schema for trials depends on the compagny.
 
 We also have to define some rules for different backend.
 
-- If we are using FileSystem, we have decide that at the end we need a path to the folder. No matter what is the configuration for the compagny, we need a path to the folder.
-- If we are using a database, we will work around a logic like this:
-    - If you give a path to a file, we will use it.
-    - If you give a collection, we will list schemas
-    - If you give a schema, we will list tables
+-   If we are using FileSystem, we have decide that at the end we need a path to the folder. No matter what is the configuration for the compagny, we need a path to the folder.
+-   If we are using a database, we will work around a logic like this:
+    -   If you give a path to a file, we will use it.
+    -   If you give a collection, we will list schemas
+    -   If you give a schema, we will list tables
 
 We could also working around keyword for the configuration. For example, if we have a keyword **path_to_file**, we will use it for the connection.
 
 ##### Priority for backend implementation
 
-This is the list of priority for the backend implementation :
-    - FileSystem
-    - databricks tables/ databricks volumes
-    - Postgres (DBI)
-    - MongoDB (implemented by someone outside form the project)
+This is the list of priority for the backend implementation:
 
-#### For company buisness logic
+1.  FileSystem
+2.  databricks tables/ databricks volumes
+3.  Postgres (DBI)
+4.  MongoDB (implemented by someone outside form the project)
+
+#### For company business logic
 
 The idea behind is to define a generic way to interact with specific company configuration.
 
-Because of R, we will use a "glue-like" specification for the configuration: 
+Because of R, we will use a "glue-like" specification for the configuration:
 
-**{root_path}/{compound}_{indication}/{compound}_{indication}_{trial}_{instance}/{level}**/*{ifelse(ext != "sas7bdat", ext, "")}/{object}.{ext}*
+**{root_path}/{compound}*{indication}/{compound}*{indication}*{trial}*{instance}/{level}**/*{ifelse(ext != "sas7bdat", ext, "")}/{object}.{ext}*
 
 For example, for a company, we will have a configuration like this :
-
 
 ```{yaml}
 connector:
@@ -1344,37 +1329,37 @@ pdrive/nn2123/nn2123-0001/current
 
 ##### Company 2
 
-```
+```         
 system_root/{compound}_{indication}/{compound}_{indication}_{trialnr}_{instance}
  
-	/DATA
-	/SDTM
-	/ADAM
-		/Code
-			/LLM
-		/XPT
-		/CSV
-		/Docs
-		/Standard
-	/Stats/Output
-		/Demog
-			/Code
-				/LLM
-		/Efficacy
-		/Safety
-		/Listing
-		/Intext
+    /DATA
+    /SDTM
+    /ADAM
+        /Code
+            /LLM
+        /XPT
+        /CSV
+        /Docs
+        /Standard
+    /Stats/Output
+        /Demog
+            /Code
+                /LLM
+        /Efficacy
+        /Safety
+        /Listing
+        /Intext
 ```
 
 ##### Company 3
 
-```
+```         
  Products/Non-Products
            /Global Safety
               /Product
                 /instance
                    /programs
-	             /tfls
+                 /tfls
                      /adam
                      /sdtm
                    /outputs
@@ -1383,14 +1368,14 @@ system_root/{compound}_{indication}/{compound}_{indication}_{trialnr}_{instance}
                      /sdtm
                    /documents
          /Product
-       	   /Study ID
+           /Study ID
              /Biostats
                /documents
              /gsp
                /Therapeutic Area
                  /instance
                    /programs
-	             /tfls
+                 /tfls
                      /adam
                      /sdtm
                    /outputs
