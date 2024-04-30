@@ -2,7 +2,7 @@ pandoc: 3.1.11
 pkgdown: 2.0.9
 pkgdown_sha: ~
 articles: {}
-last_built: 2024-04-29T06:56Z
+last_built: 2024-04-30T12:30Z
 urls:
   reference: https://jubilant-adventure-yr95p3g.pages.github.io/reference
   article: https://jubilant-adventure-yr95p3g.pages.github.io/articles
