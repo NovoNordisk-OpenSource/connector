@@ -15,12 +15,11 @@ connector:
       config:
         path: "path_to_stdm" # to explicitly define the path
         usemethod: "roche"
-        ...
   tfl:
     con: "databricks"
       config:  # allow to define specific congifuration for this connector
         catalogue: TRUE
-        schema: "" 
+        schema: ""
         # table: "" if needed
         # suffixe: "" if needed
   output:
