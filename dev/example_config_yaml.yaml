@@ -15,7 +15,7 @@ connector:
     con: "FS"
       config:
         path: "path_to_stdm" # to explicitly define the path
-        usemethod : "roche"
+        usemethod: "roche"
         ...
   tfl:
     con: "databricks"
@@ -25,6 +25,5 @@ connector:
         # table: "" if needed
         # suffixe: "" if needed
   output:
-    con: "FS" # will use the config above and default behavior for FS for NN
-  ...      
-  
+    con: "FS" # will use the config above and default behavior for FS for NN      
+  ...
