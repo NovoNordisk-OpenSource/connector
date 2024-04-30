@@ -2,13 +2,13 @@ usethis::use_build_ignore("dev")
 
 
 ### Add adam dataset to the adam folder
-# remotes::install_github("pharmaverse/pharmaverseadam")
+# remotes::install_github("pharmaverse/pharmaverseadam") # nolint
 pkgload::load_all()
 
-dfs <- data(package = "pharmaverseadam")[["results"]][,"Item"]
+dfs <- data(package = "pharmaverseadam")[["results"]][, "Item"]
 
 
-adam_dir <- system.file("trials","id_numtrial","adam", package = "connector" )
+adam_dir <- system.file("trials", "id_numtrial", "adam", package = "connector")
 
 purrr::walk(
   dfs,
