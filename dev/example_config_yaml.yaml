@@ -8,7 +8,6 @@ connector:
   root_path: "path_to_root"
   databricks:
     cluster: "cluster_name"
-    ...
   adam:
     con: "databricks" # will use the config above and default behavior for databricks for NN
   stdm:
@@ -25,5 +24,5 @@ connector:
         # table: "" if needed
         # suffixe: "" if needed
   output:
-    con: "FS" # will use the config above and default behavior for FS for NN      
+    con: "FS" # will use the config above and default behavior for FS for NN
   ...
