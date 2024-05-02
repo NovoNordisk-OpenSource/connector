@@ -1,0 +1,27 @@
+---
+# A example of the configuration file more as R6 view
+connector:
+  study:
+    trial: "0001"
+    project: "nn123"
+    instance: "current"
+  root_path: "path_to_root"
+  databricks:
+    cluster: "cluster_name"
+  adam:
+    con: "databricks" # will use the config above and default behavior for databricks for NN
+  stdm:
+    con: "FS"
+      config:
+        path: "path_to_stdm" # to explicitly define the path
+        usemethod: "roche"
+  tfl:
+    con: "databricks"
+      config:  # allow to define specific congifuration for this connector
+        catalogue: TRUE
+        schema: ""
+        # table: "" if needed
+        # suffixe: "" if needed
+  output:
+    con: "FS" # will use the config above and default behavior for FS for NN
+  ...
