@@ -1,0 +1,20 @@
+# A example of the configuration file for FS and NovoNordisk
+connector:
+  metadata:
+    trial: "0003"
+    project: "nn1234"
+    instance: "current"
+    root_path: "/home/novonordisk"
+  specs:
+    connections:
+      - name: "biostat"
+        backend: "fs"
+        path: "{root_path}/{project}/{trial}/{instance}/{name}"
+    datasources:
+      - name: "adam"
+      - name: "stdm"
+        connection: 
+          - backend: "fs"
+            path: "{root_path}/{project}/{trial}/{instance}/STDM"
+      - name: "tfl"
+        connection: "biostat"
