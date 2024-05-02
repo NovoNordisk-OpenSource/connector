@@ -1,60 +1,60 @@
-# Workflow that only runs on the initial creation of a new repository based on the template
-# It does the following:
-#
-#   1. Rename files and changes references from Rtemplate to the new repository name.
-#      Creates a pull request for the changes
-#   2. Disables the workflow so it is not run again
-#
+# # Workflow that only runs on the initial creation of a new repository based on the template
+# # It does the following:
+# #
+# #   1. Rename files and changes references from Rtemplate to the new repository name.
+# #      Creates a pull request for the changes
+# #   2. Disables the workflow so it is not run again
+# #
 
-name: Initial setup of R package
+# name: Initial setup of R package
 
-on:
-  push:
-    branches:
-      - "**"
+# on:
+#   push:
+#     branches:
+#       - "**"
 
-permissions:
-  contents: write
-  pull-requests: write
+# permissions:
+#   contents: write
+#   pull-requests: write
 
-env:
-  template_name: Rtemplate
+# env:
+#   template_name: Rtemplate
 
-jobs:
-  rename-files:
-    if: github.event.repository.name != 'Rtemplate' # Hardcoded since env context is not available in job.if
-    runs-on: ubuntu-latest
+# jobs:
+#   rename-files:
+#     if: github.event.repository.name != 'Rtemplate' # Hardcoded since env context is not available in job.if
+#     runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@v4
+#     steps:
+#       - uses: actions/checkout@v4
 
-      - name: Rename files
-        shell: bash
-        run: |
-          mv ${{ env.template_name }}.Rproj ${{ github.event.repository.name }}.Rproj
+#       - name: Rename files
+#         shell: bash
+#         run: |
+#           mv ${{ env.template_name }}.Rproj ${{ github.event.repository.name }}.Rproj
 
-      - name: Update files
-        shell: bash
-        run: |
-          find . -type f -name "*.R" -exec sed -i s/${{ env.template_name }}/${{ github.event.repository.name }}/g {} +
-          find . -type f -name "DESCRIPTION" -exec sed -i s/${{ env.template_name }}/${{ github.event.repository.name }}/g {} +
-          find . -type f -name "_pkgdown.yml" -exec sed -i s/${{ env.template_name }}/${{ github.event.repository.name }}/g {} +
-          find . -type f -name "*.Rmd" -exec sed -i s/${{ env.template_name }}/${{ github.event.repository.name }}/g {} +
-          find . -type f -name "*.md" -exec sed -i s/${{ env.template_name }}/${{ github.event.repository.name }}/g {} +
+#       - name: Update files
+#         shell: bash
+#         run: |
+#           find . -type f -name "*.R" -exec sed -i s/${{ env.template_name }}/${{ github.event.repository.name }}/g {} +
+#           find . -type f -name "DESCRIPTION" -exec sed -i s/${{ env.template_name }}/${{ github.event.repository.name }}/g {} +
+#           find . -type f -name "_pkgdown.yml" -exec sed -i s/${{ env.template_name }}/${{ github.event.repository.name }}/g {} +
+#           find . -type f -name "*.Rmd" -exec sed -i s/${{ env.template_name }}/${{ github.event.repository.name }}/g {} +
+#           find . -type f -name "*.md" -exec sed -i s/${{ env.template_name }}/${{ github.event.repository.name }}/g {} +
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          commit-message: "feat: updated package name"
-          branch: feature/initial-setup
-          title: Initial setup
+#       - name: Create Pull Request
+#         uses: peter-evans/create-pull-request@v6
+#         with:
+#           commit-message: "feat: updated package name"
+#           branch: feature/initial-setup
+#           title: Initial setup
 
-  disable-workflow:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Disable this workflow
-        shell: bash
-        run: |
-          gh workflow disable -R ${{ env.GITHUB_REPOSITORY }} "${{ github.workflow }}"
-        env:
-          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+#   disable-workflow:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Disable this workflow
+#         shell: bash
+#         run: |
+#           gh workflow disable -R ${{ env.GITHUB_REPOSITORY }} "${{ github.workflow }}"
+#         env:
+#           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
