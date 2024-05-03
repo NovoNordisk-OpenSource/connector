@@ -7,14 +7,33 @@ connector:
     root_path: "/home/novonordisk"
   specs:
     connections:
-      - name: "biostat"
-        backend: "fs"
-        path: "{root_path}/{project}/{trial}/{instance}/{name}"
+      - con: "data_fs"
+        backend:
+            type: "fs"
+            path: "{root_path}/{project}/{trial}/{instance}/stats/data/{name}"
+      - con: "general_fs"
+        backend: 
+            type: "fs"
+            path: "{root_path}/{project}/{trial}/{instance}/stats/{name}"
     datasources:
       - name: "adam"
+        con: "data_fs"
       - name: "stdm"
-        connection: 
-          - backend: "fs"
-            path: "{root_path}/{project}/{trial}/{instance}/STDM"
-      - name: "tfl"
-        connection: "biostat"
+        con: "data_fs"
+      - name: "statprog"
+        con: "general_fs"
+
+# Idea for specific backend configuration
+  # specs:
+  #   connections:
+  #     # Specify backend from other namespace than connector
+  #     - con: "roche_fs"
+  #       backend:
+  #           type: "roche::fs"
+  #           some_other_arg_than_path: "something different"
+  #     # Specify that we should use the roche method
+  #     - con: "fs_rochemethod"
+  #       backend:
+  #           type: "fs"
+  #           extraclass: "roche"
+  #           path: "something different"
