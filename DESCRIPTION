@@ -3,14 +3,17 @@ Title: The connector package helps connecting R to databases that contains ADAM,
 Version: 0.0.0.9000
 Authors@R: c(
     person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
+    person("Aksel", "Thomsen", , "oath@novonordisk.com", role = c("aut")),
     person("Novo Nordisk A/S", role = c("cph"))
   )
 Description: Defines common standards, workflows, and actions for new R packages.
 License: Apache License (>= 2)
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.3.1
 Suggests: 
     testthat (>= 3.0.0)
 Config/testthat/edition: 3
 URL: https://jubilant-adventure-yr95p3g.pages.github.io/
+Imports: 
+    R6 (>= 2.4.0)
