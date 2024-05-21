@@ -36,5 +36,3 @@ connector <- R6::R6Class("connector",
     finalize = function() "close connections"
   )
 )
-
-
