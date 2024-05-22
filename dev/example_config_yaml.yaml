@@ -24,4 +24,3 @@ connector:
         # suffixe: "" if needed
   output:
     con: "FS" # will use the config above and default behavior for FS for NN
-  ...
