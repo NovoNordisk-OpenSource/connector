@@ -2,9 +2,50 @@
 % Please edit documentation in R/dbi.R
 \name{connector_dbi}
 \alias{connector_dbi}
-\title{DBI connection}
+\title{DBI connector}
 \description{
-A short description...
+Connector object for DBI connections. This object is used to interact with DBI compliant database backends.
+See the \href{https://dbi.r-dbi.org/}{DBI package} for how which backends are supported.
+}
+\details{
+Upon garbage collection, the connection will try to disconnect from the database.
+But it is good practice to call \link{disconnect} when you are done with the connection.
+}
+\examples{
+# Create DBI connector
+
+db <- connector::connector_dbi$new(RSQLite::SQLite(), ":memory:")
+
+db
+
+# Write to the database
+
+db$write(iris, "iris")
+
+# Read from the database
+
+db$read("iris") |>
+  head(5)
+
+# List available tables
+
+db$list_content()
+
+# Use the connector to run a query
+
+db$get_conn() |>
+  DBI::dbGetQuery("SELECT * FROM iris limit 5")
+
+# Use dplyr verbs and collect data
+
+db$tbl("iris") |>
+  dplyr::filter(Sepal.Length > 7) |>
+  dplyr::collect()
+
+# Disconnect from the database
+
+db$disconnect()
+
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -12,6 +53,7 @@ A short description...
 \item \href{#method-connector_dbi-new}{\code{connector_dbi$new()}}
 \item \href{#method-connector_dbi-list_content}{\code{connector_dbi$list_content()}}
 \item \href{#method-connector_dbi-get_conn}{\code{connector_dbi$get_conn()}}
+\item \href{#method-connector_dbi-disconnect}{\code{connector_dbi$disconnect()}}
 \item \href{#method-connector_dbi-read}{\code{connector_dbi$read()}}
 \item \href{#method-connector_dbi-write}{\code{connector_dbi$write()}}
 \item \href{#method-connector_dbi-tbl}{\code{connector_dbi$tbl()}}
@@ -73,6 +115,16 @@ A DBI connection object
 }
 }
 \if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_dbi-disconnect"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_dbi-disconnect}{}}}
+\subsection{Method \code{disconnect()}}{
+Disconnect from the database
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$disconnect()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-connector_dbi-read"></a>}}
 \if{latex}{\out{\hypertarget{method-connector_dbi-read}{}}}
 \subsection{Method \code{read()}}{
@@ -119,7 +171,7 @@ Write a table to the database
 \if{html}{\out{<a id="method-connector_dbi-tbl"></a>}}
 \if{latex}{\out{\hypertarget{method-connector_dbi-tbl}{}}}
 \subsection{Method \code{tbl()}}{
-Create a tbl object
+Create a \link{tbl} object
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{connector_dbi$tbl(name, ...)}\if{html}{\out{</div>}}
 }
