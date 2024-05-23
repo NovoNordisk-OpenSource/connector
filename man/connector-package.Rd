@@ -2,6 +2,7 @@
 % Please edit documentation in R/connector-package.R
 \docType{package}
 \name{connector-package}
+\alias{connector}
 \alias{connector-package}
 \title{connector: The connector package helps connecting R to databases that contains ADAM, STDM and so on. The package defines an interface that can be reuse for any databases}
 \description{
