@@ -5,7 +5,6 @@
 #' @export
 
 connect <- function(yaml = NULL, ...) {
-
   args <- rlang::list2(...)
 
   if (!is.null(yaml)) {
@@ -13,26 +12,9 @@ connect <- function(yaml = NULL, ...) {
       c(args)
   }
 
-  do.call(connector$new, args)
+  do.call(connector_$new, args)
 }
 
 #' R6 general connector class
 #' @export
-
-connector <- R6::R6Class("connector",
-  public = list(
-    connection = NULL,
-    initialize = function() {
-      self$connection <- NULL
-    },
-    connect = function() {
-      self$connection <- dbConnect(RSQLite::SQLite(), dbname = "database.sqlite")
-    },
-    disconnect = function() {
-      dbDisconnect(self$connection)
-    }
-  ),
-  private = list(
-    finalize = function() "close connections"
-  )
-)
+connector_ <- R6::R6Class("connector_")
