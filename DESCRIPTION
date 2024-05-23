@@ -25,9 +25,14 @@ Imports:
     utils,
     yaml
 Suggests:
+    dbplyr,
+    knitr,
+    rmarkdown,
     RSQLite,
     testthat (>= 3.0.0),
     withr
+VignetteBuilder: 
+    knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE, r6 = TRUE)

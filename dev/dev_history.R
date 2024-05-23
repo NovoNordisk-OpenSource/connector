@@ -34,4 +34,4 @@ purrr::walk(
   }
 )
 
-
+usethis::use_package("dbplyr", type = "Suggests")

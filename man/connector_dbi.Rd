@@ -9,7 +9,7 @@ See the \href{https://dbi.r-dbi.org/}{DBI package} for how which backends are su
 }
 \details{
 Upon garbage collection, the connection will try to disconnect from the database.
-But it is good practice to call \link{disconnect} when you are done with the connection.
+But it is good practice to call \code{disconnect} when you are done with the connection.
 }
 \examples{
 # Create DBI connector
