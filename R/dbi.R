@@ -1,17 +1,90 @@
 #' Create DBI connector
-#' @param drv DBI driver
+#'
+#' @description
+#' Create a new DBI connector object. See [connector_dbi] for details.
+#'
+#' @param drv DBI driver. See [DBI::dbConnect] for details
 #' @param ... Additional arguments passed to [DBI::dbConnect]
+#' @param extra_class [character] Extra class added to the object. See details.
 #' @return A new [connector_dbi] object
+#'
+#' @details
+#' The `extra_class` parameter allows you to create a subclass of the `connector_dbi` object.
+#' This can be useful if you want to create a custom connection object for easier dispatch of new s3 methods,
+#' while still inheriting the methods from the `connector_dbi` object.
+#'
+#' @examples
+#' # Connect to in memory SQLite database
+#'
+#' db <- connect_dbi(RSQLite::SQLite(), ":memory:")
+#'
+#' db
+#'
+#' # Create subclass connection
+#'
+#' db_subclass <- connect_dbi(RSQLite::SQLite(), ":memory:", extra_class = "subclass")
+#'
+#' db_subclass
+#' class(db_subclass)
+#'
 #' @export
 
-connect_dbi <- function(drv, ...) {
-  connector_dbi$new(drv = drv, ...)
+connect_dbi <- function(drv, ..., extra_class = NULL) {
+  layer <- connector_dbi$new(drv = drv, ...)
+  if (!is.null(extra_class)) {
+    extra_class <- paste(class(layer), extra_class, sep = "_")
+    class(layer) <- c(extra_class, class(layer))
+  }
+  return(layer)
 }
 
-#' DBI connection
+#' DBI connector
+#'
 #' @description
-#' A short description...
+#' Connector object for DBI connections. This object is used to interact with DBI compliant database backends.
+#' See the [DBI package](https://dbi.r-dbi.org/) for how which backends are supported.
+#'
 #' @param name [character] Table name
+#'
+#' @details
+#' Upon garbage collection, the connection will try to disconnect from the database.
+#' But it is good practice to call [disconnect] when you are done with the connection.
+#'
+#' @examples
+#' # Create DBI connector
+#'
+#' db <- connector::connector_dbi$new(RSQLite::SQLite(), ":memory:")
+#'
+#' db
+#'
+#' # Write to the database
+#'
+#' db$write(iris, "iris")
+#'
+#' # Read from the database
+#'
+#' db$read("iris") |>
+#'   head(5)
+#'
+#' # List available tables
+#'
+#' db$list_content()
+#'
+#' # Use the connector to run a query
+#'
+#' db$get_conn() |>
+#'   DBI::dbGetQuery("SELECT * FROM iris limit 5")
+#'
+#' # Use dplyr verbs and collect data
+#'
+#' db$tbl("iris") |>
+#'   dplyr::filter(Sepal.Length > 7) |>
+#'   dplyr::collect()
+#'
+#' # Disconnect from the database
+#'
+#' db$disconnect()
+#'
 #' @export
 
 connector_dbi <- R6::R6Class(
@@ -39,6 +112,11 @@ connector_dbi <- R6::R6Class(
       private$conn
     },
 
+    #' @description Disconnect from the database
+    disconnect = function() {
+      DBI::dbDisconnect(conn = private$conn)
+    },
+
     #' @description Read a table from the database
     #' @param ... Additional arguments passed to [DBI::dbReadTable]
     #' @return A [data.frame]
@@ -53,13 +131,12 @@ connector_dbi <- R6::R6Class(
       DBI::dbWriteTable(conn = private$conn, name = name, value = x, ...)
     },
 
-    #' @description Create a tbl object
+    #' @description Create a [tbl] object
     #' @param ... Additional arguments passed to [dplyr::tbl]
     tbl = function(name, ...) {
       dplyr::tbl(src = private$conn, from = name, ...)
     }
   ),
-
   private = list(
 
     # Store the connection object
@@ -67,9 +144,8 @@ connector_dbi <- R6::R6Class(
 
     # Finalize the connection on garbage collection
     finalize = function() {
-      DBI::dbDisconnect(conn = private$conn)
+      self$disconnect()
     }
   ),
   cloneable = FALSE
 )
-
