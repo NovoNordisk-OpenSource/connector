@@ -48,7 +48,7 @@ connect_dbi <- function(drv, ..., extra_class = NULL) {
 #'
 #' @details
 #' Upon garbage collection, the connection will try to disconnect from the database.
-#' But it is good practice to call [disconnect] when you are done with the connection.
+#' But it is good practice to call `disconnect` when you are done with the connection.
 #'
 #' @examples
 #' # Create DBI connector
@@ -84,6 +84,9 @@ connect_dbi <- function(drv, ..., extra_class = NULL) {
 #' # Disconnect from the database
 #'
 #' db$disconnect()
+#'
+#' @importFrom dplyr tbl
+#' @importFrom DBI dbListTables dbDisconnect dbConnect dbWriteTable dbReadTable
 #'
 #' @export
 
