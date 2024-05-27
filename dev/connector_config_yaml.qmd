@@ -1,0 +1,120 @@
+---
+format: html
+editor: source
+---
+
+
+```{r}
+library(yaml)
+library(config)
+library(purrr)
+library(stringr)
+pkgload::load_all()
+```
+
+
+Read and understand the yaml file
+
+```{r}
+yaml_file <- system.file("config", "default_config.yml", package = "connector")
+yaml_content <- yaml::read_yaml(yaml_file, eval.expr=TRUE)
+
+class(yaml_content)
+print(yaml_content)
+
+extract_element <- function(yaml_content, element){
+    yaml_content[[element]]
+}
+
+extract_metadata <- function(yaml_content){
+    extract_element(yaml_content, "metadata")
+}
+
+
+extract_connections <- function(yaml_content){
+        extract_element(yaml_content, "connections")
+}
+
+extract_datasources <- function(yaml_content){
+        extract_element(yaml_content, "datasources")
+}
+
+extract_backends <- function(yaml_content){
+    extract_element(yaml_content, "backend")
+}
+
+extract_datasources(yaml_content)
+```
+
+## Prepare connections for datasources
+
+```{r}
+extract_connections(yaml_content)  %>% 
+    purrr::map({
+        ~ .x %>%
+           list(
+                connection_name = .x[["con"]],
+                connection = .x[["type"]]
+           )
+        })
+
+only_one <- extract_connections(yaml_content)[[1]]
+
+read_ext.xlsx <- function(file_path){
+    readxl::read_excel(file_path)
+}
+
+my_backend <- only_one  %>% 
+    extract_backends() 
+
+my_backend$type
+
+defaults_backends <-  getNamespaceExports("connector")[
+    grepl("^Connector_", getNamespaceExports("connector"))
+]
+
+if(my_backend$type  %in% defaults_backends){
+    connect_fct <- getExportedValue("connector", my_backend$type)
+}else{
+    package_name <- gsub("\\:{2,3}[^\\:]+$", my_backend$type, replacement = "" )
+    
+    connect_fct <- getExportedValue(package_name, my_backend$type)
+}
+
+metadata <- extract_metadata(yaml_content)
+
+formals(connect_fct$public_methods$initialize)
+
+
+# build path to the folder containing the data
+
+only_one$backend$path
+
+##get info
+
+
+
+# Define the input string
+input_string <- "{metadata.root_path}/{metadata.trial}/{datasources.name}/{a.b.c.D}"
+
+# Use str_extract_all to extract the content inside the curly braces
+extracted_content <- str_extract_all(input_string, "(?<=\\{)(.*?)(?=\\})")  %>% unlist()
+extracted_content
+
+test <- str_replace_all(extracted_content, "\\.", "$")
+
+test2 <-  stringr::str_split(extracted_content, "\\.")
+
+
+test2
+
+## reduce pluck ?
+purrr::pluck(yaml_content, test2[[1]][1])
+
+
+dput(extracted_content)
+
+connect_fct(only_one$backend)
+
+
+```

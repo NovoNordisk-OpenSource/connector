@@ -1,0 +1,25 @@
+# A example of the configuration file for FS and NovoNordisk
+metadata:
+  trial: "demo_trial"
+  root_path: !expr system.file(package = "connector")
+
+connections:
+  - con: "adam_fs"
+    backend:
+        type: "connector_fs"
+        path: "{metadata.root_path}/{metadata.trial}/{datasources.name}"
+  - con: "stdm_fs"
+    backend:
+        type: "connector_fs"
+        path: "{root_path}/{trial}/stdm"
+  - con: "general_dbi"
+    backend: 
+        type: "connector_dbi"
+        path: ":memory:"
+datasources:
+  - name: "adam"
+    con: "adam_fs"
+  - name: "stdm_fs"
+    con: "stdm_fs"
+  - name: "stdm_dbi"
+    con: "general_dbi"
