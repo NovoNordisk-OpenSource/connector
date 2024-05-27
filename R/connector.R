@@ -12,9 +12,16 @@ connect <- function(yaml = NULL, ...) {
       c(args)
   }
 
-  do.call(connector_$new, args)
+  do.call(Connector, args)
 }
 
-#' R6 general connector class
+#' A Connector object, a special list with R6 objects.
 #' @export
-connector_ <- R6::R6Class("connector_")
+Connector <- function(...) {
+  structure(
+    list(
+      ...
+    ),
+    class = c("Connector")
+  )
+}
