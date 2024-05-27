@@ -1,7 +1,7 @@
 #' Create DBI connector
 #'
 #' @description
-#' Create a new DBI connector object. See [connector_dbi] for details.
+#' Create a new DBI connector object. See [Connector_dbi] for details.
 #'
 #' @param drv DBI driver. See [DBI::dbConnect] for details
 #' @param ... Additional arguments passed to [DBI::dbConnect]
@@ -16,21 +16,21 @@
 #' @examples
 #' # Connect to in memory SQLite database
 #'
-#' db <- connect_dbi(RSQLite::SQLite(), ":memory:")
+#' db <- connector_dbi(RSQLite::SQLite(), ":memory:")
 #'
 #' db
 #'
 #' # Create subclass connection
 #'
-#' db_subclass <- connect_dbi(RSQLite::SQLite(), ":memory:", extra_class = "subclass")
+#' db_subclass <- connector_dbi(RSQLite::SQLite(), ":memory:", extra_class = "subclass")
 #'
 #' db_subclass
 #' class(db_subclass)
 #'
 #' @export
 
-connect_dbi <- function(drv, ..., extra_class = NULL) {
-  layer <- connector_dbi$new(drv = drv, ...)
+connector_dbi <- function(drv, ..., extra_class = NULL) {
+  layer <- Connector_dbi$new(drv = drv, ...)
   if (!is.null(extra_class)) {
     extra_class <- paste(class(layer), extra_class, sep = "_")
     class(layer) <- c(extra_class, class(layer))
@@ -53,7 +53,7 @@ connect_dbi <- function(drv, ..., extra_class = NULL) {
 #' @examples
 #' # Create DBI connector
 #'
-#' db <- connector::connector_dbi$new(RSQLite::SQLite(), ":memory:")
+#' db <- connector::Connector_dbi$new(RSQLite::SQLite(), ":memory:")
 #'
 #' db
 #'
@@ -90,8 +90,8 @@ connect_dbi <- function(drv, ..., extra_class = NULL) {
 #'
 #' @export
 
-connector_dbi <- R6::R6Class(
-  classname = "connector_dbi",
+Connector_dbi <- R6::R6Class(
+  classname = "Connector_dbi",
   public = list(
 
     #' @description Initialize the connection
