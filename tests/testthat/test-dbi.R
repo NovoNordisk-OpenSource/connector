@@ -61,6 +61,9 @@ for (i in seq_along(specs)) {
       DBI::dbGetQuery("SELECT * FROM mtcars") |>
       expect_equal(x)
 
+    test$remove("mtcars") |>
+      expect_true()
+
     test$disconnect() |>
       expect_true()
 
