@@ -1,6 +1,5 @@
 test_that("DBI generics work on local SQLite database", {
-
-  test <- connector_dbi$new(drv = RSQLite::SQLite(), dbname = withr::local_tempfile())
+  test <- Connector_dbi$new(drv = RSQLite::SQLite(), dbname = withr::local_tempfile())
 
   x <- mtcars
   x$car <- rownames(x)
@@ -39,5 +38,4 @@ test_that("DBI generics work on local SQLite database", {
 
   test$read("mtcars") |>
     expect_error("Invalid or closed connection")
-
 })
