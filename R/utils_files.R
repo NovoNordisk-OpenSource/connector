@@ -46,10 +46,11 @@ assert_ext <- function(ext, method) {
         x = as.character(utils::methods(method))
     )
 
-    cli::cli_alert("Supported extensions are:")
-    cli::cli_bullets(
-        supported_fs()
-    )
+    # TODO: Have to be better !
+    # cli::cli_alert("Supported extensions are:")
+    # cli::cli_bullets(
+    #     supported_fs()
+    # )
 
     checkmate::assert_choice(x = ext, choices = valid)
 }

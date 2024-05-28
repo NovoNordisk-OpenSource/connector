@@ -48,29 +48,19 @@ extract_datasources(yaml_content)
 
 ## Prepare connections for datasources
 
+
+#### First try for connector_fs
+
 ```{r}
-extract_connections(yaml_content)  %>% 
-    purrr::map({
-        ~ .x %>%
-           list(
-                connection_name = .x[["con"]],
-                connection = .x[["type"]]
-           )
-        })
 
 only_one <- extract_connections(yaml_content)[[1]]
 
-read_ext.xlsx <- function(file_path){
-    readxl::read_excel(file_path)
-}
-
+## Extract fct
 my_backend <- only_one  %>% 
     extract_backends() 
 
-my_backend$type
-
 defaults_backends <-  getNamespaceExports("connector")[
-    grepl("^Connector_", getNamespaceExports("connector"))
+    grepl("^connector_", getNamespaceExports("connector"))
 ]
 
 if(my_backend$type  %in% defaults_backends){
@@ -81,40 +71,56 @@ if(my_backend$type  %in% defaults_backends){
     connect_fct <- getExportedValue(package_name, my_backend$type)
 }
 
-metadata <- extract_metadata(yaml_content)
+### Check Params available
+params_from_function <- formals(connect_fct) %>% 
+    names()
 
-formals(connect_fct$public_methods$initialize)
+#### What is given by user
+
+params_from_user <- my_backend[names(my_backend) != c( "type")]
+
+#### Build path to the folder containing the data
+if(my_backend$type == "connector_fs"){
+   
+   test <- grepl( x = my_backend$path, pattern = "\\{")
+
+   if(test){
+         extracted_infos <- str_extract_all(my_backend$path, "(?<=\\{)(.*?)(?=\\})")  %>% 
+         unlist()
+
+        ## only metadata for now
+        be_sure_metadata <- all(extracted_infos  %>% 
+            str_detect("^metadata\\."))
+        if(!be_sure_metadata){
+            stop("Only metadata is allowed for now in the custom path")
+        }
+
+        metadata_ <- unlist(yaml_content["metadata"])
+
+        infos <- metadata_[extracted_infos]  
+
+        ## Replace the path
+        params_from_user$path<- glue::glue(
+            my_backend$path,
+             .open = "{",
+              .close = "}",
+               .envir = as.list(infos)  %>% list2env
+        )
+            
+   }else{
+        ## Replace the path
+        params_from_user$path <- my_backend$path
+   }
+
+}
+
+## Redifine param if needed
+
+ <- path_to_folder
+
+do.call(connect_fct, params_from_user)
 
 
-# build path to the folder containing the data
-
-only_one$backend$path
-
-##get info
-
-
-
-# Define the input string
-input_string <- "{metadata.root_path}/{metadata.trial}/{datasources.name}/{a.b.c.D}"
-
-# Use str_extract_all to extract the content inside the curly braces
-extracted_content <- str_extract_all(input_string, "(?<=\\{)(.*?)(?=\\})")  %>% unlist()
-extracted_content
-
-test <- str_replace_all(extracted_content, "\\.", "$")
-
-test2 <-  stringr::str_split(extracted_content, "\\.")
-
-
-test2
-
-## reduce pluck ?
-purrr::pluck(yaml_content, test2[[1]][1])
-
-
-dput(extracted_content)
-
-connect_fct(only_one$backend)
 
 
 ```
