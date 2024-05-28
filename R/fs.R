@@ -76,6 +76,12 @@ Connector_fs <- R6::R6Class(
     #' @param ... Other parameters to pass to the write_file function (depends on the extension of a file)
     write = function(x, file, ...) {
       write_file(x, self$construct_path(file), ...)
+    },
+    #' @description Remove the specified file by given name with extension
+    #' @param file File name
+    #'
+    remove = function(file) {
+      unlink(self$construct_path(file))
     }
   ),
   private = list(
