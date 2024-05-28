@@ -153,7 +153,7 @@ connector_dbi <- R6::R6Class(
 
     # Finalize the connection on garbage collection
     finalize = function() {
-      self$disconnect()
+      if (DBI::dbIsValid(dbObj = private$conn)) self$disconnect()
     }
   ),
   cloneable = FALSE
