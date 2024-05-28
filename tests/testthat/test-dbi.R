@@ -1,4 +1,3 @@
-
 # general test data for DBI connections
 
 x <- mtcars
@@ -11,7 +10,7 @@ specs <- list(
   sqlite = list(
     drv = RSQLite::SQLite(),
     dbname = withr::local_tempfile()
-    ),
+  ),
   postgres = list(
     drv = RPostgres::Postgres(),
     dbname = "postgres",
@@ -25,13 +24,13 @@ specs <- list(
 # Run same tests for both SQLite and Postgres
 
 for (i in seq_along(specs)) {
-
   test_that(paste("DBI generics work for", names(specs)[[i]]), {
-
     test <- tryCatch(
       expr = do.call(what = connector_dbi$new, args = specs[[i]]),
-      error = function(e) {skip(paste(names(specs)[[i]], "database not available"))}
-      )
+      error = function(e) {
+        skip(paste(names(specs)[[i]], "database not available"))
+      }
+    )
 
     test$list_content() |>
       expect_equal(character(0))
@@ -69,6 +68,5 @@ for (i in seq_along(specs)) {
 
     test$read("mtcars") |>
       expect_error(regexp = "Invalid(| or closed) connection") # Different messages for postgres and sqlite
-
   })
 }
