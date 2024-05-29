@@ -64,6 +64,7 @@ But it is good practice to call <code>disconnect</code> when you are done with t
 <li><p><a href="#method-connector_dbi-disconnect"><code>connector_dbi$disconnect()</code></a></p></li>
 <li><p><a href="#method-connector_dbi-read"><code>connector_dbi$read()</code></a></p></li>
 <li><p><a href="#method-connector_dbi-write"><code>connector_dbi$write()</code></a></p></li>
+<li><p><a href="#method-connector_dbi-remove"><code>connector_dbi$remove()</code></a></p></li>
 <li><p><a href="#method-connector_dbi-tbl"><code>connector_dbi$tbl()</code></a></p></li>
 </ul></div><p></p><hr><a id="method-connector_dbi-new"></a><div class="section">
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
@@ -177,15 +178,35 @@ But it is good practice to call <code>disconnect</code> when you are done with t
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-connector_dbi-tbl"></a><div class="section">
-<h3 id="method-tbl-">Method <code>tbl()</code><a class="anchor" aria-label="anchor" href="#method-tbl-"></a></h3>
-<p>Create a tbl object</p><div class="section">
+</div><p></p><hr><a id="method-connector_dbi-remove"></a><div class="section">
+<h3 id="method-remove-">Method <code><a href="https://rdrr.io/r/base/rm.html" class="external-link">remove()</a></code><a class="anchor" aria-label="anchor" href="#method-remove-"></a></h3>
+<p>Remove a table from the database</p><div class="section">
 <h4 id="usage-6">Usage<a class="anchor" aria-label="anchor" href="#usage-6"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector_dbi</span><span class="op">$</span><span class="fu">tbl</span><span class="op">(</span><span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector_dbi</span><span class="op">$</span><span class="fu">remove</span><span class="op">(</span><span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>name</code></dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> Table name</p></dd>
+
+
+<dt><code>...</code></dt>
+<dd><p>Additional arguments passed to <a href="https://dbi.r-dbi.org/reference/dbRemoveTable.html" class="external-link">DBI::dbRemoveTable</a></p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-connector_dbi-tbl"></a><div class="section">
+<h3 id="method-tbl-">Method <code>tbl()</code><a class="anchor" aria-label="anchor" href="#method-tbl-"></a></h3>
+<p>Create a tbl object</p><div class="section">
+<h4 id="usage-7">Usage<a class="anchor" aria-label="anchor" href="#usage-7"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector_dbi</span><span class="op">$</span><span class="fu">tbl</span><span class="op">(</span><span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>name</code></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> Table name</p></dd>
 
@@ -215,6 +236,7 @@ But it is good practice to call <code>disconnect</code> when you are done with t
 <span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (drv, ...) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     list_content: function (...) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     read: function (name, ...) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     remove: function (name, ...) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     tbl: function (name, ...) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     write: function (x, name, ...) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Private:</span>
