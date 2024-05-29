@@ -15,14 +15,19 @@ URL: https://jubilant-adventure-yr95p3g.pages.github.io/
 Imports: 
     arrow,
     checkmate,
+    cli,
     DBI,
     dplyr,
+    glue,
     haven,
+    magrittr,
     R6 (>= 2.4.0),
     readr,
     rlang,
+    stringr,
     tools,
     utils,
+    vroom,
     yaml
 Suggests:
     dbplyr,
