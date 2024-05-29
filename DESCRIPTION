@@ -28,6 +28,7 @@ Suggests:
     dbplyr,
     knitr,
     rmarkdown,
+    RPostgres,
     RSQLite,
     testthat (>= 3.0.0),
     withr
