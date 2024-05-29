@@ -6,6 +6,9 @@
 \usage{
 Connector(...)
 }
+\arguments{
+\item{...}{Arguments to pass to the connector}
+}
 \description{
 A Connector object, a special list with R6 objects.
 }
