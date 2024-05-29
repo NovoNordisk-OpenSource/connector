@@ -56,6 +56,7 @@ db$disconnect()
 \item \href{#method-connector_dbi-disconnect}{\code{connector_dbi$disconnect()}}
 \item \href{#method-connector_dbi-read}{\code{connector_dbi$read()}}
 \item \href{#method-connector_dbi-write}{\code{connector_dbi$write()}}
+\item \href{#method-connector_dbi-remove}{\code{connector_dbi$remove()}}
 \item \href{#method-connector_dbi-tbl}{\code{connector_dbi$tbl()}}
 }
 }
@@ -163,6 +164,25 @@ Write a table to the database
 \item{\code{name}}{\link{character} Table name}
 
 \item{\code{...}}{Additional arguments passed to \link[DBI:dbWriteTable]{DBI::dbWriteTable}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_dbi-remove"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_dbi-remove}{}}}
+\subsection{Method \code{remove()}}{
+Remove a table from the database
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$remove(name, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{\link{character} Table name}
+
+\item{\code{...}}{Additional arguments passed to \link[DBI:dbRemoveTable]{DBI::dbRemoveTable}}
 }
 \if{html}{\out{</div>}}
 }
