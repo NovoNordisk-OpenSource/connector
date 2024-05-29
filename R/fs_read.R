@@ -50,10 +50,6 @@ read_ext <- function(path, ...) {
 #' write.csv(iris, temp_txt, row.names = FALSE)
 #' class(temp_txt) <- "txt"
 #' read_ext(temp_txt)
-#'
-#' temp_undefined <- tempfile("iris", fileext = ".undefined")
-#' class(temp_undefined) <- "undefined"
-#' read_ext(temp_undefined)
 read_ext.default <- function(path, ...) {
     cli::cli_alert_info("Using vroom to read the file:")
     table <- try(

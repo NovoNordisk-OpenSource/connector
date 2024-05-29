@@ -34,4 +34,6 @@ purrr::walk(
   }
 )
 
+## Manage deps
+attachment::att_amend_desc()
 usethis::use_package("dbplyr", type = "Suggests")
