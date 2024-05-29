@@ -134,6 +134,12 @@ connector_dbi <- R6::R6Class(
       DBI::dbWriteTable(conn = private$conn, name = name, value = x, ...)
     },
 
+    #' @description Remove a table from the database
+    #' @param ... Additional arguments passed to [DBI::dbRemoveTable]
+    remove = function(name, ...) {
+      DBI::dbRemoveTable(conn = private$conn, name = name, ...)
+    },
+
     #' @description Create a [tbl] object
     #' @param ... Additional arguments passed to [dplyr::tbl]
     tbl = function(name, ...) {
@@ -147,7 +153,7 @@ connector_dbi <- R6::R6Class(
 
     # Finalize the connection on garbage collection
     finalize = function() {
-      self$disconnect()
+      if (DBI::dbIsValid(dbObj = private$conn)) self$disconnect()
     }
   ),
   cloneable = FALSE
