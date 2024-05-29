@@ -1,7 +1,6 @@
 #' Create FS connector
 #'
-#' @description
-#' Create a new FS connector object. See [Connector_fs] for details.
+#' @description Create a new FS connector object. See [Connector_fs] for details.
 #'
 #' @param path Path to the file system
 #' @param ... Additional arguments passed to [Connector_fs]
@@ -29,7 +28,6 @@
 #' class(db_subclass)
 #'
 #' @export
-
 connector_fs <- function(path, ..., extra_class = NULL) {
   layer <- Connector_fs$new(path = path, ...)
   if (!is.null(extra_class)) {
@@ -39,9 +37,11 @@ connector_fs <- function(path, ..., extra_class = NULL) {
   return(layer)
 }
 
-#' @title Class connector_fs
+#' Class Connector_fs
 #' @description The connector_fs class is a file system connector for accessing and manipulating files in a local file system.
 #' @importFrom R6 R6Class
+#'
+#' @name Connector_fs_object
 #' @export
 Connector_fs <- R6::R6Class(
   "Connector_fs",
@@ -89,6 +89,7 @@ Connector_fs <- R6::R6Class(
   ),
   cloneable = FALSE
 )
+
 
 #' Validate the path and access
 #'

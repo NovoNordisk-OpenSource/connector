@@ -16,6 +16,7 @@ connect <- function(yaml = NULL, ...) {
 }
 
 #' A Connector object, a special list with R6 objects.
+#' @param ... Arguments to pass to the connector
 #' @export
 Connector <- function(...) {
   structure(

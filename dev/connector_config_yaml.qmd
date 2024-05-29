@@ -52,75 +52,21 @@ extract_datasources(yaml_content)
 #### First try for connector_fs
 
 ```{r}
-
 only_one <- extract_connections(yaml_content)[[1]]
 
 ## Extract fct
-my_backend <- only_one  %>% 
-    extract_backends() 
-
-defaults_backends <-  getNamespaceExports("connector")[
-    grepl("^connector_", getNamespaceExports("connector"))
-]
-
-if(my_backend$type  %in% defaults_backends){
-    connect_fct <- getExportedValue("connector", my_backend$type)
-}else{
-    package_name <- gsub("\\:{2,3}[^\\:]+$", my_backend$type, replacement = "" )
-    
-    connect_fct <- getExportedValue(package_name, my_backend$type)
-}
+my_backend <- only_one %>%
+    extract_backends()
 
 ### Check Params available
-params_from_function <- formals(connect_fct) %>% 
+params_from_function <- formals(connect_fct) %>%
     names()
 
-#### What is given by user
+#### Create the backend for fs
 
-params_from_user <- my_backend[names(my_backend) != c( "type")]
-
-#### Build path to the folder containing the data
-if(my_backend$type == "connector_fs"){
-   
-   test <- grepl( x = my_backend$path, pattern = "\\{")
-
-   if(test){
-         extracted_infos <- str_extract_all(my_backend$path, "(?<=\\{)(.*?)(?=\\})")  %>% 
-         unlist()
-
-        ## only metadata for now
-        be_sure_metadata <- all(extracted_infos  %>% 
-            str_detect("^metadata\\."))
-        if(!be_sure_metadata){
-            stop("Only metadata is allowed for now in the custom path")
-        }
-
-        metadata_ <- unlist(yaml_content["metadata"])
-
-        infos <- metadata_[extracted_infos]  
-
-        ## Replace the path
-        params_from_user$path<- glue::glue(
-            my_backend$path,
-             .open = "{",
-              .close = "}",
-               .envir = as.list(infos)  %>% list2env
-        )
-            
-   }else{
-        ## Replace the path
-        params_from_user$path <- my_backend$path
-   }
-
-}
-
-## Redifine param if needed
-
- <- path_to_folder
-
-do.call(connect_fct, params_from_user)
-
-
+test <- create_backend_fs(yaml_content, my_backend)
 
 
 ```
+
+#### Second try for connector_db
