@@ -24,6 +24,7 @@ jobs:
       - uses: r-lib/actions/setup-r@v2
         with:
           use-public-rspm: true
+
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
           extra-packages: |
@@ -32,6 +33,12 @@ jobs:
             any::dplyr
             any::knitr
           needs: coverage
+
+      - name: Start local postgres server with Docker
+        run: |
+          docker pull postgres
+          docker run --name my-postgres --env POSTGRES_PASSWORD=admin --publish 5432:5432 --detach postgres
+
       - name: Test coverage
         run: |
           covr::package_coverage() |>
@@ -61,6 +68,12 @@ jobs:
           c("# Code coverage", res) |>
             writeLines(con = "coverage.md")
         shell: Rscript {0}
+
+      - name: Stop and remove postgres server
+        run: |
+          docker stop my-postgres
+          docker remove my-postgres
+
       - name: Add Coverage PR Comment
         uses: marocchino/sticky-pull-request-comment@v2
         if: github.event_name == 'pull_request'
