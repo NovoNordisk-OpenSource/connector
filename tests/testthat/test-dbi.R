@@ -1,41 +1,72 @@
-test_that("DBI generics work on local SQLite database", {
-  test <- Connector_dbi$new(drv = RSQLite::SQLite(), dbname = withr::local_tempfile())
+# general test data for DBI connections
 
-  x <- mtcars
-  x$car <- rownames(x)
-  rownames(x) <- NULL
+x <- mtcars
+x$car <- rownames(x)
+rownames(x) <- NULL
 
-  test$list_content() |>
-    expect_equal(character(0))
+# Connections to be tested
 
-  test$write(x, "mtcars") |>
-    expect_true()
+specs <- list(
+  sqlite = list(
+    drv = RSQLite::SQLite(),
+    dbname = withr::local_tempfile()
+  ),
+  postgres = list(
+    drv = RPostgres::Postgres(),
+    dbname = "postgres",
+    user = "postgres",
+    password = "admin",
+    port = 5432,
+    host = "localhost"
+  )
+)
 
-  test$write(x, "mtcars") |>
-    expect_error()
+# Run same tests for both SQLite and Postgres
 
-  test$list_content() |>
-    expect_equal("mtcars")
+for (i in seq_along(specs)) {
+  test_that(paste("DBI generics work for", names(specs)[[i]]), {
+    test <- tryCatch(
+      expr = do.call(what = connector_dbi$new, args = specs[[i]]),
+      error = function(e) {
+        skip(paste(names(specs)[[i]], "database not available"))
+      }
+    )
 
-  test$read("mtcars") |>
-    expect_equal(x)
+    test$list_content() |>
+      expect_equal(character(0))
 
-  test$write(x, "mtcars", overwrite = TRUE) |>
-    expect_true()
+    test$write(x, "mtcars") |>
+      expect_true()
 
-  test$tbl("mtcars") |>
-    dplyr::filter(car == "Mazda RX4") |>
-    dplyr::select(car, mpg) |>
-    dplyr::collect() |>
-    expect_equal(dplyr::tibble(car = "Mazda RX4", mpg = 21))
+    test$write(x, "mtcars") |>
+      expect_error()
 
-  test$get_conn() |>
-    DBI::dbGetQuery("SELECT * FROM mtcars") |>
-    expect_equal(x)
+    test$list_content() |>
+      expect_equal("mtcars")
 
-  test$disconnect() |>
-    expect_true()
+    test$read("mtcars") |>
+      expect_equal(x)
 
-  test$read("mtcars") |>
-    expect_error("Invalid or closed connection")
-})
+    test$write(x, "mtcars", overwrite = TRUE) |>
+      expect_true()
+
+    test$tbl("mtcars") |>
+      dplyr::filter(car == "Mazda RX4") |>
+      dplyr::select(car, mpg) |>
+      dplyr::collect() |>
+      expect_equal(dplyr::tibble(car = "Mazda RX4", mpg = 21))
+
+    test$get_conn() |>
+      DBI::dbGetQuery("SELECT * FROM mtcars") |>
+      expect_equal(x)
+
+    test$remove("mtcars") |>
+      expect_true()
+
+    test$disconnect() |>
+      expect_true()
+
+    test$read("mtcars") |>
+      expect_error(regexp = "Invalid(| or closed) connection") # Different messages for postgres and sqlite
+  })
+}
