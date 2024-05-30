@@ -67,6 +67,18 @@ jobs:
 
         shell: Rscript {0}
 
+      - name: Start local postgres server with Docker
+        if: runner.os == 'Linux'
+        run: |
+          docker pull postgres
+          docker run --name my-postgres --env POSTGRES_PASSWORD=admin --publish 5432:5432 --detach postgres
+
       - uses: r-lib/actions/check-r-package@v2
         with:
           upload-snapshots: true
+
+      - name: Stop and remove postgres server
+        if: runner.os == 'Linux'
+        run: |
+          docker stop my-postgres
+          docker remove my-postgres
