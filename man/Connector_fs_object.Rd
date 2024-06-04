@@ -16,6 +16,7 @@ The connector_fs class is a file system connector for accessing and manipulating
 \item \href{#method-Connector_fs-read}{\code{Connector_fs$read()}}
 \item \href{#method-Connector_fs-write}{\code{Connector_fs$write()}}
 \item \href{#method-Connector_fs-remove}{\code{Connector_fs$remove()}}
+\item \href{#method-Connector_fs-clone}{\code{Connector_fs$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -124,6 +125,23 @@ Remove the specified file by given name with extension
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{file}}{File name}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Connector_fs-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Connector_fs-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connector_fs$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
 }
 \if{html}{\out{</div>}}
 }

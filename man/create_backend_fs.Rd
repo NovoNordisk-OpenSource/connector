@@ -4,12 +4,14 @@
 \alias{create_backend_fs}
 \title{Create a backend for the file system}
 \usage{
-create_backend_fs(yaml_content, backend)
+create_backend_fs(yaml_content, backend, name)
 }
 \arguments{
 \item{yaml_content}{The yaml content}
 
 \item{backend}{The backend to create and because of file system, a "path" is mandatory}
+
+\item{name}{The name of the connection}
 }
 \value{
 A new backend based on R6 class
@@ -24,7 +26,8 @@ only_one <- extract_connections(yaml_content)[[1]]
 ## Extract fct
 my_backend <- only_one \%>\%
   extract_backends()
-# Create the backend for fs
-test <- create_backend_fs(yaml_content, my_backend)
-
+name <- only_one \%>\%
+  extract_con()
+# Create the backend
+test <- create_backend_fs(yaml_content = yaml_content, backend = my_backend, name = name)
 }

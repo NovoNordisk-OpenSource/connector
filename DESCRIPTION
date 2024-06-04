@@ -21,14 +21,13 @@ Imports:
     glue,
     haven,
     magrittr,
+    purrr,
     R6 (>= 2.4.0),
     readr,
-    rlang,
     stringr,
     tools,
     utils,
-    vroom,
-    yaml
+    vroom
 Suggests:
     dbplyr,
     knitr,
@@ -36,7 +35,8 @@ Suggests:
     RPostgres,
     RSQLite,
     testthat (>= 3.0.0),
-    withr
+    withr,
+    yaml
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
