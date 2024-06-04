@@ -3,7 +3,7 @@
 \name{Connector_dbi_object}
 \alias{Connector_dbi_object}
 \alias{Connector_dbi}
-\title{DBI connector}
+\title{R6 class for a dbi connection, see \link{connector_dbi} (used to interact with DBI compliant database backends)}
 \description{
 Connector object for DBI connections. This object is used to interact with DBI compliant database backends.
 See the \href{https://dbi.r-dbi.org/}{DBI package} for how which backends are supported.

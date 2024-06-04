@@ -31,7 +31,8 @@
 connector_fs <- function(path, ..., extra_class = NULL) {
   layer <- Connector_fs$new(path = path, ...)
   if (!is.null(extra_class)) {
-    extra_class <- paste(class(layer), extra_class, sep = "_")
+    # TODO: not sure about paste and so on
+    # extra_class <- paste(class(layer), extra_class, sep = "_")
     class(layer) <- c(extra_class, class(layer))
   }
   return(layer)
@@ -87,7 +88,7 @@ Connector_fs <- R6::R6Class(
   private = list(
     path = character(0)
   ),
-  cloneable = FALSE
+  cloneable = TRUE
 )
 
 
