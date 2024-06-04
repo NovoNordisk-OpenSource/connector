@@ -45,3 +45,8 @@ extract_datasources <- function(yaml_content) {
 extract_backends <- function(yaml_content) {
     extract_element(yaml_content, "backend")
 }
+#' @rdname extract_element
+#' @export
+extract_con <- function(yaml_content) {
+    extract_element(yaml_content, "con")
+}

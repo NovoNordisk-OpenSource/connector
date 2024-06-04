@@ -1,4 +1,4 @@
-#' DBI connector
+#' R6 class for a dbi connection, see [connector_dbi] (used to interact with DBI compliant database backends)
 #'
 #' @description
 #' Connector object for DBI connections. This object is used to interact with DBI compliant database backends.
@@ -122,9 +122,7 @@ Connector_dbi <- R6::R6Class(
   cloneable = FALSE
 )
 
-#' Create DBI connector
-#'
-#' @description Create a new DBI connector object. See [Connector_dbi] for details.
+#' Create a new DBI connector object to interact with DBI compliant database backends
 #'
 #' @param drv DBI driver. See [DBI::dbConnect] for details
 #' @param ... Additional arguments passed to [DBI::dbConnect]
@@ -154,8 +152,10 @@ Connector_dbi <- R6::R6Class(
 #'
 connector_dbi <- function(drv, ..., extra_class = NULL) {
   layer <- Connector_dbi$new(drv = drv, ...)
+
   if (!is.null(extra_class)) {
-    extra_class <- paste(class(layer), extra_class, sep = "_")
+    # TODO: not sure about paste and so on
+    # extra_class <- paste(class(layer)[1], extra_class, sep = "_")
     class(layer) <- c(extra_class, class(layer))
   }
   return(layer)

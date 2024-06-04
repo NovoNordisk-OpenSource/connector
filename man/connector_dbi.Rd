@@ -2,7 +2,7 @@
 % Please edit documentation in R/dbi.R
 \name{connector_dbi}
 \alias{connector_dbi}
-\title{Create DBI connector}
+\title{Create a new DBI connector object to interact with DBI compliant database backends}
 \usage{
 connector_dbi(drv, ..., extra_class = NULL)
 }
@@ -17,7 +17,7 @@ connector_dbi(drv, ..., extra_class = NULL)
 A new \link{connector_dbi} object
 }
 \description{
-Create a new DBI connector object. See \link{Connector_dbi} for details.
+Create a new DBI connector object to interact with DBI compliant database backends
 }
 \details{
 The \code{extra_class} parameter allows you to create a subclass of the \code{connector_dbi} object.
