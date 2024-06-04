@@ -6,6 +6,7 @@
 \alias{extract_connections}
 \alias{extract_datasources}
 \alias{extract_backends}
+\alias{extract_con}
 \title{Extract an element from a yaml content}
 \usage{
 extract_element(yaml_content, element)
@@ -17,6 +18,8 @@ extract_connections(yaml_content)
 extract_datasources(yaml_content)
 
 extract_backends(yaml_content)
+
+extract_con(yaml_content)
 }
 \arguments{
 \item{yaml_content}{The yaml content}
