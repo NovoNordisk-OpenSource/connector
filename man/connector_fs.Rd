@@ -2,111 +2,41 @@
 % Please edit documentation in R/fs.R
 \name{connector_fs}
 \alias{connector_fs}
-\title{Class connector_fs}
+\title{Create FS connector}
+\usage{
+connector_fs(path, ..., extra_class = NULL)
+}
+\arguments{
+\item{path}{Path to the file system}
+
+\item{...}{Additional arguments passed to \link{Connector_fs}}
+
+\item{extra_class}{\link{character} Extra class added to the object. See details.}
+}
+\value{
+A new \link{Connector_fs} object
+}
 \description{
-The connector_fs class is a file system connector for accessing and manipulating files in a local file system.
+Create a new FS connector object. See \link{Connector_fs} for details.
 }
-\section{Methods}{
-\subsection{Public methods}{
-\itemize{
-\item \href{#method-connector_fs-new}{\code{connector_fs$new()}}
-\item \href{#method-connector_fs-list_content}{\code{connector_fs$list_content()}}
-\item \href{#method-connector_fs-construct_path}{\code{connector_fs$construct_path()}}
-\item \href{#method-connector_fs-read}{\code{connector_fs$read()}}
-\item \href{#method-connector_fs-write}{\code{connector_fs$write()}}
+\details{
+The \code{extra_class} parameter allows you to create a subclass of the \code{Connector_fs} object.
+This can be useful if you want to create a custom connection object for easier dispatch of new s3 methods,
+while still inheriting the methods from the \code{Connector_fs} object.
 }
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-new"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-new}{}}}
-\subsection{Method \code{new()}}{
-Initializes the connector_fs class
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$new(path, access = "rw")}\if{html}{\out{</div>}}
-}
+\examples{
+# Connect to a file system
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{path}}{Path to the file system}
+path_to_adam <- system.file("demo_trial", "adam", package = "connector")
+db <- connector_fs(path_to_adam)
 
-\item{\code{access}}{Access type ("rw" by default)}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-list_content"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-list_content}{}}}
-\subsection{Method \code{list_content()}}{
-Returns the list of files in the specified path
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$list_content(...)}\if{html}{\out{</div>}}
-}
+db
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Other parameters to pass to the list.files function}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-construct_path"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-construct_path}{}}}
-\subsection{Method \code{construct_path()}}{
-Constructs a complete path by combining the specified access path with the provided elements
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$construct_path(...)}\if{html}{\out{</div>}}
-}
+# Create subclass connection
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Elements to construct the path}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-read"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-read}{}}}
-\subsection{Method \code{read()}}{
-Reads the content of the specified file using the private access path and additional options
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$read(name, ...)}\if{html}{\out{</div>}}
-}
+db_subclass <- connector_fs(path_to_adam, extra_class = "subclass")
 
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{Name of the file to read}
+db_subclass
+class(db_subclass)
 
-\item{\code{...}}{Other parameters to pass to the read_file function (depends on the extension of a file)}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-write"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-write}{}}}
-\subsection{Method \code{write()}}{
-Writes the specified content to the specified file using the private access path and additional options
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$write(x, file, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{Content to write to the file}
-
-\item{\code{file}}{File name}
-
-\item{\code{...}}{Other parameters to pass to the write_file function (depends on the extension of a file)}
-}
-\if{html}{\out{</div>}}
-}
-}
 }
