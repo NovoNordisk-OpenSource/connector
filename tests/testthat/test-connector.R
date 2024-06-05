@@ -15,17 +15,18 @@ test_that("Connect datasources to the connections for a yaml file", {
     expect_named(connect, c("adam", "sdtm"))
 
     ## write and read for a system file
+    withr::with_options(list(readr.show_col_types = FALSE), {
+        connect$adam$read("adsl.csv") %>%
+            expect_s3_class("data.frame")
+        expect_error(connect$adam$read("do_not_exits.csv"))
 
-    connect$adam$read("adsl.csv") %>%
-        expect_s3_class("data.frame")
-    expect_error(connect$adam$read("do_not_exits.csv"))
+        connect$adam$write(data.frame(a = 1:10, b = 11:20), "example.csv") %>%
+            expect_no_error()
 
-    connect$adam$write(data.frame(a = 1:10, b = 11:20), "example.csv") %>%
-        expect_no_error()
-
-    expect_no_error(connect$adam$read("example.csv"))
-    expect_no_error(connect$adam$remove("example.csv"))
-    expect_error(connect$adam$read("example.csv"))
+        expect_no_error(connect$adam$read("example.csv"))
+        expect_no_error(connect$adam$remove("example.csv"))
+        expect_error(connect$adam$read("example.csv"))
+    })
 
     ## write and read for a dbi connection
     expect_no_error(connect$sdtm$write(iris, "iris"))
@@ -39,5 +40,5 @@ test_that("Connect datasources to the connections for a yaml file", {
 
     expect_s3_class(iris_f, "tbl_dbi")
 
-    expect_snapshot_output(iris_f %>% dplyr::collect())
+    expect_snapshot(iris_f %>% dplyr::collect())
 })
