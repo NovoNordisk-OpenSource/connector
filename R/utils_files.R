@@ -57,18 +57,17 @@ assert_ext <- function(ext, method) {
 
 #' Error extension
 #' Function to call when no method is found for the extension
-#' @importFrom cli cli_rule cli_alert cli_bullets cli_abort
+#' @importFrom cli cli_abort
+#' @importFrom rlang set_names
 error_extension <- function() {
-    cli::cli_rule()
-    cli::cli_alert("Supported extensions are:")
-    cli::cli_bullets(
-        supported_fs()
-    )
-    cli::cli_rule()
-    cli::cli_abort(
-        "No method found for this extension,
-        please implement your own method (to see an example run `connector::example_read_ext()`) or use a supported extension"
-    )
+    ext_supp <- supported_fs() %>%
+        rlang::set_names("*")
+    c(
+        "No method found for this extension, please implement your own method (to see an example run `connector::example_read_ext()`) or use a supported extension",
+        "i" = "Supported extensions are:",
+        ext_supp
+    ) %>%
+        cli::cli_abort()
 }
 
 #' Example for creating a new method for reading files
