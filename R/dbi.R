@@ -1,44 +1,4 @@
-#' Create DBI connector
-#'
-#' @description
-#' Create a new DBI connector object. See [connector_dbi] for details.
-#'
-#' @param drv DBI driver. See [DBI::dbConnect] for details
-#' @param ... Additional arguments passed to [DBI::dbConnect]
-#' @param extra_class [character] Extra class added to the object. See details.
-#' @return A new [connector_dbi] object
-#'
-#' @details
-#' The `extra_class` parameter allows you to create a subclass of the `connector_dbi` object.
-#' This can be useful if you want to create a custom connection object for easier dispatch of new s3 methods,
-#' while still inheriting the methods from the `connector_dbi` object.
-#'
-#' @examples
-#' # Connect to in memory SQLite database
-#'
-#' db <- connect_dbi(RSQLite::SQLite(), ":memory:")
-#'
-#' db
-#'
-#' # Create subclass connection
-#'
-#' db_subclass <- connect_dbi(RSQLite::SQLite(), ":memory:", extra_class = "subclass")
-#'
-#' db_subclass
-#' class(db_subclass)
-#'
-#' @export
-
-connect_dbi <- function(drv, ..., extra_class = NULL) {
-  layer <- connector_dbi$new(drv = drv, ...)
-  if (!is.null(extra_class)) {
-    extra_class <- paste(class(layer), extra_class, sep = "_")
-    class(layer) <- c(extra_class, class(layer))
-  }
-  return(layer)
-}
-
-#' DBI connector
+#' R6 class for a dbi connection, see [connector_dbi] (used to interact with DBI compliant database backends)
 #'
 #' @description
 #' Connector object for DBI connections. This object is used to interact with DBI compliant database backends.
@@ -50,10 +10,13 @@ connect_dbi <- function(drv, ..., extra_class = NULL) {
 #' Upon garbage collection, the connection will try to disconnect from the database.
 #' But it is good practice to call `disconnect` when you are done with the connection.
 #'
+#'
+#' @name Connector_dbi_object
+#'
 #' @examples
 #' # Create DBI connector
 #'
-#' db <- connector::connector_dbi$new(RSQLite::SQLite(), ":memory:")
+#' db <- connector::Connector_dbi$new(RSQLite::SQLite(), ":memory:")
 #'
 #' db
 #'
@@ -90,8 +53,8 @@ connect_dbi <- function(drv, ..., extra_class = NULL) {
 #'
 #' @export
 
-connector_dbi <- R6::R6Class(
-  classname = "connector_dbi",
+Connector_dbi <- R6::R6Class(
+  classname = "Connector_dbi",
   public = list(
 
     #' @description Initialize the connection
@@ -158,3 +121,42 @@ connector_dbi <- R6::R6Class(
   ),
   cloneable = FALSE
 )
+
+#' Create a new DBI connector object to interact with DBI compliant database backends
+#'
+#' @param drv DBI driver. See [DBI::dbConnect] for details
+#' @param ... Additional arguments passed to [DBI::dbConnect]
+#' @param extra_class [character] Extra class added to the object. See details.
+#' @return A new [connector_dbi] object
+#'
+#' @details
+#' The `extra_class` parameter allows you to create a subclass of the `connector_dbi` object.
+#' This can be useful if you want to create a custom connection object for easier dispatch of new s3 methods,
+#' while still inheriting the methods from the `connector_dbi` object.
+#'
+#' @examples
+#' # Connect to in memory SQLite database
+#'
+#' db <- connector_dbi(RSQLite::SQLite(), ":memory:")
+#'
+#' db
+#'
+#' # Create subclass connection
+#'
+#' db_subclass <- connector_dbi(RSQLite::SQLite(), ":memory:", extra_class = "subclass")
+#'
+#' db_subclass
+#' class(db_subclass)
+#'
+#' @export
+#'
+connector_dbi <- function(drv, ..., extra_class = NULL) {
+  layer <- Connector_dbi$new(drv = drv, ...)
+
+  if (!is.null(extra_class)) {
+    # TODO: not sure about paste and so on
+    # extra_class <- paste(class(layer)[1], extra_class, sep = "_")
+    class(layer) <- c(extra_class, class(layer))
+  }
+  return(layer)
+}
