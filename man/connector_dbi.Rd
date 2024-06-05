@@ -2,208 +2,40 @@
 % Please edit documentation in R/dbi.R
 \name{connector_dbi}
 \alias{connector_dbi}
-\title{DBI connector}
+\title{Create a new DBI connector object to interact with DBI compliant database backends}
+\usage{
+connector_dbi(drv, ..., extra_class = NULL)
+}
+\arguments{
+\item{drv}{DBI driver. See \link[DBI:dbConnect]{DBI::dbConnect} for details}
+
+\item{...}{Additional arguments passed to \link[DBI:dbConnect]{DBI::dbConnect}}
+
+\item{extra_class}{\link{character} Extra class added to the object. See details.}
+}
+\value{
+A new \link{connector_dbi} object
+}
 \description{
-Connector object for DBI connections. This object is used to interact with DBI compliant database backends.
-See the \href{https://dbi.r-dbi.org/}{DBI package} for how which backends are supported.
+Create a new DBI connector object to interact with DBI compliant database backends
 }
 \details{
-Upon garbage collection, the connection will try to disconnect from the database.
-But it is good practice to call \code{disconnect} when you are done with the connection.
+The \code{extra_class} parameter allows you to create a subclass of the \code{connector_dbi} object.
+This can be useful if you want to create a custom connection object for easier dispatch of new s3 methods,
+while still inheriting the methods from the \code{connector_dbi} object.
 }
 \examples{
-# Create DBI connector
+# Connect to in memory SQLite database
 
-db <- connector::connector_dbi$new(RSQLite::SQLite(), ":memory:")
+db <- connector_dbi(RSQLite::SQLite(), ":memory:")
 
 db
 
-# Write to the database
+# Create subclass connection
 
-db$write(iris, "iris")
+db_subclass <- connector_dbi(RSQLite::SQLite(), ":memory:", extra_class = "subclass")
 
-# Read from the database
+db_subclass
+class(db_subclass)
 
-db$read("iris") |>
-  head(5)
-
-# List available tables
-
-db$list_content()
-
-# Use the connector to run a query
-
-db$get_conn() |>
-  DBI::dbGetQuery("SELECT * FROM iris limit 5")
-
-# Use dplyr verbs and collect data
-
-db$tbl("iris") |>
-  dplyr::filter(Sepal.Length > 7) |>
-  dplyr::collect()
-
-# Disconnect from the database
-
-db$disconnect()
-
-}
-\section{Methods}{
-\subsection{Public methods}{
-\itemize{
-\item \href{#method-connector_dbi-new}{\code{connector_dbi$new()}}
-\item \href{#method-connector_dbi-list_content}{\code{connector_dbi$list_content()}}
-\item \href{#method-connector_dbi-get_conn}{\code{connector_dbi$get_conn()}}
-\item \href{#method-connector_dbi-disconnect}{\code{connector_dbi$disconnect()}}
-\item \href{#method-connector_dbi-read}{\code{connector_dbi$read()}}
-\item \href{#method-connector_dbi-write}{\code{connector_dbi$write()}}
-\item \href{#method-connector_dbi-remove}{\code{connector_dbi$remove()}}
-\item \href{#method-connector_dbi-tbl}{\code{connector_dbi$tbl()}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_dbi-new"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_dbi-new}{}}}
-\subsection{Method \code{new()}}{
-Initialize the connection
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$new(drv, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{drv}}{DBI driver}
-
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbConnect]{DBI::dbConnect}}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \link{connector_dbi} object
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_dbi-list_content"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_dbi-list_content}{}}}
-\subsection{Method \code{list_content()}}{
-List tables in the database
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$list_content(...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbListTables]{DBI::dbListTables}}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \link{character} vector of table names
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_dbi-get_conn"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_dbi-get_conn}{}}}
-\subsection{Method \code{get_conn()}}{
-Get the connection object
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$get_conn()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-A DBI connection object
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_dbi-disconnect"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_dbi-disconnect}{}}}
-\subsection{Method \code{disconnect()}}{
-Disconnect from the database
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$disconnect()}\if{html}{\out{</div>}}
-}
-
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_dbi-read"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_dbi-read}{}}}
-\subsection{Method \code{read()}}{
-Read a table from the database
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$read(name, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{\link{character} Table name}
-
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbReadTable]{DBI::dbReadTable}}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \link{data.frame}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_dbi-write"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_dbi-write}{}}}
-\subsection{Method \code{write()}}{
-Write a table to the database
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$write(x, name, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\link{data.frame} Table to write}
-
-\item{\code{name}}{\link{character} Table name}
-
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbWriteTable]{DBI::dbWriteTable}}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_dbi-remove"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_dbi-remove}{}}}
-\subsection{Method \code{remove()}}{
-Remove a table from the database
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$remove(name, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{\link{character} Table name}
-
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbRemoveTable]{DBI::dbRemoveTable}}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_dbi-tbl"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_dbi-tbl}{}}}
-\subsection{Method \code{tbl()}}{
-Create a \link{tbl} object
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$tbl(name, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{\link{character} Table name}
-
-\item{\code{...}}{Additional arguments passed to \link[dplyr:tbl]{dplyr::tbl}}
-}
-\if{html}{\out{</div>}}
-}
-}
 }

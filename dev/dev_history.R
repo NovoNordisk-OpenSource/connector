@@ -34,4 +34,19 @@ purrr::walk(
   }
 )
 
+## Manage deps
+attachment::att_amend_desc()
 usethis::use_package("dbplyr", type = "Suggests")
+usethis::use_package("RPostgres", type = "Suggests")
+usethis::use_package("RSQLite", type = "Suggests")
+usethis::use_package("yaml", type = "Suggests")
+
+## Testthat
+
+usethis::use_test("fs_read")
+usethis::use_test("fs_write")
+usethis::use_test("utils_yaml")
+usethis::use_test("utils_files")
+usethis::use_test("dbi_backend_tools")
+usethis::use_test("fs_backend_tools")
+usethis::use_test("generic_backend")
