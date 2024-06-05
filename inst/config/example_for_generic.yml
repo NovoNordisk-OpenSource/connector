@@ -1,0 +1,15 @@
+# A example of the configuration file for FS and Database
+metadata:
+  trial: "demo_trial"
+  root_path: !expr system.file(package = "connector")
+
+connections:
+  - con: "adam_generic"
+    backend:
+        type: "connector_fs"
+        path: "{metadata.root_path}/{metadata.trial}/adam"
+
+datasources:
+  - name: "adam"
+    con: "adam_generic"
+

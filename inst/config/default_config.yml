@@ -1,0 +1,22 @@
+# A example of the configuration file for FS and Database
+metadata:
+  trial: "demo_trial"
+  root_path: !expr system.file(package = "connector")
+  extra_class: "test2"
+
+connections:
+  - con: "adam_fs"
+    backend:
+        type: "connector_fs"
+        path: "{metadata.root_path}/{metadata.trial}/adam"
+        extra_class: "{metadata.extra_class}"
+  - con: "general_dbi"
+    backend: 
+        type: "connector_dbi"
+        drv: "RSQLite::SQLite()"
+        dbname: ":memory:"
+datasources:
+  - name: "adam"
+    con: "adam_fs"
+  - name: "sdtm"
+    con: "general_dbi"
