@@ -50,6 +50,21 @@
 
       <dl><dt>
           
+          <code><a href="Connector.html">Connector()</a></code> 
+        </dt>
+        <dd>A Connector object, a special list with R6 objects.</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Connector_dbi_object.html">Connector_dbi_object</a></code> <code><a href="Connector_dbi_object.html">Connector_dbi</a></code> 
+        </dt>
+        <dd>R6 class for a dbi connection, see connector_dbi (used to interact with DBI compliant database backends)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="Connector_fs_object.html">Connector_fs_object</a></code> <code><a href="Connector_fs_object.html">Connector_fs</a></code> 
+        </dt>
+        <dd>Class Connector_fs</dd>
+      </dl><dl><dt>
+          
           <code><a href="assert_ext.html">assert_ext()</a></code> 
         </dt>
         <dd>Test the extension of files</dd>
@@ -60,34 +75,84 @@
         <dd>Validate the path and access</dd>
       </dl><dl><dt>
           
-          <code><a href="connect.html">connect()</a></code> 
+          <code><a href="connect_from_yaml.html">connect_from_yaml()</a></code> 
         </dt>
-        <dd>Connect to a database</dd>
+        <dd>Connect datasources to the connections from the yaml content</dd>
       </dl><dl><dt>
           
-          <code><a href="connect_dbi.html">connect_dbi()</a></code> 
+          <code><a href="connector_dbi.html">connector_dbi()</a></code> 
         </dt>
-        <dd>Create DBI connector</dd>
+        <dd>Create a new DBI connector object to interact with DBI compliant database backends</dd>
       </dl><dl><dt>
           
-          <code><a href="connector_.html">connector_</a></code> 
+          <code><a href="connector_fs.html">connector_fs()</a></code> 
         </dt>
-        <dd>R6 general connector class</dd>
+        <dd>Create FS connector</dd>
       </dl><dl><dt>
           
-          <code><a href="connector_dbi.html">connector_dbi</a></code> 
+          <code><a href="create_backend.html">create_backend()</a></code> 
         </dt>
-        <dd>DBI connector</dd>
+        <dd>Create a backend</dd>
       </dl><dl><dt>
           
-          <code><a href="connector_fs.html">connector_fs</a></code> 
+          <code><a href="create_backend_dbi.html">create_backend_dbi()</a></code> 
         </dt>
-        <dd>Class connector_fs</dd>
+        <dd>Create a backend for the DBI (databases)</dd>
+      </dl><dl><dt>
+          
+          <code><a href="create_backend_fs.html">create_backend_fs()</a></code> 
+        </dt>
+        <dd>Create a backend for the file system</dd>
+      </dl><dl><dt>
+          
+          <code><a href="create_connection.html">create_connection()</a></code> 
+        </dt>
+        <dd>Create a connection object depending on the backend type</dd>
+      </dl><dl><dt>
+          
+          <code><a href="custom_path_or_not.html">custom_path_or_not()</a></code> 
+        </dt>
+        <dd>Check if the path is a custom path to pass to glue</dd>
+      </dl><dl><dt>
+          
+          <code><a href="error_extension.html">error_extension()</a></code> 
+        </dt>
+        <dd>Error extension Function to call when no method is found for the extension</dd>
+      </dl><dl><dt>
+          
+          <code><a href="example_read_ext.html">example_read_ext()</a></code> 
+        </dt>
+        <dd>Example for creating a new method for reading files</dd>
+      </dl><dl><dt>
+          
+          <code><a href="extract_custom_path.html">extract_custom_path()</a></code> 
+        </dt>
+        <dd>Extract custom path from metadata information if needed</dd>
+      </dl><dl><dt>
+          
+          <code><a href="extract_element.html">extract_element()</a></code> <code><a href="extract_element.html">extract_metadata()</a></code> <code><a href="extract_element.html">extract_connections()</a></code> <code><a href="extract_element.html">extract_datasources()</a></code> <code><a href="extract_element.html">extract_backends()</a></code> <code><a href="extract_element.html">extract_con()</a></code> 
+        </dt>
+        <dd>Extract an element from a yaml content</dd>
+      </dl><dl><dt>
+          
+          <code><a href="extract_info_from_metadata.html">extract_info_from_metadata()</a></code> 
+        </dt>
+        <dd>Extract information from metadata</dd>
       </dl><dl><dt>
           
           <code><a href="find_file.html">find_file()</a></code> 
         </dt>
         <dd>Find File</dd>
+      </dl><dl><dt>
+          
+          <code><a href="get_backend_fct.html">get_backend_fct()</a></code> 
+        </dt>
+        <dd>Get the backend function</dd>
+      </dl><dl><dt>
+          
+          <code><a href="get_connections.html">get_connections()</a></code> 
+        </dt>
+        <dd>Create all connections from the yaml content</dd>
       </dl><dl><dt>
           
           <code><a href="read_ext.html">read_ext()</a></code> 
@@ -103,6 +168,11 @@
           <code><a href="supported_fs.html">supported_fs()</a></code> 
         </dt>
         <dd>List of supported files</dd>
+      </dl><dl><dt>
+          
+          <code><a href="try_connect.html">try_connect()</a></code> 
+        </dt>
+        <dd>Create a backend</dd>
       </dl><dl><dt>
           
           <code><a href="write_ext.html">write_ext()</a></code> 
