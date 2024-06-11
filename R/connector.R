@@ -16,9 +16,6 @@ Connector <- function(...) {
 #' @param connection The connection object from the yaml
 #'
 create_connection <- function(yaml_content, connection) {
-  if (is.null(connection$backend$type)) {
-    stop("No backend type defined in the connection")
-  }
   ## TODO: should be better then that S3 method ?
   if (connection$backend$type == "connector_fs") {
     return(
@@ -59,7 +56,7 @@ get_connections <- function(yaml_content) {
 #' @examples
 # # read yaml file
 #' yaml_file <- system.file("config", "default_config.yml", package = "connector")
-#' yaml_content <- yaml::read_yaml(yaml_file, eval.expr = TRUE)
+#' yaml_content <- read_yaml_config(yaml_file)
 #' # create the connections
 #' connect <- connect_from_yaml(yaml_content)
 connect_from_yaml <- function(yaml_content) {

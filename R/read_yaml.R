@@ -75,6 +75,7 @@ read_yaml_config <- function(file, set_env = TRUE) {
 #' - connections and datasources must each be a list of unnamed lists
 #' - each connection must have the named character element "con" and the named list element "backend"
 #' - each datasource must have the named character element "name"
+#' - for each connection backend.type must be provided
 #' @noRd
 
 assert_config <- function(config, env = parent.frame()) {
@@ -140,6 +141,7 @@ assert_config <- function(config, env = parent.frame()) {
       checkmate::assert_names(names(x), type = "unique", must.include = c("con", "backend"), .var.name = var, add = val)
       checkmate::assert_character(x[["con"]], len = 1, .var.name = paste0(var, ".con"), add = val)
       checkmate::assert_list(x[["backend"]], names = "unique", .var.name = paste0(var, ".backend"), add = val)
+      checkmate::assert_character(x[["backend"]][["type"]], len = 1, .var.name = paste0(var, ".backend.type"), add = val)
     }
   )
 
