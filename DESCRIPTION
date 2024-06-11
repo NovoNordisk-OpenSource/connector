@@ -21,6 +21,7 @@ Imports:
     glue,
     haven,
     magrittr,
+    options,
     purrr,
     R6 (>= 2.4.0),
     readr,
@@ -45,5 +46,5 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE, r6 = TRUE)
 RoxygenNote: 7.3.1
-Remotes:  
+Remotes: 
     NN-OpenSource/zephyr

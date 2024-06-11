@@ -3,7 +3,7 @@
 #' @param set_env [logical] Should environment variables from the yaml file be set. Default is TRUE.
 #' @return Configuration [list] with all content evaluated
 #' @examples
-#' yaml_file <- system.file("config", "default_env_config.yml", package = "connector")
+#' yaml_file <- system.file("config", "test_env_config.yml", package = "connector")
 #' yaml::read_yaml(yaml_file, eval.expr = TRUE) |> str()
 #' config <- read_yaml_config(yaml_file)
 #' str(config)
@@ -29,11 +29,24 @@ read_yaml_config <- function(file, set_env = TRUE) {
 
   if (set_env && length(config[["env"]])) {
     do.call(what = Sys.setenv, args = config[["env"]])
-    # TODO: Info on overwrite
-    zephyr::msg("overwriting stuff")
-  } else if (any(names(env_old) %in% names(config[["env"]]))) {
-    # TODO: Alert if inconsistencies, if not overwrite
-    zephyr::msg("inconsistencies", msg_fun = cli::cli_alert_warning)
+  }
+
+  if (any(names(env_old) %in% names(config[["env"]]))) {
+    nm <- intersect(names(env_old), names(config[["env"]]))
+
+    # Info on overwrite, and alert if inconsistencies, and not overwrite
+
+    if (set_env) {
+      c("i" = "Overwriting already set environment variables:",
+        paste0(nm, ": \"", env_old[nm], "\" --> \"", config[["env"]][nm], "\"") |>
+          rlang::set_names(">")) |>
+        zephyr::msg(msg_fun = cli::cli_bullets)
+    } else {
+      c("!" = "inconsistencies between existing environment variables and env entries:",
+        paste0(nm, ": \"", env_old[nm], "\" vs. \"", config[["env"]][nm], "\"") |>
+          rlang::set_names("*")) |>
+        zephyr::msg(msg_fun = cli::cli_bullets)
+    }
   }
 
   env <- env_old[!names(env_old) %in% names(config[["env"]])] |>

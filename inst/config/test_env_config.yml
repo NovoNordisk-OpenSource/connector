@@ -7,19 +7,20 @@ metadata:
 
 env:
   hello: "world"
+  RSQLite_db: ":memory:"
   system_path: "path: {env.PATH}"
 
 connections:
   - con: "adam_fs"
     backend:
         type: "connector_fs"
-        path: "{metadata.root_path}/{metadata.trial}/adam/{env.hello}"
+        path: "{metadata.root_path}/{metadata.trial}/adam"
         extra_class: "{metadata.extra_class}"
   - con: "general_dbi"
     backend:
         type: "connector_dbi"
         drv: "RSQLite::SQLite()"
-        dbname: ":memory:"
+        dbname: "{env.RSQLite_db}"
 datasources:
   - name: "adam"
     con: "adam_fs"

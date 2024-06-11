@@ -4,12 +4,10 @@
 \alias{read_yaml_config}
 \title{Read and parse yaml configuration file}
 \usage{
-read_yaml_config(file, eval.expr = TRUE, set_env = TRUE)
+read_yaml_config(file, set_env = TRUE)
 }
 \arguments{
 \item{file}{\link{character} Path to yaml file}
-
-\item{eval.expr}{\link{logical} Evaluate expressions in yaml file. Passed to \link[yaml:read_yaml]{yaml::read_yaml}}
 
 \item{set_env}{\link{logical} Should environment variables from the yaml file be set. Default is TRUE.}
 }
@@ -20,7 +18,7 @@ Configuration \link{list} with all content evaluated
 Read and parse yaml configuration file
 }
 \examples{
-yaml_file <- system.file("config", "default_env_config.yml", package = "connector")
+yaml_file <- system.file("config", "test_env_config.yml", package = "connector")
 yaml::read_yaml(yaml_file, eval.expr = TRUE) |> str()
 config <- read_yaml_config(yaml_file)
 str(config)
