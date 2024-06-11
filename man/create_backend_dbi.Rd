@@ -4,12 +4,12 @@
 \alias{create_backend_dbi}
 \title{Create a backend for the DBI (databases)}
 \usage{
-create_backend_dbi(yaml_content, backend, name)
+create_backend_dbi(backend)
 }
 \arguments{
-\item{yaml_content}{The yaml content}
-
 \item{backend}{The backend to create and because of DBI, a "drv" is mandatory}
+
+\item{yaml_content}{The yaml content}
 
 \item{name}{The name of the connection}
 }

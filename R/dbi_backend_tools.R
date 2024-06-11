@@ -21,31 +21,10 @@
 #'     extract_con()
 #' # Create the backend
 #' test <- create_backend_dbi(yaml_content = yaml_content, backend = my_backend, name = name)
-create_backend_dbi <- function(yaml_content, backend, name) {
+create_backend_dbi <- function(backend) {
     if (is.null(backend$drv)) {
-        stop("drv is a required field for dbi backend")
+        cli::cli_abort("drv is a required field for dbi backend")
     }
 
-    params_from_user <- backend[names(backend) != c("type")]
-
-    # extract metadata if needed
-    params_from_user <- purrr::map(params_from_user, function(x) {
-        extract_custom_path(yaml_content, x)
-    }) %>%
-        purrr::set_names(names(params_from_user))
-
-
-    connect_fct <- get_backend_fct(backend$type)
-
-    # Extract driver
-    params_from_user$drv <- get_backend_fct(backend$drv)()
-
-    connect_ <- do.call(connect_fct, params_from_user)
-
-    return(
-        list(
-            backend = connect_
-        ) %>%
-            purrr::set_names(name)
-    )
+    create_backend(backend)
 }

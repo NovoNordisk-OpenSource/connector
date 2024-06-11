@@ -1,18 +1,9 @@
 test_that("Create a backend for DBI", {
-  only_one <- extract_connections(yaml_content)[[2]]
 
-  my_backend <- only_one %>%
-    extract_backends()
+  only_one <- yaml_content_parsed |>
+    purrr::pluck("connections", 2, "backend")
 
-  name <- only_one %>%
-    extract_con()
+  connection <- create_backend_dbi(only_one)
 
-
-  test <- create_backend_dbi(yaml_content = yaml_content, backend = my_backend, name = name)
-
-  expect_type(test, "list")
-  expect_named(test, "general_dbi")
-  connection <- test$general_dbi
-  class(connection)
   expect_s3_class(connection, c("Connector_dbi", "R6"))
 })

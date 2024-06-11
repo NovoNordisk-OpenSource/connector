@@ -4,14 +4,10 @@
 \alias{create_backend}
 \title{Create a backend}
 \usage{
-create_backend(yaml_content, backend, name)
+create_backend(backend)
 }
 \arguments{
-\item{yaml_content}{The yaml content}
-
 \item{backend}{The backend to create}
-
-\item{name}{The name of the connection}
 }
 \value{
 A new backend based on R6 class

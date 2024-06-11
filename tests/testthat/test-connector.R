@@ -8,7 +8,7 @@ test_that("can create Connector object", {
 
 test_that("Connect datasources to the connections for a yaml file", {
     # create the connections
-    connect <- connect_from_yaml(yaml_content) %>%
+    connect <- connect_from_yaml(yaml_content_parsed) %>%
         expect_no_error()
 
     expect_s3_class(connect, "Connector")

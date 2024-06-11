@@ -4,14 +4,10 @@
 \alias{create_backend_fs}
 \title{Create a backend for the file system}
 \usage{
-create_backend_fs(yaml_content, backend, name)
+create_backend_fs(backend)
 }
 \arguments{
-\item{yaml_content}{The yaml content}
-
 \item{backend}{The backend to create and because of file system, a "path" is mandatory}
-
-\item{name}{The name of the connection}
 }
 \value{
 A new backend based on R6 class

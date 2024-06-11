@@ -44,11 +44,11 @@ connect_from_yaml <- function(yaml_content) {
 
   connections <- yaml_content$connections |>
     purrr::map(create_connection) |>
-    rlang::set_names(purrr::map(yaml_content$connections, "con"))
+    rlang::set_names(purrr::map_chr(yaml_content$connections, list("con", 1)))
 
   connector_ <- yaml_content$datasources |>
-    purrr::map(function(x) {connections[[x$con]]}) %>%
-    rlang::set_names(purrr::map(yaml_content$datasources, "name"))
+    purrr::map(\(x) connections[[x$con]]) %>%
+    rlang::set_names(purrr::map_chr(yaml_content$datasources, list("name", 1)))
 
   Connector(
     connector_
