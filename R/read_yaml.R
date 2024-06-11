@@ -65,7 +65,6 @@ read_yaml_config <- function(file, set_env = TRUE) {
 #' @noRd
 
 assert_config <- function(config, env = parent.frame()) {
-
   val <- checkmate::makeAssertCollection()
 
   checkmate::assert_list(x = config, names = "unique", add = val)
@@ -92,8 +91,9 @@ assert_config <- function(config, env = parent.frame()) {
     .x = config[["metadata"]],
     .y = names(config[["metadata"]]),
     .f = \(x, y) {
-      checkmate::assert_character(x, len = 1, .var.name = paste0("metadata.",y), add = val)
-    })
+      checkmate::assert_character(x, len = 1, .var.name = paste0("metadata.", y), add = val)
+    }
+  )
 
   checkmate::assert_list(
     x = config[["env"]],
@@ -107,8 +107,9 @@ assert_config <- function(config, env = parent.frame()) {
     .x = config[["env"]],
     .y = names(config[["env"]]),
     .f = \(x, y) {
-      checkmate::assert_character(x, len = 1, .var.name = paste0("env.",y), add = val)
-    })
+      checkmate::assert_character(x, len = 1, .var.name = paste0("env.", y), add = val)
+    }
+  )
 
   checkmate::assert_list(
     x = config[["connections"]],
@@ -121,12 +122,13 @@ assert_config <- function(config, env = parent.frame()) {
     .x = config[["connections"]],
     .y = seq_along(config[["connections"]]),
     .f = \(x, y) {
-      var = paste0("connections.",y)
+      var <- paste0("connections.", y)
       checkmate::assert_list(x, .var.name = var, add = val)
       checkmate::assert_names(names(x), type = "unique", must.include = c("con", "backend"), .var.name = var, add = val)
-      checkmate::assert_character(x[["con"]], len = 1, .var.name = paste0(var,".con"), add = val)
+      checkmate::assert_character(x[["con"]], len = 1, .var.name = paste0(var, ".con"), add = val)
       checkmate::assert_list(x[["backend"]], names = "unique", .var.name = paste0(var, ".backend"), add = val)
-    })
+    }
+  )
 
   checkmate::assert_list(
     x = config[["datasources"]],
@@ -139,17 +141,18 @@ assert_config <- function(config, env = parent.frame()) {
     .x = config[["datasources"]],
     .y = seq_along(config[["datasources"]]),
     .f = \(x, y) {
-      var = paste0("datasources.",y)
+      var <- paste0("datasources.", y)
       checkmate::assert_list(x, .var.name = var, add = val)
       checkmate::assert_names(names(x), type = "unique", must.include = c("name"), .var.name = var, add = val)
-      checkmate::assert_character(x[["name"]], len = 1, .var.name = paste0(var,".name"), add = val)
-    })
+      checkmate::assert_character(x[["name"]], len = 1, .var.name = paste0(var, ".name"), add = val)
+    }
+  )
 
   zephyr::report_checkmate_assertations(
     collection = val,
     msg = "Invalid configuration file:",
     env = env
-    )
+  )
 
   return(invisible(config))
 }
