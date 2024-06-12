@@ -1,3 +1,4 @@
 yaml_file <- system.file("config", "default_config.yml", package = "connector")
+yaml_file_env <- system.file("config", "test_env_config.yml", package = "connector")
 yaml_content_raw <- yaml::read_yaml(yaml_file, eval.expr = TRUE)
 yaml_content_parsed <- read_yaml_config(yaml_file)

@@ -42,7 +42,7 @@ read_yaml_config <- function(file, set_env = TRUE) {
           rlang::set_names(">")) |>
         zephyr::msg(msg_fun = cli::cli_bullets)
     } else {
-      c("!" = "inconsistencies between existing environment variables and env entries:",
+      c("!" = "Inconsistencies between existing environment variables and env entries:",
         paste0(nm, ": \"", env_old[nm], "\" vs. \"", config[["env"]][nm], "\"") |>
           rlang::set_names("*")) |>
         zephyr::msg(msg_fun = cli::cli_bullets)
@@ -179,7 +179,9 @@ parse_config <- function(content, input) {
     return(NULL)
   }
 
-  env <- unlist(input, recursive = FALSE)
+  env <- unlist(input, recursive = FALSE) |>
+    as.list() |>
+    list2env()
 
   content |>
     purrr::map_depth(
@@ -194,8 +196,7 @@ parse_config <- function(content, input) {
 glue_if_character <- function(x, ..., .envir = parent.frame()) {
   if (is.character(x)) {
     x |>
-      glue::glue(..., .envir = .envir) |>
-      as.character()
+      purrr::map_chr(\(x) glue::glue(x, ..., .envir = .envir))
   } else {
     x
   }
