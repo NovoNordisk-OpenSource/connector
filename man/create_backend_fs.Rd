@@ -17,13 +17,10 @@ Create a backend for the file system
 }
 \examples{
 yaml_file <- system.file("config", "default_config.yml", package = "connector")
-yaml_content <- yaml::read_yaml(yaml_file, eval.expr = TRUE)
-only_one <- extract_connections(yaml_content)[[1]]
-## Extract fct
-my_backend <- only_one \%>\%
-  extract_backends()
-name <- only_one \%>\%
-  extract_con()
-# Create the backend
-test <- create_backend_fs(yaml_content = yaml_content, backend = my_backend, name = name)
+yaml_content <- read_yaml_config(yaml_file)
+
+only_one <- yaml_content[["connections"]][[1]][["backend"]]
+
+test <- create_backend_fs(only_one)
+
 }

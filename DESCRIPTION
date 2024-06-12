@@ -26,7 +26,6 @@ Imports:
     R6 (>= 2.4.0),
     readr,
     rlang,
-    stringr,
     tools,
     utils,
     vroom,
