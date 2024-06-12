@@ -13,20 +13,19 @@
 #' test <- create_backend(only_one)
 #'
 create_backend <- function(backend) {
+  params_from_user <- backend[names(backend) != c("type")]
 
-    params_from_user <- backend[names(backend) != c("type")]
+  connect_fct <- get_backend_fct(backend$type)
 
-    connect_fct <- get_backend_fct(backend$type)
+  ## In case of db connection
+  ## TODO: detect if a function is used for all params?
+  if (!is.null(params_from_user$drv)) {
+    params_from_user$drv <- get_backend_fct(backend$drv)()
+  }
 
-    ## In case of db connection
-    ## TODO: detect if a function is used for all params?
-    if (!is.null(params_from_user$drv)) {
-        params_from_user$drv <- get_backend_fct(backend$drv)()
-    }
+  connect_ <- try_connect(connect_fct, params_from_user)
 
-    connect_ <- try_connect(connect_fct, params_from_user)
-
-    return(connect_)
+  return(connect_)
 }
 
 #' Get the backend function
@@ -60,11 +59,11 @@ get_backend_fct <- function(backend_type) {
 #' @param connect_fct The connection function
 #' @param params_from_user  The parameters from the user
 try_connect <- function(connect_fct, params_from_user) {
-    connect_ <- try(do.call(connect_fct, params_from_user), silent = TRUE)
+  connect_ <- try(do.call(connect_fct, params_from_user), silent = TRUE)
 
-    if (inherits(connect_, "try-error")) {
-        stop("Error in connection to the backend. Please check the parameters.")
-    }
+  if (inherits(connect_, "try-error")) {
+    stop("Error in connection to the backend. Please check the parameters.")
+  }
 
-    return(connect_)
+  return(connect_)
 }

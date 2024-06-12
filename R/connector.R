@@ -15,8 +15,7 @@ Connector <- function(...) {
 #' @param config The yaml content for a single connection
 #' @noRd
 create_connection <- function(config) {
-
-  switch (config$backend$type,
+  switch(config$backend$type,
     "connector_fs" = create_backend_fs(config$backend),
     "connector_dbi" = create_backend_dbi(config$backend),
     {
@@ -41,7 +40,6 @@ create_connection <- function(config) {
 #' # create the connections
 #' connect <- connect_from_yaml(yaml_content)
 connect_from_yaml <- function(yaml_content) {
-
   connections <- yaml_content$connections |>
     purrr::map(create_connection) |>
     rlang::set_names(purrr::map_chr(yaml_content$connections, list("con", 1)))

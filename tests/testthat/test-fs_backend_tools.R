@@ -1,5 +1,4 @@
 test_that("Create a backend for FS", {
-
   only_one <- yaml_content_parsed |>
     purrr::pluck("connections", 1, "backend")
 

@@ -12,9 +12,9 @@
 #' test <- create_backend_dbi(only_one)
 #'
 create_backend_dbi <- function(backend) {
-    if (is.null(backend$drv)) {
-        cli::cli_abort("drv is a required field for dbi backend")
-    }
+  if (is.null(backend$drv)) {
+    cli::cli_abort("drv is a required field for dbi backend")
+  }
 
-    create_backend(backend)
+  create_backend(backend)
 }

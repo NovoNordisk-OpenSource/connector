@@ -1,5 +1,4 @@
 test_that("Create a backend for DBI", {
-
   only_one <- yaml_content_parsed |>
     purrr::pluck("connections", 2, "backend")
 

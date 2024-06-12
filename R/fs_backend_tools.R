@@ -12,7 +12,6 @@
 #' test <- create_backend_fs(only_one)
 #'
 create_backend_fs <- function(backend) {
-
   if (!("path" %in% names(backend))) {
     cli::cli_abort("Path is mandatory for connector_fs")
   }

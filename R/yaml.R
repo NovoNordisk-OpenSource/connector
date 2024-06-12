@@ -37,14 +37,18 @@ read_yaml_config <- function(file, set_env = TRUE) {
     # Info on overwrite, and alert if inconsistencies, and not overwrite
 
     if (set_env) {
-      c("i" = "Overwriting already set environment variables:",
+      c(
+        "i" = "Overwriting already set environment variables:",
         paste0(nm, ": \"", env_old[nm], "\" --> \"", config[["env"]][nm], "\"") |>
-          rlang::set_names(">")) |>
+          rlang::set_names(">")
+      ) |>
         zephyr::msg(msg_fun = cli::cli_bullets)
     } else {
-      c("!" = "Inconsistencies between existing environment variables and env entries:",
+      c(
+        "!" = "Inconsistencies between existing environment variables and env entries:",
         paste0(nm, ": \"", env_old[nm], "\" vs. \"", config[["env"]][nm], "\"") |>
-          rlang::set_names("*")) |>
+          rlang::set_names("*")
+      ) |>
         zephyr::msg(msg_fun = cli::cli_bullets)
     }
   }
