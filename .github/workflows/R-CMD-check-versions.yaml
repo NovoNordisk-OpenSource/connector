@@ -52,6 +52,8 @@ jobs:
 
           install.packages(c("attachment", "rcmdcheck", "pak"), Ncpus = parallel::detectCores()-1)
 
+          pak::pak_update()
+
 
           attachment::att_from_description(field = c("Depends", "Imports", "Suggests", "Remotes")) |>
             pak::pkg_install()
