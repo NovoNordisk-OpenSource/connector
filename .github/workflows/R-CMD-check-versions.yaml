@@ -50,11 +50,11 @@ jobs:
             )
 
 
-          install.packages(c("attachment", "rcmdcheck"), Ncpus = parallel::detectCores()-1)
+          install.packages(c("attachment", "rcmdcheck", "pak"), Ncpus = parallel::detectCores()-1)
 
 
-          attachment::att_from_description(field = c("Depends", "Imports", "Suggests")) |>
-            install.packages(Ncpus = parallel::detectCores()-1)
+          attachment::att_from_description(field = c("Depends", "Imports", "Suggests", "Remotes")) |>
+            pak::pkg_install()
 
         shell: Rscript {0}
 
