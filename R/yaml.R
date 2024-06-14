@@ -38,7 +38,6 @@ read_yaml_config <- function(file, set_env = TRUE) {
 
     if (set_env) {
       c(
-
         "!" = "Overwriting already set environment variables:",
         rlang::set_names(nm, "*"),
         "i" = "To revert back to the original values restart your R session"
@@ -47,7 +46,7 @@ read_yaml_config <- function(file, set_env = TRUE) {
     } else {
       c(
         "!" = "Inconsistencies between existing environment variables and env entries:",
-          rlang::set_names(nm, "*")
+        rlang::set_names(nm, "*")
       ) |>
         zephyr::msg(msg_fun = cli::cli_bullets)
     }
@@ -142,10 +141,14 @@ assert_config <- function(config, env = parent.frame()) {
     .f = \(x, y) {
       var <- paste0("connections.", y)
       checkmate::assert_list(x, .var.name = var, add = val)
-      checkmate::assert_names(names(x), type = "unique", must.include = c("con", "backend"), .var.name = var, add = val)
-      checkmate::assert_character(x[["con"]], len = 1, .var.name = paste0(var, ".con"), add = val)
-      checkmate::assert_list(x[["backend"]], names = "unique", .var.name = paste0(var, ".backend"), add = val)
-      checkmate::assert_character(x[["backend"]][["type"]], len = 1, .var.name = paste0(var, ".backend.type"), add = val)
+      checkmate::assert_names(names(x), type = "unique", must.include = c("con", "backend"),
+                              .var.name = var, add = val)
+      checkmate::assert_character(x[["con"]], len = 1,
+                                  .var.name = paste0(var, ".con"), add = val)
+      checkmate::assert_list(x[["backend"]], names = "unique",
+                             .var.name = paste0(var, ".backend"), add = val)
+      checkmate::assert_character(x[["backend"]][["type"]], len = 1,
+                                  .var.name = paste0(var, ".backend.type"), add = val)
     }
   )
 

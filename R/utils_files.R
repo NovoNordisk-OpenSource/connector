@@ -46,12 +46,7 @@ assert_ext <- function(ext, method) {
     x = as.character(utils::methods(method))
   )
 
-  # TODO: Have to be better !
-  # cli::cli_alert("Supported extensions are:")
-  # cli::cli_bullets(
-  #     supported_fs()
-  # )
-
+  # TODO: Have to be better ! Use cli::bullets?
   checkmate::assert_choice(x = ext, choices = valid)
 }
 
@@ -63,7 +58,8 @@ error_extension <- function() {
   ext_supp <- supported_fs() %>%
     rlang::set_names("*")
   c(
-    "No method found for this extension, please implement your own method (to see an example run `connector::example_read_ext()`) or use a supported extension",
+    "No method found for this extension, please implement your own method
+    (to see an example run `connector::example_read_ext()`) or use a supported extension",
     "i" = "Supported extensions are:",
     ext_supp
   ) %>%

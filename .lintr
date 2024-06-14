@@ -3,4 +3,7 @@ linters: linters_with_defaults(
   object_usage_linter = NULL,
   object_name_linter = NULL
   ) # see vignette("lintr")
+exclusions: list(
+  "dev/"
+  )
 encoding: "UTF-8"
