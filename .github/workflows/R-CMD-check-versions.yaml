@@ -44,9 +44,9 @@ jobs:
           sudo apt install libcurl4-openssl-dev
 
       - name: Install dependencies
-        run: >
+        run: |
           options(
-            repos = c(CRAN = "https://packagemanager.posit.co/cran/${{matrix.config.date }}")
+            repos = c(CRAN = "https://packagemanager.posit.co/cran/${{ matrix.config.date }}")
             )
 
 
@@ -71,7 +71,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           docker pull postgres
-          docker run --name my-postgres --env POSTGRES_PASSWORD=admin --publish 5432:5432 --detach postgres
+          docker run --name my-postgres --env POSTGRES_PASSWORD=${{ secrets.TEST_POSTGRES_DB_PW }} --publish 5432:5432 --detach postgres
 
       - uses: r-lib/actions/check-r-package@v2
         with:

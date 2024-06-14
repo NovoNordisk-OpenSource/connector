@@ -55,7 +55,7 @@ jobs:
         if: runner.os == 'Linux'
         run: |
           docker pull postgres
-          docker run --name my-postgres --env POSTGRES_PASSWORD=admin --publish 5432:5432 --detach postgres
+          docker run --name my-postgres --env POSTGRES_PASSWORD=${{ secrets.TEST_POSTGRES_DB_PW }} --publish 5432:5432 --detach postgres
 
       - uses: r-lib/actions/check-r-package@v2
         with:

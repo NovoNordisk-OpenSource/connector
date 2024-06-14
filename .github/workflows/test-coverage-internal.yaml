@@ -37,7 +37,7 @@ jobs:
       - name: Start local postgres server with Docker
         run: |
           docker pull postgres
-          docker run --name my-postgres --env POSTGRES_PASSWORD=admin --publish 5432:5432 --detach postgres
+          docker run --name my-postgres --env POSTGRES_PASSWORD=${{ secrets.TEST_POSTGRES_DB_PW }} --publish 5432:5432 --detach postgres
 
       - name: Test coverage
         run: |
