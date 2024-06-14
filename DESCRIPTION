@@ -1,15 +1,14 @@
 Package: connector
-Title: The connector package helps connecting R to databases that contains
-    ADAM, STDM and so on. The package defines an interface that can be
-    reuse for any databases
+Title: Connect to your data easily
 Version: 0.0.0.9000
 Authors@R: c(
     person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
     person("Aksel", "Thomsen", , "oath@novonordisk.com", role = "aut"),
     person("Novo Nordisk A/S", role = "cph")
   )
-Description: Defines common standards, workflows, and actions for new R
-    packages.
+Description: The connector package helps connecting R to databases that contains
+    ADAM, STDM and so on. The package defines an interface that can be
+    reuse for any databases.
 License: Apache License (>= 2)
 URL: https://jubilant-adventure-yr95p3g.pages.github.io/
 Imports: 

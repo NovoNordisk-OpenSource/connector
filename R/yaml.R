@@ -38,16 +38,16 @@ read_yaml_config <- function(file, set_env = TRUE) {
 
     if (set_env) {
       c(
-        "i" = "Overwriting already set environment variables:",
-        paste0(nm, ": \"", env_old[nm], "\" --> \"", config[["env"]][nm], "\"") |>
-          rlang::set_names(">")
+
+        "!" = "Overwriting already set environment variables:",
+        rlang::set_names(nm, "*"),
+        "i" = "To revert back to the original values restart your R session"
       ) |>
         zephyr::msg(msg_fun = cli::cli_bullets)
     } else {
       c(
         "!" = "Inconsistencies between existing environment variables and env entries:",
-        paste0(nm, ": \"", env_old[nm], "\" vs. \"", config[["env"]][nm], "\"") |>
-          rlang::set_names("*")
+          rlang::set_names(nm, "*")
       ) |>
         zephyr::msg(msg_fun = cli::cli_bullets)
     }

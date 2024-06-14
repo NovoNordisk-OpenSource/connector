@@ -5,6 +5,7 @@ NULL
 #' @eval options::as_params()
 #' @name options_params
 #' @keywords internal
+#' @importFrom options define_option
 #'
 NULL
 
