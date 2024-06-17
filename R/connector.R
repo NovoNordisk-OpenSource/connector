@@ -12,40 +12,17 @@ Connector <- function(...) {
 
 #' Create a connection object depending on the backend type
 #'
-#' @param yaml_content The yaml content
-#' @param connection The connection object from the yaml
-#'
-create_connection <- function(yaml_content, connection) {
-  if (is.null(connection$backend$type)) {
-    stop("No backend type defined in the connection")
-  }
-  ## TODO: should be better then that S3 method ?
-  if (connection$backend$type == "connector_fs") {
-    return(
-      create_backend_fs(yaml_content, connection$backend, connection$con)
-    )
-  } else if (connection$backend$type == "connector_dbi") {
-    return(
-      create_backend_dbi(yaml_content, connection$backend, connection$con)
-    )
-  } else {
-    message("Using generic backend connection")
-    return(
-      create_backend(yaml_content, connection$backend, connection$con)
-    )
-  }
-}
-
-
-#' Create all connections from the yaml content
-#'
-#' @param yaml_content The yaml content
-#'
-get_connections <- function(yaml_content) {
-  connections <- extract_connections(yaml_content)
-
-  purrr::map(connections, ~ create_connection(yaml_content, .x)) %>%
-    purrr::flatten()
+#' @param config The yaml content for a single connection
+#' @noRd
+create_connection <- function(config) {
+  switch(config$backend$type,
+    "connector_fs" = create_backend_fs(config$backend),
+    "connector_dbi" = create_backend_dbi(config$backend),
+    {
+      zephyr::msg("Using generic backend connection for con: {config$con}")
+      create_backend(config$backend)
+    }
+  )
 }
 
 
@@ -59,18 +36,17 @@ get_connections <- function(yaml_content) {
 #' @examples
 # # read yaml file
 #' yaml_file <- system.file("config", "default_config.yml", package = "connector")
-#' yaml_content <- yaml::read_yaml(yaml_file, eval.expr = TRUE)
+#' yaml_content <- read_yaml_config(yaml_file)
 #' # create the connections
 #' connect <- connect_from_yaml(yaml_content)
 connect_from_yaml <- function(yaml_content) {
-  ## extract datasources
-  datasources <- extract_datasources(yaml_content)
-  connections <- get_connections(yaml_content)
+  connections <- yaml_content$connections |>
+    purrr::map(create_connection) |>
+    rlang::set_names(purrr::map_chr(yaml_content$connections, list("con", 1)))
 
-  connector_ <- purrr::map(datasources, function(x) {
-    connections[[x$con]]
-  }) %>%
-    purrr::set_names(map(datasources, ~ .x$name))
+  connector_ <- yaml_content$datasources |>
+    purrr::map(\(x) connections[[x$con]]) %>%
+    rlang::set_names(purrr::map_chr(yaml_content$datasources, list("name", 1)))
 
   Connector(
     connector_
