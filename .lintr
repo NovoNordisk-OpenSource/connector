@@ -1,4 +1,9 @@
 linters: linters_with_defaults(
-  line_length_linter(120)
+  line_length_linter(120),
+  object_usage_linter = NULL,
+  object_name_linter = NULL
   ) # see vignette("lintr")
+exclusions: list(
+  "dev/"
+  )
 encoding: "UTF-8"
