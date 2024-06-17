@@ -55,25 +55,10 @@
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/create_backend_fs.html</loc>
   </url>
   <url>
-    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/create_connection.html</loc>
-  </url>
-  <url>
-    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/custom_path_or_not.html</loc>
-  </url>
-  <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/error_extension.html</loc>
   </url>
   <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/example_read_ext.html</loc>
-  </url>
-  <url>
-    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/extract_custom_path.html</loc>
-  </url>
-  <url>
-    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/extract_element.html</loc>
-  </url>
-  <url>
-    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/extract_info_from_metadata.html</loc>
   </url>
   <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/find_file.html</loc>
@@ -82,10 +67,13 @@
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/get_backend_fct.html</loc>
   </url>
   <url>
-    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/get_connections.html</loc>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/index.html</loc>
   </url>
   <url>
-    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/index.html</loc>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/options.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/options_params.html</loc>
   </url>
   <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/pipe.html</loc>
@@ -95,6 +83,9 @@
   </url>
   <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/read_file.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/read_yaml_config.html</loc>
   </url>
   <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/supported_fs.html</loc>
