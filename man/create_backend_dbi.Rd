@@ -4,14 +4,10 @@
 \alias{create_backend_dbi}
 \title{Create a backend for the DBI (databases)}
 \usage{
-create_backend_dbi(yaml_content, backend, name)
+create_backend_dbi(backend)
 }
 \arguments{
-\item{yaml_content}{The yaml content}
-
 \item{backend}{The backend to create and because of DBI, a "drv" is mandatory}
-
-\item{name}{The name of the connection}
 }
 \value{
 A new backend based on R6 class
@@ -21,13 +17,10 @@ Create a backend for the DBI (databases)
 }
 \examples{
 yaml_file <- system.file("config", "default_config.yml", package = "connector")
-yaml_content <- yaml::read_yaml(yaml_file, eval.expr = TRUE)
-only_one <- extract_connections(yaml_content)[[2]]
-## Extract fct
-my_backend <- only_one \%>\%
-    extract_backends()
-name <- only_one \%>\%
-    extract_con()
-# Create the backend
-test <- create_backend_dbi(yaml_content = yaml_content, backend = my_backend, name = name)
+yaml_content <- read_yaml_config(yaml_file)
+
+only_one <- yaml_content[["connections"]][[2]][["backend"]]
+
+test <- create_backend_dbi(only_one)
+
 }

@@ -17,7 +17,7 @@ Connect datasources to the connections from the yaml content
 }
 \examples{
 yaml_file <- system.file("config", "default_config.yml", package = "connector")
-yaml_content <- yaml::read_yaml(yaml_file, eval.expr = TRUE)
+yaml_content <- read_yaml_config(yaml_file)
 # create the connections
 connect <- connect_from_yaml(yaml_content)
 }
