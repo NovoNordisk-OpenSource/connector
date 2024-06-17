@@ -4,9 +4,9 @@
 \name{connector-package}
 \alias{connector}
 \alias{connector-package}
-\title{connector: The connector package helps connecting R to databases that contains ADAM, STDM and so on. The package defines an interface that can be reuse for any databases}
+\title{connector: Connect to your data easily}
 \description{
-Defines common standards, workflows, and actions for new R packages.
+The connector package helps connecting R to databases that contains ADAM, STDM and so on. The package defines an interface that can be reuse for any databases.
 }
 \seealso{
 Useful links:
