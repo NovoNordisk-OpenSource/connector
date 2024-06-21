@@ -16,6 +16,7 @@ The connector_fs class is a file system connector for accessing and manipulating
 \item \href{#method-Connector_fs-read}{\code{Connector_fs$read()}}
 \item \href{#method-Connector_fs-write}{\code{Connector_fs$write()}}
 \item \href{#method-Connector_fs-remove}{\code{Connector_fs$remove()}}
+\item \href{#method-Connector_fs-get_path}{\code{Connector_fs$get_path()}}
 \item \href{#method-Connector_fs-clone}{\code{Connector_fs$clone()}}
 }
 }
@@ -127,6 +128,19 @@ Remove the specified file by given name with extension
 \item{\code{file}}{File name}
 }
 \if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Connector_fs-get_path"></a>}}
+\if{latex}{\out{\hypertarget{method-Connector_fs-get_path}{}}}
+\subsection{Method \code{get_path()}}{
+Returns the path of the file system
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connector_fs$get_path()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+Path to the file system
 }
 }
 \if{html}{\out{<hr>}}

@@ -1,3 +1,20 @@
+#' Read files for the Connector_fs class
+#' @export
+#' @param connector_object A Connector_fs object
+#' @param name Name of the file to read
+#' @param ... Other parameters to pass to the read_file function (depends on the extension of a file)
+#'
+#' @examples
+#' connector <- Connector_fs$new(tempdir())
+#' connector$write(iris, "iris.csv")
+#' connector$read("iris.csv")
+#' connector$remove("iris.csv")
+read.Connector_fs <- function(connector_object, name, ...) {
+  name |>
+    find_file(root = connector_object$get_path()) |>
+    read_file(...)
+}
+
 #' Read files based on the extension
 #'
 #' The aim of this function is to identify the extension on the file to dispatch it.
