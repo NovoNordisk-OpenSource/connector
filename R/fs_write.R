@@ -1,4 +1,22 @@
 #' Write a file based on this extension
+#' @export
+#'
+#' @param connector_object A Connector_fs object
+#' @param x Object to write
+#' @param file Path to write the file
+#' @param ... Other parameters for write's functions
+#'
+#' @examples
+#' connector <- Connector_fs$new(tempdir())
+#' connector$write(iris, "iris.csv")
+#' connector$remove("iris.csv")
+#'
+write.Connector_fs <- function(connector_object, x, file, ...) {
+  x %>%
+    write_file(connector_object$construct_path(file), ...)
+}
+
+#' Write a file based on this extension
 #'
 #' @param x Object to write
 #' @param file Path to write the file
