@@ -63,21 +63,11 @@ list_content.default <- function(connector_object, ...) {
     stop("Method not implemented")
 }
 
+
 ################
 ## DBI methods##
 ################
 
-#' get_conn method for connector object
-#' @rdname connector_methods
-#' @export
-get_conn <- function(connector_object, ...) {
-    UseMethod("get_conn")
-}
-
-#' @export
-get_conn.default <- function(connector_object, ...) {
-    stop("Method not implemented")
-}
 
 #' disconnect method for connector object
 #' @rdname connector_methods

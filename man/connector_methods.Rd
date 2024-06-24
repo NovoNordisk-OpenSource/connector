@@ -6,7 +6,6 @@
 \alias{write}
 \alias{remove}
 \alias{list_content}
-\alias{get_conn}
 \alias{disconnect}
 \alias{tbl}
 \title{Defaults method for connector object}
@@ -18,8 +17,6 @@ write(connector_object, ...)
 remove(connector_object, ...)
 
 list_content(connector_object, ...)
-
-get_conn(connector_object, ...)
 
 disconnect(connector_object, ...)
 
