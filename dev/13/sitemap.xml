@@ -58,6 +58,9 @@
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/create_backend_fs.html</loc>
   </url>
   <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/disconnect.Connector_dbi.html</loc>
+  </url>
+  <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/error_extension.html</loc>
   </url>
   <url>
@@ -73,6 +76,12 @@
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/index.html</loc>
   </url>
   <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/list_content.Connector_dbi.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/list_content.Connector_fs.html</loc>
+  </url>
+  <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/options.html</loc>
   </url>
   <url>
@@ -80,6 +89,9 @@
   </url>
   <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/pipe.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/read.Connector_dbi.html</loc>
   </url>
   <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/read.Connector_fs.html</loc>
@@ -94,13 +106,22 @@
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/read_yaml_config.html</loc>
   </url>
   <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/remove.Connector_dbi.html</loc>
+  </url>
+  <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/remove.Connector_fs.html</loc>
   </url>
   <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/supported_fs.html</loc>
   </url>
   <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/tbl.Connector_dbi.html</loc>
+  </url>
+  <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/try_connect.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/write.Connector_dbi.html</loc>
   </url>
   <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/write.Connector_fs.html</loc>
