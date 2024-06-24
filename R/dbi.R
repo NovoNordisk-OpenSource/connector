@@ -69,7 +69,8 @@ Connector_dbi <- R6::R6Class(
     #' @param ... Additional arguments passed to [DBI::dbListTables]
     #' @return A [character] vector of table names
     list_content = function(...) {
-      DBI::dbListTables(conn = private$conn, ...)
+      self %>%
+        list_content(...)
     },
 
     #' @description Get the connection object
@@ -80,33 +81,38 @@ Connector_dbi <- R6::R6Class(
 
     #' @description Disconnect from the database
     disconnect = function() {
-      DBI::dbDisconnect(conn = private$conn)
+      self %>%
+        disconnect()
     },
 
     #' @description Read a table from the database
     #' @param ... Additional arguments passed to [DBI::dbReadTable]
     #' @return A [data.frame]
     read = function(name, ...) {
-      DBI::dbReadTable(conn = private$conn, name = name, ...)
+      self %>%
+        read(name, ...)
     },
 
     #' @description Write a table to the database
     #' @param x [data.frame] Table to write
     #' @param ... Additional arguments passed to [DBI::dbWriteTable]
     write = function(x, name, ...) {
-      DBI::dbWriteTable(conn = private$conn, name = name, value = x, ...)
+      self %>%
+        write(x, name, ...)
     },
 
     #' @description Remove a table from the database
     #' @param ... Additional arguments passed to [DBI::dbRemoveTable]
     remove = function(name, ...) {
-      DBI::dbRemoveTable(conn = private$conn, name = name, ...)
+      self %>%
+        remove(name, ...)
     },
 
     #' @description Create a [tbl] object
     #' @param ... Additional arguments passed to [dplyr::tbl]
     tbl = function(name, ...) {
-      dplyr::tbl(src = private$conn, from = name, ...)
+      self %>%
+        tbl(name, ...)
     }
   ),
   private = list(
