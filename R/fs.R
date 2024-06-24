@@ -56,7 +56,8 @@ Connector_fs <- R6::R6Class(
     #' @description Returns the list of files in the specified path
     #' @param ... Other parameters to pass to the list.files function
     list_content = function(...) {
-      list.files(path = private$path, ...)
+      self %>%
+        list_content(...)
     },
     #' @description Constructs a complete path by combining the specified access path with the provided elements
     #' @param ... Elements to construct the path
