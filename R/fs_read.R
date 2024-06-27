@@ -9,7 +9,7 @@
 #' connector$write(iris, "iris.csv")
 #' connector$read("iris.csv")
 #' connector$remove("iris.csv")
-read.Connector_fs <- function(connector_object, name, ...) {
+cnt_read.Connector_fs <- function(connector_object, name, ...) {
   name |>
     find_file(root = connector_object$get_path()) |>
     read_file(...)

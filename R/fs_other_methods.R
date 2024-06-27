@@ -9,7 +9,7 @@
 #' connector <- Connector_fs$new(tempdir())
 #' connector$write(iris, "iris.csv")
 #' connector$remove("iris.csv")
-remove.Connector_fs <- function(connector_object, ...) {
+cnt_remove.Connector_fs <- function(connector_object, ...) {
     unlink(connector_object$construct_path(...))
 }
 
@@ -23,7 +23,7 @@ remove.Connector_fs <- function(connector_object, ...) {
 #' connector <- Connector_fs$new(tempdir())
 #' connector$write(iris, "iris.csv")
 #' connector$list_content()
-list_content.Connector_fs <- function(connector_object, ...) {
+cnt_list_content.Connector_fs <- function(connector_object, ...) {
     connector_object$get_path() %>%
         list.files(...)
 }
