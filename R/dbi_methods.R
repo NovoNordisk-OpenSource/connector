@@ -13,7 +13,7 @@
 #'
 #' connector$read("iris")
 #'
-read.Connector_dbi <- function(connector_object, name, ...) {
+cnt_read.Connector_dbi <- function(connector_object, name, ...) {
     connector_object$get_conn() %>%
         DBI::dbReadTable(name = name, ...)
 }
@@ -29,7 +29,7 @@ read.Connector_dbi <- function(connector_object, name, ...) {
 #' @examples
 #' connector <- Connector_dbi$new(RSQLite::SQLite())
 #' connector$write(iris, "iris")
-write.Connector_dbi <- function(connector_object, x, name, ...) {
+cnt_write.Connector_dbi <- function(connector_object, x, name, ...) {
     connector_object$get_conn() %>%
         DBI::dbWriteTable(name = name, value = x, ...)
 }
@@ -43,7 +43,7 @@ write.Connector_dbi <- function(connector_object, x, name, ...) {
 #' connector <- Connector_dbi$new(RSQLite::SQLite())
 #' connector$write(iris, "iris")
 #' connector$list_content()
-list_content.Connector_dbi <- function(connector_object, ...) {
+cnt_list_content.Connector_dbi <- function(connector_object, ...) {
     connector_object$get_conn() %>%
         DBI::dbListTables(...)
 }
@@ -57,7 +57,7 @@ list_content.Connector_dbi <- function(connector_object, ...) {
 #' connector <- Connector_dbi$new(RSQLite::SQLite())
 #' connector$write(iris, "iris")
 #' connector$remove("iris")
-remove.Connector_dbi <- function(connector_object, name, ...) {
+cnt_remove.Connector_dbi <- function(connector_object, name, ...) {
     connector_object$get_conn() %>%
         DBI::dbRemoveTable(name = name, ...)
 }
@@ -71,7 +71,7 @@ remove.Connector_dbi <- function(connector_object, name, ...) {
 #' connector <- Connector_dbi$new(RSQLite::SQLite())
 #' connector$write(iris, "iris")
 #' connector$tbl("iris")
-tbl.Connector_dbi <- function(connector_object, name, ...) {
+cnt_tbl.Connector_dbi <- function(connector_object, name, ...) {
     connector_object$get_conn() %>%
         dplyr::tbl(from = name, ...)
 }
@@ -83,7 +83,7 @@ tbl.Connector_dbi <- function(connector_object, name, ...) {
 #' @examples
 #' connector <- Connector_dbi$new(RSQLite::SQLite())
 #' connector$disconnect()
-disconnect.Connector_dbi <- function(connector_object, ...) {
+cnt_disconnect.Connector_dbi <- function(connector_object, ...) {
     connector_object$get_conn() %>%
         DBI::dbDisconnect(...)
 }

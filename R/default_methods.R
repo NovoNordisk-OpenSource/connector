@@ -18,48 +18,48 @@
 #'
 #' @name connector_methods
 #'
-read <- function(connector_object, ...) {
-    UseMethod("read")
+cnt_read <- function(connector_object, ...) {
+    UseMethod("cnt_read")
 }
 
 #' @export
-read.default <- function(connector_object, ...) {
+cnt_read.default <- function(connector_object, ...) {
     stop("Method not implemented")
 }
 
 #' Write method for connector object
 #' @rdname connector_methods
 #' @export
-write <- function(connector_object, ...) {
-    UseMethod("write")
+cnt_write <- function(connector_object, ...) {
+    UseMethod("cnt_write")
 }
 
 #' @export
-write.default <- function(connector_object, ...) {
+cnt_write.default <- function(connector_object, ...) {
     stop("Method not implemented")
 }
 
 #' Remove method for connector object
 #' @export
 #' @rdname connector_methods
-remove <- function(connector_object, ...) {
-    UseMethod("remove")
+cnt_remove <- function(connector_object, ...) {
+    UseMethod("cnt_remove")
 }
 
 #' @export
-remove.default <- function(connector_object, ...) {
+cnt_remove.default <- function(connector_object, ...) {
     stop("Method not implemented")
 }
 
 #' List content method for connector object
 #' @export
 #' @rdname connector_methods
-list_content <- function(connector_object, ...) {
-    UseMethod("list_content")
+cnt_list_content <- function(connector_object, ...) {
+    UseMethod("cnt_list_content")
 }
 
 #' @export
-list_content.default <- function(connector_object, ...) {
+cnt_list_content.default <- function(connector_object, ...) {
     stop("Method not implemented")
 }
 
@@ -72,23 +72,23 @@ list_content.default <- function(connector_object, ...) {
 #' disconnect method for connector object
 #' @rdname connector_methods
 #' @export
-disconnect <- function(connector_object, ...) {
-    UseMethod("disconnect")
+cnt_disconnect <- function(connector_object, ...) {
+    UseMethod("cnt_disconnect")
 }
 
 #' @export
-disconnect.default <- function(connector_object, ...) {
+cnt_disconnect.default <- function(connector_object, ...) {
     stop("Method not implemented")
 }
 
 #' tbl method for connector object
 #' @rdname connector_methods
 #' @export
-tbl <- function(connector_object, ...) {
-    UseMethod("tbl")
+cnt_tbl <- function(connector_object, ...) {
+    UseMethod("cnt_tbl")
 }
 
 #' @export
-tbl.default <- function(connector_object, ...) {
+cnt_tbl.default <- function(connector_object, ...) {
     stop("Method not implemented")
 }
