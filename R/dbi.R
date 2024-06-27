@@ -16,7 +16,7 @@
 #' @examples
 #' # Create DBI connector
 #'
-#' db <- connector::Connector_dbi$new(RSQLite::SQLite(), ":memory:")
+#' db <- Connector_dbi$new(RSQLite::SQLite(), ":memory:")
 #'
 #' db
 #'
@@ -70,7 +70,7 @@ Connector_dbi <- R6::R6Class(
     #' @return A [character] vector of table names
     list_content = function(...) {
       self %>%
-        list_content(...)
+        cnt_list_content(...)
     },
 
     #' @description Get the connection object
@@ -82,7 +82,7 @@ Connector_dbi <- R6::R6Class(
     #' @description Disconnect from the database
     disconnect = function() {
       self %>%
-        disconnect()
+        cnt_disconnect()
     },
 
     #' @description Read a table from the database
@@ -90,7 +90,7 @@ Connector_dbi <- R6::R6Class(
     #' @return A [data.frame]
     read = function(name, ...) {
       self %>%
-        read(name, ...)
+        cnt_read(name, ...)
     },
 
     #' @description Write a table to the database
@@ -98,21 +98,21 @@ Connector_dbi <- R6::R6Class(
     #' @param ... Additional arguments passed to [DBI::dbWriteTable]
     write = function(x, name, ...) {
       self %>%
-        write(x, name, ...)
+        cnt_write(x, name, ...)
     },
 
     #' @description Remove a table from the database
     #' @param ... Additional arguments passed to [DBI::dbRemoveTable]
     remove = function(name, ...) {
       self %>%
-        remove(name, ...)
+        cnt_remove(name, ...)
     },
 
     #' @description Create a [tbl] object
     #' @param ... Additional arguments passed to [dplyr::tbl]
     tbl = function(name, ...) {
       self %>%
-        tbl(name, ...)
+        cnt_tbl(name, ...)
     }
   ),
   private = list(

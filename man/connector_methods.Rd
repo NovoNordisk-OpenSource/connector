@@ -2,25 +2,25 @@
 % Please edit documentation in R/default_methods.R
 \name{connector_methods}
 \alias{connector_methods}
-\alias{read}
-\alias{write}
-\alias{remove}
-\alias{list_content}
-\alias{disconnect}
-\alias{tbl}
+\alias{cnt_read}
+\alias{cnt_write}
+\alias{cnt_remove}
+\alias{cnt_list_content}
+\alias{cnt_disconnect}
+\alias{cnt_tbl}
 \title{Defaults method for connector object}
 \usage{
-read(connector_object, ...)
+cnt_read(connector_object, ...)
 
-write(connector_object, ...)
+cnt_write(connector_object, ...)
 
-remove(connector_object, ...)
+cnt_remove(connector_object, ...)
 
-list_content(connector_object, ...)
+cnt_list_content(connector_object, ...)
 
-disconnect(connector_object, ...)
+cnt_disconnect(connector_object, ...)
 
-tbl(connector_object, ...)
+cnt_tbl(connector_object, ...)
 }
 \arguments{
 \item{connector_object}{A connector object to be able to use functions from it}

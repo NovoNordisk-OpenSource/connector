@@ -57,7 +57,7 @@ Connector_fs <- R6::R6Class(
     #' @param ... Other parameters to pass to the list.files function
     list_content = function(...) {
       self %>%
-        list_content(...)
+        cnt_list_content(...)
     },
     #' @description Constructs a complete path by combining the specified access path with the provided elements
     #' @param ... Elements to construct the path
@@ -69,7 +69,7 @@ Connector_fs <- R6::R6Class(
     #' @param ... Other parameters to pass to the read_file function (depends on the extension of a file)
     read = function(name, ...) {
       self %>%
-        read(name, ...)
+        cnt_read(name, ...)
     },
     #' @description Writes the specified content to the specified file using the private access path and additional options
     #' @param x Content to write to the file
@@ -77,14 +77,14 @@ Connector_fs <- R6::R6Class(
     #' @param ... Other parameters to pass to the write_file function (depends on the extension of a file)
     write = function(x, file, ...) {
       self %>%
-        write(x = x, file = file, ...)
+        cnt_write(x = x, file = file, ...)
     },
     #' @description Remove the specified file by given name with extension
     #' @param file File name
     #'
     remove = function(file) {
       self %>%
-        remove(file)
+        cnt_remove(file)
     },
     #' @description Returns the path of the file system
     #' @return Path to the file system
