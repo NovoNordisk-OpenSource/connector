@@ -65,10 +65,13 @@
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">yaml_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"config"</span>, <span class="st">"default_config.yml"</span>, package <span class="op">=</span> <span class="st">"connector"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">yaml_content</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_yaml_config.html">read_yaml_config</a></span><span class="op">(</span><span class="va">yaml_file</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> 'report_checkmate_assertations' is not an exported object from 'namespace:zephyr'</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">only_one</span> <span class="op">&lt;-</span> <span class="va">yaml_content</span><span class="op">[[</span><span class="st">"connections"</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="fl">1</span><span class="op">]</span><span class="op">]</span><span class="op">[[</span><span class="st">"backend"</span><span class="op">]</span><span class="op">]</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'yaml_content' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">test</span> <span class="op">&lt;-</span> <span class="fu">create_backend_fs</span><span class="op">(</span><span class="va">only_one</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in eval(expr, envir, enclos):</span> object 'only_one' not found</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
