@@ -11,7 +11,7 @@
 #' connector$write(iris, "iris.csv")
 #' connector$remove("iris.csv")
 #'
-write.Connector_fs <- function(connector_object, x, file, ...) {
+cnt_write.Connector_fs <- function(connector_object, x, file, ...) {
   x %>%
     write_file(connector_object$construct_path(file), ...)
 }
