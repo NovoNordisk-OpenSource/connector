@@ -3,12 +3,10 @@
 #' @export
 Connector <- function(...) {
   structure(
-
     ...,
     class = c("Connector")
   )
 }
-
 
 #' Create a connection object depending on the backend type
 #'

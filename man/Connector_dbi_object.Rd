@@ -15,7 +15,7 @@ But it is good practice to call \code{disconnect} when you are done with the con
 \examples{
 # Create DBI connector
 
-db <- connector::Connector_dbi$new(RSQLite::SQLite(), ":memory:")
+db <- Connector_dbi$new(RSQLite::SQLite(), ":memory:")
 
 db
 
