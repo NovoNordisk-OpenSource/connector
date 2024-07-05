@@ -34,6 +34,36 @@
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/assert_path.html</loc>
   </url>
   <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/cnt_disconnect.Connector_dbi.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/cnt_list_content.Connector_dbi.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/cnt_list_content.Connector_fs.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/cnt_read.Connector_dbi.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/cnt_read.Connector_fs.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/cnt_remove.Connector_dbi.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/cnt_remove.Connector_fs.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/cnt_tbl.Connector_dbi.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/cnt_write.Connector_dbi.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/cnt_write.Connector_fs.html</loc>
+  </url>
+  <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/connect_from_yaml.html</loc>
   </url>
   <url>
@@ -44,6 +74,9 @@
   </url>
   <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/connector_fs.html</loc>
+  </url>
+  <url>
+    <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/connector_methods.html</loc>
   </url>
   <url>
     <loc>https://jubilant-adventure-yr95p3g.pages.github.io/reference/create_backend.html</loc>
