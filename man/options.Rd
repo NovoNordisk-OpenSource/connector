@@ -30,5 +30,5 @@ How chatty should the log be? Possibilities are \code{quiet}, \code{verbose}, an
 }
 
 \seealso{
-options getOption Sys.getenv Sys.getenv
+options getOption Sys.setenv Sys.getenv
 }

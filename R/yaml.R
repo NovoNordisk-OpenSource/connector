@@ -14,7 +14,7 @@ read_yaml_config <- function(file, set_env = TRUE) {
   val <- checkmate::makeAssertCollection()
   checkmate::assert_file_exists(x = file, access = "r", add = val)
   checkmate::assert_logical(x = set_env, add = val)
-  zephyr::report_checkmate_assertations(collection = val)
+  zephyr::report_checkmate_assertions(collection = val)
 
   config <- yaml::read_yaml(file = file, eval.expr = TRUE) |>
     assert_config()
@@ -141,14 +141,22 @@ assert_config <- function(config, env = parent.frame()) {
     .f = \(x, y) {
       var <- paste0("connections.", y)
       checkmate::assert_list(x, .var.name = var, add = val)
-      checkmate::assert_names(names(x), type = "unique", must.include = c("con", "backend"),
-                              .var.name = var, add = val)
-      checkmate::assert_character(x[["con"]], len = 1,
-                                  .var.name = paste0(var, ".con"), add = val)
-      checkmate::assert_list(x[["backend"]], names = "unique",
-                             .var.name = paste0(var, ".backend"), add = val)
-      checkmate::assert_character(x[["backend"]][["type"]], len = 1,
-                                  .var.name = paste0(var, ".backend.type"), add = val)
+      checkmate::assert_names(names(x),
+        type = "unique", must.include = c("con", "backend"),
+        .var.name = var, add = val
+      )
+      checkmate::assert_character(x[["con"]],
+        len = 1,
+        .var.name = paste0(var, ".con"), add = val
+      )
+      checkmate::assert_list(x[["backend"]],
+        names = "unique",
+        .var.name = paste0(var, ".backend"), add = val
+      )
+      checkmate::assert_character(x[["backend"]][["type"]],
+        len = 1,
+        .var.name = paste0(var, ".backend.type"), add = val
+      )
     }
   )
 
@@ -170,7 +178,7 @@ assert_config <- function(config, env = parent.frame()) {
     }
   )
 
-  zephyr::report_checkmate_assertations(
+  zephyr::report_checkmate_assertions(
     collection = val,
     msg = "Invalid configuration file:",
     env = env
