@@ -7,19 +7,28 @@
 \description{
 The connector_fs class is a file system connector for accessing and manipulating files in a local file system.
 }
+\section{Super class}{
+\code{\link[connector:Connector]{connector::Connector}} -> \code{Connector_fs}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Connector_fs-new}{\code{Connector_fs$new()}}
-\item \href{#method-Connector_fs-list_content}{\code{Connector_fs$list_content()}}
 \item \href{#method-Connector_fs-construct_path}{\code{Connector_fs$construct_path()}}
-\item \href{#method-Connector_fs-read}{\code{Connector_fs$read()}}
-\item \href{#method-Connector_fs-write}{\code{Connector_fs$write()}}
-\item \href{#method-Connector_fs-remove}{\code{Connector_fs$remove()}}
 \item \href{#method-Connector_fs-get_path}{\code{Connector_fs$get_path()}}
 \item \href{#method-Connector_fs-clone}{\code{Connector_fs$clone()}}
 }
 }
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="connector" data-topic="Connector" data-id="list_content"><a href='../../connector/html/Connector.html#method-Connector-list_content'><code>connector::Connector$list_content()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="Connector" data-id="read"><a href='../../connector/html/Connector.html#method-Connector-read'><code>connector::Connector$read()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="Connector" data-id="remove"><a href='../../connector/html/Connector.html#method-Connector-remove'><code>connector::Connector$remove()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="Connector" data-id="write"><a href='../../connector/html/Connector.html#method-Connector-write'><code>connector::Connector$write()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connector_fs-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Connector_fs-new}{}}}
@@ -40,23 +49,6 @@ Initializes the connector_fs class
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_fs-list_content"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_fs-list_content}{}}}
-\subsection{Method \code{list_content()}}{
-Returns the list of files in the specified path
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_fs$list_content(...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Other parameters to pass to the list.files function}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connector_fs-construct_path"></a>}}
 \if{latex}{\out{\hypertarget{method-Connector_fs-construct_path}{}}}
 \subsection{Method \code{construct_path()}}{
@@ -69,63 +61,6 @@ Constructs a complete path by combining the specified access path with the provi
 \if{html}{\out{<div class="arguments">}}
 \describe{
 \item{\code{...}}{Elements to construct the path}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_fs-read"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_fs-read}{}}}
-\subsection{Method \code{read()}}{
-Reads the content of the specified file using the private access path and additional options
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_fs$read(name, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{Name of the file to read}
-
-\item{\code{...}}{Other parameters to pass to the read_file function (depends on the extension of a file)}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_fs-write"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_fs-write}{}}}
-\subsection{Method \code{write()}}{
-Writes the specified content to the specified file using the private access path and additional options
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_fs$write(x, file, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{Content to write to the file}
-
-\item{\code{file}}{File name}
-
-\item{\code{...}}{Other parameters to pass to the write_file function (depends on the extension of a file)}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_fs-remove"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_fs-remove}{}}}
-\subsection{Method \code{remove()}}{
-Remove the specified file by given name with extension
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_fs$remove(file)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{file}}{File name}
 }
 \if{html}{\out{</div>}}
 }

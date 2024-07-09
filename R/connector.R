@@ -1,6 +1,49 @@
-## Default methods for all connector object
+#' R6 class for a general Connector object
+#'
+#' @param name [character] Table name
+#'
+#' @name Connector_object
+#' @export
 
-#' Defaults method for connector object
+Connector <- R6::R6Class(
+  classname = "Connector",
+  public = list(
+
+    #' @description List tables in the database
+    #' @param ... Additional arguments passed to [DBI::dbListTables]
+    #' @return A [character] vector of table names
+    list_content = function(...) {
+      self %>%
+        cnt_list_content(...)
+    },
+
+    #' @description Read a table from the database
+    #' @param ... Additional arguments passed to [DBI::dbReadTable]
+    #' @return A [data.frame]
+    read = function(name, ...) {
+      self %>%
+        cnt_read(name, ...)
+    },
+
+    #' @description Write a table to the database
+    #' @param x [data.frame] Table to write
+    #' @param ... Additional arguments passed to [DBI::dbWriteTable]
+    write = function(x, name, ...) {
+      self %>%
+        cnt_write(x, name, ...)
+    },
+
+    #' @description Remove a table from the database
+    #' @param ... Additional arguments passed to [DBI::dbRemoveTable]
+    remove = function(name, ...) {
+      self %>%
+        cnt_remove(name, ...)
+    }
+  ),
+  cloneable = FALSE
+)
+
+#' Defaults methods for all connector object
 #'
 #' Those methods are a S3 method that dispatches to the specific methods for the connector object.
 #'
@@ -17,78 +60,47 @@
 #' @export
 #'
 #' @name connector_methods
-#'
 cnt_read <- function(connector_object, ...) {
-    UseMethod("cnt_read")
+  UseMethod("cnt_read")
 }
 
 #' @export
 cnt_read.default <- function(connector_object, ...) {
-    stop("Method not implemented")
+  stop("Method not implemented")
 }
 
 #' Write method for connector object
 #' @rdname connector_methods
 #' @export
 cnt_write <- function(connector_object, ...) {
-    UseMethod("cnt_write")
+  UseMethod("cnt_write")
 }
 
 #' @export
 cnt_write.default <- function(connector_object, ...) {
-    stop("Method not implemented")
+  stop("Method not implemented")
 }
 
 #' Remove method for connector object
 #' @export
 #' @rdname connector_methods
 cnt_remove <- function(connector_object, ...) {
-    UseMethod("cnt_remove")
+  UseMethod("cnt_remove")
 }
 
 #' @export
 cnt_remove.default <- function(connector_object, ...) {
-    stop("Method not implemented")
+  stop("Method not implemented")
 }
 
 #' List content method for connector object
 #' @export
 #' @rdname connector_methods
 cnt_list_content <- function(connector_object, ...) {
-    UseMethod("cnt_list_content")
+  UseMethod("cnt_list_content")
 }
 
 #' @export
 cnt_list_content.default <- function(connector_object, ...) {
-    stop("Method not implemented")
-}
-
-
-################
-## DBI methods##
-################
-
-
-#' disconnect method for connector object
-#' @rdname connector_methods
-#' @export
-cnt_disconnect <- function(connector_object, ...) {
-    UseMethod("cnt_disconnect")
-}
-
-#' @export
-cnt_disconnect.default <- function(connector_object, ...) {
-    stop("Method not implemented")
-}
-
-#' tbl method for connector object
-#' @rdname connector_methods
-#' @export
-cnt_tbl <- function(connector_object, ...) {
-    UseMethod("cnt_tbl")
-}
-
-#' @export
-cnt_tbl.default <- function(connector_object, ...) {
-    stop("Method not implemented")
+  stop("Method not implemented")
 }
