@@ -23,7 +23,6 @@ create_connection <- function(config) {
   )
 }
 
-
 #' Connect datasources to the connections from the yaml content
 #'
 #' @param yaml_content The yaml content
