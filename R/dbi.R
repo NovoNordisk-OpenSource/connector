@@ -55,6 +55,7 @@
 
 Connector_dbi <- R6::R6Class(
   classname = "Connector_dbi",
+  inherit = Connector,
   public = list(
 
     #' @description Initialize the connection
@@ -63,14 +64,6 @@ Connector_dbi <- R6::R6Class(
     #' @return A [connector_dbi] object
     initialize = function(drv, ...) {
       private$conn <- DBI::dbConnect(drv = drv, ...)
-    },
-
-    #' @description List tables in the database
-    #' @param ... Additional arguments passed to [DBI::dbListTables]
-    #' @return A [character] vector of table names
-    list_content = function(...) {
-      self %>%
-        cnt_list_content(...)
     },
 
     #' @description Get the connection object
@@ -83,29 +76,6 @@ Connector_dbi <- R6::R6Class(
     disconnect = function() {
       self %>%
         cnt_disconnect()
-    },
-
-    #' @description Read a table from the database
-    #' @param ... Additional arguments passed to [DBI::dbReadTable]
-    #' @return A [data.frame]
-    read = function(name, ...) {
-      self %>%
-        cnt_read(name, ...)
-    },
-
-    #' @description Write a table to the database
-    #' @param x [data.frame] Table to write
-    #' @param ... Additional arguments passed to [DBI::dbWriteTable]
-    write = function(x, name, ...) {
-      self %>%
-        cnt_write(x, name, ...)
-    },
-
-    #' @description Remove a table from the database
-    #' @param ... Additional arguments passed to [DBI::dbRemoveTable]
-    remove = function(name, ...) {
-      self %>%
-        cnt_remove(name, ...)
     },
 
     #' @description Create a [tbl] object
@@ -124,8 +94,7 @@ Connector_dbi <- R6::R6Class(
     finalize = function() {
       if (DBI::dbIsValid(dbObj = private$conn)) self$disconnect()
     }
-  ),
-  cloneable = FALSE
+  )
 )
 
 #' Create a new DBI connector object to interact with DBI compliant database backends
@@ -165,4 +134,28 @@ connector_dbi <- function(drv, ..., extra_class = NULL) {
     class(layer) <- c(extra_class, class(layer))
   }
   return(layer)
+}
+
+#' disconnect method for connector object
+#' @rdname connector_methods
+#' @export
+cnt_disconnect <- function(connector_object, ...) {
+  UseMethod("cnt_disconnect")
+}
+
+#' @export
+cnt_disconnect.default <- function(connector_object, ...) {
+  stop("Method not implemented")
+}
+
+#' tbl method for connector object
+#' @rdname connector_methods
+#' @export
+cnt_tbl <- function(connector_object, ...) {
+  UseMethod("cnt_tbl")
+}
+
+#' @export
+cnt_tbl.default <- function(connector_object, ...) {
+  stop("Method not implemented")
 }

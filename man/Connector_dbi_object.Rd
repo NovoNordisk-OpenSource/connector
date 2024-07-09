@@ -48,19 +48,29 @@ db$tbl("iris") |>
 db$disconnect()
 
 }
+\section{Super class}{
+\code{\link[connector:Connector]{connector::Connector}} -> \code{Connector_dbi}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-Connector_dbi-new}{\code{Connector_dbi$new()}}
-\item \href{#method-Connector_dbi-list_content}{\code{Connector_dbi$list_content()}}
 \item \href{#method-Connector_dbi-get_conn}{\code{Connector_dbi$get_conn()}}
 \item \href{#method-Connector_dbi-disconnect}{\code{Connector_dbi$disconnect()}}
-\item \href{#method-Connector_dbi-read}{\code{Connector_dbi$read()}}
-\item \href{#method-Connector_dbi-write}{\code{Connector_dbi$write()}}
-\item \href{#method-Connector_dbi-remove}{\code{Connector_dbi$remove()}}
 \item \href{#method-Connector_dbi-tbl}{\code{Connector_dbi$tbl()}}
+\item \href{#method-Connector_dbi-clone}{\code{Connector_dbi$clone()}}
 }
 }
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="connector" data-topic="Connector" data-id="list_content"><a href='../../connector/html/Connector.html#method-Connector-list_content'><code>connector::Connector$list_content()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="Connector" data-id="read"><a href='../../connector/html/Connector.html#method-Connector-read'><code>connector::Connector$read()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="Connector" data-id="remove"><a href='../../connector/html/Connector.html#method-Connector-remove'><code>connector::Connector$remove()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="Connector" data-id="write"><a href='../../connector/html/Connector.html#method-Connector-write'><code>connector::Connector$write()</code></a></span></li>
+</ul>
+</details>
+}}
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connector_dbi-new"></a>}}
 \if{latex}{\out{\hypertarget{method-Connector_dbi-new}{}}}
@@ -81,26 +91,6 @@ Initialize the connection
 }
 \subsection{Returns}{
 A \link{connector_dbi} object
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_dbi-list_content"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_dbi-list_content}{}}}
-\subsection{Method \code{list_content()}}{
-List tables in the database
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_dbi$list_content(...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbListTables]{DBI::dbListTables}}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \link{character} vector of table names
 }
 }
 \if{html}{\out{<hr>}}
@@ -127,68 +117,6 @@ Disconnect from the database
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_dbi-read"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_dbi-read}{}}}
-\subsection{Method \code{read()}}{
-Read a table from the database
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_dbi$read(name, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{\link{character} Table name}
-
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbReadTable]{DBI::dbReadTable}}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \link{data.frame}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_dbi-write"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_dbi-write}{}}}
-\subsection{Method \code{write()}}{
-Write a table to the database
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_dbi$write(x, name, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{x}}{\link{data.frame} Table to write}
-
-\item{\code{name}}{\link{character} Table name}
-
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbWriteTable]{DBI::dbWriteTable}}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-Connector_dbi-remove"></a>}}
-\if{latex}{\out{\hypertarget{method-Connector_dbi-remove}{}}}
-\subsection{Method \code{remove()}}{
-Remove a table from the database
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector_dbi$remove(name, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{\link{character} Table name}
-
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbRemoveTable]{DBI::dbRemoveTable}}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connector_dbi-tbl"></a>}}
 \if{latex}{\out{\hypertarget{method-Connector_dbi-tbl}{}}}
 \subsection{Method \code{tbl()}}{
@@ -203,6 +131,23 @@ Create a \link{tbl} object
 \item{\code{name}}{\link{character} Table name}
 
 \item{\code{...}}{Additional arguments passed to \link[dplyr:tbl]{dplyr::tbl}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-Connector_dbi-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-Connector_dbi-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{Connector_dbi$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
 }
 \if{html}{\out{</div>}}
 }
