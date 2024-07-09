@@ -1,9 +1,9 @@
 test_that("can create Connector object", {
-  connector_obj <- Connector(
+  connector_obj <- Connectors(
     "test"
   )
 
-  expect_s3_class(connector_obj, "Connector")
+  expect_s3_class(connector_obj, "Connectors")
 })
 
 test_that("Connect datasources to the connections for a yaml file", {
@@ -11,7 +11,7 @@ test_that("Connect datasources to the connections for a yaml file", {
   connect <- connect_from_yaml(yaml_content_parsed) %>%
     expect_no_error()
 
-  expect_s3_class(connect, "Connector")
+  expect_s3_class(connect, "Connectors")
   expect_named(connect, c("adam", "sdtm"))
 
   ## write and read for a system file
