@@ -1,10 +1,10 @@
-#' A Connector object, a special list with R6 objects.
+#' A Connectors object, a special list with R6 objects.
 #' @param ... Arguments to pass to the connector
 #' @export
-Connector <- function(...) {
+Connectors <- function(...) {
   structure(
     ...,
-    class = c("Connector")
+    class = c("Connectors")
   )
 }
 
@@ -46,7 +46,7 @@ connect_from_yaml <- function(yaml_content) {
     purrr::map(\(x) connections[[x$con]]) %>%
     rlang::set_names(purrr::map_chr(yaml_content$datasources, list("name", 1)))
 
-  Connector(
+  Connectors(
     connector_
   )
 }
