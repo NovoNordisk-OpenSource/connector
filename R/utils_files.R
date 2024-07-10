@@ -38,7 +38,7 @@ supported_fs <- function() {
 #' @param method the S3 method to get methods
 #'
 #' @return An error if the extension method doesn't exists
-#' @export
+#' @noRd
 assert_ext <- function(ext, method) {
   valid <- sub(
     pattern = "^[^\\.]+\\.",
