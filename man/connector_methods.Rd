@@ -23,13 +23,19 @@ cnt_list_content(connector_object, ...)
 }
 \value{
 The result of the read method
+
+The result of the write method
+
+The result of the remove method
+
+The result of the list_content method
 }
 \description{
-Those methods are a S3 method that dispatches to the specific methods for the connector object.
+These methods are a S3 method that dispatches to the specific methods for the connector object.
 }
 \details{
-For example, if you have a connector object \code{Connector_fs}, you can use \code{read(Connector_fs, "file.csv")} to read the file. It will be dispatch to the \code{read.Connector_fs} method.
-Why ? The main aim is to allow the user to use the same function for different connector objects by using the builder function \code{connector_fs} and add an "extra_class".
+For example, if you have a connector object \code{Connector_fs}, you can use \code{cnt_read(Connector_fs, "file.csv")} to read the file. It will be dispatch to the \code{cnt_read.Connector_fs} method.
+Why? The main aim is to allow the user to use the same function for different connector objects by using the builder function \code{connector_fs} and add an "extra_class".
 By doing so, you can create a subclass of the \code{Connector_fs} object and dispatch to the specific methods for this subclass.
-For example, if you have a subclass \code{subclass}, you can use \code{read(subclass, "file.csv")} to read the file. It will be dispatch to the \code{read.subclass} method. And you can still use the \code{Connector_fs} methods.
+For example, if you have a subclass \code{subclass}, you can use \code{cnr_read(subclass, "file.csv")} to read the file. It will be dispatch to the \code{cnt_read.subclass} method. And you can still use the \code{Connector_fs} methods.
 }

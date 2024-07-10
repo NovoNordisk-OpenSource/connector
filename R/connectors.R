@@ -1,15 +1,15 @@
-#' A Connectors object, a special list with R6 objects.
-#' @param ... Arguments to pass to the connector
+#' Special list of Connectors
+#' @param connector Named [list] of individual [Connector] objects
 #' @export
-Connectors <- function(...) {
+Connectors <- function(connectors) {
+  checkmate::assert_list(x = connectors, names = "named")
   structure(
-    ...,
+    connectors,
     class = c("Connectors")
   )
 }
 
 #' Create a connection object depending on the backend type
-#'
 #' @param config The yaml content for a single connection
 #' @noRd
 create_connection <- function(config) {
@@ -24,18 +24,15 @@ create_connection <- function(config) {
 }
 
 #' Connect datasources to the connections from the yaml content
-#'
 #' @param yaml_content The yaml content
-#'
 #' @return A Connector object
-#' @export
-#'
 #' @examples
 # # read yaml file
 #' yaml_file <- system.file("config", "default_config.yml", package = "connector")
 #' yaml_content <- read_yaml_config(yaml_file)
 #' # create the connections
 #' connect <- connect_from_yaml(yaml_content)
+#' @export
 connect_from_yaml <- function(yaml_content) {
   connections <- yaml_content$connections |>
     purrr::map(create_connection) |>
