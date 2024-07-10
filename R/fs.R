@@ -38,10 +38,10 @@ connector_fs <- function(path, ..., extra_class = NULL) {
   return(layer)
 }
 
-#' Class Connector_fs
-#' @description The connector_fs class is a file system connector for accessing and manipulating files in a local file system.
+#' Connector for file system
+#' @description
+#' The connector_fs class is a file system connector for accessing and manipulating files in a local file system.
 #' @importFrom R6 R6Class
-#'
 #' @name Connector_fs_object
 #' @export
 Connector_fs <- R6::R6Class(
@@ -71,45 +71,12 @@ Connector_fs <- R6::R6Class(
   cloneable = TRUE
 )
 
-#' Remove a file or directory
-#'
-#' @param ... file name in case of Connector_fs
-#' @param connector_object Connector_fs object
-#'
-#' @export
-#'
-#' @examples
-#' connector <- Connector_fs$new(tempdir())
-#' connector$write(iris, "iris.csv")
-#' connector$remove("iris.csv")
-cnt_remove.Connector_fs <- function(connector_object, ...) {
-  unlink(connector_object$construct_path(...))
-}
-
-#' List content of the directory
-#' @param ... Arguments to pass to the list.files function
-#' @param connector_object Connector_fs object
-#'
-#' @export
-#'
-#' @examples
-#' connector <- Connector_fs$new(tempdir())
-#' connector$write(iris, "iris.csv")
-#' connector$list_content()
-cnt_list_content.Connector_fs <- function(connector_object, ...) {
-  connector_object$get_path() %>%
-    list.files(...)
-}
-
 #' Validate the path and access
-#'
-#' @description The assert_path function validates the path and access type for file system operations.
-#'
+#' @description
+#' The assert_path function validates the path and access type for file system operations.
 #' @param path Path to be validated
 #' @param access Type of access ("rw" for read/write by default)
-#'
 #' @return Invisible path
-#'
 #' @importFrom checkmate makeAssertCollection assert_character assert_directory_exists reportAssertions
 #' @noRd
 assert_path <- function(path, access) {

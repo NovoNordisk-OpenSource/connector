@@ -3,7 +3,7 @@
 \name{Connector_fs_object}
 \alias{Connector_fs_object}
 \alias{Connector_fs}
-\title{Class Connector_fs}
+\title{Connector for file system}
 \description{
 The connector_fs class is a file system connector for accessing and manipulating files in a local file system.
 }
