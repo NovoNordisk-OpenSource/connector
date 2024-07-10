@@ -3,11 +3,13 @@
 \name{Connector_object}
 \alias{Connector_object}
 \alias{Connector}
-\title{R6 class for a general Connector object}
+\title{General Connector object}
 \description{
-R6 class for a general Connector object
-
-R6 class for a general Connector object
+This R6 class is a general class for all connectors. It is used to define the methods that all connectors should have.
+New connectors should inherit from this class, and the methods described in \link{connector_methods} should be implemented.
+}
+\seealso{
+\link{connector_methods} \link{Connector_fs} and \link{Connector_dbi} for examples on how to create a new connector class.
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -22,7 +24,7 @@ R6 class for a general Connector object
 \if{html}{\out{<a id="method-Connector-list_content"></a>}}
 \if{latex}{\out{\hypertarget{method-Connector-list_content}{}}}
 \subsection{Method \code{list_content()}}{
-List tables in the database
+List content
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connector$list_content(...)}\if{html}{\out{</div>}}
 }
@@ -30,19 +32,19 @@ List tables in the database
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbListTables]{DBI::dbListTables}}
+\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A \link{character} vector of table names
+A \link{character} vector of content names
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connector-read"></a>}}
 \if{latex}{\out{\hypertarget{method-Connector-read}{}}}
 \subsection{Method \code{read()}}{
-Read a table from the database
+Read content
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connector$read(name, ...)}\if{html}{\out{</div>}}
 }
@@ -50,21 +52,21 @@ Read a table from the database
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{\link{character} Table name}
+\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name,}
 
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbReadTable]{DBI::dbReadTable}}
+\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A \link{data.frame}
+The result of the read method
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-Connector-write"></a>}}
 \if{latex}{\out{\hypertarget{method-Connector-write}{}}}
 \subsection{Method \code{write()}}{
-Write a table to the database
+Write content
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connector$write(x, name, ...)}\if{html}{\out{</div>}}
 }
@@ -72,11 +74,11 @@ Write a table to the database
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{x}}{\link{data.frame} Table to write}
+\item{\code{x}}{The object to write to the connection}
 
-\item{\code{name}}{\link{character} Table name}
+\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name,}
 
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbWriteTable]{DBI::dbWriteTable}}
+\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
 \if{html}{\out{</div>}}
 }
@@ -85,7 +87,7 @@ Write a table to the database
 \if{html}{\out{<a id="method-Connector-remove"></a>}}
 \if{latex}{\out{\hypertarget{method-Connector-remove}{}}}
 \subsection{Method \code{remove()}}{
-Remove a table from the database
+Remove or delete content
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{Connector$remove(name, ...)}\if{html}{\out{</div>}}
 }
@@ -93,9 +95,9 @@ Remove a table from the database
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{\link{character} Table name}
+\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name,}
 
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbRemoveTable]{DBI::dbRemoveTable}}
+\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
 \if{html}{\out{</div>}}
 }

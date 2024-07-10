@@ -1,6 +1,6 @@
 test_that("can create Connector object", {
   connector_obj <- Connectors(
-    "test"
+    list("test" = "test")
   )
 
   expect_s3_class(connector_obj, "Connectors")

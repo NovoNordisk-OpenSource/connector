@@ -2,13 +2,13 @@
 % Please edit documentation in R/connectors.R
 \name{Connectors}
 \alias{Connectors}
-\title{A Connectors object, a special list with R6 objects.}
+\title{Special list of Connectors}
 \usage{
-Connectors(...)
+Connectors(connectors)
 }
 \arguments{
-\item{...}{Arguments to pass to the connector}
+\item{connector}{Named \link{list} of individual \link{Connector} objects}
 }
 \description{
-A Connectors object, a special list with R6 objects.
+Special list of Connectors
 }
