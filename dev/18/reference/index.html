@@ -31,7 +31,101 @@
     </div>
 
     <div class="section level2">
-      <h2 id="all-functions">All functions<a class="anchor" aria-label="anchor" href="#all-functions"></a></h2>
+      <h2 id="connector">Connector<a class="anchor" aria-label="anchor" href="#connector"></a></h2>
+
+
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="connect_from_yaml.html">connect_from_yaml()</a></code>
+
+        </dt>
+        <dd>Connect datasources to the connections from the yaml content</dd>
+      </dl><dl><dt>
+
+          <code><a href="read_yaml_config.html">read_yaml_config()</a></code>
+
+        </dt>
+        <dd>Read and parse yaml configuration file</dd>
+      </dl><dl><dt>
+
+          <code><a href="Connectors.html">Connectors()</a></code>
+
+        </dt>
+        <dd>Special list of Connectors</dd>
+      </dl><dl><dt>
+
+          <code><a href="Connector_object.html">Connector_object</a></code> <code><a href="Connector_object.html">Connector</a></code>
+
+        </dt>
+        <dd>General Connector object</dd>
+      </dl><dl><dt>
+
+          <code><a href="connector_methods.html">cnt_read()</a></code> <code><a href="connector_methods.html">cnt_write()</a></code> <code><a href="connector_methods.html">cnt_remove()</a></code> <code><a href="connector_methods.html">cnt_list_content()</a></code>
+
+        </dt>
+        <dd>Defaults methods for all connector object</dd>
+      </dl><dl><dt>
+
+          <code><a href="options.html">options</a></code>
+
+        </dt>
+        <dd>connector Options</dd>
+      </dl></div><div class="section level2">
+      <h2 id="file-system-connector">File System Connector<a class="anchor" aria-label="anchor" href="#file-system-connector"></a></h2>
+
+
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
+
+          <code><a href="Connector_fs_object.html">Connector_fs_object</a></code> <code><a href="Connector_fs_object.html">Connector_fs</a></code>
+
+        </dt>
+        <dd>Connector for file system</dd>
+      </dl><dl><dt>
+
+          <code><a href="connector_fs.html">connector_fs()</a></code>
+
+        </dt>
+        <dd>Create FS connector</dd>
+      </dl><dl><dt>
+
+          <code><a href="cnt_list_content.Connector_fs.html">cnt_list_content(<i>&lt;Connector_fs&gt;</i>)</a></code>
+
+        </dt>
+        <dd>List content of the directory</dd>
+      </dl><dl><dt>
+
+          <code><a href="cnt_read.Connector_fs.html">cnt_read(<i>&lt;Connector_fs&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Read files for the Connector_fs class</dd>
+      </dl><dl><dt>
+
+          <code><a href="cnt_remove.Connector_fs.html">cnt_remove(<i>&lt;Connector_fs&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Remove a file or directory</dd>
+      </dl><dl><dt>
+
+          <code><a href="cnt_write.Connector_fs.html">cnt_write(<i>&lt;Connector_fs&gt;</i>)</a></code>
+
+        </dt>
+        <dd>Write a file based on this extension</dd>
+      </dl></div><div class="section level2">
+      <h2 id="dbi-connector">DBI Connector<a class="anchor" aria-label="anchor" href="#dbi-connector"></a></h2>
 
 
 
@@ -49,34 +143,16 @@
         <dd>R6 class for a dbi connection, see connector_dbi (used to interact with DBI compliant database backends)</dd>
       </dl><dl><dt>
 
-          <code><a href="Connector_fs_object.html">Connector_fs_object</a></code> <code><a href="Connector_fs_object.html">Connector_fs</a></code>
+          <code><a href="connector_dbi.html">connector_dbi()</a></code>
 
         </dt>
-        <dd>Class Connector_fs</dd>
+        <dd>Create a new DBI connector object to interact with DBI compliant database backends</dd>
       </dl><dl><dt>
 
-          <code><a href="Connector_object.html">Connector_object</a></code> <code><a href="Connector_object.html">Connector</a></code>
+          <code><a href="connector_dbi_methods.html">cnt_disconnect()</a></code> <code><a href="connector_dbi_methods.html">cnt_tbl()</a></code>
 
         </dt>
-        <dd>R6 class for a general Connector object</dd>
-      </dl><dl><dt>
-
-          <code><a href="Connectors.html">Connectors()</a></code>
-
-        </dt>
-        <dd>A Connectors object, a special list with R6 objects.</dd>
-      </dl><dl><dt>
-
-          <code><a href="assert_ext.html">assert_ext()</a></code>
-
-        </dt>
-        <dd>Test the extension of files</dd>
-      </dl><dl><dt>
-
-          <code><a href="assert_path.html">assert_path()</a></code>
-
-        </dt>
-        <dd>Validate the path and access</dd>
+        <dd>Additional methods DBI Connectors</dd>
       </dl><dl><dt>
 
           <code><a href="cnt_disconnect.Connector_dbi.html">cnt_disconnect(<i>&lt;Connector_dbi&gt;</i>)</a></code>
@@ -91,34 +167,16 @@
         <dd>List tables in the database</dd>
       </dl><dl><dt>
 
-          <code><a href="cnt_list_content.Connector_fs.html">cnt_list_content(<i>&lt;Connector_fs&gt;</i>)</a></code>
-
-        </dt>
-        <dd>List content of the directory</dd>
-      </dl><dl><dt>
-
           <code><a href="cnt_read.Connector_dbi.html">cnt_read(<i>&lt;Connector_dbi&gt;</i>)</a></code>
 
         </dt>
         <dd>Read a table from the database</dd>
       </dl><dl><dt>
 
-          <code><a href="cnt_read.Connector_fs.html">cnt_read(<i>&lt;Connector_fs&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Read files for the Connector_fs class</dd>
-      </dl><dl><dt>
-
           <code><a href="cnt_remove.Connector_dbi.html">cnt_remove(<i>&lt;Connector_dbi&gt;</i>)</a></code>
 
         </dt>
         <dd>Remove a table from the database</dd>
-      </dl><dl><dt>
-
-          <code><a href="cnt_remove.Connector_fs.html">cnt_remove(<i>&lt;Connector_fs&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Remove a file or directory</dd>
       </dl><dl><dt>
 
           <code><a href="cnt_tbl.Connector_dbi.html">cnt_tbl(<i>&lt;Connector_dbi&gt;</i>)</a></code>
@@ -131,37 +189,18 @@
 
         </dt>
         <dd>Write a table to the database</dd>
-      </dl><dl><dt>
+      </dl></div><div class="section level2">
+      <h2 id="other-stuff">Other stuff<a class="anchor" aria-label="anchor" href="#other-stuff"></a></h2>
 
-          <code><a href="cnt_write.Connector_fs.html">cnt_write(<i>&lt;Connector_fs&gt;</i>)</a></code>
 
-        </dt>
-        <dd>Write a file based on this extension</dd>
-      </dl><dl><dt>
 
-          <code><a href="connect_from_yaml.html">connect_from_yaml()</a></code>
 
-        </dt>
-        <dd>Connect datasources to the connections from the yaml content</dd>
-      </dl><dl><dt>
+    </div><div class="section level2">
 
-          <code><a href="connector_dbi.html">connector_dbi()</a></code>
 
-        </dt>
-        <dd>Create a new DBI connector object to interact with DBI compliant database backends</dd>
-      </dl><dl><dt>
 
-          <code><a href="connector_fs.html">connector_fs()</a></code>
 
-        </dt>
-        <dd>Create FS connector</dd>
-      </dl><dl><dt>
-
-          <code><a href="connector_methods.html">cnt_read()</a></code> <code><a href="connector_methods.html">cnt_write()</a></code> <code><a href="connector_methods.html">cnt_remove()</a></code> <code><a href="connector_methods.html">cnt_list_content()</a></code> <code><a href="connector_methods.html">cnt_disconnect()</a></code> <code><a href="connector_methods.html">cnt_tbl()</a></code>
-
-        </dt>
-        <dd>Defaults methods for all connector object</dd>
-      </dl><dl><dt>
+      <dl><dt>
 
           <code><a href="create_backend.html">create_backend()</a></code>
 
@@ -205,12 +244,6 @@
         <dd>Get the backend function</dd>
       </dl><dl><dt>
 
-          <code><a href="options.html">options</a></code>
-
-        </dt>
-        <dd>connector Options</dd>
-      </dl><dl><dt>
-
           <code><a href="read_ext.html">read_ext()</a></code>
 
         </dt>
@@ -221,12 +254,6 @@
 
         </dt>
         <dd>Read files based on the extension</dd>
-      </dl><dl><dt>
-
-          <code><a href="read_yaml_config.html">read_yaml_config()</a></code>
-
-        </dt>
-        <dd>Read and parse yaml configuration file</dd>
       </dl><dl><dt>
 
           <code><a href="supported_fs.html">supported_fs()</a></code>
@@ -252,7 +279,8 @@
         </dt>
         <dd>Write a file based on this extension</dd>
       </dl></div>
-  </main></div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">

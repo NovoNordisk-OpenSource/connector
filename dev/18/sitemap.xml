@@ -9,8 +9,6 @@
 <url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/Connector_fs_object.html</loc></url>
 <url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/Connector_object.html</loc></url>
 <url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/Connectors.html</loc></url>
-<url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/assert_ext.html</loc></url>
-<url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/assert_path.html</loc></url>
 <url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/cnt_disconnect.Connector_dbi.html</loc></url>
 <url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/cnt_list_content.Connector_dbi.html</loc></url>
 <url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/cnt_list_content.Connector_fs.html</loc></url>
@@ -24,6 +22,7 @@
 <url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/connect_from_yaml.html</loc></url>
 <url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/connector-package.html</loc></url>
 <url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/connector_dbi.html</loc></url>
+<url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/connector_dbi_methods.html</loc></url>
 <url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/connector_fs.html</loc></url>
 <url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/connector_methods.html</loc></url>
 <url><loc>https://fantastic-adventure-gqozn9k.pages.github.io/reference/create_backend.html</loc></url>
