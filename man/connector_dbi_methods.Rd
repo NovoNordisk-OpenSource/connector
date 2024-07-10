@@ -4,14 +4,20 @@
 \alias{connector_dbi_methods}
 \alias{cnt_disconnect}
 \alias{cnt_tbl}
-\title{disconnect method for connector object}
+\title{Additional methods DBI Connectors}
 \usage{
 cnt_disconnect(connector_object, ...)
 
 cnt_tbl(connector_object, ...)
 }
-\description{
-disconnect method for connector object
+\arguments{
+\item{connector_object}{A \link{Connector_dbi} object to be able to use functions from it}
 
-tbl method for connector object
+\item{...}{Additional arguments passed to the method}
+}
+\description{
+These methods are additional S3 methods for  \link{Connector_dbi}.
+}
+\seealso{
+\link{connector_methods}
 }
