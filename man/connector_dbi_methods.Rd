@@ -13,7 +13,7 @@ cnt_tbl(connector_object, ...)
 \arguments{
 \item{connector_object}{A \link{Connector_dbi} object to be able to use functions from it}
 
-\item{...}{Additional arguments passed to the method}
+\item{...}{Additional arguments passed to the methods}
 }
 \description{
 These methods are additional S3 methods for  \link{Connector_dbi}.
