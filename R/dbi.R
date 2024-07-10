@@ -137,7 +137,7 @@ connector_dbi <- function(drv, ..., extra_class = NULL) {
 }
 
 #' disconnect method for connector object
-#' @rdname connector_methods
+#' @name connector_dbi_methods
 #' @export
 cnt_disconnect <- function(connector_object, ...) {
   UseMethod("cnt_disconnect")
@@ -149,7 +149,7 @@ cnt_disconnect.default <- function(connector_object, ...) {
 }
 
 #' tbl method for connector object
-#' @rdname connector_methods
+#' @rdname connector_dbi_methods
 #' @export
 cnt_tbl <- function(connector_object, ...) {
   UseMethod("cnt_tbl")
