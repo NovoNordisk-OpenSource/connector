@@ -1,7 +1,10 @@
-#' R6 class for a general Connector object
-#'
-#' @param name [character] Table name
-#'
+#' General Connector object
+#' @description
+#' This R6 class is a general class for all connectors. It is used to define the methods that all connectors should have.
+#' New connectors should inherit from this class, and the methods described in [connector_methods] should be implemented.
+#' @param name [character] Name of the content to read, write, or remove. Typically the table name,
+#' @param ... Additional arguments passed to the method for the individual connector.
+#' @seealso [connector_methods] [Connector_fs] and [Connector_dbi] for examples on how to create a new connector class.
 #' @name Connector_object
 #' @export
 
@@ -9,32 +12,28 @@ Connector <- R6::R6Class(
   classname = "Connector",
   public = list(
 
-    #' @description List tables in the database
-    #' @param ... Additional arguments passed to [DBI::dbListTables]
-    #' @return A [character] vector of table names
+    #' @description List content
+    #' @return A [character] vector of content names
     list_content = function(...) {
       self %>%
         cnt_list_content(...)
     },
 
-    #' @description Read a table from the database
-    #' @param ... Additional arguments passed to [DBI::dbReadTable]
-    #' @return A [data.frame]
+    #' @description Read content
+    #' @return The result of the read method
     read = function(name, ...) {
       self %>%
         cnt_read(name, ...)
     },
 
-    #' @description Write a table to the database
-    #' @param x [data.frame] Table to write
-    #' @param ... Additional arguments passed to [DBI::dbWriteTable]
+    #' @description Write content
+    #' @param x The object to write to the connection
     write = function(x, name, ...) {
       self %>%
         cnt_write(x, name, ...)
     },
 
-    #' @description Remove a table from the database
-    #' @param ... Additional arguments passed to [DBI::dbRemoveTable]
+    #' @description Remove or delete content
     remove = function(name, ...) {
       self %>%
         cnt_remove(name, ...)
@@ -45,21 +44,24 @@ Connector <- R6::R6Class(
 
 #' Defaults methods for all connector object
 #'
-#' Those methods are a S3 method that dispatches to the specific methods for the connector object.
+#' @description
+#' These methods are a S3 method that dispatches to the specific methods for the connector object.
 #'
 #' @details
-#' For example, if you have a connector object `Connector_fs`, you can use `read(Connector_fs, "file.csv")` to read the file. It will be dispatch to the `read.Connector_fs` method.
-#' Why ? The main aim is to allow the user to use the same function for different connector objects by using the builder function `connector_fs` and add an "extra_class".
+#' For example, if you have a connector object `Connector_fs`, you can use `cnt_read(Connector_fs, "file.csv")` to read the file. It will be dispatch to the `cnt_read.Connector_fs` method.
+#' Why? The main aim is to allow the user to use the same function for different connector objects by using the builder function `connector_fs` and add an "extra_class".
 #' By doing so, you can create a subclass of the `Connector_fs` object and dispatch to the specific methods for this subclass.
-#' For example, if you have a subclass `subclass`, you can use `read(subclass, "file.csv")` to read the file. It will be dispatch to the `read.subclass` method. And you can still use the `Connector_fs` methods.
+#' For example, if you have a subclass `subclass`, you can use `cnr_read(subclass, "file.csv")` to read the file. It will be dispatch to the `cnt_read.subclass` method. And you can still use the `Connector_fs` methods.
 #'
 #' @param connector_object A connector object to be able to use functions from it
 #' @param ... Additional arguments passed to the method
-#'
+#' @name connector_methods
+NULL
+
+#' Read method for connector object
+#' @rdname connector_methods
 #' @return The result of the read method
 #' @export
-#'
-#' @name connector_methods
 cnt_read <- function(connector_object, ...) {
   UseMethod("cnt_read")
 }
@@ -71,6 +73,7 @@ cnt_read.default <- function(connector_object, ...) {
 
 #' Write method for connector object
 #' @rdname connector_methods
+#' @return The result of the write method
 #' @export
 cnt_write <- function(connector_object, ...) {
   UseMethod("cnt_write")
@@ -82,6 +85,7 @@ cnt_write.default <- function(connector_object, ...) {
 }
 
 #' Remove method for connector object
+#' @return The result of the remove method
 #' @export
 #' @rdname connector_methods
 cnt_remove <- function(connector_object, ...) {
@@ -94,6 +98,7 @@ cnt_remove.default <- function(connector_object, ...) {
 }
 
 #' List content method for connector object
+#' @return The result of the list_content method
 #' @export
 #' @rdname connector_methods
 cnt_list_content <- function(connector_object, ...) {
