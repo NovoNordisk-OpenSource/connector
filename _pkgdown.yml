@@ -1,4 +1,26 @@
 url: https://fantastic-adventure-gqozn9k.pages.github.io/
 template:
   bootstrap: 5
-
+reference:
+  - title: Connector
+    contents:
+    - connect_from_yaml
+    - read_yaml_config
+    - Connectors
+    - Connector
+    - connector_methods
+    - options
+  - title: File System Connector
+    contents:
+    - Connector_fs
+    - connector_fs
+    - matches("\\.Connector_fs$")
+  - title: DBI Connector
+    contents:
+    - Connector_dbi
+    - connector_dbi
+    - connector_dbi_methods
+    - matches("\\.Connector_dbi$")
+  - title: Other stuff
+    contents:
+    - -matches("(C|c)onnector|yaml|options")
