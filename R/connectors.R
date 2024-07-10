@@ -1,5 +1,5 @@
 #' Special list of Connectors
-#' @param connector Named [list] of individual [Connector] objects
+#' @param connectors Named [list] of individual [Connector] objects
 #' @export
 Connectors <- function(connectors) {
   checkmate::assert_list(x = connectors, names = "named")

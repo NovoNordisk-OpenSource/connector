@@ -7,7 +7,7 @@
 Connectors(connectors)
 }
 \arguments{
-\item{connector}{Named \link{list} of individual \link{Connector} objects}
+\item{connectors}{Named \link{list} of individual \link{Connector} objects}
 }
 \description{
 Special list of Connectors
