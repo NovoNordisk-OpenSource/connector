@@ -136,8 +136,17 @@ connector_dbi <- function(drv, ..., extra_class = NULL) {
   return(layer)
 }
 
-#' disconnect method for connector object
+#' Additional methods DBI Connectors
+#' @description
+#' These methods are additional S3 methods for  [Connector_dbi].
+#' @seealso [connector_methods]
+#' @param connector_object A [Connector_dbi] object to be able to use functions from it
+#' @param ... Additional arguments passed to the methods
 #' @name connector_dbi_methods
+NULL
+
+#' disconnect method for connector object
+#' @rdname connector_dbi_methods
 #' @export
 cnt_disconnect <- function(connector_object, ...) {
   UseMethod("cnt_disconnect")
