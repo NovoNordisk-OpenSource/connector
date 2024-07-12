@@ -6,7 +6,8 @@
 #' and the methods described in [connector_methods] should be implemented.
 #' @param name [character] Name of the content to read, write, or remove. Typically the table name,
 #' @param ... Additional arguments passed to the method for the individual connector.
-#' @seealso [connector_methods] [connector_fs] and [connector_dbi] for examples on how to create a new connector class.
+#' @seealso `vignette("customize")` on how to create custom connectors and methods,
+#' and how concrete examples in [connector_methods], [connector_fs] and [connector_dbi].
 #' @export
 
 connector <- R6::R6Class(
@@ -73,7 +74,7 @@ cnt_read <- function(connector_object, ...) {
 
 #' @export
 cnt_read.default <- function(connector_object, ...) {
-  stop("Method not implemented")
+  method_error_msg()
 }
 
 #' Write method for connector object
@@ -86,7 +87,7 @@ cnt_write <- function(connector_object, ...) {
 
 #' @export
 cnt_write.default <- function(connector_object, ...) {
-  stop("Method not implemented")
+  method_error_msg()
 }
 
 #' Remove method for connector object
@@ -99,7 +100,7 @@ cnt_remove <- function(connector_object, ...) {
 
 #' @export
 cnt_remove.default <- function(connector_object, ...) {
-  stop("Method not implemented")
+  method_error_msg()
 }
 
 #' List content method for connector object
@@ -112,5 +113,15 @@ cnt_list_content <- function(connector_object, ...) {
 
 #' @export
 cnt_list_content.default <- function(connector_object, ...) {
-  stop("Method not implemented")
+  method_error_msg()
 }
+
+method_error_msg <- function(env = parent.frame()) {
+  cli::cli_abort(c(
+    "Method not implemented for class {.cls {class(connector_object)}}",
+    "i" = "See the {.vignette [customize](connector::customize)} vignette on how to create custom connectors and methods"
+    ),
+    .envir = env)
+}
+
+
