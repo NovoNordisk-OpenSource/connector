@@ -17,6 +17,10 @@
     <div id="navbar" class="collapse navbar-collapse ms-3">
       <ul class="navbar-nav me-auto"><li class="nav-item"><a class="nav-link" href="../articles/connector.html">Get started</a></li>
 <li class="active nav-item"><a class="nav-link" href="../reference/index.html">Reference</a></li>
+<li class="nav-item dropdown">
+  <button class="nav-link dropdown-toggle" type="button" id="dropdown-articles" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="true">Articles</button>
+  <ul class="dropdown-menu" aria-labelledby="dropdown-articles"><li><a class="dropdown-item" href="../articles/customize.html">How to extend connector</a></li>
+  </ul></li>
       </ul><ul class="navbar-nav"><li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json"></form></li>
       </ul></div>
@@ -68,10 +72,14 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>For example, if you have a connector object <code>connector_fs</code>, you can use <code>cnt_read(connector_fs, "file.csv")</code> to read the file. It will be dispatch to the <code>cnt_read.connector_fs</code> method.
-Why? The main aim is to allow the user to use the same function for different connector objects by using the builder function <code>connector_fs</code> and add an "extra_class".
-By doing so, you can create a subclass of the <code>connector_fs</code> object and dispatch to the specific methods for this subclass.
-For example, if you have a subclass <code>subclass</code>, you can use <code>cnr_read(subclass, "file.csv")</code> to read the file. It will be dispatch to the <code>cnt_read.subclass</code> method. And you can still use the <code>connector_fs</code> methods.</p>
+    <p>For example, if you have a connector object <code>connector_fs</code>, you can use <code>cnt_read(connector_fs, "file.csv")</code>
+to read the file. It will be dispatch to the <code>cnt_read.connector_fs</code> method.
+Why? The main aim is to allow the user to use the same function for different connector objects by
+using the builder function <code>connector_fs</code> and add an "extra_class".
+By doing so, you can create a subclass of the <code>connector_fs</code> object and
+dispatch to the specific methods for this subclass.
+For example, if you have a subclass <code>subclass</code>, you can use <code>cnr_read(subclass, "file.csv")</code> to read the file.
+It will be dispatch to the <code>cnt_read.subclass</code> method. And you can still use the <code>connector_fs</code> methods.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
