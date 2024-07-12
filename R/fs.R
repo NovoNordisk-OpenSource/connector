@@ -26,8 +26,7 @@ connector_fs <- R6::R6Class(
   ),
   private = list(
     path = character(0)
-  ),
-  cloneable = TRUE
+  )
 )
 
 #' Validate the path and access

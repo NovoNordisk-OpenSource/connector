@@ -40,8 +40,7 @@ connector <- R6::R6Class(
       self %>%
         cnt_remove(name, ...)
     }
-  ),
-  cloneable = FALSE
+  )
 )
 
 #' Defaults methods for all connector object
