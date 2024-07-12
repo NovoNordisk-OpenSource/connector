@@ -68,10 +68,10 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>For example, if you have a connector object <code>Connector_fs</code>, you can use <code>cnt_read(Connector_fs, "file.csv")</code> to read the file. It will be dispatch to the <code>cnt_read.Connector_fs</code> method.
+    <p>For example, if you have a connector object <code>connector_fs</code>, you can use <code>cnt_read(connector_fs, "file.csv")</code> to read the file. It will be dispatch to the <code>cnt_read.connector_fs</code> method.
 Why? The main aim is to allow the user to use the same function for different connector objects by using the builder function <code>connector_fs</code> and add an "extra_class".
-By doing so, you can create a subclass of the <code>Connector_fs</code> object and dispatch to the specific methods for this subclass.
-For example, if you have a subclass <code>subclass</code>, you can use <code>cnr_read(subclass, "file.csv")</code> to read the file. It will be dispatch to the <code>cnt_read.subclass</code> method. And you can still use the <code>Connector_fs</code> methods.</p>
+By doing so, you can create a subclass of the <code>connector_fs</code> object and dispatch to the specific methods for this subclass.
+For example, if you have a subclass <code>subclass</code>, you can use <code>cnr_read(subclass, "file.csv")</code> to read the file. It will be dispatch to the <code>cnt_read.subclass</code> method. And you can still use the <code>connector_fs</code> methods.</p>
     </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
