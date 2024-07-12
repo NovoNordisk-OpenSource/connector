@@ -46,14 +46,20 @@
     <p><code><a href="connector.html">connector::connector</a></code> -&gt; <code>connector_fs</code></p>
     </div>
     <div class="section level2">
+    <h2 id="active-bindings">Active bindings<a class="anchor" aria-label="anchor" href="#active-bindings"></a></h2>
+    <p></p><div class="r6-active-bindings"><dl><dt><code>path</code></dt>
+<dd><p>Path to the file storage</p></dd>
+
+
+</dl><p></p></div>
+    </div>
+    <div class="section level2">
     <h2 id="methods">Methods<a class="anchor" aria-label="anchor" href="#methods"></a></h2>
 
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
 <ul><li><p><a href="#method-connector_fs-new"><code>connector_fs$new()</code></a></p></li>
-<li><p><a href="#method-connector_fs-construct_path"><code>connector_fs$construct_path()</code></a></p></li>
-<li><p><a href="#method-connector_fs-get_path"><code>connector_fs$get_path()</code></a></p></li>
 <li><p><a href="#method-connector_fs-clone"><code>connector_fs$clone()</code></a></p></li>
 </ul></div><p><details open><summary>Inherited methods</summary><ul><li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="list_content"><a href="connector.html#method-list_content"><code>connector::connector$list_content()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="read"><a href="connector.html#method-read"><code>connector::connector$read()</code></a></span></li>
@@ -79,43 +85,15 @@
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-connector_fs-construct_path"></a><div class="section">
-<h3 id="method-construct-path-">Method <code>construct_path()</code><a class="anchor" aria-label="anchor" href="#method-construct-path-"></a></h3>
-<p>Constructs a complete path by combining the specified access path with the provided elements</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector_fs</span><span class="op">$</span><span class="fu">construct_path</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
-<p></p><div class="arguments"><dl><dt><code>...</code></dt>
-<dd><p>Elements to construct the path</p></dd>
-
-
-</dl><p></p></div>
-</div>
-
-</div><p></p><hr><a id="method-connector_fs-get_path"></a><div class="section">
-<h3 id="method-get-path-">Method <code>get_path()</code><a class="anchor" aria-label="anchor" href="#method-get-path-"></a></h3>
-<p>Returns the path of the file system</p><div class="section">
-<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector_fs</span><span class="op">$</span><span class="fu">get_path</span><span class="op">(</span><span class="op">)</span></span></code></pre></div><p></p></div>
-</div>
-
-<div class="section">
-<h4 id="returns">Returns<a class="anchor" aria-label="anchor" href="#returns"></a></h4>
-<p>Path to the file system</p>
-</div>
-
 </div><p></p><hr><a id="method-connector_fs-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector_fs</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
+<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
