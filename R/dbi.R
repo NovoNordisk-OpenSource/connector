@@ -32,7 +32,9 @@
 #'
 #' # Use the connector to run a query
 #'
-#' db$get_conn() |>
+#' db$conn
+#'
+#' db$conn |>
 #'   DBI::dbGetQuery("SELECT * FROM iris limit 5")
 #'
 #' # Use dplyr verbs and collect data
@@ -60,13 +62,7 @@ connector_dbi <- R6::R6Class(
     #' @param ... Additional arguments passed to [DBI::dbConnect]
     #' @return A [connector_dbi] object
     initialize = function(drv, ...) {
-      private$conn <- DBI::dbConnect(drv = drv, ...)
-    },
-
-    #' @description Get the connection object
-    #' @return A DBI connection object
-    get_conn = function() {
-      private$conn
+      private$.conn <- DBI::dbConnect(drv = drv, ...)
     },
 
     #' @description Disconnect from the database
@@ -82,14 +78,20 @@ connector_dbi <- R6::R6Class(
         cnt_tbl(name, ...)
     }
   ),
+  active = list(
+    #' @field conn The DBI connector object of the connector
+    conn = function() {
+      private$.conn
+    }
+  ),
   private = list(
 
     # Store the connection object
-    conn = NULL,
+    .conn = NULL,
 
     # Finalize the connection on garbage collection
     finalize = function() {
-      if (DBI::dbIsValid(dbObj = private$conn)) self$disconnect()
+      if (DBI::dbIsValid(dbObj = self$conn)) self$disconnect()
     }
   )
 )
