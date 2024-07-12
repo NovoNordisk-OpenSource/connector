@@ -26,7 +26,7 @@ specs <- list(
 for (i in seq_along(specs)) {
   test_that(paste("DBI generics work for", names(specs)[[i]]), {
     test <- tryCatch(
-      expr = do.call(what = connector_dbi, args = specs[[i]]),
+      expr = do.call(what = connector_dbi$new, args = specs[[i]]),
       error = function(e) {
         skip(paste(names(specs)[[i]], "database not available"))
       }

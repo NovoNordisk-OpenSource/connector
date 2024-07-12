@@ -1,52 +1,11 @@
-#' Create FS connector
-#'
-#' @description Create a new FS connector object. See [Connector_fs] for details.
-#'
-#' @param path Path to the file system
-#' @param ... Additional arguments passed to [Connector_fs]
-#' @param extra_class [character] Extra class added to the object. See details.
-#' @return A new [Connector_fs] object
-#'
-#' @details
-#' The `extra_class` parameter allows you to create a subclass of the `Connector_fs` object.
-#' This can be useful if you want to create a custom connection object for easier dispatch of new s3 methods,
-#' while still inheriting the methods from the `Connector_fs` object.
-#'
-#' @examples
-#' # Connect to a file system
-#'
-#' path_to_adam <- system.file("demo_trial", "adam", package = "connector")
-#' db <- connector_fs(path_to_adam)
-#'
-#' db
-#'
-#' # Create subclass connection
-#'
-#' db_subclass <- connector_fs(path_to_adam, extra_class = "subclass")
-#'
-#' db_subclass
-#' class(db_subclass)
-#'
-#' @export
-connector_fs <- function(path, ..., extra_class = NULL) {
-  layer <- Connector_fs$new(path = path, ...)
-  if (!is.null(extra_class)) {
-    # TODO: not sure about paste and so on
-    # extra_class <- paste(class(layer), extra_class, sep = "_")
-    class(layer) <- c(extra_class, class(layer))
-  }
-  return(layer)
-}
-
 #' Connector for file system
 #' @description
 #' The connector_fs class is a file system connector for accessing and manipulating files in a local file system.
 #' @importFrom R6 R6Class
-#' @name Connector_fs_object
 #' @export
-Connector_fs <- R6::R6Class(
-  classname = "Connector_fs",
-  inherit = Connector,
+connector_fs <- R6::R6Class(
+  classname = "connector_fs",
+  inherit = connector,
   public = list(
     #' @description Initializes the connector_fs class
     #' @param path Path to the file system

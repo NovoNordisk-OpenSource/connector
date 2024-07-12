@@ -2,41 +2,96 @@
 % Please edit documentation in R/fs.R
 \name{connector_fs}
 \alias{connector_fs}
-\title{Create FS connector}
-\usage{
-connector_fs(path, ..., extra_class = NULL)
-}
-\arguments{
-\item{path}{Path to the file system}
-
-\item{...}{Additional arguments passed to \link{Connector_fs}}
-
-\item{extra_class}{\link{character} Extra class added to the object. See details.}
-}
-\value{
-A new \link{Connector_fs} object
-}
+\title{Connector for file system}
 \description{
-Create a new FS connector object. See \link{Connector_fs} for details.
+The connector_fs class is a file system connector for accessing and manipulating files in a local file system.
 }
-\details{
-The \code{extra_class} parameter allows you to create a subclass of the \code{Connector_fs} object.
-This can be useful if you want to create a custom connection object for easier dispatch of new s3 methods,
-while still inheriting the methods from the \code{Connector_fs} object.
+\section{Super class}{
+\code{\link[connector:connector]{connector::connector}} -> \code{connector_fs}
 }
-\examples{
-# Connect to a file system
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-connector_fs-new}{\code{connector_fs$new()}}
+\item \href{#method-connector_fs-construct_path}{\code{connector_fs$construct_path()}}
+\item \href{#method-connector_fs-get_path}{\code{connector_fs$get_path()}}
+\item \href{#method-connector_fs-clone}{\code{connector_fs$clone()}}
+}
+}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="list_content"><a href='../../connector/html/connector.html#method-connector-list_content'><code>connector::connector$list_content()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="read"><a href='../../connector/html/connector.html#method-connector-read'><code>connector::connector$read()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="remove"><a href='../../connector/html/connector.html#method-connector-remove'><code>connector::connector$remove()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="write"><a href='../../connector/html/connector.html#method-connector-write'><code>connector::connector$write()</code></a></span></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_fs-new"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-new}{}}}
+\subsection{Method \code{new()}}{
+Initializes the connector_fs class
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$new(path, access = "rw")}\if{html}{\out{</div>}}
+}
 
-path_to_adam <- system.file("demo_trial", "adam", package = "connector")
-db <- connector_fs(path_to_adam)
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{path}}{Path to the file system}
 
-db
+\item{\code{access}}{Access type ("rw" by default)}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_fs-construct_path"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-construct_path}{}}}
+\subsection{Method \code{construct_path()}}{
+Constructs a complete path by combining the specified access path with the provided elements
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$construct_path(...)}\if{html}{\out{</div>}}
+}
 
-# Create subclass connection
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{...}}{Elements to construct the path}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_fs-get_path"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-get_path}{}}}
+\subsection{Method \code{get_path()}}{
+Returns the path of the file system
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$get_path()}\if{html}{\out{</div>}}
+}
 
-db_subclass <- connector_fs(path_to_adam, extra_class = "subclass")
+\subsection{Returns}{
+Path to the file system
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_fs-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
 
-db_subclass
-class(db_subclass)
-
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
 }

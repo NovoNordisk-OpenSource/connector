@@ -1,15 +1,14 @@
-#' General Connector object
+#' General connector object
 #' @description
 #' This R6 class is a general class for all connectors. It is used to define the methods that all connectors should have.
 #' New connectors should inherit from this class, and the methods described in [connector_methods] should be implemented.
 #' @param name [character] Name of the content to read, write, or remove. Typically the table name,
 #' @param ... Additional arguments passed to the method for the individual connector.
-#' @seealso [connector_methods] [Connector_fs] and [Connector_dbi] for examples on how to create a new connector class.
-#' @name Connector_object
+#' @seealso [connector_methods] [connector_fs] and [connector_dbi] for examples on how to create a new connector class.
 #' @export
 
-Connector <- R6::R6Class(
-  classname = "Connector",
+connector <- R6::R6Class(
+  classname = "connector",
   public = list(
 
     #' @description List content
@@ -48,10 +47,10 @@ Connector <- R6::R6Class(
 #' These methods are a S3 method that dispatches to the specific methods for the connector object.
 #'
 #' @details
-#' For example, if you have a connector object `Connector_fs`, you can use `cnt_read(Connector_fs, "file.csv")` to read the file. It will be dispatch to the `cnt_read.Connector_fs` method.
+#' For example, if you have a connector object `connector_fs`, you can use `cnt_read(connector_fs, "file.csv")` to read the file. It will be dispatch to the `cnt_read.connector_fs` method.
 #' Why? The main aim is to allow the user to use the same function for different connector objects by using the builder function `connector_fs` and add an "extra_class".
-#' By doing so, you can create a subclass of the `Connector_fs` object and dispatch to the specific methods for this subclass.
-#' For example, if you have a subclass `subclass`, you can use `cnr_read(subclass, "file.csv")` to read the file. It will be dispatch to the `cnt_read.subclass` method. And you can still use the `Connector_fs` methods.
+#' By doing so, you can create a subclass of the `connector_fs` object and dispatch to the specific methods for this subclass.
+#' For example, if you have a subclass `subclass`, you can use `cnr_read(subclass, "file.csv")` to read the file. It will be dispatch to the `cnt_read.subclass` method. And you can still use the `connector_fs` methods.
 #'
 #' @param connector_object A connector object to be able to use functions from it
 #' @param ... Additional arguments passed to the method
