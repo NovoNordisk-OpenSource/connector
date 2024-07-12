@@ -112,7 +112,7 @@ cnt_disconnect <- function(connector_object, ...) {
 
 #' @export
 cnt_disconnect.default <- function(connector_object, ...) {
-  stop("Method not implemented")
+  method_error_msg()
 }
 
 #' tbl method for connector object
@@ -124,5 +124,5 @@ cnt_tbl <- function(connector_object, ...) {
 
 #' @export
 cnt_tbl.default <- function(connector_object, ...) {
-  stop("Method not implemented")
+  method_error_msg()
 }
