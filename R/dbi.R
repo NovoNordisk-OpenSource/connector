@@ -10,13 +10,10 @@
 #' Upon garbage collection, the connection will try to disconnect from the database.
 #' But it is good practice to call `disconnect` when you are done with the connection.
 #'
-#'
-#' @name Connector_dbi_object
-#'
 #' @examples
 #' # Create DBI connector
 #'
-#' db <- Connector_dbi$new(RSQLite::SQLite(), ":memory:")
+#' db <- connector_dbi$new(RSQLite::SQLite(), ":memory:")
 #'
 #' db
 #'
@@ -53,9 +50,9 @@
 #'
 #' @export
 
-Connector_dbi <- R6::R6Class(
-  classname = "Connector_dbi",
-  inherit = Connector,
+connector_dbi <- R6::R6Class(
+  classname = "connector_dbi",
+  inherit = connector,
   public = list(
 
     #' @description Initialize the connection
@@ -97,50 +94,11 @@ Connector_dbi <- R6::R6Class(
   )
 )
 
-#' Create a new DBI connector object to interact with DBI compliant database backends
-#'
-#' @param drv DBI driver. See [DBI::dbConnect] for details
-#' @param ... Additional arguments passed to [DBI::dbConnect]
-#' @param extra_class [character] Extra class added to the object. See details.
-#' @return A new [connector_dbi] object
-#'
-#' @details
-#' The `extra_class` parameter allows you to create a subclass of the `connector_dbi` object.
-#' This can be useful if you want to create a custom connection object for easier dispatch of new s3 methods,
-#' while still inheriting the methods from the `connector_dbi` object.
-#'
-#' @examples
-#' # Connect to in memory SQLite database
-#'
-#' db <- connector_dbi(RSQLite::SQLite(), ":memory:")
-#'
-#' db
-#'
-#' # Create subclass connection
-#'
-#' db_subclass <- connector_dbi(RSQLite::SQLite(), ":memory:", extra_class = "subclass")
-#'
-#' db_subclass
-#' class(db_subclass)
-#'
-#' @export
-#'
-connector_dbi <- function(drv, ..., extra_class = NULL) {
-  layer <- Connector_dbi$new(drv = drv, ...)
-
-  if (!is.null(extra_class)) {
-    # TODO: not sure about paste and so on
-    # extra_class <- paste(class(layer)[1], extra_class, sep = "_")
-    class(layer) <- c(extra_class, class(layer))
-  }
-  return(layer)
-}
-
-#' Additional methods DBI Connectors
+#' Additional methods DBI connectors
 #' @description
-#' These methods are additional S3 methods for  [Connector_dbi].
+#' These methods are additional S3 methods for  [connector_dbi].
 #' @seealso [connector_methods]
-#' @param connector_object A [Connector_dbi] object to be able to use functions from it
+#' @param connector_object A [connector_dbi] object to be able to use functions from it
 #' @param ... Additional arguments passed to the methods
 #' @name connector_dbi_methods
 NULL

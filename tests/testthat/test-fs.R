@@ -1,6 +1,6 @@
 test_that("fs connector", {
   t_dir <- withr::local_tempdir()
-  fs <- connector_fs(path = t_dir) |>
+  fs <- connector_fs$new(path = t_dir) |>
     expect_no_condition()
 
   fs$list_content() |>

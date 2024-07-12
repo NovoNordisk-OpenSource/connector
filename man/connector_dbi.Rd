@@ -2,40 +2,153 @@
 % Please edit documentation in R/dbi.R
 \name{connector_dbi}
 \alias{connector_dbi}
-\title{Create a new DBI connector object to interact with DBI compliant database backends}
-\usage{
-connector_dbi(drv, ..., extra_class = NULL)
-}
-\arguments{
-\item{drv}{DBI driver. See \link[DBI:dbConnect]{DBI::dbConnect} for details}
-
-\item{...}{Additional arguments passed to \link[DBI:dbConnect]{DBI::dbConnect}}
-
-\item{extra_class}{\link{character} Extra class added to the object. See details.}
-}
-\value{
-A new \link{connector_dbi} object
-}
+\title{R6 class for a dbi connection, see \link{connector_dbi} (used to interact with DBI compliant database backends)}
 \description{
-Create a new DBI connector object to interact with DBI compliant database backends
+Connector object for DBI connections. This object is used to interact with DBI compliant database backends.
+See the \href{https://dbi.r-dbi.org/}{DBI package} for how which backends are supported.
 }
 \details{
-The \code{extra_class} parameter allows you to create a subclass of the \code{connector_dbi} object.
-This can be useful if you want to create a custom connection object for easier dispatch of new s3 methods,
-while still inheriting the methods from the \code{connector_dbi} object.
+Upon garbage collection, the connection will try to disconnect from the database.
+But it is good practice to call \code{disconnect} when you are done with the connection.
 }
 \examples{
-# Connect to in memory SQLite database
+# Create DBI connector
 
-db <- connector_dbi(RSQLite::SQLite(), ":memory:")
+db <- connector_dbi$new(RSQLite::SQLite(), ":memory:")
 
 db
 
-# Create subclass connection
+# Write to the database
 
-db_subclass <- connector_dbi(RSQLite::SQLite(), ":memory:", extra_class = "subclass")
+db$write(iris, "iris")
 
-db_subclass
-class(db_subclass)
+# Read from the database
 
+db$read("iris") |>
+  head(5)
+
+# List available tables
+
+db$list_content()
+
+# Use the connector to run a query
+
+db$get_conn() |>
+  DBI::dbGetQuery("SELECT * FROM iris limit 5")
+
+# Use dplyr verbs and collect data
+
+db$tbl("iris") |>
+  dplyr::filter(Sepal.Length > 7) |>
+  dplyr::collect()
+
+# Disconnect from the database
+
+db$disconnect()
+
+}
+\section{Super class}{
+\code{\link[connector:connector]{connector::connector}} -> \code{connector_dbi}
+}
+\section{Methods}{
+\subsection{Public methods}{
+\itemize{
+\item \href{#method-connector_dbi-new}{\code{connector_dbi$new()}}
+\item \href{#method-connector_dbi-get_conn}{\code{connector_dbi$get_conn()}}
+\item \href{#method-connector_dbi-disconnect}{\code{connector_dbi$disconnect()}}
+\item \href{#method-connector_dbi-tbl}{\code{connector_dbi$tbl()}}
+\item \href{#method-connector_dbi-clone}{\code{connector_dbi$clone()}}
+}
+}
+\if{html}{\out{
+<details open><summary>Inherited methods</summary>
+<ul>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="list_content"><a href='../../connector/html/connector.html#method-connector-list_content'><code>connector::connector$list_content()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="read"><a href='../../connector/html/connector.html#method-connector-read'><code>connector::connector$read()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="remove"><a href='../../connector/html/connector.html#method-connector-remove'><code>connector::connector$remove()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="write"><a href='../../connector/html/connector.html#method-connector-write'><code>connector::connector$write()</code></a></span></li>
+</ul>
+</details>
+}}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_dbi-new"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_dbi-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize the connection
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$new(drv, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{drv}}{DBI driver}
+
+\item{\code{...}}{Additional arguments passed to \link[DBI:dbConnect]{DBI::dbConnect}}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A \link{connector_dbi} object
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_dbi-get_conn"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_dbi-get_conn}{}}}
+\subsection{Method \code{get_conn()}}{
+Get the connection object
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$get_conn()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+A DBI connection object
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_dbi-disconnect"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_dbi-disconnect}{}}}
+\subsection{Method \code{disconnect()}}{
+Disconnect from the database
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$disconnect()}\if{html}{\out{</div>}}
+}
+
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_dbi-tbl"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_dbi-tbl}{}}}
+\subsection{Method \code{tbl()}}{
+Create a \link{tbl} object
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$tbl(name, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{\link{character} Table name}
+
+\item{\code{...}}{Additional arguments passed to \link[dplyr:tbl]{dplyr::tbl}}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_dbi-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_dbi-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
+}
+\if{html}{\out{</div>}}
+}
+}
 }
