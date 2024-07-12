@@ -69,7 +69,6 @@ get_backend_fct <- function(backend_type) {
 #' @param connect_fct The connection function
 #' @param params_from_user  The parameters from the user
 try_connect <- function(connect_fct, params_from_user) {
-
   connect_ <- try(do.call(connect_fct, params_from_user), silent = TRUE)
 
   if (inherits(connect_, "try-error")) {
