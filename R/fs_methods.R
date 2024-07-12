@@ -11,7 +11,7 @@
 #' connector$remove("iris.csv")
 cnt_read.connector_fs <- function(connector_object, name, ...) {
   name |>
-    find_file(root = connector_object$get_path()) |>
+    find_file(root = connector_object$path) |>
     read_file(...)
 }
 
@@ -29,8 +29,8 @@ cnt_read.connector_fs <- function(connector_object, name, ...) {
 #' connector$remove("iris.csv")
 #'
 cnt_write.connector_fs <- function(connector_object, x, file, ...) {
-  x %>%
-    write_file(connector_object$construct_path(file), ...)
+  file <- file.path(connector_object$path, file)
+  write_file(x, file, ...)
 }
 
 #' List content of the directory
@@ -42,7 +42,7 @@ cnt_write.connector_fs <- function(connector_object, x, file, ...) {
 #' connector$write(iris, "iris.csv")
 #' connector$list_content()
 cnt_list_content.connector_fs <- function(connector_object, ...) {
-  connector_object$get_path() %>%
+  connector_object$path %>%
     list.files(...)
 }
 
@@ -56,5 +56,6 @@ cnt_list_content.connector_fs <- function(connector_object, ...) {
 #' connector$write(iris, "iris.csv")
 #' connector$remove("iris.csv")
 cnt_remove.connector_fs <- function(connector_object, ...) {
-  unlink(connector_object$construct_path(...))
+  path <- file.path(connector_object$path, ...)
+  unlink(path)
 }

@@ -11,21 +11,17 @@ connector_fs <- R6::R6Class(
     #' @param path Path to the file system
     #' @param access Access type ("rw" by default)
     initialize = function(path, access = "rw") {
-      private$path <- assert_path(path, access)
-    },
-    #' @description Constructs a complete path by combining the specified access path with the provided elements
-    #' @param ... Elements to construct the path
-    construct_path = function(...) {
-      file.path(private$path, ...)
-    },
-    #' @description Returns the path of the file system
-    #' @return Path to the file system
-    get_path = function() {
-      private$path
+      private$.path <- assert_path(path, access)
+    }
+  ),
+  active = list(
+    #' @field path Path to the file storage
+    path = function() {
+      private$.path
     }
   ),
   private = list(
-    path = character(0)
+    .path = character(0)
   )
 )
 
