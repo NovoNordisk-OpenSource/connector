@@ -1,11 +1,11 @@
-#' Special list of Connectors
-#' @param connectors Named [list] of individual [Connector] objects
+#' Special list of connectors
+#' @param connectors Named [list] of individual [connector] objects
 #' @export
-Connectors <- function(connectors) {
+connectors <- function(connectors) {
   checkmate::assert_list(x = connectors, names = "named")
   structure(
     connectors,
-    class = c("Connectors")
+    class = c("connectors")
   )
 }
 
@@ -42,7 +42,7 @@ connect_from_yaml <- function(yaml_content) {
     purrr::map(\(x) connections[[x$con]]) %>%
     rlang::set_names(purrr::map_chr(yaml_content$datasources, list("name", 1)))
 
-  Connectors(
+  connectors(
     connector_
   )
 }
