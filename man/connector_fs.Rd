@@ -9,12 +9,17 @@ The connector_fs class is a file system connector for accessing and manipulating
 \section{Super class}{
 \code{\link[connector:connector]{connector::connector}} -> \code{connector_fs}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{path}}{Path to the file storage}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-connector_fs-new}{\code{connector_fs$new()}}
-\item \href{#method-connector_fs-construct_path}{\code{connector_fs$construct_path()}}
-\item \href{#method-connector_fs-get_path}{\code{connector_fs$get_path()}}
 \item \href{#method-connector_fs-clone}{\code{connector_fs$clone()}}
 }
 }
@@ -45,36 +50,6 @@ Initializes the connector_fs class
 \item{\code{access}}{Access type ("rw" by default)}
 }
 \if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-construct_path"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-construct_path}{}}}
-\subsection{Method \code{construct_path()}}{
-Constructs a complete path by combining the specified access path with the provided elements
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$construct_path(...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{...}}{Elements to construct the path}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-get_path"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-get_path}{}}}
-\subsection{Method \code{get_path()}}{
-Returns the path of the file system
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$get_path()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-Path to the file system
 }
 }
 \if{html}{\out{<hr>}}
