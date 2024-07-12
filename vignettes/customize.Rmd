@@ -1,0 +1,22 @@
+---
+title: "How to extend connector"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to extend connector}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(connector)
+```
+
+TODO: This is a vignette describing how to use the s3 dispatch to create your own 
+methods, and how to create your own connector classes.

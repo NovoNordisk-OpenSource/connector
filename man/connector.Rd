@@ -4,11 +4,14 @@
 \alias{connector}
 \title{General connector object}
 \description{
-This R6 class is a general class for all connectors. It is used to define the methods that all connectors should have.
-New connectors should inherit from this class, and the methods described in \link{connector_methods} should be implemented.
+This R6 class is a general class for all connectors.
+It is used to define the methods that all connectors should have.
+New connectors should inherit from this class,
+and the methods described in \link{connector_methods} should be implemented.
 }
 \seealso{
-\link{connector_methods} \link{connector_fs} and \link{connector_dbi} for examples on how to create a new connector class.
+\code{vignette("customize")} on how to create custom connectors and methods,
+and how concrete examples in \link{connector_methods}, \link{connector_fs} and \link{connector_dbi}.
 }
 \section{Methods}{
 \subsection{Public methods}{
