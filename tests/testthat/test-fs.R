@@ -16,7 +16,7 @@ test_that("fs connector", {
   fs$read("mtcars.rds") |>
     expect_equal(mtcars)
 
-  fs$construct_path("test.rds") |>
+  fs$path |>
     expect_vector(ptype = character(), size = 1)
 
   fs$remove("mtcars.rds") |>
