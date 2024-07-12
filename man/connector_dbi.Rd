@@ -33,7 +33,9 @@ db$list_content()
 
 # Use the connector to run a query
 
-db$get_conn() |>
+db$conn
+
+db$conn |>
   DBI::dbGetQuery("SELECT * FROM iris limit 5")
 
 # Use dplyr verbs and collect data
@@ -50,11 +52,17 @@ db$disconnect()
 \section{Super class}{
 \code{\link[connector:connector]{connector::connector}} -> \code{connector_dbi}
 }
+\section{Active bindings}{
+\if{html}{\out{<div class="r6-active-bindings">}}
+\describe{
+\item{\code{conn}}{The DBI connector object of the connector}
+}
+\if{html}{\out{</div>}}
+}
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-connector_dbi-new}{\code{connector_dbi$new()}}
-\item \href{#method-connector_dbi-get_conn}{\code{connector_dbi$get_conn()}}
 \item \href{#method-connector_dbi-disconnect}{\code{connector_dbi$disconnect()}}
 \item \href{#method-connector_dbi-tbl}{\code{connector_dbi$tbl()}}
 \item \href{#method-connector_dbi-clone}{\code{connector_dbi$clone()}}
@@ -90,19 +98,6 @@ Initialize the connection
 }
 \subsection{Returns}{
 A \link{connector_dbi} object
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_dbi-get_conn"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_dbi-get_conn}{}}}
-\subsection{Method \code{get_conn()}}{
-Get the connection object
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$get_conn()}\if{html}{\out{</div>}}
-}
-
-\subsection{Returns}{
-A DBI connection object
 }
 }
 \if{html}{\out{<hr>}}

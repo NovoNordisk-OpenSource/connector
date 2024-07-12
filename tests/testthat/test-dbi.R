@@ -56,7 +56,7 @@ for (i in seq_along(specs)) {
       dplyr::collect() |>
       expect_equal(dplyr::tibble(car = "Mazda RX4", mpg = 21))
 
-    test$get_conn() |>
+    test$conn |>
       DBI::dbGetQuery("SELECT * FROM mtcars") |>
       expect_equal(x)
 
