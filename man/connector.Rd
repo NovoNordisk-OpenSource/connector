@@ -20,6 +20,7 @@ and how concrete examples in \link{connector_methods}, \link{connector_fs} and \
 \item \href{#method-connector-read}{\code{connector$read()}}
 \item \href{#method-connector-write}{\code{connector$write()}}
 \item \href{#method-connector-remove}{\code{connector$remove()}}
+\item \href{#method-connector-clone}{\code{connector$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
@@ -100,6 +101,23 @@ Remove or delete content
 \item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name,}
 
 \item{\code{...}}{Additional arguments passed to the method for the individual connector.}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector-clone"></a>}}
+\if{latex}{\out{\hypertarget{method-connector-clone}{}}}
+\subsection{Method \code{clone()}}{
+The objects of this class are cloneable with this method.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector$clone(deep = FALSE)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{deep}}{Whether to make a deep clone.}
 }
 \if{html}{\out{</div>}}
 }
