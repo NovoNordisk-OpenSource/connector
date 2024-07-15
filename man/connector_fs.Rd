@@ -2,9 +2,10 @@
 % Please edit documentation in R/fs.R
 \name{connector_fs}
 \alias{connector_fs}
-\title{Connector for file system}
+\title{Connector for file storage}
 \description{
-The connector_fs class is a file system connector for accessing and manipulating files in a local file system.
+The connector_fs class is a file storage connector for accessing and manipulating files any file storage solution.
+The default implementation includes methods for files stored on local or network drives.
 }
 \section{Super class}{
 \code{\link[connector:connector]{connector::connector}} -> \code{connector_fs}
@@ -20,6 +21,10 @@ The connector_fs class is a file system connector for accessing and manipulating
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-connector_fs-new}{\code{connector_fs$new()}}
+\item \href{#method-connector_fs-download}{\code{connector_fs$download()}}
+\item \href{#method-connector_fs-upload}{\code{connector_fs$upload()}}
+\item \href{#method-connector_fs-create_directory}{\code{connector_fs$create_directory()}}
+\item \href{#method-connector_fs-remove_directory}{\code{connector_fs$remove_directory()}}
 \item \href{#method-connector_fs-clone}{\code{connector_fs$clone()}}
 }
 }
@@ -45,9 +50,97 @@ Initializes the connector_fs class
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{path}}{Path to the file system}
+\item{\code{path}}{Path to the file storage}
 
 \item{\code{access}}{Access type ("rw" by default)}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_fs-download"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-download}{}}}
+\subsection{Method \code{download()}}{
+Read content
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$download(name, file = basename(name), ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
+
+\item{\code{file}}{\link{character} The file to write or save to from the file storage.}
+
+\item{\code{...}}{Additional arguments passed to the method.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The result of the read method
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_fs-upload"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-upload}{}}}
+\subsection{Method \code{upload()}}{
+Upload a file
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$upload(file, name, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{file}}{\link{character} The file to write or save to from the file storage.}
+
+\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
+
+\item{\code{...}}{Additional arguments passed to the method.}
+
+\item{\code{x}}{The object to upload to the file storage}
+}
+\if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_fs-create_directory"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-create_directory}{}}}
+\subsection{Method \code{create_directory()}}{
+Create a directory
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$create_directory(name, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The name of the directory to create}
+
+\item{\code{...}}{Additional arguments passed to the method.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+The directory created
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_fs-remove_directory"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-remove_directory}{}}}
+\subsection{Method \code{remove_directory()}}{
+Remove a directory
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$remove_directory(name, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{The name of the directory to create}
+
+\item{\code{...}}{Additional arguments passed to the method.}
 }
 \if{html}{\out{</div>}}
 }
