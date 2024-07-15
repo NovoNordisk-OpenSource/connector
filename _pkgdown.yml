@@ -2,19 +2,22 @@ url: https://fantastic-adventure-gqozn9k.pages.github.io/
 template:
   bootstrap: 5
 reference:
-  - title: Connector
+  - title: Use connector
     contents:
     - connect_from_yaml
     - read_yaml_config
+    - options
+  - title: Connector general
+    contents:
     - connectors
     - connector
     - connector_methods
-    - options
-  - title: File System Connector
+  - title: File storage connector
     contents:
     - connector_fs
+    - connector_fs_methods
     - matches("\\.connector_fs$")
-  - title: DBI Connector
+  - title: DBI connector
     contents:
     - connector_dbi
     - connector_dbi_methods

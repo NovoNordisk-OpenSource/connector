@@ -59,3 +59,27 @@ cnt_remove.connector_fs <- function(connector_object, ...) {
   path <- file.path(connector_object$path, ...)
   unlink(path)
 }
+
+#' @export
+cnt_download.connector_fs <- function(connector_object, name, file = basename(name), ...) {
+  name <- file.path(connector_object$path, name)
+  file.copy(from = name, to = file, ...)
+}
+
+#' @export
+cnt_upload.connector_fs <- function(connector_object, file, name = basename(file)) {
+  name <- file.path(connector_object$path, name)
+  file.copy(from = file, to = name, ...)
+}
+
+#' @export
+cnt_create_directory.connector_fs = function(connector_object, name, ...) {
+  path <- file.path(connector_object$path, name)
+  dir.create(path = path, ...)
+}
+
+#' @export
+remove_directory.connector_fs = function(connector_object, name, ...) {
+  path <- file.path(connector_object$path, name)
+  unlink(x = path, ...)
+}
