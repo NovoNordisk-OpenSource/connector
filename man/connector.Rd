@@ -55,7 +55,7 @@ Read content
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name,}
+\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
 \item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
@@ -79,7 +79,7 @@ Write content
 \describe{
 \item{\code{x}}{The object to write to the connection}
 
-\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name,}
+\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
 \item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
@@ -98,7 +98,7 @@ Remove or delete content
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name,}
+\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
 \item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }

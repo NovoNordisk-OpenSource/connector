@@ -4,7 +4,8 @@
 #' It is used to define the methods that all connectors should have.
 #' New connectors should inherit from this class,
 #' and the methods described in [connector_methods] should be implemented.
-#' @param name [character] Name of the content to read, write, or remove. Typically the table name,
+#' @param name [character] Name of the content to read, write, or remove. Typically the table name.
+#' @param x The object to write to the connection
 #' @param ... Additional arguments passed to the method for the individual connector.
 #' @seealso `vignette("customize")` on how to create custom connectors and methods,
 #' and how concrete examples in [connector_methods], [connector_fs] and [connector_dbi].
@@ -29,7 +30,6 @@ connector <- R6::R6Class(
     },
 
     #' @description Write content
-    #' @param x The object to write to the connection
     write = function(x, name, ...) {
       self %>%
         cnt_write(x, name, ...)
