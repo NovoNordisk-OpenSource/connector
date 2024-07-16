@@ -29,7 +29,9 @@ find_file <- function(name, root) {
 supported_fs <- function() {
   fct <- getExportedValue("connector", "read_ext")
   # TODO: Make some great documentation on which formats are supported and which functions from other packages are used
-  suppressWarnings(utils::methods(fct))
+  utils::methods(fct) |>
+    suppressWarnings() |>
+    as.character()
 }
 
 #' Test the extension of files
