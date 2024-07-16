@@ -73,13 +73,13 @@ cnt_upload.connector_fs <- function(connector_object, file, name = basename(file
 }
 
 #' @export
-cnt_create_directory.connector_fs = function(connector_object, name, ...) {
+cnt_create_directory.connector_fs <- function(connector_object, name, ...) {
   path <- file.path(connector_object$path, name)
   dir.create(path = path, ...)
 }
 
 #' @export
-cnt_remove_directory.connector_fs = function(connector_object, name, ...) {
+cnt_remove_directory.connector_fs <- function(connector_object, name, ...) {
   path <- file.path(connector_object$path, name)
   unlink(x = path, recursive = TRUE, ...)
 }
