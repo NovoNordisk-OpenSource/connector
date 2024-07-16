@@ -87,7 +87,7 @@ The result of the read method
 \subsection{Method \code{upload()}}{
 Upload a file
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$upload(file, name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$upload(file, name = basename(file), ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

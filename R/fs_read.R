@@ -65,6 +65,14 @@ read_ext.default <- function(path, ...) {
   return(table)
 }
 
+#' For txt files
+#' @rdname read_ext
+#' @importFrom readr read_lines
+#' @export
+read_ext.txt <- function(path, ...) {
+  readr::read_lines(path, ...)
+}
+
 #' For CSV files
 #' @rdname read_ext
 #' @importFrom readr read_csv

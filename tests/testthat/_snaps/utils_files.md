@@ -1,5 +1,14 @@
 # Test utils for file
 
+    Code
+      supported_fs()
+    Output
+      [1] read_ext.csv      read_ext.default  read_ext.parquet  read_ext.rds     
+      [5] read_ext.sas7bdat read_ext.txt      read_ext.xpt     
+      see '?methods' for accessing help and source code
+
+---
+
     No method found for this extension, please implement your own method (to see an example run `connector::example_read_ext()`) or use a supported extension
     i Supported extensions are:
     * read_ext.csv
@@ -7,6 +16,7 @@
     * read_ext.parquet
     * read_ext.rds
     * read_ext.sas7bdat
+    * read_ext.txt
     * read_ext.xpt
 
 ---
