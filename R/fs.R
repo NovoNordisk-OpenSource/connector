@@ -48,7 +48,6 @@ connector_fs <- R6::R6Class(
       self %>%
         cnt_remove_directory(name, ...)
     }
-
   ),
   active = list(
     #' @field path Path to the file storage
