@@ -3,9 +3,9 @@
     Code
       supported_fs()
     Output
-      [1] read_ext.csv      read_ext.default  read_ext.parquet  read_ext.rds     
-      [5] read_ext.sas7bdat read_ext.txt      read_ext.xpt     
-      see '?methods' for accessing help and source code
+      [1] "read_ext.csv"      "read_ext.default"  "read_ext.parquet" 
+      [4] "read_ext.rds"      "read_ext.sas7bdat" "read_ext.txt"     
+      [7] "read_ext.xpt"     
 
 ---
 
