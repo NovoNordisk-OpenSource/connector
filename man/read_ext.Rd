@@ -3,6 +3,7 @@
 \name{read_ext}
 \alias{read_ext}
 \alias{read_ext.default}
+\alias{read_ext.txt}
 \alias{read_ext.csv}
 \alias{read_ext.parquet}
 \alias{read_ext.rds}
@@ -13,6 +14,8 @@
 read_ext(path, ...)
 
 \method{read_ext}{default}(path, ...)
+
+\method{read_ext}{txt}(path, ...)
 
 \method{read_ext}{csv}(path, ...)
 
@@ -36,6 +39,8 @@ the result of the reading function
 Read a file based on this extension
 
 Default method for reading files
+
+For txt files
 
 For CSV files
 

@@ -12,6 +12,8 @@ write_ext(file, x, ...)
 
 \method{write_ext}{csv}(file, x, ...)
 
+\method{write_ext}{csv}(file, x, ...)
+
 \method{write_ext}{parquet}(file, x, ...)
 
 \method{write_ext}{rds}(file, x, ...)
@@ -30,6 +32,8 @@ the result of the Writing function
 }
 \description{
 Write a file based on this extension
+
+For txt files
 
 For CSV files
 
