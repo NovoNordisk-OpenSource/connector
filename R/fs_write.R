@@ -35,6 +35,14 @@ write_ext <- function(file, x, ...) {
   UseMethod("write_ext")
 }
 
+#' For txt files
+#' @rdname write_ext
+#' @importFrom readr write_lines
+#' @export
+write_ext.csv <- function(file, x, ...) {
+  readr::write_lines(x, file, ...)
+}
+
 #' For CSV files
 #' @rdname write_ext
 #'
