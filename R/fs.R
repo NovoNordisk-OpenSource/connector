@@ -46,7 +46,7 @@ connector_fs <- R6::R6Class(
     #' @param name The name of the directory to create
     remove_directory = function(name, ...) {
       self %>%
-        cnt_create_directory(name, ...)
+        cnt_remove_directory(name, ...)
     }
 
   ),
@@ -86,7 +86,7 @@ cnt_download.default <- function(connector_object, ...) {
 #' @rdname connector_fs_methods
 #' @export
 cnt_upload <- function(connector_object, ...) {
-  UseMethod("cnt_download")
+  UseMethod("cnt_upload")
 }
 
 #' @export
@@ -98,7 +98,7 @@ cnt_upload.default <- function(connector_object, ...) {
 #' @rdname connector_fs_methods
 #' @export
 cnt_create_directory <- function(connector_object, ...) {
-  UseMethod("cnt_download")
+  UseMethod("cnt_create_directory")
 }
 
 #' @export
@@ -110,7 +110,7 @@ cnt_create_directory.default <- function(connector_object, ...) {
 #' @rdname connector_fs_methods
 #' @export
 cnt_remove_directory <- function(connector_object, ...) {
-  UseMethod("cnt_download")
+  UseMethod("cnt_remove_directory")
 }
 
 #' @export
