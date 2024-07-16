@@ -116,11 +116,12 @@ cnt_list_content.default <- function(connector_object, ...) {
 }
 
 method_error_msg <- function(env = parent.frame()) {
-  cli::cli_abort(c(
-    "Method not implemented for class {.cls {class(connector_object)}}",
-    "i" = "See the {.vignette [customize](connector::customize)} vignette on how to create custom connectors and methods"
+  cli::cli_abort(
+    c(
+      "Method not implemented for class {.cls {class(connector_object)}}",
+      "i" = "See the {.vignette [customize](connector::customize)} vignette
+             on how to create custom connectors and methods"
     ),
-    .envir = env)
+    .envir = env
+  )
 }
-
-
