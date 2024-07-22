@@ -16,26 +16,26 @@ test_that("Connect datasources to the connections for a yaml file", {
 
   ## write and read for a system file
   withr::with_options(list(readr.show_col_types = FALSE), {
-    connect$adam$read("adsl.csv") %>%
+    connect$adam$cnt_read("adsl.csv") %>%
       expect_s3_class("data.frame")
-    expect_error(connect$adam$read("do_not_exits.csv"))
+    expect_error(connect$adam$cnt_read("do_not_exits.csv"))
 
-    connect$adam$write(data.frame(a = 1:10, b = 11:20), "example.csv") %>%
+    connect$adam$cnt_write(data.frame(a = 1:10, b = 11:20), "example.csv") %>%
       expect_no_error()
 
-    expect_no_error(connect$adam$read("example.csv"))
-    expect_no_error(connect$adam$remove("example.csv"))
-    expect_error(connect$adam$read("example.csv"))
+    expect_no_error(connect$adam$cnt_read("example.csv"))
+    expect_no_error(connect$adam$cnt_remove("example.csv"))
+    expect_error(connect$adam$cnt_read("example.csv"))
   })
 
   ## write and read for a dbi connection
-  expect_no_error(connect$sdtm$write(iris, "iris"))
+  expect_no_error(connect$sdtm$cnt_write(iris, "iris"))
 
-  expect_no_error(connect$sdtm$read("iris"))
+  expect_no_error(connect$sdtm$cnt_read("iris"))
 
   ## Manipulate a table with the database
 
-  iris_f <- connect$sdtm$tbl("iris") %>%
+  iris_f <- connect$sdtm$cnt_tbl("iris") %>%
     dplyr::filter(Sepal.Length > 5)
 
   expect_s3_class(iris_f, "tbl_dbi")

@@ -21,8 +21,8 @@ Read a table from the database
 }
 \examples{
 connector <- connector_dbi$new(RSQLite::SQLite())
-connector$write(iris, "iris")
+connector$cnt_write(iris, "iris")
 
-connector$read("iris")
+connector$cnt_read("iris")
 
 }

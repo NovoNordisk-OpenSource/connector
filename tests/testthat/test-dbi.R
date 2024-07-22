@@ -32,25 +32,25 @@ for (i in seq_along(specs)) {
       }
     )
 
-    test$list_content() |>
+    test$cnt_list_content() |>
       expect_equal(character(0))
 
-    test$write(x, "mtcars") |>
+    test$cnt_write(x, "mtcars") |>
       expect_true()
 
-    test$write(x, "mtcars") |>
+    test$cnt_write(x, "mtcars") |>
       expect_error()
 
-    test$list_content() |>
+    test$cnt_list_content() |>
       expect_equal("mtcars")
 
-    test$read("mtcars") |>
+    test$cnt_read("mtcars") |>
       expect_equal(x)
 
-    test$write(x, "mtcars", overwrite = TRUE) |>
+    test$cnt_write(x, "mtcars", overwrite = TRUE) |>
       expect_true()
 
-    test$tbl("mtcars") |>
+    test$cnt_tbl("mtcars") |>
       dplyr::filter(car == "Mazda RX4") |>
       dplyr::select(car, mpg) |>
       dplyr::collect() |>
@@ -60,13 +60,13 @@ for (i in seq_along(specs)) {
       DBI::dbGetQuery("SELECT * FROM mtcars") |>
       expect_equal(x)
 
-    test$remove("mtcars") |>
+    test$cnt_remove("mtcars") |>
       expect_true()
 
-    test$disconnect() |>
+    test$cnt_disconnect() |>
       expect_true()
 
-    test$read("mtcars") |>
+    test$cnt_read("mtcars") |>
       expect_error(regexp = "Invalid(| or closed) connection") # Different messages for postgres and sqlite
   })
 }

@@ -22,14 +22,14 @@ connector_fs <- R6::R6Class(
 
     #' @description Read content
     #' @return The result of the read method
-    download = function(name, file = basename(name), ...) {
+    cnt_download = function(name, file = basename(name), ...) {
       self %>%
         cnt_download(name, file, ...)
     },
 
     #' @description Upload a file
     #' @param x The object to upload to the file storage
-    upload = function(file, name = basename(file), ...) {
+    cnt_upload = function(file, name = basename(file), ...) {
       self %>%
         cnt_upload(file, name, ...)
     },
@@ -37,14 +37,14 @@ connector_fs <- R6::R6Class(
     #' @description Create a directory
     #' @param name The name of the directory to create
     #' @return The directory created
-    create_directory = function(name, ...) {
+    cnt_create_directory = function(name, ...) {
       self %>%
         cnt_create_directory(name, ...)
     },
 
     #' @description Remove a directory
     #' @param name The name of the directory to create
-    remove_directory = function(name, ...) {
+    cnt_remove_directory = function(name, ...) {
       self %>%
         cnt_remove_directory(name, ...)
     }
