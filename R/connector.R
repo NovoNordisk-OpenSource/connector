@@ -7,6 +7,7 @@
 #' @param name [character] Name of the content to read, write, or remove. Typically the table name.
 #' @param x The object to write to the connection
 #' @param ... Additional arguments passed to the method for the individual connector.
+#' @param extra_class [character] Extra class to assign to the new connector.
 #' @seealso `vignette("customize")` on how to create custom connectors and methods,
 #' and how concrete examples in [connector_methods], [connector_fs] and [connector_dbi].
 #' @export
@@ -14,6 +15,12 @@
 connector <- R6::R6Class(
   classname = "connector",
   public = list(
+
+    #' @description Initialize connector with the option of adding an extra class
+    initialize = function(extra_class = NULL) {
+      checkmate::assert_character(x = extra_class, any.missing = FALSE, null.ok = TRUE)
+      class(self) <- c(extra_class, class(self))
+    },
 
     #' @description List content
     #' @return A [character] vector of content names

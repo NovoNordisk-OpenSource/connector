@@ -44,7 +44,7 @@ The default implementation includes methods for files stored on local or network
 \subsection{Method \code{new()}}{
 Initializes the connector_fs class
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$new(path, access = "rw")}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$new(path, access = "rw", extra_class = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -53,6 +53,8 @@ Initializes the connector_fs class
 \item{\code{path}}{Path to the file storage}
 
 \item{\code{access}}{Access type ("rw" by default)}
+
+\item{\code{extra_class}}{\link{character} Extra class to assign to the new connector.}
 }
 \if{html}{\out{</div>}}
 }
