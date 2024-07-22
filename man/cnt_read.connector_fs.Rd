@@ -18,7 +18,7 @@ Read files for the connector_fs class
 }
 \examples{
 connector <- connector_fs$new(tempdir())
-connector$write(iris, "iris.csv")
-connector$read("iris.csv")
-connector$remove("iris.csv")
+connector$cnt_write(iris, "iris.csv")
+connector$cnt_read("iris.csv")
+connector$cnt_remove("iris.csv")
 }

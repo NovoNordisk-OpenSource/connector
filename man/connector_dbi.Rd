@@ -20,16 +20,16 @@ db
 
 # Write to the database
 
-db$write(iris, "iris")
+db$cnt_write(iris, "iris")
 
 # Read from the database
 
-db$read("iris") |>
+db$cnt_read("iris") |>
   head(5)
 
 # List available tables
 
-db$list_content()
+db$cnt_list_content()
 
 # Use the connector to run a query
 
@@ -40,13 +40,13 @@ db$conn |>
 
 # Use dplyr verbs and collect data
 
-db$tbl("iris") |>
+db$cnt_tbl("iris") |>
   dplyr::filter(Sepal.Length > 7) |>
   dplyr::collect()
 
 # Disconnect from the database
 
-db$disconnect()
+db$cnt_disconnect()
 
 }
 \section{Super class}{
@@ -63,18 +63,18 @@ db$disconnect()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-connector_dbi-new}{\code{connector_dbi$new()}}
-\item \href{#method-connector_dbi-disconnect}{\code{connector_dbi$disconnect()}}
-\item \href{#method-connector_dbi-tbl}{\code{connector_dbi$tbl()}}
+\item \href{#method-connector_dbi-cnt_disconnect}{\code{connector_dbi$cnt_disconnect()}}
+\item \href{#method-connector_dbi-cnt_tbl}{\code{connector_dbi$cnt_tbl()}}
 \item \href{#method-connector_dbi-clone}{\code{connector_dbi$clone()}}
 }
 }
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="list_content"><a href='../../connector/html/connector.html#method-connector-list_content'><code>connector::connector$list_content()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="read"><a href='../../connector/html/connector.html#method-connector-read'><code>connector::connector$read()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="remove"><a href='../../connector/html/connector.html#method-connector-remove'><code>connector::connector$remove()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="write"><a href='../../connector/html/connector.html#method-connector-write'><code>connector::connector$write()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_list_content"><a href='../../connector/html/connector.html#method-connector-cnt_list_content'><code>connector::connector$cnt_list_content()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_read"><a href='../../connector/html/connector.html#method-connector-cnt_read'><code>connector::connector$cnt_read()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_remove"><a href='../../connector/html/connector.html#method-connector-cnt_remove'><code>connector::connector$cnt_remove()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_write"><a href='../../connector/html/connector.html#method-connector-cnt_write'><code>connector::connector$cnt_write()</code></a></span></li>
 </ul>
 </details>
 }}
@@ -101,22 +101,22 @@ A \link{connector_dbi} object
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_dbi-disconnect"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_dbi-disconnect}{}}}
-\subsection{Method \code{disconnect()}}{
+\if{html}{\out{<a id="method-connector_dbi-cnt_disconnect"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_dbi-cnt_disconnect}{}}}
+\subsection{Method \code{cnt_disconnect()}}{
 Disconnect from the database
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$disconnect()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$cnt_disconnect()}\if{html}{\out{</div>}}
 }
 
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_dbi-tbl"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_dbi-tbl}{}}}
-\subsection{Method \code{tbl()}}{
+\if{html}{\out{<a id="method-connector_dbi-cnt_tbl"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_dbi-cnt_tbl}{}}}
+\subsection{Method \code{cnt_tbl()}}{
 Create a \link{tbl} object
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$tbl(name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$cnt_tbl(name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

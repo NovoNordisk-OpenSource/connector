@@ -16,5 +16,5 @@ Disconnect from the database
 }
 \examples{
 connector <- connector_dbi$new(RSQLite::SQLite())
-connector$disconnect()
+connector$cnt_disconnect()
 }

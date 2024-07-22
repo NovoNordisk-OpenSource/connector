@@ -18,6 +18,6 @@ Create a \link{tbl} object
 }
 \examples{
 connector <- connector_dbi$new(RSQLite::SQLite())
-connector$write(iris, "iris")
-connector$tbl("iris")
+connector$cnt_write(iris, "iris")
+connector$cnt_tbl("iris")
 }

@@ -19,6 +19,6 @@ List tables in the database
 }
 \examples{
 connector <- connector_dbi$new(RSQLite::SQLite())
-connector$write(iris, "iris")
-connector$list_content()
+connector$cnt_write(iris, "iris")
+connector$cnt_list_content()
 }
