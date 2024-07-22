@@ -5,6 +5,7 @@
 #' See the [DBI package](https://dbi.r-dbi.org/) for how which backends are supported.
 #'
 #' @param name [character] Table name
+#' @param extra_class [character] Extra class to assign to the new connector.
 #'
 #' @details
 #' Upon garbage collection, the connection will try to disconnect from the database.
@@ -49,7 +50,6 @@
 #'
 #' @importFrom dplyr tbl
 #' @importFrom DBI dbListTables dbDisconnect dbConnect dbWriteTable dbReadTable
-#'
 #' @export
 
 connector_dbi <- R6::R6Class(
@@ -61,8 +61,9 @@ connector_dbi <- R6::R6Class(
     #' @param drv DBI driver
     #' @param ... Additional arguments passed to [DBI::dbConnect]
     #' @return A [connector_dbi] object
-    initialize = function(drv, ...) {
+    initialize = function(drv, ..., extra_class = NULL) {
       private$.conn <- DBI::dbConnect(drv = drv, ...)
+      super$initialize(extra_class = extra_class)
     },
 
     #' @description Disconnect from the database
