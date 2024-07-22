@@ -16,11 +16,29 @@ and how concrete examples in \link{connector_methods}, \link{connector_fs} and \
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
+\item \href{#method-connector-new}{\code{connector$new()}}
 \item \href{#method-connector-cnt_list_content}{\code{connector$cnt_list_content()}}
 \item \href{#method-connector-cnt_read}{\code{connector$cnt_read()}}
 \item \href{#method-connector-cnt_write}{\code{connector$cnt_write()}}
 \item \href{#method-connector-cnt_remove}{\code{connector$cnt_remove()}}
 \item \href{#method-connector-clone}{\code{connector$clone()}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector-new"></a>}}
+\if{latex}{\out{\hypertarget{method-connector-new}{}}}
+\subsection{Method \code{new()}}{
+Initialize connector with the option of adding an extra class
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector$new(extra_class = NULL)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{extra_class}}{\link{character} Extra class to assign to the new connector.}
+}
+\if{html}{\out{</div>}}
 }
 }
 \if{html}{\out{<hr>}}
