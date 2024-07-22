@@ -19,16 +19,16 @@
 #'
 #' # Write to the database
 #'
-#' db$write(iris, "iris")
+#' db$cnt_write(iris, "iris")
 #'
 #' # Read from the database
 #'
-#' db$read("iris") |>
+#' db$cnt_read("iris") |>
 #'   head(5)
 #'
 #' # List available tables
 #'
-#' db$list_content()
+#' db$cnt_list_content()
 #'
 #' # Use the connector to run a query
 #'
@@ -39,13 +39,13 @@
 #'
 #' # Use dplyr verbs and collect data
 #'
-#' db$tbl("iris") |>
+#' db$cnt_tbl("iris") |>
 #'   dplyr::filter(Sepal.Length > 7) |>
 #'   dplyr::collect()
 #'
 #' # Disconnect from the database
 #'
-#' db$disconnect()
+#' db$cnt_disconnect()
 #'
 #' @importFrom dplyr tbl
 #' @importFrom DBI dbListTables dbDisconnect dbConnect dbWriteTable dbReadTable
@@ -66,14 +66,14 @@ connector_dbi <- R6::R6Class(
     },
 
     #' @description Disconnect from the database
-    disconnect = function() {
+    cnt_disconnect = function() {
       self %>%
         cnt_disconnect()
     },
 
     #' @description Create a [tbl] object
     #' @param ... Additional arguments passed to [dplyr::tbl]
-    tbl = function(name, ...) {
+    cnt_tbl = function(name, ...) {
       self %>%
         cnt_tbl(name, ...)
     }
@@ -91,7 +91,7 @@ connector_dbi <- R6::R6Class(
 
     # Finalize the connection on garbage collection
     finalize = function() {
-      if (DBI::dbIsValid(dbObj = self$conn)) self$disconnect()
+      if (DBI::dbIsValid(dbObj = self$conn)) self$cnt_disconnect()
     }
   )
 )

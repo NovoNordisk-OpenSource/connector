@@ -16,20 +16,20 @@ and how concrete examples in \link{connector_methods}, \link{connector_fs} and \
 \section{Methods}{
 \subsection{Public methods}{
 \itemize{
-\item \href{#method-connector-list_content}{\code{connector$list_content()}}
-\item \href{#method-connector-read}{\code{connector$read()}}
-\item \href{#method-connector-write}{\code{connector$write()}}
-\item \href{#method-connector-remove}{\code{connector$remove()}}
+\item \href{#method-connector-cnt_list_content}{\code{connector$cnt_list_content()}}
+\item \href{#method-connector-cnt_read}{\code{connector$cnt_read()}}
+\item \href{#method-connector-cnt_write}{\code{connector$cnt_write()}}
+\item \href{#method-connector-cnt_remove}{\code{connector$cnt_remove()}}
 \item \href{#method-connector-clone}{\code{connector$clone()}}
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector-list_content"></a>}}
-\if{latex}{\out{\hypertarget{method-connector-list_content}{}}}
-\subsection{Method \code{list_content()}}{
+\if{html}{\out{<a id="method-connector-cnt_list_content"></a>}}
+\if{latex}{\out{\hypertarget{method-connector-cnt_list_content}{}}}
+\subsection{Method \code{cnt_list_content()}}{
 List content
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector$list_content(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector$cnt_list_content(...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -44,12 +44,12 @@ A \link{character} vector of content names
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector-read"></a>}}
-\if{latex}{\out{\hypertarget{method-connector-read}{}}}
-\subsection{Method \code{read()}}{
+\if{html}{\out{<a id="method-connector-cnt_read"></a>}}
+\if{latex}{\out{\hypertarget{method-connector-cnt_read}{}}}
+\subsection{Method \code{cnt_read()}}{
 Read content
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector$read(name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector$cnt_read(name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -66,12 +66,12 @@ The result of the read method
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector-write"></a>}}
-\if{latex}{\out{\hypertarget{method-connector-write}{}}}
-\subsection{Method \code{write()}}{
+\if{html}{\out{<a id="method-connector-cnt_write"></a>}}
+\if{latex}{\out{\hypertarget{method-connector-cnt_write}{}}}
+\subsection{Method \code{cnt_write()}}{
 Write content
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector$write(x, name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector$cnt_write(x, name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -87,12 +87,12 @@ Write content
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector-remove"></a>}}
-\if{latex}{\out{\hypertarget{method-connector-remove}{}}}
-\subsection{Method \code{remove()}}{
+\if{html}{\out{<a id="method-connector-cnt_remove"></a>}}
+\if{latex}{\out{\hypertarget{method-connector-cnt_remove}{}}}
+\subsection{Method \code{cnt_remove()}}{
 Remove or delete content
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector$remove(name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector$cnt_remove(name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

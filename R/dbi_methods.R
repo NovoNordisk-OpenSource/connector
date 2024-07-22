@@ -9,9 +9,9 @@
 #'
 #' @examples
 #' connector <- connector_dbi$new(RSQLite::SQLite())
-#' connector$write(iris, "iris")
+#' connector$cnt_write(iris, "iris")
 #'
-#' connector$read("iris")
+#' connector$cnt_read("iris")
 #'
 cnt_read.connector_dbi <- function(connector_object, name, ...) {
   connector_object$conn %>%
@@ -28,7 +28,7 @@ cnt_read.connector_dbi <- function(connector_object, name, ...) {
 #'
 #' @examples
 #' connector <- connector_dbi$new(RSQLite::SQLite())
-#' connector$write(iris, "iris")
+#' connector$cnt_write(iris, "iris")
 cnt_write.connector_dbi <- function(connector_object, x, name, ...) {
   connector_object$conn %>%
     DBI::dbWriteTable(name = name, value = x, ...)
@@ -41,8 +41,8 @@ cnt_write.connector_dbi <- function(connector_object, x, name, ...) {
 #' @export
 #' @examples
 #' connector <- connector_dbi$new(RSQLite::SQLite())
-#' connector$write(iris, "iris")
-#' connector$list_content()
+#' connector$cnt_write(iris, "iris")
+#' connector$cnt_list_content()
 cnt_list_content.connector_dbi <- function(connector_object, ...) {
   connector_object$conn %>%
     DBI::dbListTables(...)
@@ -55,8 +55,8 @@ cnt_list_content.connector_dbi <- function(connector_object, ...) {
 #' @export
 #' @examples
 #' connector <- connector_dbi$new(RSQLite::SQLite())
-#' connector$write(iris, "iris")
-#' connector$remove("iris")
+#' connector$cnt_write(iris, "iris")
+#' connector$cnt_remove("iris")
 cnt_remove.connector_dbi <- function(connector_object, name, ...) {
   connector_object$conn %>%
     DBI::dbRemoveTable(name = name, ...)
@@ -69,8 +69,8 @@ cnt_remove.connector_dbi <- function(connector_object, name, ...) {
 #' @export
 #' @examples
 #' connector <- connector_dbi$new(RSQLite::SQLite())
-#' connector$write(iris, "iris")
-#' connector$tbl("iris")
+#' connector$cnt_write(iris, "iris")
+#' connector$cnt_tbl("iris")
 cnt_tbl.connector_dbi <- function(connector_object, name, ...) {
   connector_object$conn %>%
     dplyr::tbl(from = name, ...)
@@ -82,7 +82,7 @@ cnt_tbl.connector_dbi <- function(connector_object, name, ...) {
 #' @export
 #' @examples
 #' connector <- connector_dbi$new(RSQLite::SQLite())
-#' connector$disconnect()
+#' connector$cnt_disconnect()
 cnt_disconnect.connector_dbi <- function(connector_object, ...) {
   connector_object$conn %>%
     DBI::dbDisconnect(...)

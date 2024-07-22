@@ -20,5 +20,5 @@ Write a table to the database
 }
 \examples{
 connector <- connector_dbi$new(RSQLite::SQLite())
-connector$write(iris, "iris")
+connector$cnt_write(iris, "iris")
 }

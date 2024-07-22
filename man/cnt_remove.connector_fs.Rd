@@ -16,6 +16,6 @@ Remove a file or directory
 }
 \examples{
 connector <- connector_fs$new(tempdir())
-connector$write(iris, "iris.csv")
-connector$remove("iris.csv")
+connector$cnt_write(iris, "iris.csv")
+connector$cnt_remove("iris.csv")
 }

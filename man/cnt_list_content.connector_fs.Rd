@@ -16,6 +16,6 @@ List content of the directory
 }
 \examples{
 connector <- connector_fs$new(tempdir())
-connector$write(iris, "iris.csv")
-connector$list_content()
+connector$cnt_write(iris, "iris.csv")
+connector$cnt_list_content()
 }

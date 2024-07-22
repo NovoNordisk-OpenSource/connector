@@ -6,9 +6,9 @@
 #'
 #' @examples
 #' connector <- connector_fs$new(tempdir())
-#' connector$write(iris, "iris.csv")
-#' connector$read("iris.csv")
-#' connector$remove("iris.csv")
+#' connector$cnt_write(iris, "iris.csv")
+#' connector$cnt_read("iris.csv")
+#' connector$cnt_remove("iris.csv")
 cnt_read.connector_fs <- function(connector_object, name, ...) {
   name |>
     find_file(root = connector_object$path) |>
@@ -25,8 +25,8 @@ cnt_read.connector_fs <- function(connector_object, name, ...) {
 #'
 #' @examples
 #' connector <- connector_fs$new(tempdir())
-#' connector$write(iris, "iris.csv")
-#' connector$remove("iris.csv")
+#' connector$cnt_write(iris, "iris.csv")
+#' connector$cnt_remove("iris.csv")
 #'
 cnt_write.connector_fs <- function(connector_object, x, file, ...) {
   file <- file.path(connector_object$path, file)
@@ -39,8 +39,8 @@ cnt_write.connector_fs <- function(connector_object, x, file, ...) {
 #' @export
 #' @examples
 #' connector <- connector_fs$new(tempdir())
-#' connector$write(iris, "iris.csv")
-#' connector$list_content()
+#' connector$cnt_write(iris, "iris.csv")
+#' connector$cnt_list_content()
 cnt_list_content.connector_fs <- function(connector_object, ...) {
   connector_object$path %>%
     list.files(...)
@@ -53,8 +53,8 @@ cnt_list_content.connector_fs <- function(connector_object, ...) {
 #' @export
 #' @examples
 #' connector <- connector_fs$new(tempdir())
-#' connector$write(iris, "iris.csv")
-#' connector$remove("iris.csv")
+#' connector$cnt_write(iris, "iris.csv")
+#' connector$cnt_remove("iris.csv")
 cnt_remove.connector_fs <- function(connector_object, ...) {
   path <- file.path(connector_object$path, ...)
   unlink(path)
