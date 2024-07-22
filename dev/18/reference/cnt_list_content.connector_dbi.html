@@ -66,8 +66,8 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">connector</span> <span class="op">&lt;-</span> <span class="va"><a href="connector_dbi.html">connector_dbi</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html" class="external-link">SQLite</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">connector</span><span class="op">$</span><span class="fu">write</span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">connector</span><span class="op">$</span><span class="fu">list_content</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">connector</span><span class="op">$</span><span class="fu">cnt_write</span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">connector</span><span class="op">$</span><span class="fu">cnt_list_content</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "iris"</span>
 </code></pre></div>
     </div>

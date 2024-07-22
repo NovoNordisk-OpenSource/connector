@@ -62,12 +62,12 @@
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">connector</span> <span class="op">&lt;-</span> <span class="va"><a href="connector_fs.html">connector_fs</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">connector</span><span class="op">$</span><span class="fu">write</span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.csv"</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">connector</span><span class="op">$</span><span class="fu">list_content</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">connector</span><span class="op">$</span><span class="fu">cnt_write</span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.csv"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">connector</span><span class="op">$</span><span class="fu">cnt_list_content</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "bslib-79d6c3840cf9ada48ee4fe53d867460d"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [2] "downlit"                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "file16531784955f"                      </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [4] "file16539c26882"                       </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "file15e04a61dad9"                      </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [4] "file15e07c565744"                      </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [5] "iris.csv"                              </span>
 </code></pre></div>
     </div>

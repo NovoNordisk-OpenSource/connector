@@ -64,11 +64,11 @@
 <span class="r-out co"><span class="r-pr">#&gt;</span> &lt;connector_fs&gt; object generator</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Inherits from: &lt;connector&gt;</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Public:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (path, access = "rw") </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     download: function (name, file = basename(name), ...) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     upload: function (file, name = basename(file), ...) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     create_directory: function (name, ...) </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     remove_directory: function (name, ...) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     initialize: function (path, access = "rw", extra_class = NULL) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     cnt_download: function (name, file = basename(name), ...) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     cnt_upload: function (file, name = basename(file), ...) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     cnt_create_directory: function (name, ...) </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     cnt_remove_directory: function (name, ...) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     clone: function (deep = FALSE) </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Active bindings:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     path: function () </span>

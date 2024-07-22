@@ -61,20 +61,37 @@ and how concrete examples in <a href="connector_methods.html">connector_methods<
 <div class="section">
 <h3 id="public-methods">Public methods<a class="anchor" aria-label="anchor" href="#public-methods"></a></h3>
 
-<ul><li><p><a href="#method-connector-list_content"><code>connector$list_content()</code></a></p></li>
-<li><p><a href="#method-connector-read"><code>connector$read()</code></a></p></li>
-<li><p><a href="#method-connector-write"><code>connector$write()</code></a></p></li>
-<li><p><a href="#method-connector-remove"><code>connector$remove()</code></a></p></li>
+<ul><li><p><a href="#method-connector-new"><code>connector$new()</code></a></p></li>
+<li><p><a href="#method-connector-cnt_list_content"><code>connector$cnt_list_content()</code></a></p></li>
+<li><p><a href="#method-connector-cnt_read"><code>connector$cnt_read()</code></a></p></li>
+<li><p><a href="#method-connector-cnt_write"><code>connector$cnt_write()</code></a></p></li>
+<li><p><a href="#method-connector-cnt_remove"><code>connector$cnt_remove()</code></a></p></li>
 <li><p><a href="#method-connector-clone"><code>connector$clone()</code></a></p></li>
-</ul></div><p></p><hr><a id="method-connector-list_content"></a><div class="section">
-<h3 id="method-list-content-">Method <code>list_content()</code><a class="anchor" aria-label="anchor" href="#method-list-content-"></a></h3>
-<p>List content</p><div class="section">
+</ul></div><p></p><hr><a id="method-connector-new"></a><div class="section">
+<h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
+<p>Initialize connector with the option of adding an extra class</p><div class="section">
 <h4 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">list_content</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va"><a href="../reference/connector.html">connector</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span>extra_class <span class="op">=</span> <span class="cn">NULL</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
 <h4 id="arguments">Arguments<a class="anchor" aria-label="anchor" href="#arguments"></a></h4>
+<p></p><div class="arguments"><dl><dt><code>extra_class</code></dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> Extra class to assign to the new connector.</p></dd>
+
+
+</dl><p></p></div>
+</div>
+
+</div><p></p><hr><a id="method-connector-cnt_list_content"></a><div class="section">
+<h3 id="method-cnt-list-content-">Method <code><a href="connector_methods.html">cnt_list_content()</a></code><a class="anchor" aria-label="anchor" href="#method-cnt-list-content-"></a></h3>
+<p>List content</p><div class="section">
+<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">cnt_list_content</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+</div>
+
+<div class="section">
+<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>...</code></dt>
 <dd><p>Additional arguments passed to the method for the individual connector.</p></dd>
 
@@ -86,15 +103,15 @@ and how concrete examples in <a href="connector_methods.html">connector_methods<
 <p>A <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> vector of content names</p>
 </div>
 
-</div><p></p><hr><a id="method-connector-read"></a><div class="section">
-<h3 id="method-read-">Method <code>read()</code><a class="anchor" aria-label="anchor" href="#method-read-"></a></h3>
+</div><p></p><hr><a id="method-connector-cnt_read"></a><div class="section">
+<h3 id="method-cnt-read-">Method <code><a href="connector_methods.html">cnt_read()</a></code><a class="anchor" aria-label="anchor" href="#method-cnt-read-"></a></h3>
 <p>Read content</p><div class="section">
-<h4 id="usage-1">Usage<a class="anchor" aria-label="anchor" href="#usage-1"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">read</span><span class="op">(</span><span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">cnt_read</span><span class="op">(</span><span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-1">Arguments<a class="anchor" aria-label="anchor" href="#arguments-1"></a></h4>
+<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>name</code></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> Name of the content to read, write, or remove. Typically the table name.</p></dd>
 
@@ -110,15 +127,15 @@ and how concrete examples in <a href="connector_methods.html">connector_methods<
 <p>The result of the read method</p>
 </div>
 
-</div><p></p><hr><a id="method-connector-write"></a><div class="section">
-<h3 id="method-write-">Method <code><a href="https://rdrr.io/r/base/write.html" class="external-link">write()</a></code><a class="anchor" aria-label="anchor" href="#method-write-"></a></h3>
+</div><p></p><hr><a id="method-connector-cnt_write"></a><div class="section">
+<h3 id="method-cnt-write-">Method <code><a href="connector_methods.html">cnt_write()</a></code><a class="anchor" aria-label="anchor" href="#method-cnt-write-"></a></h3>
 <p>Write content</p><div class="section">
-<h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">write</span><span class="op">(</span><span class="va">x</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">cnt_write</span><span class="op">(</span><span class="va">x</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-2">Arguments<a class="anchor" aria-label="anchor" href="#arguments-2"></a></h4>
+<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>x</code></dt>
 <dd><p>The object to write to the connection</p></dd>
 
@@ -134,15 +151,15 @@ and how concrete examples in <a href="connector_methods.html">connector_methods<
 </dl><p></p></div>
 </div>
 
-</div><p></p><hr><a id="method-connector-remove"></a><div class="section">
-<h3 id="method-remove-">Method <code><a href="https://rdrr.io/r/base/rm.html" class="external-link">remove()</a></code><a class="anchor" aria-label="anchor" href="#method-remove-"></a></h3>
+</div><p></p><hr><a id="method-connector-cnt_remove"></a><div class="section">
+<h3 id="method-cnt-remove-">Method <code><a href="connector_methods.html">cnt_remove()</a></code><a class="anchor" aria-label="anchor" href="#method-cnt-remove-"></a></h3>
 <p>Remove or delete content</p><div class="section">
-<h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">remove</span><span class="op">(</span><span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">cnt_remove</span><span class="op">(</span><span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-3">Arguments<a class="anchor" aria-label="anchor" href="#arguments-3"></a></h4>
+<h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>name</code></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> Name of the content to read, write, or remove. Typically the table name.</p></dd>
 
@@ -157,12 +174,12 @@ and how concrete examples in <a href="connector_methods.html">connector_methods<
 </div><p></p><hr><a id="method-connector-clone"></a><div class="section">
 <h3 id="method-clone-">Method <code>clone()</code><a class="anchor" aria-label="anchor" href="#method-clone-"></a></h3>
 <p>The objects of this class are cloneable with this method.</p><div class="section">
-<h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
+<h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
 <p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">clone</span><span class="op">(</span>deep <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
-<h4 id="arguments-4">Arguments<a class="anchor" aria-label="anchor" href="#arguments-4"></a></h4>
+<h4 id="arguments-5">Arguments<a class="anchor" aria-label="anchor" href="#arguments-5"></a></h4>
 <p></p><div class="arguments"><dl><dt><code>deep</code></dt>
 <dd><p>Whether to make a deep clone.</p></dd>
 
