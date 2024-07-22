@@ -17,26 +17,26 @@ connector <- R6::R6Class(
 
     #' @description List content
     #' @return A [character] vector of content names
-    list_content = function(...) {
+    cnt_list_content = function(...) {
       self %>%
         cnt_list_content(...)
     },
 
     #' @description Read content
     #' @return The result of the read method
-    read = function(name, ...) {
+    cnt_read = function(name, ...) {
       self %>%
         cnt_read(name, ...)
     },
 
     #' @description Write content
-    write = function(x, name, ...) {
+    cnt_write = function(x, name, ...) {
       self %>%
         cnt_write(x, name, ...)
     },
 
     #' @description Remove or delete content
-    remove = function(name, ...) {
+    cnt_remove = function(name, ...) {
       self %>%
         cnt_remove(name, ...)
     }
