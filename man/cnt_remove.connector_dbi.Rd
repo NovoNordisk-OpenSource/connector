@@ -18,6 +18,6 @@ Remove a table from the database
 }
 \examples{
 connector <- connector_dbi$new(RSQLite::SQLite())
-connector$write(iris, "iris")
-connector$remove("iris")
+connector$cnt_write(iris, "iris")
+connector$cnt_remove("iris")
 }

@@ -21,20 +21,20 @@ The default implementation includes methods for files stored on local or network
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-connector_fs-new}{\code{connector_fs$new()}}
-\item \href{#method-connector_fs-download}{\code{connector_fs$download()}}
-\item \href{#method-connector_fs-upload}{\code{connector_fs$upload()}}
-\item \href{#method-connector_fs-create_directory}{\code{connector_fs$create_directory()}}
-\item \href{#method-connector_fs-remove_directory}{\code{connector_fs$remove_directory()}}
+\item \href{#method-connector_fs-cnt_download}{\code{connector_fs$cnt_download()}}
+\item \href{#method-connector_fs-cnt_upload}{\code{connector_fs$cnt_upload()}}
+\item \href{#method-connector_fs-cnt_create_directory}{\code{connector_fs$cnt_create_directory()}}
+\item \href{#method-connector_fs-cnt_remove_directory}{\code{connector_fs$cnt_remove_directory()}}
 \item \href{#method-connector_fs-clone}{\code{connector_fs$clone()}}
 }
 }
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="list_content"><a href='../../connector/html/connector.html#method-connector-list_content'><code>connector::connector$list_content()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="read"><a href='../../connector/html/connector.html#method-connector-read'><code>connector::connector$read()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="remove"><a href='../../connector/html/connector.html#method-connector-remove'><code>connector::connector$remove()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="write"><a href='../../connector/html/connector.html#method-connector-write'><code>connector::connector$write()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_list_content"><a href='../../connector/html/connector.html#method-connector-cnt_list_content'><code>connector::connector$cnt_list_content()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_read"><a href='../../connector/html/connector.html#method-connector-cnt_read'><code>connector::connector$cnt_read()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_remove"><a href='../../connector/html/connector.html#method-connector-cnt_remove'><code>connector::connector$cnt_remove()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_write"><a href='../../connector/html/connector.html#method-connector-cnt_write'><code>connector::connector$cnt_write()</code></a></span></li>
 </ul>
 </details>
 }}
@@ -58,12 +58,12 @@ Initializes the connector_fs class
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-download"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-download}{}}}
-\subsection{Method \code{download()}}{
+\if{html}{\out{<a id="method-connector_fs-cnt_download"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-cnt_download}{}}}
+\subsection{Method \code{cnt_download()}}{
 Read content
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$download(name, file = basename(name), ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$cnt_download(name, file = basename(name), ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -82,12 +82,12 @@ The result of the read method
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-upload"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-upload}{}}}
-\subsection{Method \code{upload()}}{
+\if{html}{\out{<a id="method-connector_fs-cnt_upload"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-cnt_upload}{}}}
+\subsection{Method \code{cnt_upload()}}{
 Upload a file
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$upload(file, name = basename(file), ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$cnt_upload(file, name = basename(file), ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -105,12 +105,12 @@ Upload a file
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-create_directory"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-create_directory}{}}}
-\subsection{Method \code{create_directory()}}{
+\if{html}{\out{<a id="method-connector_fs-cnt_create_directory"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-cnt_create_directory}{}}}
+\subsection{Method \code{cnt_create_directory()}}{
 Create a directory
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$create_directory(name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$cnt_create_directory(name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -127,12 +127,12 @@ The directory created
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-remove_directory"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-remove_directory}{}}}
-\subsection{Method \code{remove_directory()}}{
+\if{html}{\out{<a id="method-connector_fs-cnt_remove_directory"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-cnt_remove_directory}{}}}
+\subsection{Method \code{cnt_remove_directory()}}{
 Remove a directory
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$remove_directory(name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$cnt_remove_directory(name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
