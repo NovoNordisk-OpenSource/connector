@@ -6,6 +6,7 @@
 #' @param x The object to write
 #' @param file [character] The file to write or save to from the file storage.
 #' @param ... Additional arguments passed to the method.
+#' @param extra_class [character] Extra class to assign to the new connector.
 #' @importFrom R6 R6Class
 #' @export
 connector_fs <- R6::R6Class(
@@ -16,8 +17,9 @@ connector_fs <- R6::R6Class(
     #' @description Initializes the connector_fs class
     #' @param path Path to the file storage
     #' @param access Access type ("rw" by default)
-    initialize = function(path, access = "rw") {
+    initialize = function(path, access = "rw", extra_class = NULL) {
       private$.path <- assert_path(path, access)
+      super$initialize(extra_class = extra_class)
     },
 
     #' @description Read content

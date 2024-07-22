@@ -84,7 +84,7 @@ db$cnt_disconnect()
 \subsection{Method \code{new()}}{
 Initialize the connection
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$new(drv, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$new(drv, ..., extra_class = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -93,6 +93,8 @@ Initialize the connection
 \item{\code{drv}}{DBI driver}
 
 \item{\code{...}}{Additional arguments passed to \link[DBI:dbConnect]{DBI::dbConnect}}
+
+\item{\code{extra_class}}{\link{character} Extra class to assign to the new connector.}
 }
 \if{html}{\out{</div>}}
 }
