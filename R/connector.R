@@ -22,6 +22,13 @@ connector <- R6::R6Class(
       class(self) <- c(extra_class, class(self))
     },
 
+    #' @description Print method for a connector showing the registered methods
+    #' @return Invisible self
+    print = function() {
+      self |>
+        cnt_print()
+    },
+
     #' @description List content
     #' @return A [character] vector of content names
     cnt_list_content = function(...) {
@@ -69,6 +76,52 @@ connector <- R6::R6Class(
 #' @param ... Additional arguments passed to the method
 #' @name connector_methods
 NULL
+
+#' Print method for connector object
+#' @rdname connector_methods
+#' @return Invisible self
+#' @noRd
+cnt_print <- function(connector_object) {
+  methods <- list_methods(connector_object)
+
+  packages <- methods |>
+    strsplit(split = "\\.") |>
+    lapply(\(x) getS3method(f = x[[1]], class = x[[2]])) |>
+    lapply(environment) |>
+    lapply(getNamespaceName) |>
+    unlist(use.names = FALSE)
+
+  links <- glue::glue(
+    "{.help [{.fun {{methods}}}]({{packages}}::{{methods}})}",
+    .open = "{{", .close = "}}"
+  ) |>
+    rlang::set_names("*")
+
+  classes <- class(connector_object)
+
+  specs <- get(classes[[1]])[["active"]] |>
+    names() |>
+    rlang::set_names() |>
+    lapply(\(x) connector_object[[x]]) |>
+    unlist()
+
+  classes <- classes[classes != "R6"]
+  # classes <- paste0("{.cls ", classes, "}")
+
+  cli::cli_bullets(
+    c(
+      "{.cls {classes[[1]]}}",
+      if (length(classes) > 1) "Inherits from: {.cls {classes[-1]}}",
+      "Registered methods:",
+      rlang::set_names(links, "*"),
+      "Specifications:",
+      paste0(names(specs), ": ", specs) |>
+        rlang::set_names("*")
+    )
+  )
+
+  return(invisible(connector_object))
+}
 
 #' Read method for connector object
 #' @rdname connector_methods

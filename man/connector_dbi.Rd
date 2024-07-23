@@ -5,7 +5,7 @@
 \title{R6 class for a dbi connection, see \link{connector_dbi} (used to interact with DBI compliant database backends)}
 \description{
 Connector object for DBI connections. This object is used to interact with DBI compliant database backends.
-See the \href{https://dbi.r-dbi.org/}{DBI package} for how which backends are supported.
+See the \href{https://dbi.r-dbi.org/}{DBI package} for which backends are supported.
 }
 \details{
 Upon garbage collection, the connection will try to disconnect from the database.
@@ -75,6 +75,7 @@ db$cnt_disconnect()
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_read"><a href='../../connector/html/connector.html#method-connector-cnt_read'><code>connector::connector$cnt_read()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_remove"><a href='../../connector/html/connector.html#method-connector-cnt_remove'><code>connector::connector$cnt_remove()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_write"><a href='../../connector/html/connector.html#method-connector-cnt_write'><code>connector::connector$cnt_write()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="print"><a href='../../connector/html/connector.html#method-connector-print'><code>connector::connector$print()</code></a></span></li>
 </ul>
 </details>
 }}
