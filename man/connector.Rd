@@ -17,6 +17,7 @@ and how concrete examples in \link{connector_methods}, \link{connector_fs} and \
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-connector-new}{\code{connector$new()}}
+\item \href{#method-connector-print}{\code{connector$print()}}
 \item \href{#method-connector-cnt_list_content}{\code{connector$cnt_list_content()}}
 \item \href{#method-connector-cnt_read}{\code{connector$cnt_read()}}
 \item \href{#method-connector-cnt_write}{\code{connector$cnt_write()}}
@@ -39,6 +40,19 @@ Initialize connector with the option of adding an extra class
 \item{\code{extra_class}}{\link{character} Extra class to assign to the new connector.}
 }
 \if{html}{\out{</div>}}
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector-print"></a>}}
+\if{latex}{\out{\hypertarget{method-connector-print}{}}}
+\subsection{Method \code{print()}}{
+Print method for a connector showing the registered methods
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector$print()}\if{html}{\out{</div>}}
+}
+
+\subsection{Returns}{
+Invisible self
 }
 }
 \if{html}{\out{<hr>}}
