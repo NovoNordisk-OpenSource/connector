@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Connector object for DBI connections. This object is used to interact with DBI compliant database backends.
-#' See the [DBI package](https://dbi.r-dbi.org/) for how which backends are supported.
+#' See the [DBI package](https://dbi.r-dbi.org/) for which backends are supported.
 #'
 #' @param name [character] Table name
 #' @param extra_class [character] Extra class to assign to the new connector.
