@@ -86,7 +86,7 @@ cnt_print <- function(connector_object) {
 
   packages <- methods |>
     strsplit(split = "\\.") |>
-    lapply(\(x) getS3method(f = x[[1]], class = x[[2]])) |>
+    lapply(\(x) utils::getS3method(f = x[[1]], class = x[[2]])) |>
     lapply(environment) |>
     lapply(getNamespaceName) |>
     unlist(use.names = FALSE)
@@ -106,7 +106,6 @@ cnt_print <- function(connector_object) {
     unlist()
 
   classes <- classes[classes != "R6"]
-  # classes <- paste0("{.cls ", classes, "}")
 
   cli::cli_bullets(
     c(
