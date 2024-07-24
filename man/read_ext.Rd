@@ -9,6 +9,7 @@
 \alias{read_ext.rds}
 \alias{read_ext.sas7bdat}
 \alias{read_ext.xpt}
+\alias{read_ext.yml}
 \title{Read a file based on this extension}
 \usage{
 read_ext(path, ...)
@@ -26,6 +27,8 @@ read_ext(path, ...)
 \method{read_ext}{sas7bdat}(path, ...)
 
 \method{read_ext}{xpt}(path, ...)
+
+\method{read_ext}{yml}(path, eval.expr = TRUE, ...)
 }
 \arguments{
 \item{path}{Path to the file}
@@ -51,6 +54,8 @@ For RDS files
 For SAS files
 
 For XPT files
+
+For yaml files
 }
 \examples{
 temp_csv <- tempfile("iris", fileext = ".csv")
