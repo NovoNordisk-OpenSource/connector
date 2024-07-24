@@ -8,7 +8,7 @@
 #' config <- read_yaml_config(yaml_file)
 #' str(config)
 #' Sys.getenv("hello")
-#' @export
+#' @noRd
 
 read_yaml_config <- function(file, set_env = TRUE) {
   val <- checkmate::makeAssertCollection()
