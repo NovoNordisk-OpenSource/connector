@@ -4,24 +4,28 @@ template:
 reference:
   - title: Use connector
     contents:
-    - connect_from_yaml
-    - read_yaml_config
+    - connect
     - options
-  - title: Connector general
+  - title: Connectors
     contents:
     - connectors
     - connector
-    - connector_methods
-  - title: File storage connector
-    contents:
     - connector_fs
-    - connector_fs_methods
-    - matches("\\.connector_fs$")
-  - title: DBI connector
-    contents:
     - connector_dbi
-    - connector_dbi_methods
-    - matches("\\.connector_dbi$")
-  - title: Other stuff
+  - title: Connector functions
     contents:
-    - -matches("connector|yaml|options")
+    - connector_methods
+    - connector_fs_methods
+    - connector_dbi_methods
+  - title: File storage methods
+    contents:
+    - matches("\\.connector_fs$")
+  - title: DBI methods
+    contents:
+    - matches("\\.connector_dbi$")
+  - title: Read and write files
+    contents:
+    - read_file
+    - read_ext
+    - write_file
+    - write_ext

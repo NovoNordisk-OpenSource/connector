@@ -91,15 +91,20 @@ cnt_print <- function(connector_object) {
     lapply(getNamespaceName) |>
     unlist(use.names = FALSE)
 
-  links <- glue::glue(
+  links <- ifelse(
+    rlang::is_interactive(),
     "{.help [{.fun {{methods}}}]({{packages}}::{{methods}})}",
-    .open = "{{", .close = "}}"
-  ) |>
+    "{.fun {{methods}}}"
+    ) |>
+    glue::glue(.open = "{{", .close = "}}") |>
     rlang::set_names("*")
 
   classes <- class(connector_object)
+  class_connector <- grepl("^connector", classes) |>
+    which() |>
+    head(1)
 
-  specs <- get(classes[[1]])[["active"]] |>
+  specs <- get(classes[[class_connector]])[["active"]] |>
     names() |>
     rlang::set_names() |>
     lapply(\(x) connector_object[[x]]) |>
@@ -109,8 +114,8 @@ cnt_print <- function(connector_object) {
 
   cli::cli_bullets(
     c(
-      "{.cls {classes[[1]]}}",
-      if (length(classes) > 1) "Inherits from: {.cls {classes[-1]}}",
+      "{.cls {head(classes, class_connector)}}",
+      if (length(classes) > 1) "Inherits from: {.cls {tail(classes, -class_connector)}}",
       "Registered methods:",
       rlang::set_names(links, "*"),
       "Specifications:",

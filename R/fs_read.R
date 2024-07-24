@@ -113,3 +113,13 @@ read_ext.sas7bdat <- function(path, ...) {
 read_ext.xpt <- function(path, ...) {
   haven::read_xpt(path, ...)
 }
+
+#' For yaml files
+#' @rdname read_ext
+#' @export
+read_ext.yml <- function(path, eval.expr = TRUE, ...) {
+  yaml::read_yaml(file = path, eval.expr = eval.expr, ...)
+}
+
+#' @export
+read_ext.yaml <- read_ext.yml
