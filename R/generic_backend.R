@@ -3,7 +3,7 @@
 #' @param backend The backend to create
 #'
 #' @return A new backend based on R6 class
-#' @export
+#' @noRd
 #' @examples
 #' yaml_file <- system.file("config", "example_for_generic.yml", package = "connector")
 #' yaml_content <- read_yaml_config(yaml_file)
@@ -43,7 +43,7 @@ create_backend <- function(backend) {
 #' @param backend_type The type of the backend, by default it is connector_fs or connector_db
 #'
 #' @return The backend function
-#' @export
+#' @noRd
 #'
 #' @examples
 #' get_backend_fct("connector_fs")
@@ -68,6 +68,7 @@ get_backend_fct <- function(backend_type) {
 #'
 #' @param connect_fct The connection function
 #' @param params_from_user  The parameters from the user
+#' @noRd
 try_connect <- function(connect_fct, params_from_user) {
   connect_ <- try(do.call(connect_fct, params_from_user), silent = TRUE)
 
