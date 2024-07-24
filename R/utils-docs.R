@@ -10,7 +10,7 @@ list_methods <- function(connector_object) {
     lapply(attr, "info")
 
   info <- Reduce(f = rbind, x = info)
-  info <- info[!duplicated(info$generic),]
+  info <- info[!duplicated(info$generic), ]
 
   rownames(info)
 }

@@ -4,11 +4,33 @@
 \alias{connectors}
 \title{Special list of connectors}
 \usage{
-connectors(connectors)
+connectors(...)
 }
 \arguments{
-\item{connectors}{Named \link{list} of individual \link{connector} objects}
+\item{...}{Named individual \link{connector} objects}
 }
 \description{
 Special list of connectors
+}
+\examples{
+# Temp directories for two different folders
+
+path_sdtm <- tempdir()
+path_adam <- tempdir()
+
+# Create connectors objects
+
+con <- connectors(
+  sdtm = connector_fs$new(path = path_sdtm),
+  adam = connector_fs$new(path = path_adam)
+)
+
+# Print for overview
+
+con
+
+# Print the individual connector for more information
+
+con$sdtm
+
 }
