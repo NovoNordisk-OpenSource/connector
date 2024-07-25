@@ -7,11 +7,36 @@
 This R6 class is a general class for all connectors.
 It is used to define the methods that all connectors should have.
 New connectors should inherit from this class,
-and the methods described in \link{connector_methods} should be implemented.
+and the methods described below should be implemented.
+}
+\examples{
+# Create connector
+cnt <- connector$new()
+
+cnt
+
+# Standard error message if no method is implemented
+cnt |>
+  cnt_read("fake_data") |>
+  try()
+
+# Connection with extra class
+cnt_my_class <- connector$new(extra_class = "my_class")
+
+cnt_my_class
+
+# Custom method for the extra class
+cnt_read.my_class <- function(connector_object) "Hello!"
+registerS3method("cnt_read", "my_class", "cnt_read.my_class")
+
+cnt_my_class
+
+cnt_read(cnt_my_class)
+
 }
 \seealso{
 \code{vignette("customize")} on how to create custom connectors and methods,
-and how concrete examples in \link{connector_methods}, \link{connector_fs} and \link{connector_dbi}.
+and concrete examples in \link{connector_fs} and \link{connector_dbi}.
 }
 \section{Methods}{
 \subsection{Public methods}{
@@ -29,7 +54,7 @@ and how concrete examples in \link{connector_methods}, \link{connector_fs} and \
 \if{html}{\out{<a id="method-connector-new"></a>}}
 \if{latex}{\out{\hypertarget{method-connector-new}{}}}
 \subsection{Method \code{new()}}{
-Initialize connector with the option of adding an extra class
+Initialize the connector with the option of adding an extra class.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{connector$new(extra_class = NULL)}\if{html}{\out{</div>}}
 }
@@ -46,20 +71,21 @@ Initialize connector with the option of adding an extra class
 \if{html}{\out{<a id="method-connector-print"></a>}}
 \if{latex}{\out{\hypertarget{method-connector-print}{}}}
 \subsection{Method \code{print()}}{
-Print method for a connector showing the registered methods
+Print method for a connector showing the registered methods and
+specifications from the active bindings.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{connector$print()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
-Invisible self
+\link{invisible} self
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-connector-cnt_list_content"></a>}}
 \if{latex}{\out{\hypertarget{method-connector-cnt_list_content}{}}}
 \subsection{Method \code{cnt_list_content()}}{
-List content
+List available content from the connector. See also \link{cnt_list_content}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{connector$cnt_list_content(...)}\if{html}{\out{</div>}}
 }
@@ -79,7 +105,7 @@ A \link{character} vector of content names
 \if{html}{\out{<a id="method-connector-cnt_read"></a>}}
 \if{latex}{\out{\hypertarget{method-connector-cnt_read}{}}}
 \subsection{Method \code{cnt_read()}}{
-Read content
+Read content from the connector. See also \link{cnt_read}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{connector$cnt_read(name, ...)}\if{html}{\out{</div>}}
 }
@@ -94,14 +120,14 @@ Read content
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-The result of the read method
+R object with the content. For rectangular data a \link{data.frame}.
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-connector-cnt_write"></a>}}
 \if{latex}{\out{\hypertarget{method-connector-cnt_write}{}}}
 \subsection{Method \code{cnt_write()}}{
-Write content
+Write content to the connector.See also \link{cnt_write}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{connector$cnt_write(x, name, ...)}\if{html}{\out{</div>}}
 }
@@ -117,12 +143,15 @@ Write content
 }
 \if{html}{\out{</div>}}
 }
+\subsection{Returns}{
+\link{invisible} self
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-connector-cnt_remove"></a>}}
 \if{latex}{\out{\hypertarget{method-connector-cnt_remove}{}}}
 \subsection{Method \code{cnt_remove()}}{
-Remove or delete content
+Remove or delete content from the connector. See also \link{cnt_remove}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{connector$cnt_remove(name, ...)}\if{html}{\out{</div>}}
 }
@@ -135,6 +164,9 @@ Remove or delete content
 \item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\link{invisible} self
 }
 }
 \if{html}{\out{<hr>}}
