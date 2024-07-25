@@ -1,55 +1,54 @@
-#' R6 class for a dbi connection, see [connector_dbi] (used to interact with DBI compliant database backends)
+#' Connector for DBI databases
 #'
 #' @description
 #' Connector object for DBI connections. This object is used to interact with DBI compliant database backends.
 #' See the [DBI package](https://dbi.r-dbi.org/) for which backends are supported.
 #'
-#' @param name [character] Table name
-#' @param extra_class [character] Extra class to assign to the new connector.
+#' @param name `r rd_connector_params("name")`
+#' @param ... `r rd_connector_params("...")`
+#' @param extra_class `r rd_connector_params("extra_class")`
 #'
 #' @details
 #' Upon garbage collection, the connection will try to disconnect from the database.
-#' But it is good practice to call `disconnect` when you are done with the connection.
+#' But it is good practice to call [cnt_disconnect] when you are done with the connection.
 #'
 #' @examples
 #' # Create DBI connector
 #'
-#' db <- connector_dbi$new(RSQLite::SQLite(), ":memory:")
+#' cnt <- connector_dbi$new(RSQLite::SQLite(), ":memory:")
 #'
-#' db
+#' cnt
 #'
 #' # Write to the database
 #'
-#' db$cnt_write(iris, "iris")
+#' cnt$cnt_write(iris, "iris")
 #'
 #' # Read from the database
 #'
-#' db$cnt_read("iris") |>
+#' cnt$cnt_read("iris") |>
 #'   head(5)
 #'
 #' # List available tables
 #'
-#' db$cnt_list_content()
+#' cnt$cnt_list_content()
 #'
 #' # Use the connector to run a query
 #'
-#' db$conn
+#' cnt$conn
 #'
-#' db$conn |>
+#' cnt$conn |>
 #'   DBI::dbGetQuery("SELECT * FROM iris limit 5")
 #'
 #' # Use dplyr verbs and collect data
 #'
-#' db$cnt_tbl("iris") |>
+#' cnt$cnt_tbl("iris") |>
 #'   dplyr::filter(Sepal.Length > 7) |>
 #'   dplyr::collect()
 #'
 #' # Disconnect from the database
 #'
-#' db$cnt_disconnect()
+#' cnt$cnt_disconnect()
 #'
-#' @importFrom dplyr tbl
-#' @importFrom DBI dbListTables dbDisconnect dbConnect dbWriteTable dbReadTable
 #' @export
 
 connector_dbi <- R6::R6Class(
@@ -57,30 +56,35 @@ connector_dbi <- R6::R6Class(
   inherit = connector,
   public = list(
 
-    #' @description Initialize the connection
-    #' @param drv DBI driver
-    #' @param ... Additional arguments passed to [DBI::dbConnect]
-    #' @return A [connector_dbi] object
+    #' @description
+    #' Initialize the connection
+    #' @param drv Driver object inheriting from [DBI::DBIDriver-class].
+    #' @param ... Additional arguments passed to [DBI::dbConnect].
     initialize = function(drv, ..., extra_class = NULL) {
       private$.conn <- DBI::dbConnect(drv = drv, ...)
       super$initialize(extra_class = extra_class)
     },
 
-    #' @description Disconnect from the database
+    #' @description
+    #' Disconnect from the database.
+    #' See also [cnt_disconnect].
+    #' @return [invisible] `self`.
     cnt_disconnect = function() {
       self %>%
         cnt_disconnect()
     },
 
-    #' @description Create a [tbl] object
-    #' @param ... Additional arguments passed to [dplyr::tbl]
+    #' @description
+    #' Use dplyr verbs to interact with the remote database table.
+    #' See also [cnt_tbl].
+    #' @return A [dplyr::tbl] object.
     cnt_tbl = function(name, ...) {
       self %>%
         cnt_tbl(name, ...)
     }
   ),
   active = list(
-    #' @field conn The DBI connector object of the connector
+    #' @field conn The DBI connection. Inherits from [DBI::DBIConnector-class]
     conn = function() {
       private$.conn
     }
@@ -96,36 +100,3 @@ connector_dbi <- R6::R6Class(
     }
   )
 )
-
-#' Additional methods DBI connectors
-#' @description
-#' These methods are additional S3 methods for  [connector_dbi].
-#' @seealso [connector_methods]
-#' @param connector_object A [connector_dbi] object to be able to use functions from it
-#' @param ... Additional arguments passed to the methods
-#' @name connector_dbi_methods
-NULL
-
-#' disconnect method for connector object
-#' @rdname connector_dbi_methods
-#' @export
-cnt_disconnect <- function(connector_object, ...) {
-  UseMethod("cnt_disconnect")
-}
-
-#' @export
-cnt_disconnect.default <- function(connector_object, ...) {
-  method_error_msg()
-}
-
-#' tbl method for connector object
-#' @rdname connector_dbi_methods
-#' @export
-cnt_tbl <- function(connector_object, ...) {
-  UseMethod("cnt_tbl")
-}
-
-#' @export
-cnt_tbl.default <- function(connector_object, ...) {
-  method_error_msg()
-}
