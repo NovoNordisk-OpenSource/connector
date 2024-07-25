@@ -14,9 +14,7 @@ reference:
     - connector_dbi
   - title: Connector functions
     contents:
-    - connector_methods
-    - connector_fs_methods
-    - connector_dbi_methods
+    - matches("^cnt_[^\\.]+$")
   - title: File storage methods
     contents:
     - matches("\\.connector_fs$")
