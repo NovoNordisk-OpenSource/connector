@@ -2,51 +2,51 @@
 % Please edit documentation in R/dbi.R
 \name{connector_dbi}
 \alias{connector_dbi}
-\title{R6 class for a dbi connection, see \link{connector_dbi} (used to interact with DBI compliant database backends)}
+\title{Connector for DBI databases}
 \description{
 Connector object for DBI connections. This object is used to interact with DBI compliant database backends.
 See the \href{https://dbi.r-dbi.org/}{DBI package} for which backends are supported.
 }
 \details{
 Upon garbage collection, the connection will try to disconnect from the database.
-But it is good practice to call \code{disconnect} when you are done with the connection.
+But it is good practice to call \link{cnt_disconnect} when you are done with the connection.
 }
 \examples{
 # Create DBI connector
 
-db <- connector_dbi$new(RSQLite::SQLite(), ":memory:")
+cnt <- connector_dbi$new(RSQLite::SQLite(), ":memory:")
 
-db
+cnt
 
 # Write to the database
 
-db$cnt_write(iris, "iris")
+cnt$cnt_write(iris, "iris")
 
 # Read from the database
 
-db$cnt_read("iris") |>
+cnt$cnt_read("iris") |>
   head(5)
 
 # List available tables
 
-db$cnt_list_content()
+cnt$cnt_list_content()
 
 # Use the connector to run a query
 
-db$conn
+cnt$conn
 
-db$conn |>
+cnt$conn |>
   DBI::dbGetQuery("SELECT * FROM iris limit 5")
 
 # Use dplyr verbs and collect data
 
-db$cnt_tbl("iris") |>
+cnt$cnt_tbl("iris") |>
   dplyr::filter(Sepal.Length > 7) |>
   dplyr::collect()
 
 # Disconnect from the database
 
-db$cnt_disconnect()
+cnt$cnt_disconnect()
 
 }
 \section{Super class}{
@@ -55,7 +55,7 @@ db$cnt_disconnect()
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{conn}}{The DBI connector object of the connector}
+\item{\code{conn}}{The DBI connection. Inherits from \link[DBI:DBIConnector-class]{DBI::DBIConnector}}
 }
 \if{html}{\out{</div>}}
 }
@@ -91,33 +91,35 @@ Initialize the connection
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{drv}}{DBI driver}
+\item{\code{drv}}{Driver object inheriting from \link[DBI:DBIDriver-class]{DBI::DBIDriver}.}
 
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbConnect]{DBI::dbConnect}}
+\item{\code{...}}{Additional arguments passed to \link[DBI:dbConnect]{DBI::dbConnect}.}
 
 \item{\code{extra_class}}{\link{character} Extra class to assign to the new connector.}
 }
 \if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A \link{connector_dbi} object
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-connector_dbi-cnt_disconnect"></a>}}
 \if{latex}{\out{\hypertarget{method-connector_dbi-cnt_disconnect}{}}}
 \subsection{Method \code{cnt_disconnect()}}{
-Disconnect from the database
+Disconnect from the database.
+See also \link{cnt_disconnect}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{connector_dbi$cnt_disconnect()}\if{html}{\out{</div>}}
 }
 
+\subsection{Returns}{
+\link{invisible} \code{self}.
+}
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-connector_dbi-cnt_tbl"></a>}}
 \if{latex}{\out{\hypertarget{method-connector_dbi-cnt_tbl}{}}}
 \subsection{Method \code{cnt_tbl()}}{
-Create a \link{tbl} object
+Use dplyr verbs to interact with the remote database table.
+See also \link{cnt_tbl}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{connector_dbi$cnt_tbl(name, ...)}\if{html}{\out{</div>}}
 }
@@ -125,11 +127,14 @@ Create a \link{tbl} object
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{\link{character} Table name}
+\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
-\item{\code{...}}{Additional arguments passed to \link[dplyr:tbl]{dplyr::tbl}}
+\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A \link[dplyr:tbl]{dplyr::tbl} object.
 }
 }
 \if{html}{\out{<hr>}}
