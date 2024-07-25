@@ -7,13 +7,38 @@
 The connector_fs class is a file storage connector for accessing and manipulating files any file storage solution.
 The default implementation includes methods for files stored on local or network drives.
 }
+\examples{
+# Create file storage connector
+
+cnt <- connector_fs$new(tempdir())
+
+cnt
+
+# List content
+
+cnt$cnt_list_content()
+
+# Write to the connector
+
+cnt$cnt_write(iris, "iris.rds")
+
+# Check it is there
+
+cnt$cnt_list_content()
+
+# Read the result back
+
+cnt$cnt_read("iris.rds") |>
+  head(5)
+
+}
 \section{Super class}{
 \code{\link[connector:connector]{connector::connector}} -> \code{connector_fs}
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
-\item{\code{path}}{Path to the file storage}
+\item{\code{path}}{\link{character} Path to the file storage}
 }
 \if{html}{\out{</div>}}
 }
@@ -43,7 +68,7 @@ The default implementation includes methods for files stored on local or network
 \if{html}{\out{<a id="method-connector_fs-new"></a>}}
 \if{latex}{\out{\hypertarget{method-connector_fs-new}{}}}
 \subsection{Method \code{new()}}{
-Initializes the connector_fs class
+Initializes the connector for file storage.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{connector_fs$new(path, access = "rw", extra_class = NULL)}\if{html}{\out{</div>}}
 }
@@ -51,9 +76,10 @@ Initializes the connector_fs class
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{path}}{Path to the file storage}
+\item{\code{path}}{\link{character} Path to the file storage}
 
-\item{\code{access}}{Access type ("rw" by default)}
+\item{\code{access}}{\link{character} Access type ("rw" by default).
+Checked using \link[checkmate:checkDirectoryExists]{checkmate::assert_directory_exists}.}
 
 \item{\code{extra_class}}{\link{character} Extra class to assign to the new connector.}
 }
@@ -64,7 +90,8 @@ Initializes the connector_fs class
 \if{html}{\out{<a id="method-connector_fs-cnt_download"></a>}}
 \if{latex}{\out{\hypertarget{method-connector_fs-cnt_download}{}}}
 \subsection{Method \code{cnt_download()}}{
-Read content
+Download content from the file storage.
+See also \link{cnt_download}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{connector_fs$cnt_download(name, file = basename(name), ...)}\if{html}{\out{</div>}}
 }
@@ -74,21 +101,22 @@ Read content
 \describe{
 \item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
-\item{\code{file}}{\link{character} The file to write or save to from the file storage.}
+\item{\code{file}}{\link{character} Path to the file to download to or upload from}
 
-\item{\code{...}}{Additional arguments passed to the method.}
+\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-The result of the read method
+\link{invisible} \code{file}
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-connector_fs-cnt_upload"></a>}}
 \if{latex}{\out{\hypertarget{method-connector_fs-cnt_upload}{}}}
 \subsection{Method \code{cnt_upload()}}{
-Upload a file
+Upload a file to the file storage.
+See also \link{cnt_upload}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{connector_fs$cnt_upload(file, name = basename(file), ...)}\if{html}{\out{</div>}}
 }
@@ -96,22 +124,24 @@ Upload a file
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{file}}{\link{character} The file to write or save to from the file storage.}
+\item{\code{file}}{\link{character} Path to the file to download to or upload from}
 
 \item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
-\item{\code{...}}{Additional arguments passed to the method.}
-
-\item{\code{x}}{The object to upload to the file storage}
+\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\link{invisible} self
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-connector_fs-cnt_create_directory"></a>}}
 \if{latex}{\out{\hypertarget{method-connector_fs-cnt_create_directory}{}}}
 \subsection{Method \code{cnt_create_directory()}}{
-Create a directory
+Create a directory in the file storage.
+See also \link{cnt_create_directory}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{connector_fs$cnt_create_directory(name, ...)}\if{html}{\out{</div>}}
 }
@@ -119,21 +149,22 @@ Create a directory
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{The name of the directory to create}
+\item{\code{name}}{\link{character} The name of the directory to create}
 
-\item{\code{...}}{Additional arguments passed to the method.}
+\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-The directory created
+\link{invisible} self
 }
 }
 \if{html}{\out{<hr>}}
 \if{html}{\out{<a id="method-connector_fs-cnt_remove_directory"></a>}}
 \if{latex}{\out{\hypertarget{method-connector_fs-cnt_remove_directory}{}}}
 \subsection{Method \code{cnt_remove_directory()}}{
-Remove a directory
+Remove a directory from the file storage.
+See also \link{cnt_remove_directory}.
 \subsection{Usage}{
 \if{html}{\out{<div class="r">}}\preformatted{connector_fs$cnt_remove_directory(name, ...)}\if{html}{\out{</div>}}
 }
@@ -141,11 +172,14 @@ Remove a directory
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{The name of the directory to create}
+\item{\code{name}}{\link{character} The name of the directory to remove}
 
-\item{\code{...}}{Additional arguments passed to the method.}
+\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
 \if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\link{invisible} self
 }
 }
 \if{html}{\out{<hr>}}
