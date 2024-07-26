@@ -25,7 +25,7 @@ cnt$cnt_write(iris, "iris")
 # Read from the database
 
 cnt$cnt_read("iris") |>
-  head(5)
+  head()
 
 # List available tables
 
@@ -93,7 +93,7 @@ Initialize the connection
 \describe{
 \item{\code{drv}}{Driver object inheriting from \link[DBI:DBIDriver-class]{DBI::DBIDriver}.}
 
-\item{\code{...}}{Additional arguments passed to \link[DBI:dbConnect]{DBI::dbConnect}.}
+\item{\code{...}}{Additional arguments passed to \code{\link[DBI:dbConnect]{DBI::dbConnect()}}.}
 
 \item{\code{extra_class}}{\link{character} Extra class to assign to the new connector.}
 }

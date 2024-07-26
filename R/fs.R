@@ -32,7 +32,7 @@
 #' # Read the result back
 #'
 #' cnt$cnt_read("iris.rds") |>
-#'   head(5)
+#'   head()
 #'
 #' @export
 connector_fs <- R6::R6Class(
