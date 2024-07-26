@@ -1,16 +1,16 @@
 #' @description
-#' * [connector_fs]: Uses [read_file] to read a given file.
+#' * [connector_fs]: Uses [read_file()] to read a given file.
 #' The underlying function used, and thereby also the arguments available
 #' through `...` depends on the file extension.
 #'
 #' @examples
 #' # Write and read a CSV file using the file storage connector
-#' cnt_fs <- connector_fs$new(tempdir())
+#' cnt <- connector_fs$new(tempdir())
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_write(iris, "iris.csv")
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_read("iris.csv") |>
 #'   head()
 #'
@@ -23,26 +23,26 @@ cnt_read.connector_fs <- function(connector_object, name, ...) {
 }
 
 #' @description
-#' * [connector_fs]: Uses [write_file] to Write a file based on the file extension.
+#' * [connector_fs]: Uses [write_file()] to Write a file based on the file extension.
 #' The underlying function used, and thereby also the arguments available
 #' through `...` depends on the file extension.
 #'
 #' @examples
 #' # Write different file types to a file storage
-#' cnt_fs <- connector_fs$new(tempdir())
+#' cnt <- connector_fs$new(tempdir())
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_list_content(pattern = "iris")
 #'
 #' # rds file
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_write(iris, "iris.rds")
 #'
-#' # SAS transport file (xpt)
-#' cnt_fs |>
-#'   cnt_write(iris, "iris.xpt")
+#' # CSV file
+#' cnt |>
+#'   cnt_write(iris, "iris.csv")
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_list_content(pattern = "iris")
 #'
 #' @rdname cnt_write
@@ -54,18 +54,18 @@ cnt_write.connector_fs <- function(connector_object, x, name, ...) {
 }
 
 #' @description
-#' * [connector_fs]: Uses [list.files] to list all files at the path of the connector.
+#' * [connector_fs]: Uses [list.files()] to list all files at the path of the connector.
 #'
 #' @examples
 #' # List content in a file storage
-#' cnt_fs <- connector_fs$new(tempdir())
+#' cnt <- connector_fs$new(tempdir())
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_list_content()
 #'
 #' # Only list CSV files using the pattern argument of list.files
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_list_content(pattern = "\\.csv$")
 #'
 #' @rdname cnt_list_content
@@ -76,22 +76,22 @@ cnt_list_content.connector_fs <- function(connector_object, ...) {
 }
 
 #' @description
-#' * [connector_fs]: Uses [unlink] to delete the file.
+#' * [connector_fs]: Uses [unlink()] to delete the file.
 #'
 #' @examples
 #' # Remove a file from the file storage
-#' cnt_fs <- connector_fs$new(tempdir())
+#' cnt <- connector_fs$new(tempdir())
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_write("this is an example", "example.txt")
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_remove("example.txt")
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_remove("example.txt")
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_list_content(pattern = "example.txt")
 #'
 #' @rdname cnt_remove
@@ -103,18 +103,18 @@ cnt_remove.connector_fs <- function(connector_object, name, ...) {
 }
 
 #' @description
-#' * [connector_fs]: Uses [file.copy] to copy a file from the file storage to the desired `file`.
+#' * [connector_fs]: Uses [file.copy()] to copy a file from the file storage to the desired `file`.
 #'
 #' @examples
 #' # Download file from a file storage
-#' cnt_fs <- connector_fs$new(tempdir())
+#' cnt <- connector_fs$new(tempdir())
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_write("this is an example", "example.txt")
 #'
 #' list.files(pattern = "example.txt")
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_download("example.txt")
 #'
 #' list.files(pattern = "example.txt")
@@ -129,22 +129,22 @@ cnt_download.connector_fs <- function(connector_object, name, file = basename(na
 }
 
 #' @description
-#' * [connector_fs]: Uses [file.copy] to copy the `file` to the file storage.
+#' * [connector_fs]: Uses [file.copy()] to copy the `file` to the file storage.
 #'
 #' @examples
 #' # Upload file to a file storage
 #'
 #' writeLines("this is an example", "example.txt")
 #'
-#' cnt_fs <- connector_fs$new(tempdir())
+#' cnt <- connector_fs$new(tempdir())
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_list_content(pattern = "example.txt")
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_upload("example.txt")
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_list_content(pattern = "example.txt")
 #'
 #' @rdname cnt_upload
@@ -156,21 +156,21 @@ cnt_upload.connector_fs <- function(connector_object, file, name = basename(file
 }
 
 #' @description
-#' * [connector_fs]: Uses [dir.create] to create a directory at the path of the connector.
+#' * [connector_fs]: Uses [dir.create()] to create a directory at the path of the connector.
 #'
 #' @examples
 #' # Create a directory in a file storage
 #'
-#' cnt_fs <- connector_fs$new(tempdir())
+#' cnt <- connector_fs$new(tempdir())
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_list_content(pattern = "new_folder")
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_create_directory("new_folder") |>
 #'   cnt_list_content(pattern = "new_folder")
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_remove_directory("new_folder")
 #'
 #' @rdname cnt_create_directory
@@ -182,18 +182,18 @@ cnt_create_directory.connector_fs <- function(connector_object, name, ...) {
 }
 
 #' @description
-#' * [connector_fs]: Uses [unlink] with `recursive = TRUE` to remove a directory at the path of the connector.
+#' * [connector_fs]: Uses [unlink()] with `recursive = TRUE` to remove a directory at the path of the connector.
 #'
 #' @examples
 #' # Remove a directory from a file storage
 #'
-#' cnt_fs <- connector_fs$new(tempdir())
+#' cnt <- connector_fs$new(tempdir())
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_create_directory("new_folder") |>
 #'   cnt_list_content(pattern = "new_folder")
 #'
-#' cnt_fs |>
+#' cnt |>
 #'   cnt_remove_directory("new_folder") |>
 #'   cnt_list_content(pattern = "new_folder")
 #'

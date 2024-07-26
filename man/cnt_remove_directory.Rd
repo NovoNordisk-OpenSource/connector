@@ -18,23 +18,23 @@ cnt_remove_directory(connector_object, name, ...)
 \link{invisible} connector_object.
 }
 \description{
-Generic implementing how to remove a directory for a connector.
+Generic implementing of how to remove a directory for a connector.
 Mostly relevant for file storage connectors.
 
 \itemize{
-\item \link{connector_fs}: Uses \link{unlink} with \code{recursive = TRUE} to remove a directory at the path of the connector.
+\item \link{connector_fs}: Uses \code{\link[=unlink]{unlink()}} with \code{recursive = TRUE} to remove a directory at the path of the connector.
 }
 }
 \examples{
 # Remove a directory from a file storage
 
-cnt_fs <- connector_fs$new(tempdir())
+cnt <- connector_fs$new(tempdir())
 
-cnt_fs |>
+cnt |>
   cnt_create_directory("new_folder") |>
   cnt_list_content(pattern = "new_folder")
 
-cnt_fs |>
+cnt |>
   cnt_remove_directory("new_folder") |>
   cnt_list_content(pattern = "new_folder")
 

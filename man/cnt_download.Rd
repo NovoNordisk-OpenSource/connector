@@ -22,22 +22,22 @@ cnt_download(connector_object, name, file = basename(name), ...)
 \link{invisible} file.
 }
 \description{
-Generic implementing how to download files from a connector:
+Generic implementing of how to download files from a connector:
 
 \itemize{
-\item \link{connector_fs}: Uses \link{file.copy} to copy a file from the file storage to the desired \code{file}.
+\item \link{connector_fs}: Uses \code{\link[=file.copy]{file.copy()}} to copy a file from the file storage to the desired \code{file}.
 }
 }
 \examples{
 # Download file from a file storage
-cnt_fs <- connector_fs$new(tempdir())
+cnt <- connector_fs$new(tempdir())
 
-cnt_fs |>
+cnt |>
   cnt_write("this is an example", "example.txt")
 
 list.files(pattern = "example.txt")
 
-cnt_fs |>
+cnt |>
   cnt_download("example.txt")
 
 list.files(pattern = "example.txt")

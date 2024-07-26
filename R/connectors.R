@@ -1,16 +1,15 @@
-#' Special list of connectors
+#' Collection of connector objects
+#' @description
+#' Holds a special list of individual connector objects for consistent use of
+#' connections in your project.
+#'
 #' @param ... Named individual [connector] objects
 #' @examples
-#' # Temp directories for two different folders
-#'
-#' path_sdtm <- tempdir()
-#' path_adam <- tempdir()
-#'
 #' # Create connectors objects
 #'
 #' con <- connectors(
-#'   sdtm = connector_fs$new(path = path_sdtm),
-#'   adam = connector_fs$new(path = path_adam)
+#'   sdtm = connector_fs$new(path = tempdir()),
+#'   adam = connector_dbi$new(drv = RSQLite::SQLite())
 #' )
 #'
 #' # Print for overview
@@ -20,6 +19,8 @@
 #' # Print the individual connector for more information
 #'
 #' con$sdtm
+#'
+#' con$adam
 #'
 #' @export
 connectors <- function(...) {
@@ -51,63 +52,4 @@ print.connectors <- function(x) {
     )
   )
   return(invisible(x))
-}
-
-#' Connect to datasources specified in config file
-#' @param config [character] path to a connector config file or a [list] of specifications
-#' @return [connectors]
-#' @examples
-#' config <- system.file("config", "default_config.yml", package = "connector")
-#' con <- connect(config)
-#' con
-#' @export
-
-connect <- function(config = "_connector.yml") {
-
-  if (!is.list(config)) {
-    config <- read_file(config)
-  }
-
-  config |>
-    assert_config() |>
-    connect_from_config()
-}
-
-
-#' Create a connection object depending on the backend type
-#' @param config The yaml content for a single connection
-#' @noRd
-create_connection <- function(config) {
-  switch(config$backend$type,
-    "connector_fs" = create_backend_fs(config$backend),
-    "connector_dbi" = create_backend_dbi(config$backend),
-    {
-      zephyr::msg("Using generic backend connection for con: {config$con}")
-      create_backend(config$backend)
-    }
-  )
-}
-
-#' Connect datasources to the connections from the yaml content
-#' @param config [list] The yaml content
-#' @return A [connectors] object
-#' @examples
-# # read yaml file
-#' yaml_file <- system.file("config", "default_config.yml", package = "connector")
-#' yaml_content <- read_yaml_config(yaml_file)
-#' # create the connections
-#' connect <- connect_from_yaml(yaml_content)
-#' @noRd
-connect_from_config <- function(config) {
-  connections <- config$connections |>
-    purrr::map(create_connection) |>
-    rlang::set_names(purrr::map_chr(config$connections, list("con", 1)))
-
-  connector_ <- config$datasources |>
-    purrr::map(\(x) connections[[x$con]]) %>%
-    rlang::set_names(purrr::map_chr(config$datasources, list("name", 1)))
-
-  connectors(
-    connector_
-  )
 }
