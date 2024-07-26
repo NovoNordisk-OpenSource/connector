@@ -78,7 +78,7 @@ specifications from the active bindings.
 }
 
 \subsection{Returns}{
-\link{invisible} self
+\link{invisible} self.
 }
 }
 \if{html}{\out{<hr>}}
@@ -144,7 +144,7 @@ Write content to the connector.See also \link{cnt_write}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\link{invisible} self
+\link{invisible} self.
 }
 }
 \if{html}{\out{<hr>}}
@@ -166,7 +166,7 @@ Remove or delete content from the connector. See also \link{cnt_remove}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\link{invisible} self
+\link{invisible} self.
 }
 }
 \if{html}{\out{<hr>}}
