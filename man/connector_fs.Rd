@@ -29,7 +29,7 @@ cnt$cnt_list_content()
 # Read the result back
 
 cnt$cnt_read("iris.rds") |>
-  head(5)
+  head()
 
 }
 \section{Super class}{

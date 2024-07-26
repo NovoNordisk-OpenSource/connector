@@ -15,9 +15,6 @@ reference:
   - title: Connector functions
     contents:
     - matches("^cnt_[^\\.]+$")
-  - title: DBI methods
-    contents:
-    - matches("\\.connector_dbi$")
   - title: Read and write files
     contents:
     - read_file
