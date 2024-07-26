@@ -47,16 +47,10 @@
 
       <dl><dt>
 
-          <code><a href="connect_from_yaml.html">connect_from_yaml()</a></code>
+          <code><a href="connect.html">connect()</a></code>
 
         </dt>
-        <dd>Connect datasources to the connections from the yaml content</dd>
-      </dl><dl><dt>
-
-          <code><a href="read_yaml_config.html">read_yaml_config()</a></code>
-
-        </dt>
-        <dd>Read and parse yaml configuration file</dd>
+        <dd>Connect to datasources specified in config file</dd>
       </dl><dl><dt>
 
           <code><a href="options.html">options</a></code>
@@ -64,7 +58,7 @@
         </dt>
         <dd>connector Options</dd>
       </dl></div><div class="section level2">
-      <h2 id="connector-general">Connector general<a class="anchor" aria-label="anchor" href="#connector-general"></a></h2>
+      <h2 id="connectors">Connectors<a class="anchor" aria-label="anchor" href="#connectors"></a></h2>
 
 
 
@@ -79,7 +73,7 @@
           <code><a href="connectors.html">connectors()</a></code>
 
         </dt>
-        <dd>Special list of connectors</dd>
+        <dd>Collection of connector objects</dd>
       </dl><dl><dt>
 
           <code><a href="connector.html">connector</a></code>
@@ -88,59 +82,18 @@
         <dd>General connector object</dd>
       </dl><dl><dt>
 
-          <code><a href="connector_methods.html">cnt_read()</a></code> <code><a href="connector_methods.html">cnt_write()</a></code> <code><a href="connector_methods.html">cnt_remove()</a></code> <code><a href="connector_methods.html">cnt_list_content()</a></code>
-
-        </dt>
-        <dd>Defaults methods for all connector object</dd>
-      </dl></div><div class="section level2">
-      <h2 id="file-storage-connector">File storage connector<a class="anchor" aria-label="anchor" href="#file-storage-connector"></a></h2>
-
-
-
-
-    </div><div class="section level2">
-
-
-
-
-      <dl><dt>
-
           <code><a href="connector_fs.html">connector_fs</a></code>
 
         </dt>
         <dd>Connector for file storage</dd>
       </dl><dl><dt>
 
-          <code><a href="connector_fs_methods.html">cnt_download()</a></code> <code><a href="connector_fs_methods.html">cnt_upload()</a></code> <code><a href="connector_fs_methods.html">cnt_create_directory()</a></code> <code><a href="connector_fs_methods.html">cnt_remove_directory()</a></code>
+          <code><a href="connector_dbi.html">connector_dbi</a></code>
 
         </dt>
-        <dd>Additional methods for file storage connectors</dd>
-      </dl><dl><dt>
-
-          <code><a href="cnt_list_content.connector_fs.html">cnt_list_content(<i>&lt;connector_fs&gt;</i>)</a></code>
-
-        </dt>
-        <dd>List content of the directory</dd>
-      </dl><dl><dt>
-
-          <code><a href="cnt_read.connector_fs.html">cnt_read(<i>&lt;connector_fs&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Read files for the connector_fs class</dd>
-      </dl><dl><dt>
-
-          <code><a href="cnt_remove.connector_fs.html">cnt_remove(<i>&lt;connector_fs&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Remove a file or directory</dd>
-      </dl><dl><dt>
-
-          <code><a href="cnt_write.connector_fs.html">cnt_write(<i>&lt;connector_fs&gt;</i>)</a></code>
-
-        </dt>
-        <dd>Write a file based on this extension</dd>
+        <dd>Connector for DBI databases</dd>
       </dl></div><div class="section level2">
-      <h2 id="dbi-connector">DBI connector<a class="anchor" aria-label="anchor" href="#dbi-connector"></a></h2>
+      <h2 id="connector-functions">Connector functions<a class="anchor" aria-label="anchor" href="#connector-functions"></a></h2>
 
 
 
@@ -152,17 +105,76 @@
 
       <dl><dt>
 
-          <code><a href="connector_dbi.html">connector_dbi</a></code>
+          <code><a href="cnt_create_directory.html">cnt_create_directory()</a></code>
 
         </dt>
-        <dd>R6 class for a dbi connection, see connector_dbi (used to interact with DBI compliant database backends)</dd>
+        <dd>Create a directory</dd>
       </dl><dl><dt>
 
-          <code><a href="connector_dbi_methods.html">cnt_disconnect()</a></code> <code><a href="connector_dbi_methods.html">cnt_tbl()</a></code>
+          <code><a href="cnt_disconnect.html">cnt_disconnect()</a></code>
 
         </dt>
-        <dd>Additional methods DBI connectors</dd>
+        <dd>Disconnect from the database</dd>
       </dl><dl><dt>
+
+          <code><a href="cnt_download.html">cnt_download()</a></code>
+
+        </dt>
+        <dd>Download content from the connector</dd>
+      </dl><dl><dt>
+
+          <code><a href="cnt_list_content.html">cnt_list_content()</a></code>
+
+        </dt>
+        <dd>List available content from the connector</dd>
+      </dl><dl><dt>
+
+          <code><a href="cnt_read.html">cnt_read()</a></code>
+
+        </dt>
+        <dd>Read content from the connector</dd>
+      </dl><dl><dt>
+
+          <code><a href="cnt_remove.html">cnt_remove()</a></code>
+
+        </dt>
+        <dd>Remove content from the connector</dd>
+      </dl><dl><dt>
+
+          <code><a href="cnt_remove_directory.html">cnt_remove_directory()</a></code>
+
+        </dt>
+        <dd>Remove a directory</dd>
+      </dl><dl><dt>
+
+          <code><a href="cnt_tbl.html">cnt_tbl()</a></code>
+
+        </dt>
+        <dd>Use dplyr verbs to interact with the remote database table</dd>
+      </dl><dl><dt>
+
+          <code><a href="cnt_upload.html">cnt_upload()</a></code>
+
+        </dt>
+        <dd>Upload content to the connector</dd>
+      </dl><dl><dt>
+
+          <code><a href="cnt_write.html">cnt_write()</a></code>
+
+        </dt>
+        <dd>Write content to the connector</dd>
+      </dl></div><div class="section level2">
+      <h2 id="dbi-methods">DBI methods<a class="anchor" aria-label="anchor" href="#dbi-methods"></a></h2>
+
+
+
+
+    </div><div class="section level2">
+
+
+
+
+      <dl><dt>
 
           <code><a href="cnt_disconnect.connector_dbi.html">cnt_disconnect(<i>&lt;connector_dbi&gt;</i>)</a></code>
 
@@ -199,7 +211,7 @@
         </dt>
         <dd>Write a table to the database</dd>
       </dl></div><div class="section level2">
-      <h2 id="other-stuff">Other stuff<a class="anchor" aria-label="anchor" href="#other-stuff"></a></h2>
+      <h2 id="read-and-write-files">Read and write files<a class="anchor" aria-label="anchor" href="#read-and-write-files"></a></h2>
 
 
 
@@ -211,46 +223,10 @@
 
       <dl><dt>
 
-          <code><a href="create_backend.html">create_backend()</a></code>
+          <code><a href="read_file.html">read_file()</a></code>
 
         </dt>
-        <dd>Create a backend</dd>
-      </dl><dl><dt>
-
-          <code><a href="create_backend_dbi.html">create_backend_dbi()</a></code>
-
-        </dt>
-        <dd>Create a backend for the DBI (databases)</dd>
-      </dl><dl><dt>
-
-          <code><a href="create_backend_fs.html">create_backend_fs()</a></code>
-
-        </dt>
-        <dd>Create a backend for the file system</dd>
-      </dl><dl><dt>
-
-          <code><a href="error_extension.html">error_extension()</a></code>
-
-        </dt>
-        <dd>Error extension Function to call when no method is found for the extension</dd>
-      </dl><dl><dt>
-
-          <code><a href="example_read_ext.html">example_read_ext()</a></code>
-
-        </dt>
-        <dd>Example for creating a new method for reading files</dd>
-      </dl><dl><dt>
-
-          <code><a href="find_file.html">find_file()</a></code>
-
-        </dt>
-        <dd>Find File</dd>
-      </dl><dl><dt>
-
-          <code><a href="get_backend_fct.html">get_backend_fct()</a></code>
-
-        </dt>
-        <dd>Get the backend function</dd>
+        <dd>Read files based on the extension</dd>
       </dl><dl><dt>
 
           <code><a href="read_ext.html">read_ext()</a></code>
@@ -259,31 +235,13 @@
         <dd>Read a file based on this extension</dd>
       </dl><dl><dt>
 
-          <code><a href="read_file.html">read_file()</a></code>
-
-        </dt>
-        <dd>Read files based on the extension</dd>
-      </dl><dl><dt>
-
-          <code><a href="supported_fs.html">supported_fs()</a></code>
-
-        </dt>
-        <dd>List of supported files</dd>
-      </dl><dl><dt>
-
-          <code><a href="try_connect.html">try_connect()</a></code>
-
-        </dt>
-        <dd>Create a backend</dd>
-      </dl><dl><dt>
-
-          <code><a href="write_ext.html">write_ext()</a></code>
+          <code><a href="write_file.html">write_file()</a></code>
 
         </dt>
         <dd>Write a file based on this extension</dd>
       </dl><dl><dt>
 
-          <code><a href="write_file.html">write_file()</a></code>
+          <code><a href="write_ext.html">write_ext()</a></code>
 
         </dt>
         <dd>Write a file based on this extension</dd>
