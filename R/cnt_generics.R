@@ -1,7 +1,7 @@
 #' Read content from the connector
 #'
 #' @description
-#' Generic implementing how to read content from the different connector objects:
+#' Generic implementing of how to read content from the different connector objects:
 #'
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param ... `r rd_connector_utils("...")`
@@ -19,7 +19,7 @@ cnt_read.default <- function(connector_object, ...) {
 #' Write content to the connector
 #'
 #' @description
-#' Generic implementing how to write content to the different connector objects:
+#' Generic implementing of how to write content to the different connector objects:
 #'
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param x `r rd_connector_utils("x")`
@@ -39,7 +39,7 @@ cnt_write.default <- function(connector_object, ...) {
 #' Remove content from the connector
 #'
 #' @description
-#' Generic implementing how to remove content from different connectors:
+#' Generic implementing of how to remove content from different connectors:
 #'
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param name `r rd_connector_utils("name")`
@@ -58,7 +58,7 @@ cnt_remove.default <- function(connector_object, ...) {
 #' List available content from the connector
 #'
 #' @description
-#' Generic implementing how to list all content available for different connectors:
+#' Generic implementing of how to list all content available for different connectors:
 #'
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param ... `r rd_connector_utils("...")`
@@ -76,7 +76,7 @@ cnt_list_content.default <- function(connector_object, ...) {
 #' Download content from the connector
 #'
 #' @description
-#' Generic implementing how to download files from a connector:
+#' Generic implementing of how to download files from a connector:
 #'
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param name `r rd_connector_utils("name")`
@@ -96,7 +96,7 @@ cnt_download.default <- function(connector_object, ...) {
 #' Upload content to the connector
 #'
 #' @description
-#' Generic implementing how to upload files to a connector:
+#' Generic implementing of how to upload files to a connector:
 #'
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param file `r rd_connector_utils("file")`
@@ -116,7 +116,7 @@ cnt_upload.default <- function(connector_object, ...) {
 #' Create a directory
 #'
 #' @description
-#' Generic implementing how to create a directory for a connector.
+#' Generic implementing of how to create a directory for a connector.
 #' Mostly relevant for file storage connectors.
 #'
 #' @param name [character] The name of the directory to create
@@ -135,7 +135,7 @@ cnt_create_directory.default <- function(connector_object, ...) {
 #' Remove a directory
 #'
 #' @description
-#' Generic implementing how to remove a directory for a connector.
+#' Generic implementing of how to remove a directory for a connector.
 #' Mostly relevant for file storage connectors.
 #'
 #' @param name [character] The name of the directory to remove
@@ -151,7 +151,12 @@ cnt_remove_directory.default <- function(connector_object, ...) {
   method_error_msg()
 }
 
-#' Disconnect from the database
+#' Disconnect (close) the connection of the connector
+#'
+#' @description
+#' Generic implementing of how to disconnect from the relevant connections.
+#' Mostly relevant for DBI connectors.
+#'
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
@@ -166,8 +171,15 @@ cnt_disconnect.default <- function(connector_object, ...) {
 }
 
 #' Use dplyr verbs to interact with the remote database table
+#'
+#' @description
+#' Generic implementing of how to create a [dplyr::tbl()] connection in order
+#' to use dplyr verbs to interact with the remote database table.
+#' Mostly relevant for DBI connectors.
+#'
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param name `r rd_connector_utils("name")`
+#' @param ... `r rd_connector_utils("...")`
 #' @return A [dplyr::tbl] object.
 #' @export
 cnt_tbl <- function(connector_object, name, ...) {

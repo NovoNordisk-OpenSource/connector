@@ -4,9 +4,9 @@
 #' Connector object for DBI connections. This object is used to interact with DBI compliant database backends.
 #' See the [DBI package](https://dbi.r-dbi.org/) for which backends are supported.
 #'
-#' @param name `r rd_connector_params("name")`
-#' @param ... `r rd_connector_params("...")`
-#' @param extra_class `r rd_connector_params("extra_class")`
+#' @param name `r rd_connector_utils("name")`
+#' @param ... `r rd_connector_utils("...")`
+#' @param extra_class `r rd_connector_utils("extra_class")`
 #'
 #' @details
 #' Upon garbage collection, the connection will try to disconnect from the database.
@@ -26,7 +26,7 @@
 #' # Read from the database
 #'
 #' cnt$cnt_read("iris") |>
-#'   head(5)
+#'   head()
 #'
 #' # List available tables
 #'
@@ -59,7 +59,7 @@ connector_dbi <- R6::R6Class(
     #' @description
     #' Initialize the connection
     #' @param drv Driver object inheriting from [DBI::DBIDriver-class].
-    #' @param ... Additional arguments passed to [DBI::dbConnect].
+    #' @param ... Additional arguments passed to [DBI::dbConnect()].
     initialize = function(drv, ..., extra_class = NULL) {
       private$.conn <- DBI::dbConnect(drv = drv, ...)
       super$initialize(extra_class = extra_class)
