@@ -6,10 +6,10 @@
 #' New connectors should inherit from this class,
 #' and the methods described below should be implemented.
 #'
-#' @param name `r rd_connector_params("name")`
-#' @param x `r rd_connector_params("x")`
-#' @param ... `r rd_connector_params("...")`
-#' @param extra_class `r rd_connector_params("extra_class")`
+#' @param name `r rd_connector_utils("name")`
+#' @param x `r rd_connector_utils("x")`
+#' @param ... `r rd_connector_utils("...")`
+#' @param extra_class `r rd_connector_utils("extra_class")`
 #'
 #' @seealso `vignette("customize")` on how to create custom connectors and methods,
 #' and concrete examples in [connector_fs] and [connector_dbi].
@@ -55,7 +55,7 @@ connector <- R6::R6Class(
     #' @description
     #' Print method for a connector showing the registered methods and
     #' specifications from the active bindings.
-    #' @return [invisible] self
+    #' @return `r rd_connector_utils("inv_self")`
     print = function() {
       self |>
         cnt_print()
@@ -80,7 +80,7 @@ connector <- R6::R6Class(
 
     #' @description
     #' Write content to the connector.See also [cnt_write].
-    #' @return [invisible] self
+    #' @return `r rd_connector_utils("inv_self")`
     cnt_write = function(x, name, ...) {
       self %>%
         cnt_write(x, name, ...)
@@ -88,7 +88,7 @@ connector <- R6::R6Class(
 
     #' @description
     #' Remove or delete content from the connector. See also [cnt_remove].
-    #' @return [invisible] self
+    #' @return `r rd_connector_utils("inv_self")`
     cnt_remove = function(name, ...) {
       self %>%
         cnt_remove(name, ...)
