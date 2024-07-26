@@ -10,20 +10,30 @@ cnt_list_content(connector_object, ...)
 \method{cnt_list_content}{connector_fs}(connector_object, ...)
 }
 \arguments{
-\item{connector_object}{connector_fs object}
+\item{connector_object}{\link{connector} The connector object to use.}
 
-\item{...}{Arguments to pass to the list.files function}
+\item{...}{Additional arguments passed to the method for the individual connector.}
 }
 \value{
 A \link{character} vector of content names
 }
 \description{
-List available content from the connector
+Generic implementing how to list all content available for different connectors:
 
-List content of the directory
+\itemize{
+\item \link{connector_fs}: Uses \link{list.files} to list all files at the path of the connector.
+}
 }
 \examples{
-connector <- connector_fs$new(tempdir())
-connector$cnt_write(iris, "iris.csv")
-connector$cnt_list_content()
+# List content in a file storage
+cnt_fs <- connector_fs$new(tempdir())
+
+cnt_fs |>
+  cnt_list_content()
+
+# Only list CSV files using the pattern argument of list.files
+
+cnt_fs |>
+  cnt_list_content(pattern = "\\\\.csv$")
+
 }

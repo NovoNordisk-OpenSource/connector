@@ -4,11 +4,11 @@
 #' The connector_fs class is a file storage connector for accessing and manipulating files any file storage solution.
 #' The default implementation includes methods for files stored on local or network drives.
 
-#' @param name `r rd_connector_params("name")`
-#' @param x `r rd_connector_params("x")`
-#' @param file `r rd_connector_params("file")`
-#' @param ... `r rd_connector_params("...")`
-#' @param extra_class `r rd_connector_params("extra_class")`
+#' @param name `r rd_connector_utils("name")`
+#' @param x `r rd_connector_utils("x")`
+#' @param file `r rd_connector_utils("file")`
+#' @param ... `r rd_connector_utils("...")`
+#' @param extra_class `r rd_connector_utils("extra_class")`
 #'
 #' @examples
 #' # Create file storage connector
@@ -62,7 +62,7 @@ connector_fs <- R6::R6Class(
     #' @description
     #' Upload a file to the file storage.
     #' See also [cnt_upload].
-    #' @return [invisible] self
+    #' @return `r rd_connector_utils("inv_self")`
     cnt_upload = function(file, name = basename(file), ...) {
       self %>%
         cnt_upload(file, name, ...)
@@ -72,7 +72,7 @@ connector_fs <- R6::R6Class(
     #' Create a directory in the file storage.
     #' See also [cnt_create_directory].
     #' @param name [character] The name of the directory to create
-    #' @return [invisible] self
+    #' @return `r rd_connector_utils("inv_self")`
     cnt_create_directory = function(name, ...) {
       self %>%
         cnt_create_directory(name, ...)
@@ -82,7 +82,7 @@ connector_fs <- R6::R6Class(
     #' Remove a directory from the file storage.
     #' See also [cnt_remove_directory].
     #' @param name [character] The name of the directory to remove
-    #' @return [invisible] self
+    #' @return `r rd_connector_utils("inv_self")`
     cnt_remove_directory = function(name, ...) {
       self %>%
         cnt_remove_directory(name, ...)

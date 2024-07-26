@@ -2,7 +2,7 @@
 % Please edit documentation in R/connectors.R
 \name{connectors}
 \alias{connectors}
-\title{Special list of connectors}
+\title{Collection of connector objects}
 \usage{
 connectors(...)
 }
@@ -10,19 +10,15 @@ connectors(...)
 \item{...}{Named individual \link{connector} objects}
 }
 \description{
-Special list of connectors
+Holds a special list of individual connector objects for consistent use of
+connections in your project.
 }
 \examples{
-# Temp directories for two different folders
-
-path_sdtm <- tempdir()
-path_adam <- tempdir()
-
 # Create connectors objects
 
 con <- connectors(
-  sdtm = connector_fs$new(path = path_sdtm),
-  adam = connector_fs$new(path = path_adam)
+  sdtm = connector_fs$new(path = tempdir()),
+  adam = connector_dbi$new(drv = RSQLite::SQLite())
 )
 
 # Print for overview
@@ -32,5 +28,7 @@ con
 # Print the individual connector for more information
 
 con$sdtm
+
+con$adam
 
 }

@@ -12,7 +12,7 @@ cnt_disconnect(connector_object, ...)
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }
 \value{
-\link{invisible} \code{connector_object}
+\link{invisible} connector_object.
 }
 \description{
 Disconnect from the database

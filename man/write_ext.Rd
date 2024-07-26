@@ -2,6 +2,7 @@
 % Please edit documentation in R/fs_write.R
 \name{write_ext}
 \alias{write_ext}
+\alias{write_ext.txt}
 \alias{write_ext.csv}
 \alias{write_ext.parquet}
 \alias{write_ext.rds}
@@ -10,7 +11,7 @@
 \usage{
 write_ext(file, x, ...)
 
-\method{write_ext}{csv}(file, x, ...)
+\method{write_ext}{txt}(file, x, ...)
 
 \method{write_ext}{csv}(file, x, ...)
 
