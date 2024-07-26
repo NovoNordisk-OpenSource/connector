@@ -1,13 +1,49 @@
-#' Connect to datasources specified in config file
+#' Connect to datasources specified in a config file
+#'
+#' @description
+#' Based on a configuration file or list this functions creates a [connectors()] object with
+#' a [connector] for each of the specified datasources.
+#'
+#' The configuration file can be in any format that can be read through [read_file()], and
+#' contains a list.
+#'
+#' See also `vignette("connector")` on how to use configuration files in your project,
+#' details below for the required structure of the configuration.
+#'
+#' @details
+#' The input list have to have the following structure:
+#'
+#' * Only metadata, env, connections, and datasources are allowed.
+#' * All elements must be named.
+#' * **connections** and **datasources** are mandatory.
+#' * **metadata** and **env** must each be a list of named character vectors of length 1 if specified.
+#' * **connections** and **datasources** must each be a list of unnamed lists.
+#' * Each connection must have the named character element **con** and the named list element **backend**
+#' * Each datasource must have the named character element **name**
+#' * For each connection **backend**.**type** must be provided
+#'
 #' @param config [character] path to a connector config file or a [list] of specifications
+#' @param set_env [logical] Should environment variables from the yaml file be set. Default is TRUE.
 #' @return [connectors]
 #' @examples
 #' config <- system.file("config", "default_config.yml", package = "connector")
-#' con <- connect(config)
-#' con
+#'
+#' # Show the raw configuration file
+#' readLines(config) |>
+#'  cat(sep = "\n")
+#'
+#' # Connect to the datasources specified in it
+#' cnts <- connect(config)
+#' cnts
+#'
+#' # Content of each connector
+#'
+#' cnts$adam
+#' cnts$sdtm
+#'
 #' @export
 
-connect <- function(config = "_connector.yml") {
+connect <- function(config = "_connector.yml", set_env = TRUE) {
 
   if (!is.list(config)) {
     config <- read_file(config)
@@ -15,19 +51,11 @@ connect <- function(config = "_connector.yml") {
 
   config |>
     assert_config() |>
-    parse_config() |>
+    parse_config(set_env = set_env) |>
     connect_from_config()
 }
 
 #' Connect datasources to the connections from the yaml content
-#' @param config [list] The yaml content
-#' @return A [connectors] object
-#' @examples
-# # read yaml file
-#' yaml_file <- system.file("config", "default_config.yml", package = "connector")
-#' yaml_content <- read_yaml_config(yaml_file)
-#' # create the connections
-#' connect <- connect_from_yaml(yaml_content)
 #' @noRd
 connect_from_config <- function(config) {
   connections <- config$connections |>
@@ -42,7 +70,7 @@ connect_from_config <- function(config) {
 }
 
 #' Create a connection object depending on the backend type
-#' @param config The yaml content for a single connection
+#' @param config [list] The configuration of a single connection
 #' @noRd
 create_connection <- function(config) {
   switch(config$backend$type,
@@ -55,18 +83,21 @@ create_connection <- function(config) {
   )
 }
 
-#' Read and parse yaml configuration file
-#' @param file [character] Path to yaml file
+#' Parse a configuration list and set environment variables if needed
+#' @param config [list] Of unparsed configurations
 #' @param set_env [logical] Should environment variables from the yaml file be set. Default is TRUE.
 #' @return Configuration [list] with all content evaluated
 #' @examples
-#' yaml_file <- system.file("config", "test_env_config.yml", package = "connector")
-#' yaml::read_yaml(yaml_file, eval.expr = TRUE) |> str()
-#' config <- read_yaml_config(yaml_file)
+#' config <- system.file("config", "test_env_config.yml", package = "connector") |>
+#'   read_file()
+#'
 #' str(config)
-#' Sys.getenv("hello")
+#'
+#' config |>
+#'   parse_config() |>
+#'   str()
+#'
 #' @noRd
-
 parse_config <- function(config, set_env = TRUE) {
 
   # Parse env variables
@@ -119,18 +150,8 @@ parse_config <- function(config, set_env = TRUE) {
   return(config)
 }
 
-#' Input validation:
-#'
-#' - Only metadata, env, connections, and datasources are allowed
-#' - Everything must be named
-#' - connections and datasources are mandatory
-#' - metadata and env must each be a list of named character vectors of length 1
-#' - connections and datasources must each be a list of unnamed lists
-#' - each connection must have the named character element "con" and the named list element "backend"
-#' - each datasource must have the named character element "name"
-#' - for each connection backend.type must be provided
+#' Config input validation. See [connect()] for details.
 #' @noRd
-
 assert_config <- function(config, env = parent.frame()) {
   val <- checkmate::makeAssertCollection()
 
@@ -238,7 +259,6 @@ assert_config <- function(config, env = parent.frame()) {
 }
 
 #' @noRd
-
 parse_config_helper <- function(content, input) {
   if (is.null(content)) {
     return(NULL)
@@ -257,7 +277,6 @@ parse_config_helper <- function(content, input) {
 }
 
 #' @noRd
-
 glue_if_character <- function(x, ..., .envir = parent.frame()) {
   if (is.character(x)) {
     x |>
