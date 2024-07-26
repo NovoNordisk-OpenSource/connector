@@ -22,10 +22,10 @@ cnt_upload(connector_object, file, name = basename(file), ...)
 \link{invisible} connector_object.
 }
 \description{
-Generic implementing how to upload files to a connector:
+Generic implementing of how to upload files to a connector:
 
 \itemize{
-\item \link{connector_fs}: Uses \link{file.copy} to copy the \code{file} to the file storage.
+\item \link{connector_fs}: Uses \code{\link[=file.copy]{file.copy()}} to copy the \code{file} to the file storage.
 }
 }
 \examples{
@@ -33,15 +33,15 @@ Generic implementing how to upload files to a connector:
 
 writeLines("this is an example", "example.txt")
 
-cnt_fs <- connector_fs$new(tempdir())
+cnt <- connector_fs$new(tempdir())
 
-cnt_fs |>
+cnt |>
   cnt_list_content(pattern = "example.txt")
 
-cnt_fs |>
+cnt |>
   cnt_upload("example.txt")
 
-cnt_fs |>
+cnt |>
   cnt_list_content(pattern = "example.txt")
 
 }

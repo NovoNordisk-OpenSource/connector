@@ -18,26 +18,26 @@ cnt_create_directory(connector_object, name, ...)
 \link{invisible} connector_object.
 }
 \description{
-Generic implementing how to create a directory for a connector.
+Generic implementing of how to create a directory for a connector.
 Mostly relevant for file storage connectors.
 
 \itemize{
-\item \link{connector_fs}: Uses \link{dir.create} to create a directory at the path of the connector.
+\item \link{connector_fs}: Uses \code{\link[=dir.create]{dir.create()}} to create a directory at the path of the connector.
 }
 }
 \examples{
 # Create a directory in a file storage
 
-cnt_fs <- connector_fs$new(tempdir())
+cnt <- connector_fs$new(tempdir())
 
-cnt_fs |>
+cnt |>
   cnt_list_content(pattern = "new_folder")
 
-cnt_fs |>
+cnt |>
   cnt_create_directory("new_folder") |>
   cnt_list_content(pattern = "new_folder")
 
-cnt_fs |>
+cnt |>
   cnt_remove_directory("new_folder")
 
 }

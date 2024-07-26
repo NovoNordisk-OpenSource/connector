@@ -1,3 +1,60 @@
+#' Connect to datasources specified in config file
+#' @param config [character] path to a connector config file or a [list] of specifications
+#' @return [connectors]
+#' @examples
+#' config <- system.file("config", "default_config.yml", package = "connector")
+#' con <- connect(config)
+#' con
+#' @export
+
+connect <- function(config = "_connector.yml") {
+
+  if (!is.list(config)) {
+    config <- read_file(config)
+  }
+
+  config |>
+    assert_config() |>
+    parse_config() |>
+    connect_from_config()
+}
+
+#' Connect datasources to the connections from the yaml content
+#' @param config [list] The yaml content
+#' @return A [connectors] object
+#' @examples
+# # read yaml file
+#' yaml_file <- system.file("config", "default_config.yml", package = "connector")
+#' yaml_content <- read_yaml_config(yaml_file)
+#' # create the connections
+#' connect <- connect_from_yaml(yaml_content)
+#' @noRd
+connect_from_config <- function(config) {
+  connections <- config$connections |>
+    purrr::map(create_connection) |>
+    rlang::set_names(purrr::map_chr(config$connections, list("con", 1)))
+
+  connector_ <- config$datasources |>
+    purrr::map(\(x) connections[[x$con]]) %>%
+    rlang::set_names(purrr::map_chr(config$datasources, list("name", 1)))
+
+  do.call(what = connectors, args = connector_)
+}
+
+#' Create a connection object depending on the backend type
+#' @param config The yaml content for a single connection
+#' @noRd
+create_connection <- function(config) {
+  switch(config$backend$type,
+         "connector_fs" = create_backend_fs(config$backend),
+         "connector_dbi" = create_backend_dbi(config$backend),
+         {
+           zephyr::msg("Using generic backend connection for con: {config$con}")
+           create_backend(config$backend)
+         }
+  )
+}
+
 #' Read and parse yaml configuration file
 #' @param file [character] Path to yaml file
 #' @param set_env [logical] Should environment variables from the yaml file be set. Default is TRUE.
@@ -10,14 +67,7 @@
 #' Sys.getenv("hello")
 #' @noRd
 
-read_yaml_config <- function(file, set_env = TRUE) {
-  val <- checkmate::makeAssertCollection()
-  checkmate::assert_file_exists(x = file, access = "r", add = val)
-  checkmate::assert_logical(x = set_env, add = val)
-  zephyr::report_checkmate_assertions(collection = val)
-
-  config <- yaml::read_yaml(file = file, eval.expr = TRUE) |>
-    assert_config()
+parse_config <- function(config, set_env = TRUE) {
 
   # Parse env variables
 
@@ -25,7 +75,7 @@ read_yaml_config <- function(file, set_env = TRUE) {
     as.list()
 
   config[["env"]] <- config[["env"]] |>
-    parse_config(input = list(env = env_old))
+    parse_config_helper(input = list(env = env_old))
 
   if (set_env && length(config[["env"]])) {
     do.call(what = Sys.setenv, args = config[["env"]])
@@ -58,13 +108,13 @@ read_yaml_config <- function(file, set_env = TRUE) {
   # Parse other content in order
 
   config[["metadata"]] <- config[["metadata"]] |>
-    parse_config(input = list(env = env))
+    parse_config_helper(input = list(env = env))
 
   config[["connections"]] <- config[["connections"]] |>
-    parse_config(input = list(env = env, metadata = config[["metadata"]]))
+    parse_config_helper(input = list(env = env, metadata = config[["metadata"]]))
 
   config[["datasources"]] <- config[["datasources"]] |>
-    parse_config(input = list(env = env, metadata = config[["metadata"]]))
+    parse_config_helper(input = list(env = env, metadata = config[["metadata"]]))
 
   return(config)
 }
@@ -142,20 +192,20 @@ assert_config <- function(config, env = parent.frame()) {
       var <- paste0("connections.", y)
       checkmate::assert_list(x, .var.name = var, add = val)
       checkmate::assert_names(names(x),
-        type = "unique", must.include = c("con", "backend"),
-        .var.name = var, add = val
+                              type = "unique", must.include = c("con", "backend"),
+                              .var.name = var, add = val
       )
       checkmate::assert_character(x[["con"]],
-        len = 1,
-        .var.name = paste0(var, ".con"), add = val
+                                  len = 1,
+                                  .var.name = paste0(var, ".con"), add = val
       )
       checkmate::assert_list(x[["backend"]],
-        names = "unique",
-        .var.name = paste0(var, ".backend"), add = val
+                             names = "unique",
+                             .var.name = paste0(var, ".backend"), add = val
       )
       checkmate::assert_character(x[["backend"]][["type"]],
-        len = 1,
-        .var.name = paste0(var, ".backend.type"), add = val
+                                  len = 1,
+                                  .var.name = paste0(var, ".backend.type"), add = val
       )
     }
   )
@@ -189,7 +239,7 @@ assert_config <- function(config, env = parent.frame()) {
 
 #' @noRd
 
-parse_config <- function(content, input) {
+parse_config_helper <- function(content, input) {
   if (is.null(content)) {
     return(NULL)
   }
