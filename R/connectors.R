@@ -1,9 +1,11 @@
 #' Collection of connector objects
+#'
 #' @description
 #' Holds a special list of individual connector objects for consistent use of
 #' connections in your project.
 #'
 #' @param ... Named individual [connector] objects
+#'
 #' @examples
 #' # Create connectors objects
 #'
