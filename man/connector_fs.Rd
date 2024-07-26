@@ -133,7 +133,7 @@ See also \link{cnt_upload}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\link{invisible} self
+\link{invisible} self.
 }
 }
 \if{html}{\out{<hr>}}
@@ -156,7 +156,7 @@ See also \link{cnt_create_directory}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\link{invisible} self
+\link{invisible} self.
 }
 }
 \if{html}{\out{<hr>}}
@@ -179,7 +179,7 @@ See also \link{cnt_remove_directory}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\link{invisible} self
+\link{invisible} self.
 }
 }
 \if{html}{\out{<hr>}}
