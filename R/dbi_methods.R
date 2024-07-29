@@ -107,7 +107,7 @@ cnt_remove.connector_dbi <- function(connector_object, name, ...) {
 #'   dplyr::summarise(
 #'     n = dplyr::n(),
 #'     mean.Sepal.Length = mean(Sepal.Length, na.rm = TRUE)
-#'     ) |>
+#'   ) |>
 #'   dplyr::collect()
 #'
 #' @rdname cnt_tbl

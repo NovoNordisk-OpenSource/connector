@@ -33,7 +33,7 @@
 #'
 #' # Show the raw configuration file
 #' readLines(config) |>
-#'  cat(sep = "\n")
+#'   cat(sep = "\n")
 #'
 #' # Connect to the datasources specified in it
 #' cnts <- connect(config)
@@ -47,7 +47,6 @@
 #' @export
 
 connect <- function(config = "_connector.yml", set_env = TRUE) {
-
   if (!is.list(config)) {
     if (tools::file_ext(config) %in% c("yml", "yaml")) {
       config <- read_file(config, eval.expr = TRUE)
@@ -81,12 +80,12 @@ connect_from_config <- function(config) {
 #' @noRd
 create_connection <- function(config) {
   switch(config$backend$type,
-         "connector_fs" = create_backend_fs(config$backend),
-         "connector_dbi" = create_backend_dbi(config$backend),
-         {
-           zephyr::msg("Using generic backend connection for con: {config$con}")
-           create_backend(config$backend)
-         }
+    "connector_fs" = create_backend_fs(config$backend),
+    "connector_dbi" = create_backend_dbi(config$backend),
+    {
+      zephyr::msg("Using generic backend connection for con: {config$con}")
+      create_backend(config$backend)
+    }
   )
 }
 
@@ -106,7 +105,6 @@ create_connection <- function(config) {
 #'
 #' @noRd
 parse_config <- function(config, set_env = TRUE) {
-
   # Parse env variables
 
   env_old <- Sys.getenv(names = TRUE) |>
@@ -220,20 +218,20 @@ assert_config <- function(config, env = parent.frame()) {
       var <- paste0("connections.", y)
       checkmate::assert_list(x, .var.name = var, add = val)
       checkmate::assert_names(names(x),
-                              type = "unique", must.include = c("con", "backend"),
-                              .var.name = var, add = val
+        type = "unique", must.include = c("con", "backend"),
+        .var.name = var, add = val
       )
       checkmate::assert_character(x[["con"]],
-                                  len = 1,
-                                  .var.name = paste0(var, ".con"), add = val
+        len = 1,
+        .var.name = paste0(var, ".con"), add = val
       )
       checkmate::assert_list(x[["backend"]],
-                             names = "unique",
-                             .var.name = paste0(var, ".backend"), add = val
+        names = "unique",
+        .var.name = paste0(var, ".backend"), add = val
       )
       checkmate::assert_character(x[["backend"]][["type"]],
-                                  len = 1,
-                                  .var.name = paste0(var, ".backend.type"), add = val
+        len = 1,
+        .var.name = paste0(var, ".backend.type"), add = val
       )
     }
   )
