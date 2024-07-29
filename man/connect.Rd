@@ -9,7 +9,7 @@ connect(config = "_connector.yml", set_env = TRUE)
 \arguments{
 \item{config}{\link{character} path to a connector config file or a \link{list} of specifications}
 
-\item{set_env}{\link{logical} Should environment variables from the yaml file be set. Default is TRUE.}
+\item{set_env}{\link{logical} Should environment variables from the yaml file be set? Default is TRUE.}
 }
 \value{
 \link{connectors}
@@ -19,7 +19,8 @@ Based on a configuration file or list this functions creates a \code{\link[=conn
 a \link{connector} for each of the specified datasources.
 
 The configuration file can be in any format that can be read through \code{\link[=read_file]{read_file()}}, and
-contains a list.
+contains a list. If a yaml file is provided, expressions are evaluated when parsing it
+using \code{\link[yaml:read_yaml]{yaml::read_yaml()}} with \code{eval.expr = TRUE}.
 
 See also \code{vignette("connector")} on how to use configuration files in your project,
 details below for the required structure of the configuration.
@@ -39,6 +40,8 @@ The input list have to have the following structure:
 }
 \examples{
 config <- system.file("config", "default_config.yml", package = "connector")
+
+config
 
 # Show the raw configuration file
 readLines(config) |>

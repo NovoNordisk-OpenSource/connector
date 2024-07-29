@@ -2,23 +2,89 @@
 % Please edit documentation in R/fs_read.R
 \name{read_file}
 \alias{read_file}
+\alias{read_ext}
+\alias{read_ext.default}
+\alias{read_ext.txt}
+\alias{read_ext.csv}
+\alias{read_ext.parquet}
+\alias{read_ext.rds}
+\alias{read_ext.sas7bdat}
+\alias{read_ext.xpt}
+\alias{read_ext.yml}
 \title{Read files based on the extension}
 \usage{
 read_file(path, ...)
+
+read_ext(path, ...)
+
+\method{read_ext}{default}(path, ...)
+
+\method{read_ext}{txt}(path, ...)
+
+\method{read_ext}{csv}(path, ...)
+
+\method{read_ext}{parquet}(path, ...)
+
+\method{read_ext}{rds}(path, ...)
+
+\method{read_ext}{sas7bdat}(path, ...)
+
+\method{read_ext}{xpt}(path, ...)
+
+\method{read_ext}{yml}(path, ...)
 }
 \arguments{
-\item{path}{Path to the file}
+\item{path}{\code{\link[=character]{character()}} Path to the file.}
 
-\item{...}{Other parameters for read's functions}
+\item{...}{Other parameters passed on the functions behind the methods for each file extension.}
 }
 \value{
 the result of the reading function
 }
 \description{
-The aim of this function is to identify the extension on the file to dispatch it.
+\code{read_file()} is the backbone of all \link{cnt_read} methods, where files are read
+from their source. The function is a wrapper around \code{\link[=read_ext]{read_ext()}}, that controls
+the dispatch based on the file extension.
+
+\code{read_ext()} controls which packages and functions are used to read the individual file extensions.
+Below is a list of all the pre-defined methods:
+
+\itemize{
+\item \code{default}: All extensions not listed below is attempted to be read with \code{\link[vroom:vroom]{vroom::vroom()}}
+}
+
+\itemize{
+\item \code{txt}: \code{\link[readr:read_lines]{readr::read_lines()}}
+}
+
+\itemize{
+\item \code{csv}: \code{\link[readr:read_delim]{readr::read_csv()}}
+}
+
+\itemize{
+\item \code{parquet}: \code{\link[arrow:read_parquet]{arrow::read_parquet()}}
+}
+
+\itemize{
+\item \code{rds}: \code{\link[readr:read_rds]{readr::read_rds()}}
+}
+
+\itemize{
+\item \code{sas7bdat}: \code{\link[haven:read_sas]{haven::read_sas()}}
+}
+
+\itemize{
+\item \code{xpt}: \code{\link[haven:read_xpt]{haven::read_xpt()}}
+}
+
+\itemize{
+\item \code{yml}/\code{yaml}: \code{\link[yaml:read_yaml]{yaml::read_yaml()}}
+}
 }
 \examples{
+# Read CSV file
 temp_csv <- tempfile("iris", fileext = ".csv")
 write.csv(iris, temp_csv, row.names = FALSE)
 read_file(temp_csv)
+
 }
