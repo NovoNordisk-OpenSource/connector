@@ -4,15 +4,16 @@
 #' Generic implementing of how to read content from the different connector objects:
 #'
 #' @param connector_object `r rd_connector_utils("connector_object")`
+#' @param name `r rd_connector_utils("name")`
 #' @param ... `r rd_connector_utils("...")`
 #' @return R object with the content. For rectangular data a [data.frame].
 #' @export
-cnt_read <- function(connector_object, ...) {
+cnt_read <- function(connector_object, name, ...) {
   UseMethod("cnt_read")
 }
 
 #' @export
-cnt_read.default <- function(connector_object, ...) {
+cnt_read.default <- function(connector_object, name, ...) {
   method_error_msg()
 }
 
@@ -119,6 +120,7 @@ cnt_upload.default <- function(connector_object, ...) {
 #' Generic implementing of how to create a directory for a connector.
 #' Mostly relevant for file storage connectors.
 #'
+#' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param name [character] The name of the directory to create
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
@@ -138,6 +140,7 @@ cnt_create_directory.default <- function(connector_object, ...) {
 #' Generic implementing of how to remove a directory for a connector.
 #' Mostly relevant for file storage connectors.
 #'
+#' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param name [character] The name of the directory to remove
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
