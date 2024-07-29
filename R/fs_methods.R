@@ -82,17 +82,19 @@ cnt_list_content.connector_fs <- function(connector_object, ...) {
 #' # Remove a file from the file storage
 #' cnt <- connector_fs$new(tempdir())
 #'
-#' cnt |>
-#'   cnt_write("this is an example", "example.txt")
+#' temp_txt <- tempfile(fileext = ".txt")
 #'
 #' cnt |>
-#'   cnt_remove("example.txt")
+#'   cnt_write("this is an example", temp_txt)
 #'
 #' cnt |>
-#'   cnt_remove("example.txt")
+#'   cnt_remove(temp_txt)
 #'
 #' cnt |>
-#'   cnt_list_content(pattern = "example.txt")
+#'   cnt_remove(temp_txt)
+#'
+#' cnt |>
+#'   cnt_list_content(pattern = temp_txt)
 #'
 #' @rdname cnt_remove
 #' @export
