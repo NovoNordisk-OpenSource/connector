@@ -120,7 +120,7 @@ cnt_print <- function(connector_object) {
   classes <- class(connector_object)
   class_connector <- grepl("^connector", classes) |>
     which() |>
-    head(1)
+    utils::head(1)
 
   specs <- get(classes[[class_connector]])[["active"]]
 
@@ -142,7 +142,7 @@ cnt_print <- function(connector_object) {
 
   cli::cli_bullets(
     c(
-      "{.cls {head(classes, class_connector)}}",
+      "{.cls {utils::head(classes, class_connector)}}",
       if (length(classes) > class_connector) "Inherits from: {.cls {tail(classes, -class_connector)}}",
       if (length(links)) {
         c(
