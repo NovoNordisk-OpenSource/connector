@@ -10,6 +10,8 @@ cnt_remove_directory(connector_object, name, ...)
 \method{cnt_remove_directory}{connector_fs}(connector_object, name, ...)
 }
 \arguments{
+\item{connector_object}{\link{connector} The connector object to use.}
+
 \item{name}{\link{character} The name of the directory to remove}
 
 \item{...}{Additional arguments passed to the method for the individual connector.}

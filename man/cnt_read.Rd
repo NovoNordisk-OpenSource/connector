@@ -6,7 +6,7 @@
 \alias{cnt_read.connector_fs}
 \title{Read content from the connector}
 \usage{
-cnt_read(connector_object, ...)
+cnt_read(connector_object, name, ...)
 
 \method{cnt_read}{connector_dbi}(connector_object, name, ...)
 
@@ -14,6 +14,8 @@ cnt_read(connector_object, ...)
 }
 \arguments{
 \item{connector_object}{\link{connector} The connector object to use.}
+
+\item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }
