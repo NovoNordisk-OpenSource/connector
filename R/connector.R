@@ -113,7 +113,7 @@ cnt_print <- function(connector_object) {
     rlang::is_interactive(),
     "{.help [{.fun {{methods}}}]({{packages}}::{{methods}})}",
     "{.fun {{methods}}}"
-    ) |>
+  ) |>
     glue::glue(.open = "{{", .close = "}}") |>
     rlang::set_names("*")
 
@@ -125,17 +125,17 @@ cnt_print <- function(connector_object) {
   specs <- get(classes[[class_connector]])[["active"]]
 
   if (!is.null(specs)) {
-   specs <- specs |>
-     names() |>
-     rlang::set_names() |>
-     lapply(\(x) {
-       y <- connector_object[[x]]
-       if (!is.character(y) & !is.numeric(y)) {
-         y <- paste0("{.cls ",class(y),"}")
-         }
-       y
-       }) |>
-     unlist()
+    specs <- specs |>
+      names() |>
+      rlang::set_names() |>
+      lapply(\(x) {
+        y <- connector_object[[x]]
+        if (!is.character(y) & !is.numeric(y)) {
+          y <- paste0("{.cls ", class(y), "}")
+        }
+        y
+      }) |>
+      unlist()
   }
 
   classes <- classes[classes != "R6"]
