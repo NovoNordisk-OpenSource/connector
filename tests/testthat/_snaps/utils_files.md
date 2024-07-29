@@ -5,7 +5,7 @@
     Output
       [1] "read_ext.csv"      "read_ext.default"  "read_ext.parquet" 
       [4] "read_ext.rds"      "read_ext.sas7bdat" "read_ext.txt"     
-      [7] "read_ext.xpt"     
+      [7] "read_ext.xpt"      "read_ext.yaml"     "read_ext.yml"     
 
 ---
 
@@ -18,6 +18,8 @@
     * read_ext.sas7bdat
     * read_ext.txt
     * read_ext.xpt
+    * read_ext.yaml
+    * read_ext.yml
 
 ---
 
