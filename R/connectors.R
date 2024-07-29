@@ -35,7 +35,7 @@ connectors <- function(...) {
 }
 
 #' @export
-print.connectors <- function(x) {
+print.connectors <- function(x, ...) {
   classes <- x |>
     lapply(\(x) class(x)[[1]]) |>
     unlist()

@@ -5,7 +5,8 @@
 #' a [connector] for each of the specified datasources.
 #'
 #' The configuration file can be in any format that can be read through [read_file()], and
-#' contains a list.
+#' contains a list. If a yaml file is provided, expressions are evaluated when parsing it
+#' using [yaml::read_yaml()] with `eval.expr = TRUE`.
 #'
 #' See also `vignette("connector")` on how to use configuration files in your project,
 #' details below for the required structure of the configuration.
@@ -23,10 +24,12 @@
 #' * For each connection **backend**.**type** must be provided
 #'
 #' @param config [character] path to a connector config file or a [list] of specifications
-#' @param set_env [logical] Should environment variables from the yaml file be set. Default is TRUE.
+#' @param set_env [logical] Should environment variables from the yaml file be set? Default is TRUE.
 #' @return [connectors]
 #' @examples
 #' config <- system.file("config", "default_config.yml", package = "connector")
+#'
+#' config
 #'
 #' # Show the raw configuration file
 #' readLines(config) |>
@@ -46,6 +49,11 @@
 connect <- function(config = "_connector.yml", set_env = TRUE) {
 
   if (!is.list(config)) {
+    if (tools::file_ext(config) %in% c("yml", "yaml")) {
+      config <- read_file(config, eval.expr = TRUE)
+    } else {
+      config <- read_file(config)
+    }
     config <- read_file(config)
   }
 
