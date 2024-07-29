@@ -48,18 +48,18 @@ cnt |>
 # Remove a file from the file storage
 cnt <- connector_fs$new(tempdir())
 
-temp_txt <- tempfile(fileext = ".txt")
+cnt |>
+  cnt_write("this is an example", "example.txt")
+cnt |>
+  cnt_list_content(pattern = "example.txt")
 
 cnt |>
-  cnt_write("this is an example", temp_txt)
+  cnt_read("example.txt")
 
 cnt |>
-  cnt_remove(temp_txt)
+  cnt_remove("example.txt")
 
 cnt |>
-  cnt_remove(temp_txt)
-
-cnt |>
-  cnt_list_content(pattern = temp_txt)
+  cnt_list_content(pattern = "example.txt")
 
 }

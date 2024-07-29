@@ -54,7 +54,6 @@ connect <- function(config = "_connector.yml", set_env = TRUE) {
     } else {
       config <- read_file(config)
     }
-    config <- read_file(config)
   }
 
   config |>

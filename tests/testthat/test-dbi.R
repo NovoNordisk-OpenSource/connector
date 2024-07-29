@@ -25,48 +25,48 @@ specs <- list(
 
 for (i in seq_along(specs)) {
   test_that(paste("DBI generics work for", names(specs)[[i]]), {
-    test <- tryCatch(
+    cnt <- tryCatch(
       expr = do.call(what = connector_dbi$new, args = specs[[i]]),
       error = function(e) {
         skip(paste(names(specs)[[i]], "database not available"))
       }
     )
 
-    test$cnt_list_content() |>
+    cnt$cnt_list_content() |>
       expect_equal(character(0))
 
-    test$cnt_write(x, "mtcars") |>
-      expect_true()
+    cnt$cnt_write(x, "mtcars") |>
+      expect_no_condition()
 
-    test$cnt_write(x, "mtcars") |>
+    cnt$cnt_write(x, "mtcars") |>
       expect_error()
 
-    test$cnt_list_content() |>
+    cnt$cnt_list_content() |>
       expect_equal("mtcars")
 
-    test$cnt_read("mtcars") |>
+    cnt$cnt_read("mtcars") |>
       expect_equal(x)
 
-    test$cnt_write(x, "mtcars", overwrite = TRUE) |>
-      expect_true()
+    cnt$cnt_write(x, "mtcars", overwrite = TRUE) |>
+      expect_no_condition()
 
-    test$cnt_tbl("mtcars") |>
+    cnt$cnt_tbl("mtcars") |>
       dplyr::filter(car == "Mazda RX4") |>
       dplyr::select(car, mpg) |>
       dplyr::collect() |>
       expect_equal(dplyr::tibble(car = "Mazda RX4", mpg = 21))
 
-    test$conn |>
+    cnt$conn |>
       DBI::dbGetQuery("SELECT * FROM mtcars") |>
       expect_equal(x)
 
-    test$cnt_remove("mtcars") |>
-      expect_true()
+    cnt$cnt_remove("mtcars") |>
+      expect_no_condition()
 
-    test$cnt_disconnect() |>
-      expect_true()
+    cnt$cnt_disconnect() |>
+      expect_no_condition()
 
-    test$cnt_read("mtcars") |>
+    cnt$cnt_read("mtcars") |>
       expect_error(regexp = "Invalid(| or closed) connection") # Different messages for postgres and sqlite
   })
 }
