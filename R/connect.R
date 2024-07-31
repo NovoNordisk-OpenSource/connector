@@ -24,6 +24,8 @@
 #' * For each connection **backend**.**type** must be provided
 #'
 #' @param config [character] path to a connector config file or a [list] of specifications
+#' @param datasource [character] Name(s) of the datasource(s) to connect to.
+#' If `NULL` (the default) all datasources are connected.
 #' @param set_env [logical] Should environment variables from the yaml file be set? Default is TRUE.
 #' @return [connectors]
 #' @examples
@@ -44,9 +46,22 @@
 #' cnts$adam
 #' cnts$sdtm
 #'
+#' # Connect only to the adam datasource
+#'
+#' connect(config, "adam")
+#'
+#' # Connect to several projects in a nested structure
+#'
+#' config_nested <- system.file("config", "_connector_nested.yml", package = "connector")
+#'
+#' cnts_nested <- connect(config_nested)
+#'
+#' cnts_nested
+#'
+#' cnts_nested$study1
 #' @export
 
-connect <- function(config = "_connector.yml", set_env = TRUE) {
+connect <- function(config = "_connector.yml", datasource = NULL, set_env = TRUE) {
   if (!is.list(config)) {
     if (tools::file_ext(config) %in% c("yml", "yaml")) {
       config <- read_file(config, eval.expr = TRUE)
@@ -55,9 +70,17 @@ connect <- function(config = "_connector.yml", set_env = TRUE) {
     }
   }
 
+  if (is.null(names(config))) {
+    names(config) <- purrr::map(config, "name")
+    cnts <- config |>
+      purrr::map(\(x) connect(x, datasource, set_env))
+    return(do.call(connectors, cnts))
+  }
+
   config |>
     assert_config() |>
     parse_config(set_env = set_env) |>
+    filter_config(datasource = datasource) |>
     connect_from_config()
 }
 
@@ -155,6 +178,26 @@ parse_config <- function(config, set_env = TRUE) {
   return(config)
 }
 
+#' Filter config to only use the specified datasource
+#' @noRd
+filter_config <- function(config, datasource) {
+  if (is.null(datasource)) {
+    return(config)
+  }
+
+  config[["datasources"]] <- config[["datasources"]] |>
+    purrr::keep(\(x) x[["name"]] %in% datasource)
+
+  used_con <- config[["datasources"]] |>
+    purrr::map_chr("con") |>
+    unique()
+
+  config[["connections"]] <- config[["connections"]] |>
+    purrr::keep(\(x) x[["con"]] %in% used_con)
+
+  return(config)
+}
+
 #' Config input validation. See [connect()] for details.
 #' @noRd
 assert_config <- function(config, env = parent.frame()) {
@@ -165,7 +208,7 @@ assert_config <- function(config, env = parent.frame()) {
   checkmate::assert_names(
     x = names(config),
     type = "unique",
-    subset.of = c("metadata", "env", "connections", "datasources"),
+    subset.of = c("name", "metadata", "env", "connections", "datasources"),
     must.include = c("connections", "datasources"),
     what = "Config",
     .var.name = "yaml",

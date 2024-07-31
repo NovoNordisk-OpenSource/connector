@@ -4,10 +4,13 @@
 \alias{connect}
 \title{Connect to datasources specified in a config file}
 \usage{
-connect(config = "_connector.yml", set_env = TRUE)
+connect(config = "_connector.yml", datasource = NULL, set_env = TRUE)
 }
 \arguments{
 \item{config}{\link{character} path to a connector config file or a \link{list} of specifications}
+
+\item{datasource}{\link{character} Name(s) of the datasource(s) to connect to.
+If \code{NULL} (the default) all datasources are connected.}
 
 \item{set_env}{\link{logical} Should environment variables from the yaml file be set? Default is TRUE.}
 }
@@ -45,7 +48,7 @@ config
 
 # Show the raw configuration file
 readLines(config) |>
- cat(sep = "\n")
+  cat(sep = "\n")
 
 # Connect to the datasources specified in it
 cnts <- connect(config)
@@ -56,4 +59,17 @@ cnts
 cnts$adam
 cnts$sdtm
 
+# Connect only to the adam datasource
+
+connect(config, "adam")
+
+# Connect to several projects in a nested structure
+
+config_nested <- system.file("config", "_connector_nested.yml", package = "connector")
+
+cnts_nested <- connect(config_nested)
+
+cnts_nested
+
+cnts_nested$study1
 }
