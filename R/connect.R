@@ -12,10 +12,16 @@
 #' details below for the required structure of the configuration.
 #'
 #' @details
-#' The input list have to have the following structure:
+#' The input list can be specified in two ways:
+#' 1. A named list containing the specifications of a single [connectors] object.
+#' 1. An unnamed list, where each element is of the same structure as in 1., which
+#' returns a nested [connectors] object. See example below.
 #'
-#' * Only metadata, env, connections, and datasources are allowed.
+#' Each specification of a single [connectors]  have to have the following structure:
+#'
+#' * Only name, metadata, env, connections, and datasources are allowed.
 #' * All elements must be named.
+#' * **name** is only required when using nested connectors.
 #' * **connections** and **datasources** are mandatory.
 #' * **metadata** and **env** must each be a list of named character vectors of length 1 if specified.
 #' * **connections** and **datasources** must each be a list of unnamed lists.
@@ -53,6 +59,9 @@
 #' # Connect to several projects in a nested structure
 #'
 #' config_nested <- system.file("config", "_connector_nested.yml", package = "connector")
+#'
+#' readLines(config_nested) |>
+#'   cat(sep = "\n")
 #'
 #' cnts_nested <- connect(config_nested)
 #'
