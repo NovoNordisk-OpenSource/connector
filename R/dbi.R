@@ -1,168 +1,102 @@
-#' R6 class for a dbi connection, see [connector_dbi] (used to interact with DBI compliant database backends)
+#' Connector for DBI databases
 #'
 #' @description
 #' Connector object for DBI connections. This object is used to interact with DBI compliant database backends.
-#' See the [DBI package](https://dbi.r-dbi.org/) for how which backends are supported.
+#' See the [DBI package](https://dbi.r-dbi.org/) for which backends are supported.
 #'
-#' @param name [character] Table name
+#' @param name `r rd_connector_utils("name")`
+#' @param ... `r rd_connector_utils("...")`
+#' @param extra_class `r rd_connector_utils("extra_class")`
 #'
 #' @details
 #' Upon garbage collection, the connection will try to disconnect from the database.
-#' But it is good practice to call `disconnect` when you are done with the connection.
-#'
-#'
-#' @name Connector_dbi_object
+#' But it is good practice to call [cnt_disconnect] when you are done with the connection.
 #'
 #' @examples
 #' # Create DBI connector
 #'
-#' db <- Connector_dbi$new(RSQLite::SQLite(), ":memory:")
+#' cnt <- connector_dbi$new(RSQLite::SQLite(), ":memory:")
 #'
-#' db
+#' cnt
 #'
 #' # Write to the database
 #'
-#' db$write(iris, "iris")
+#' cnt$cnt_write(iris, "iris")
 #'
 #' # Read from the database
 #'
-#' db$read("iris") |>
-#'   head(5)
+#' cnt$cnt_read("iris") |>
+#'   head()
 #'
 #' # List available tables
 #'
-#' db$list_content()
+#' cnt$cnt_list_content()
 #'
 #' # Use the connector to run a query
 #'
-#' db$get_conn() |>
+#' cnt$conn
+#'
+#' cnt$conn |>
 #'   DBI::dbGetQuery("SELECT * FROM iris limit 5")
 #'
 #' # Use dplyr verbs and collect data
 #'
-#' db$tbl("iris") |>
+#' cnt$cnt_tbl("iris") |>
 #'   dplyr::filter(Sepal.Length > 7) |>
 #'   dplyr::collect()
 #'
 #' # Disconnect from the database
 #'
-#' db$disconnect()
-#'
-#' @importFrom dplyr tbl
-#' @importFrom DBI dbListTables dbDisconnect dbConnect dbWriteTable dbReadTable
+#' cnt$cnt_disconnect()
 #'
 #' @export
 
-Connector_dbi <- R6::R6Class(
-  classname = "Connector_dbi",
+connector_dbi <- R6::R6Class(
+  classname = "connector_dbi",
+  inherit = connector,
   public = list(
 
-    #' @description Initialize the connection
-    #' @param drv DBI driver
-    #' @param ... Additional arguments passed to [DBI::dbConnect]
-    #' @return A [connector_dbi] object
-    initialize = function(drv, ...) {
-      private$conn <- DBI::dbConnect(drv = drv, ...)
+    #' @description
+    #' Initialize the connection
+    #' @param drv Driver object inheriting from [DBI::DBIDriver-class].
+    #' @param ... Additional arguments passed to [DBI::dbConnect()].
+    initialize = function(drv, ..., extra_class = NULL) {
+      private$.conn <- DBI::dbConnect(drv = drv, ...)
+      super$initialize(extra_class = extra_class)
     },
 
-    #' @description List tables in the database
-    #' @param ... Additional arguments passed to [DBI::dbListTables]
-    #' @return A [character] vector of table names
-    list_content = function(...) {
-      self %>%
-        cnt_list_content(...)
-    },
-
-    #' @description Get the connection object
-    #' @return A DBI connection object
-    get_conn = function() {
-      private$conn
-    },
-
-    #' @description Disconnect from the database
-    disconnect = function() {
+    #' @description
+    #' Disconnect from the database.
+    #' See also [cnt_disconnect].
+    #' @return [invisible] `self`.
+    cnt_disconnect = function() {
       self %>%
         cnt_disconnect()
     },
 
-    #' @description Read a table from the database
-    #' @param ... Additional arguments passed to [DBI::dbReadTable]
-    #' @return A [data.frame]
-    read = function(name, ...) {
-      self %>%
-        cnt_read(name, ...)
-    },
-
-    #' @description Write a table to the database
-    #' @param x [data.frame] Table to write
-    #' @param ... Additional arguments passed to [DBI::dbWriteTable]
-    write = function(x, name, ...) {
-      self %>%
-        cnt_write(x, name, ...)
-    },
-
-    #' @description Remove a table from the database
-    #' @param ... Additional arguments passed to [DBI::dbRemoveTable]
-    remove = function(name, ...) {
-      self %>%
-        cnt_remove(name, ...)
-    },
-
-    #' @description Create a [tbl] object
-    #' @param ... Additional arguments passed to [dplyr::tbl]
-    tbl = function(name, ...) {
+    #' @description
+    #' Use dplyr verbs to interact with the remote database table.
+    #' See also [cnt_tbl].
+    #' @return A [dplyr::tbl] object.
+    cnt_tbl = function(name, ...) {
       self %>%
         cnt_tbl(name, ...)
+    }
+  ),
+  active = list(
+    #' @field conn The DBI connection. Inherits from [DBI::DBIConnector-class]
+    conn = function() {
+      private$.conn
     }
   ),
   private = list(
 
     # Store the connection object
-    conn = NULL,
+    .conn = NULL,
 
     # Finalize the connection on garbage collection
     finalize = function() {
-      if (DBI::dbIsValid(dbObj = private$conn)) self$disconnect()
+      if (DBI::dbIsValid(dbObj = self$conn)) self$cnt_disconnect()
     }
-  ),
-  cloneable = FALSE
+  )
 )
-
-#' Create a new DBI connector object to interact with DBI compliant database backends
-#'
-#' @param drv DBI driver. See [DBI::dbConnect] for details
-#' @param ... Additional arguments passed to [DBI::dbConnect]
-#' @param extra_class [character] Extra class added to the object. See details.
-#' @return A new [connector_dbi] object
-#'
-#' @details
-#' The `extra_class` parameter allows you to create a subclass of the `connector_dbi` object.
-#' This can be useful if you want to create a custom connection object for easier dispatch of new s3 methods,
-#' while still inheriting the methods from the `connector_dbi` object.
-#'
-#' @examples
-#' # Connect to in memory SQLite database
-#'
-#' db <- connector_dbi(RSQLite::SQLite(), ":memory:")
-#'
-#' db
-#'
-#' # Create subclass connection
-#'
-#' db_subclass <- connector_dbi(RSQLite::SQLite(), ":memory:", extra_class = "subclass")
-#'
-#' db_subclass
-#' class(db_subclass)
-#'
-#' @export
-#'
-connector_dbi <- function(drv, ..., extra_class = NULL) {
-  layer <- Connector_dbi$new(drv = drv, ...)
-
-  if (!is.null(extra_class)) {
-    # TODO: not sure about paste and so on
-    # extra_class <- paste(class(layer)[1], extra_class, sep = "_")
-    class(layer) <- c(extra_class, class(layer))
-  }
-  return(layer)
-}

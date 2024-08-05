@@ -3,7 +3,7 @@
 #' @param backend The backend to create
 #'
 #' @return A new backend based on R6 class
-#' @export
+#' @noRd
 #' @examples
 #' yaml_file <- system.file("config", "example_for_generic.yml", package = "connector")
 #' yaml_content <- read_yaml_config(yaml_file)
@@ -13,9 +13,15 @@
 #' test <- create_backend(only_one)
 #'
 create_backend <- function(backend) {
-  params_from_user <- backend[names(backend) != c("type")]
+  params_from_user <- backend[!names(backend) %in% c("type", "extra_class")]
 
-  connect_fct <- get_backend_fct(backend$type)
+  connector <- get_backend_fct(backend$type)
+
+  if (R6::is.R6Class(connector)) {
+    connect_fct <- connector$new
+  } else {
+    connect_fct <- connector
+  }
 
   ## In case of db connection
   ## TODO: detect if a function is used for all params?
@@ -25,6 +31,10 @@ create_backend <- function(backend) {
 
   connect_ <- try_connect(connect_fct, params_from_user)
 
+  if (!is.null(backend$extra_class)) {
+    class(connect_) <- c(backend$extra_class, class(connect_))
+  }
+
   return(connect_)
 }
 
@@ -33,7 +43,7 @@ create_backend <- function(backend) {
 #' @param backend_type The type of the backend, by default it is connector_fs or connector_db
 #'
 #' @return The backend function
-#' @export
+#' @noRd
 #'
 #' @examples
 #' get_backend_fct("connector_fs")
@@ -58,6 +68,7 @@ get_backend_fct <- function(backend_type) {
 #'
 #' @param connect_fct The connection function
 #' @param params_from_user  The parameters from the user
+#' @noRd
 try_connect <- function(connect_fct, params_from_user) {
   connect_ <- try(do.call(connect_fct, params_from_user), silent = TRUE)
 

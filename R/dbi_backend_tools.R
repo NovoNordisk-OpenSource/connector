@@ -2,7 +2,7 @@
 #'
 #' @param backend The backend to create and because of DBI, a "drv" is mandatory
 #' @return A new backend based on R6 class
-#' @export
+#' @noRd
 #' @examples
 #' yaml_file <- system.file("config", "default_config.yml", package = "connector")
 #' yaml_content <- read_yaml_config(yaml_file)
