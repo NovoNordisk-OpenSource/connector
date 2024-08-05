@@ -1,76 +1,41 @@
-#' Read files for the Connector_fs class
-#' @export
-#' @param connector_object A Connector_fs object
-#' @param name Name of the file to read
-#' @param ... Other parameters to pass to the read_file function (depends on the extension of a file)
-#'
-#' @examples
-#' connector <- Connector_fs$new(tempdir())
-#' connector$write(iris, "iris.csv")
-#' connector$read("iris.csv")
-#' connector$remove("iris.csv")
-cnt_read.Connector_fs <- function(connector_object, name, ...) {
-  name |>
-    find_file(root = connector_object$get_path()) |>
-    read_file(...)
-}
-
 #' Read files based on the extension
 #'
-#' The aim of this function is to identify the extension on the file to dispatch it.
+#' @description
+#' `read_file()` is the backbone of all [cnt_read] methods, where files are read
+#' from their source. The function is a wrapper around [read_ext()], that controls
+#' the dispatch based on the file extension.
 #'
-#' @param path Path to the file
-#' @param ... Other parameters for read's functions
-#'
+#' @param path [character()] Path to the file.
+#' @param ... Other parameters passed on the functions behind the methods for each file extension.
 #' @return the result of the reading function
-#'
 #' @export
-#'
-#' @examples
-#' temp_csv <- tempfile("iris", fileext = ".csv")
-#' write.csv(iris, temp_csv, row.names = FALSE)
-#' read_file(temp_csv)
 read_file <- function(path, ...) {
-  find_ext <- tools::file_ext(path) |>
-    assert_ext(method = "read_ext")
+  find_ext <- tools::file_ext(path)
 
   class(path) <- c(find_ext, class(path))
 
   read_ext(path, ...)
 }
 
-#' Read a file based on this extension
+#' @description
+#' `read_ext()` controls which packages and functions are used to read the individual file extensions.
+#' Below is a list of all the pre-defined methods:
 #'
-#' @inheritParams read_file
-#' @name read_ext
-#'
-#' @return the result of the reading function
+#' @rdname read_file
 #' @export
-#'
-#' @examples
-#' temp_csv <- tempfile("iris", fileext = ".csv")
-#' write.csv(iris, temp_csv, row.names = FALSE)
-#' class(temp_csv) <- "csv"
-#' read_ext(temp_csv)
 read_ext <- function(path, ...) {
   UseMethod("read_ext")
 }
 
-# TODO: More documentation on methods and vroom:vroom for default ?
-#' Default method for reading files
-#' @rdname read_ext
-#' @export
-#' @importFrom vroom vroom
+#' @description
+#' * `default`: All extensions not listed below is attempted to be read with [vroom::vroom()]
 #'
-#' @examples
-#' temp_txt <- tempfile("iris", fileext = ".txt")
-#' write.csv(iris, temp_txt, row.names = FALSE)
-#' class(temp_txt) <- "txt"
-#' read_ext(temp_txt)
+#' @rdname read_file
+#' @export
 read_ext.default <- function(path, ...) {
   cli::cli_alert_info("Using vroom to read the file:")
   table <- try(
-    vroom::vroom(path, ...),
+    vroom::vroom(file = path, ...),
     silent = TRUE
   )
 
@@ -82,43 +47,74 @@ read_ext.default <- function(path, ...) {
   return(table)
 }
 
-#' For CSV files
-#' @rdname read_ext
-#' @importFrom readr read_csv
+#' @description
+#' * `txt`: [readr::read_lines()]
+#'
+#' @rdname read_file
+#' @export
+read_ext.txt <- function(path, ...) {
+  readr::read_lines(file = path, ...)
+}
+
+#' @description
+#' * `csv`: [readr::read_csv()]
+#'
+#' @examples
+#' # Read CSV file
+#' temp_csv <- tempfile("iris", fileext = ".csv")
+#' write.csv(iris, temp_csv, row.names = FALSE)
+#' read_file(temp_csv)
+#'
+#' @rdname read_file
 #' @export
 read_ext.csv <- function(path, ...) {
-  readr::read_csv(path, ...)
+  readr::read_csv(file = path, ...)
 }
 
-
-#' For parquet files
-#' @rdname read_ext
-#' @importFrom arrow read_parquet
+#' @description
+#' * `parquet`: [arrow::read_parquet()]
+#'
+#' @rdname read_file
 #' @export
 read_ext.parquet <- function(path, ...) {
-  arrow::read_parquet(path, ...)
+  arrow::read_parquet(file = path, ...)
 }
 
-
-#' For RDS files
-#' @rdname read_ext
-#' @importFrom readr read_rds
+#' @description
+#' * `rds`: [readr::read_rds()]
+#'
+#' @rdname read_file
 #' @export
 read_ext.rds <- function(path, ...) {
-  readr::read_rds(path, ...)
+  readr::read_rds(file = path, ...)
 }
 
-#' For SAS files
-#' @rdname read_ext
+#' @description
+#' * `sas7bdat`: [haven::read_sas()]
+#'
+#' @rdname read_file
 #' @export
 read_ext.sas7bdat <- function(path, ...) {
-  haven::read_sas(path, ...)
+  haven::read_sas(data_file = path, ...)
 }
 
-
-#' For XPT files
-#' @rdname read_ext
+#' @description
+#' * `xpt`: [haven::read_xpt()]
+#'
+#' @rdname read_file
 #' @export
 read_ext.xpt <- function(path, ...) {
-  haven::read_xpt(path, ...)
+  haven::read_xpt(file = path, ...)
 }
+
+#' @description
+#' * `yml`/`yaml`: [yaml::read_yaml()]
+#'
+#' @rdname read_file
+#' @export
+read_ext.yml <- function(path, ...) {
+  yaml::read_yaml(file = path, ...)
+}
+
+#' @export
+read_ext.yaml <- read_ext.yml

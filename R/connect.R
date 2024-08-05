@@ -1,31 +1,117 @@
-#' Read and parse yaml configuration file
-#' @param file [character] Path to yaml file
+#' Connect to datasources specified in a config file
+#'
+#' @description
+#' Based on a configuration file or list this functions creates a [connectors()] object with
+#' a [connector] for each of the specified datasources.
+#'
+#' The configuration file can be in any format that can be read through [read_file()], and
+#' contains a list. If a yaml file is provided, expressions are evaluated when parsing it
+#' using [yaml::read_yaml()] with `eval.expr = TRUE`.
+#'
+#' See also `vignette("connector")` on how to use configuration files in your project,
+#' details below for the required structure of the configuration.
+#'
+#' @details
+#' The input list have to have the following structure:
+#'
+#' * Only metadata, env, connections, and datasources are allowed.
+#' * All elements must be named.
+#' * **connections** and **datasources** are mandatory.
+#' * **metadata** and **env** must each be a list of named character vectors of length 1 if specified.
+#' * **connections** and **datasources** must each be a list of unnamed lists.
+#' * Each connection must have the named character element **con** and the named list element **backend**
+#' * Each datasource must have the named character element **name**
+#' * For each connection **backend**.**type** must be provided
+#'
+#' @param config [character] path to a connector config file or a [list] of specifications
+#' @param set_env [logical] Should environment variables from the yaml file be set? Default is TRUE.
+#' @return [connectors]
+#' @examples
+#' config <- system.file("config", "default_config.yml", package = "connector")
+#'
+#' config
+#'
+#' # Show the raw configuration file
+#' readLines(config) |>
+#'   cat(sep = "\n")
+#'
+#' # Connect to the datasources specified in it
+#' cnts <- connect(config)
+#' cnts
+#'
+#' # Content of each connector
+#'
+#' cnts$adam
+#' cnts$sdtm
+#'
+#' @export
+
+connect <- function(config = "_connector.yml", set_env = TRUE) {
+  if (!is.list(config)) {
+    if (tools::file_ext(config) %in% c("yml", "yaml")) {
+      config <- read_file(config, eval.expr = TRUE)
+    } else {
+      config <- read_file(config)
+    }
+  }
+
+  config |>
+    assert_config() |>
+    parse_config(set_env = set_env) |>
+    connect_from_config()
+}
+
+#' Connect datasources to the connections from the yaml content
+#' @noRd
+connect_from_config <- function(config) {
+  connections <- config$connections |>
+    purrr::map(create_connection) |>
+    rlang::set_names(purrr::map_chr(config$connections, list("con", 1)))
+
+  connector_ <- config$datasources |>
+    purrr::map(\(x) connections[[x$con]]) %>%
+    rlang::set_names(purrr::map_chr(config$datasources, list("name", 1)))
+
+  do.call(what = connectors, args = connector_)
+}
+
+#' Create a connection object depending on the backend type
+#' @param config [list] The configuration of a single connection
+#' @noRd
+create_connection <- function(config) {
+  switch(config$backend$type,
+    "connector_fs" = create_backend_fs(config$backend),
+    "connector_dbi" = create_backend_dbi(config$backend),
+    {
+      zephyr::msg("Using generic backend connection for con: {config$con}")
+      create_backend(config$backend)
+    }
+  )
+}
+
+#' Parse a configuration list and set environment variables if needed
+#' @param config [list] Of unparsed configurations
 #' @param set_env [logical] Should environment variables from the yaml file be set. Default is TRUE.
 #' @return Configuration [list] with all content evaluated
 #' @examples
-#' yaml_file <- system.file("config", "test_env_config.yml", package = "connector")
-#' yaml::read_yaml(yaml_file, eval.expr = TRUE) |> str()
-#' config <- read_yaml_config(yaml_file)
+#' config <- system.file("config", "test_env_config.yml", package = "connector") |>
+#'   read_file()
+#'
 #' str(config)
-#' Sys.getenv("hello")
-#' @export
-
-read_yaml_config <- function(file, set_env = TRUE) {
-  val <- checkmate::makeAssertCollection()
-  checkmate::assert_file_exists(x = file, access = "r", add = val)
-  checkmate::assert_logical(x = set_env, add = val)
-  zephyr::report_checkmate_assertions(collection = val)
-
-  config <- yaml::read_yaml(file = file, eval.expr = TRUE) |>
-    assert_config()
-
+#'
+#' config |>
+#'   parse_config() |>
+#'   str()
+#'
+#' @noRd
+parse_config <- function(config, set_env = TRUE) {
   # Parse env variables
 
   env_old <- Sys.getenv(names = TRUE) |>
     as.list()
 
   config[["env"]] <- config[["env"]] |>
-    parse_config(input = list(env = env_old))
+    parse_config_helper(input = list(env = env_old))
 
   if (set_env && length(config[["env"]])) {
     do.call(what = Sys.setenv, args = config[["env"]])
@@ -58,29 +144,19 @@ read_yaml_config <- function(file, set_env = TRUE) {
   # Parse other content in order
 
   config[["metadata"]] <- config[["metadata"]] |>
-    parse_config(input = list(env = env))
+    parse_config_helper(input = list(env = env))
 
   config[["connections"]] <- config[["connections"]] |>
-    parse_config(input = list(env = env, metadata = config[["metadata"]]))
+    parse_config_helper(input = list(env = env, metadata = config[["metadata"]]))
 
   config[["datasources"]] <- config[["datasources"]] |>
-    parse_config(input = list(env = env, metadata = config[["metadata"]]))
+    parse_config_helper(input = list(env = env, metadata = config[["metadata"]]))
 
   return(config)
 }
 
-#' Input validation:
-#'
-#' - Only metadata, env, connections, and datasources are allowed
-#' - Everything must be named
-#' - connections and datasources are mandatory
-#' - metadata and env must each be a list of named character vectors of length 1
-#' - connections and datasources must each be a list of unnamed lists
-#' - each connection must have the named character element "con" and the named list element "backend"
-#' - each datasource must have the named character element "name"
-#' - for each connection backend.type must be provided
+#' Config input validation. See [connect()] for details.
 #' @noRd
-
 assert_config <- function(config, env = parent.frame()) {
   val <- checkmate::makeAssertCollection()
 
@@ -188,8 +264,7 @@ assert_config <- function(config, env = parent.frame()) {
 }
 
 #' @noRd
-
-parse_config <- function(content, input) {
+parse_config_helper <- function(content, input) {
   if (is.null(content)) {
     return(NULL)
   }
@@ -207,7 +282,6 @@ parse_config <- function(content, input) {
 }
 
 #' @noRd
-
 glue_if_character <- function(x, ..., .envir = parent.frame()) {
   if (is.character(x)) {
     x |>
