@@ -2,24 +2,77 @@
 % Please edit documentation in R/fs_write.R
 \name{write_file}
 \alias{write_file}
-\title{Write a file based on this extension}
+\alias{write_ext}
+\alias{write_ext.txt}
+\alias{write_ext.csv}
+\alias{write_ext.parquet}
+\alias{write_ext.rds}
+\alias{write_ext.xpt}
+\alias{write_ext.yml}
+\title{Write files based on the extension}
 \usage{
 write_file(x, file, ...)
+
+write_ext(file, x, ...)
+
+\method{write_ext}{txt}(file, x, ...)
+
+\method{write_ext}{csv}(file, x, ...)
+
+\method{write_ext}{parquet}(file, x, ...)
+
+\method{write_ext}{rds}(file, x, ...)
+
+\method{write_ext}{xpt}(file, x, ...)
+
+\method{write_ext}{yml}(file, x, ...)
 }
 \arguments{
 \item{x}{Object to write}
 
-\item{file}{Path to write the file}
+\item{file}{\code{\link[=character]{character()}} Path to write the file}
 
-\item{...}{Other parameters for write's functions}
+\item{...}{Other parameters passed on the functions behind the methods for each file extension.}
 }
 \value{
-the result of the Writing function
+\code{write_file()}: \code{\link[=invisible]{invisible()}} file.
+
+\code{write_ext()}: The return of the functions behind the individual methods.
 }
 \description{
-Write a file based on this extension
+\code{write_file()} is the backbone of all \code{\link[=cnt_write]{cnt_write()}} methods, where files are written
+to a connector. The function is a wrapper around \code{write_ext()} where the appropriate
+function to write the file is chosen depending on the file extension.
+
+\code{write_ext()} has methods defined for the following file extensions:
+
+\itemize{
+\item \code{txt}: \code{\link[readr:read_lines]{readr::write_lines()}}
+}
+
+\itemize{
+\item \code{csv}: \code{\link[readr:write_delim]{readr::write_csv()}}
+}
+
+\itemize{
+\item \code{parquet}: \code{\link[arrow:write_parquet]{arrow::write_parquet()}}
+}
+
+\itemize{
+\item \code{rds}: \code{\link[readr:read_rds]{readr::write_rds()}}
+}
+
+\itemize{
+\item \code{sas7bdat}: \code{\link[haven:write_sas]{haven::write_sas()}}
+}
+
+\itemize{
+\item \code{yml}/\code{yaml}: \code{\link[yaml:write_yaml]{yaml::write_yaml()}}
+}
 }
 \examples{
+# Write CSV file
 temp_csv <- tempfile("iris", fileext = ".csv")
 write_file(iris, temp_csv)
+
 }

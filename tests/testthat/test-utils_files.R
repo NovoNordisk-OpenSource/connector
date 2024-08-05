@@ -1,12 +1,6 @@
 test_that("Test utils for file", {
   ## Supported Fs
-  expect_equal(
-    as.vector(supported_fs()),
-    c(
-      "read_ext.csv", "read_ext.default", "read_ext.parquet",
-      "read_ext.rds", "read_ext.sas7bdat", "read_ext.xpt"
-    )
-  )
+  expect_snapshot(supported_fs())
 
   # test error for extension
   expect_error(error_extension())

@@ -1,116 +1,112 @@
-#' Create FS connector
+#' Connector for file storage
 #'
-#' @description Create a new FS connector object. See [Connector_fs] for details.
-#'
-#' @param path Path to the file system
-#' @param ... Additional arguments passed to [Connector_fs]
-#' @param extra_class [character] Extra class added to the object. See details.
-#' @return A new [Connector_fs] object
-#'
-#' @details
-#' The `extra_class` parameter allows you to create a subclass of the `Connector_fs` object.
-#' This can be useful if you want to create a custom connection object for easier dispatch of new s3 methods,
-#' while still inheriting the methods from the `Connector_fs` object.
+#' @description
+#' The connector_fs class is a file storage connector for accessing and manipulating files any file storage solution.
+#' The default implementation includes methods for files stored on local or network drives.
+
+#' @param name `r rd_connector_utils("name")`
+#' @param x `r rd_connector_utils("x")`
+#' @param file `r rd_connector_utils("file")`
+#' @param ... `r rd_connector_utils("...")`
+#' @param extra_class `r rd_connector_utils("extra_class")`
 #'
 #' @examples
-#' # Connect to a file system
+#' # Create file storage connector
 #'
-#' path_to_adam <- system.file("demo_trial", "adam", package = "connector")
-#' db <- connector_fs(path_to_adam)
+#' cnt <- connector_fs$new(tempdir())
 #'
-#' db
+#' cnt
 #'
-#' # Create subclass connection
+#' # List content
 #'
-#' db_subclass <- connector_fs(path_to_adam, extra_class = "subclass")
+#' cnt$cnt_list_content()
 #'
-#' db_subclass
-#' class(db_subclass)
+#' # Write to the connector
+#'
+#' cnt$cnt_write(iris, "iris.rds")
+#'
+#' # Check it is there
+#'
+#' cnt$cnt_list_content()
+#'
+#' # Read the result back
+#'
+#' cnt$cnt_read("iris.rds") |>
+#'   head()
 #'
 #' @export
-connector_fs <- function(path, ..., extra_class = NULL) {
-  layer <- Connector_fs$new(path = path, ...)
-  if (!is.null(extra_class)) {
-    # TODO: not sure about paste and so on
-    # extra_class <- paste(class(layer), extra_class, sep = "_")
-    class(layer) <- c(extra_class, class(layer))
-  }
-  return(layer)
-}
-
-#' Class Connector_fs
-#' @description The connector_fs class is a file system connector for accessing and manipulating files in a local file system.
-#' @importFrom R6 R6Class
-#'
-#' @name Connector_fs_object
-#' @export
-Connector_fs <- R6::R6Class(
-  "Connector_fs",
+connector_fs <- R6::R6Class(
+  classname = "connector_fs",
+  inherit = connector,
   public = list(
-    #' @description Initializes the connector_fs class
-    #' @param path Path to the file system
-    #' @param access Access type ("rw" by default)
-    initialize = function(path, access = "rw") {
-      private$path <- assert_path(path, access)
+
+    #' @description
+    #' Initializes the connector for file storage.
+    #' @param path [character] Path to the file storage
+    #' @param access [character] Access type ("rw" by default).
+    #' Checked using [checkmate::assert_directory_exists].
+    initialize = function(path, access = "rw", extra_class = NULL) {
+      private$.path <- assert_path(path, access)
+      super$initialize(extra_class = extra_class)
     },
-    #' @description Returns the list of files in the specified path
-    #' @param ... Other parameters to pass to the list.files function
-    list_content = function(...) {
+
+    #' @description
+    #' Download content from the file storage.
+    #' See also [cnt_download].
+    #' @return [invisible] `file`
+    cnt_download = function(name, file = basename(name), ...) {
       self %>%
-        cnt_list_content(...)
+        cnt_download(name, file, ...)
     },
-    #' @description Constructs a complete path by combining the specified access path with the provided elements
-    #' @param ... Elements to construct the path
-    construct_path = function(...) {
-      file.path(private$path, ...)
-    },
-    #' @description Reads the content of the specified file using the private access path and additional options
-    #' @param name Name of the file to read
-    #' @param ... Other parameters to pass to the read_file function (depends on the extension of a file)
-    read = function(name, ...) {
+
+    #' @description
+    #' Upload a file to the file storage.
+    #' See also [cnt_upload].
+    #' @return `r rd_connector_utils("inv_self")`
+    cnt_upload = function(file, name = basename(file), ...) {
       self %>%
-        cnt_read(name, ...)
+        cnt_upload(file, name, ...)
     },
-    #' @description Writes the specified content to the specified file using the private access path and additional options
-    #' @param x Content to write to the file
-    #' @param file File name
-    #' @param ... Other parameters to pass to the write_file function (depends on the extension of a file)
-    write = function(x, file, ...) {
+
+    #' @description
+    #' Create a directory in the file storage.
+    #' See also [cnt_create_directory].
+    #' @param name [character] The name of the directory to create
+    #' @return `r rd_connector_utils("inv_self")`
+    cnt_create_directory = function(name, ...) {
       self %>%
-        cnt_write(x = x, file = file, ...)
+        cnt_create_directory(name, ...)
     },
-    #' @description Remove the specified file by given name with extension
-    #' @param file File name
-    #'
-    remove = function(file) {
+
+    #' @description
+    #' Remove a directory from the file storage.
+    #' See also [cnt_remove_directory].
+    #' @param name [character] The name of the directory to remove
+    #' @return `r rd_connector_utils("inv_self")`
+    cnt_remove_directory = function(name, ...) {
       self %>%
-        cnt_remove(file)
-    },
-    #' @description Returns the path of the file system
-    #' @return Path to the file system
-    get_path = function() {
-      private$path
+        cnt_remove_directory(name, ...)
+    }
+  ),
+  active = list(
+    #' @field path [character] Path to the file storage
+    path = function() {
+      private$.path
     }
   ),
   private = list(
-    path = character(0)
-  ),
-  cloneable = TRUE
+    .path = character(0)
+  )
 )
 
-
 #' Validate the path and access
-#'
-#' @description The assert_path function validates the path and access type for file system operations.
-#'
+#' @description
+#' The assert_path function validates the path and access type for file system operations.
 #' @param path Path to be validated
 #' @param access Type of access ("rw" for read/write by default)
-#'
 #' @return Invisible path
-#'
-#' @export
-#'
 #' @importFrom checkmate makeAssertCollection assert_character assert_directory_exists reportAssertions
+#' @noRd
 assert_path <- function(path, access) {
   val <- checkmate::makeAssertCollection()
 
