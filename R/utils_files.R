@@ -4,7 +4,7 @@
 #' @param root Path to the root folder
 #'
 #' @return A full name path to the file or a error if multiples files or 0.
-#'
+#' @noRd
 find_file <- function(name, root) {
   files <- list.files(
     path = root,
@@ -22,14 +22,16 @@ find_file <- function(name, root) {
 #' List of supported files
 #'
 #' @return Used for this side effect
-#' @export
+#' @noRd
 #'
 #' @examples
 #' supported_fs()
 supported_fs <- function() {
   fct <- getExportedValue("connector", "read_ext")
   # TODO: Make some great documentation on which formats are supported and which functions from other packages are used
-  suppressWarnings(utils::methods(fct))
+  utils::methods(fct) |>
+    suppressWarnings() |>
+    as.character()
 }
 
 #' Test the extension of files
@@ -38,7 +40,7 @@ supported_fs <- function() {
 #' @param method the S3 method to get methods
 #'
 #' @return An error if the extension method doesn't exists
-#' @export
+#' @noRd
 assert_ext <- function(ext, method) {
   valid <- sub(
     pattern = "^[^\\.]+\\.",
@@ -54,6 +56,7 @@ assert_ext <- function(ext, method) {
 #' Function to call when no method is found for the extension
 #' @importFrom cli cli_abort
 #' @importFrom rlang set_names
+#' @noRd
 error_extension <- function() {
   ext_supp <- supported_fs() %>%
     rlang::set_names("*")
@@ -68,7 +71,7 @@ error_extension <- function() {
 
 #' Example for creating a new method for reading files
 #' @importFrom cli cli_inform cli_alert cli_code cli_text
-#' @export
+#' @noRd
 #' @examples
 #' example_read_ext()
 example_read_ext <- function() {

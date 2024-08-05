@@ -1,4 +1,21 @@
-url: https://jubilant-adventure-yr95p3g.pages.github.io/
+url: https://fantastic-adventure-gqozn9k.pages.github.io/
 template:
   bootstrap: 5
-
+reference:
+  - title: Use connector
+    contents:
+    - connect
+    - options
+  - title: Connectors
+    contents:
+    - connectors
+    - connector
+    - connector_fs
+    - connector_dbi
+  - title: Connector functions
+    contents:
+    - matches("^cnt_[^\\.]+$")
+  - title: Read and write files
+    contents:
+    - read_file
+    - write_file

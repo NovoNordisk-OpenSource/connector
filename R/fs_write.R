@@ -1,33 +1,15 @@
-#' Write a file based on this extension
-#' @export
+#' Write files based on the extension
 #'
-#' @param connector_object A Connector_fs object
-#' @param x Object to write
-#' @param file Path to write the file
-#' @param ... Other parameters for write's functions
-#'
-#' @examples
-#' connector <- Connector_fs$new(tempdir())
-#' connector$write(iris, "iris.csv")
-#' connector$remove("iris.csv")
-#'
-cnt_write.Connector_fs <- function(connector_object, x, file, ...) {
-  x %>%
-    write_file(connector_object$construct_path(file), ...)
-}
-
-#' Write a file based on this extension
+#' @description
+#' `write_file()` is the backbone of all [cnt_write()] methods, where files are written
+#' to a connector. The function is a wrapper around `write_ext()` where the appropriate
+#' function to write the file is chosen depending on the file extension.
 #'
 #' @param x Object to write
-#' @param file Path to write the file
-#' @param ... Other parameters for write's functions
-#'
-#' @return the result of the Writing function
+#' @param file [character()] Path to write the file
+#' @param ... Other parameters passed on the functions behind the methods for each file extension.
+#' @return `write_file()`: [invisible()] file.
 #' @export
-#'
-#' @examples
-#' temp_csv <- tempfile("iris", fileext = ".csv")
-#' write_file(iris, temp_csv)
 write_file <- function(x, file, ...) {
   find_ext <- tools::file_ext(file) |>
     assert_ext("write_ext")
@@ -35,57 +17,79 @@ write_file <- function(x, file, ...) {
   class(file) <- c(find_ext, class(file))
 
   write_ext(file, x, ...)
+
+  return(invisible(file))
 }
 
-#' Write a file based on this extension
+#' @description
+#' `write_ext()` has methods defined for the following file extensions:
 #'
-#' @inheritParams write_file
-#' @name write_ext
-#'
-#' @return the result of the Writing function
+#' @return `write_ext()`: The return of the functions behind the individual methods.
+#' @rdname write_file
 #' @export
-#'
-#' @examples
-#' temp_csv <- tempfile("iris", fileext = ".csv")
-#' class(temp_csv) <- "csv"
-#' write_ext(temp_csv, iris)
 write_ext <- function(file, x, ...) {
   UseMethod("write_ext")
 }
 
-#' For CSV files
-#' @rdname write_ext
+#' @description
+#' * `txt`: [readr::write_lines()]
 #'
-#' @importFrom readr write_csv
+#' @rdname write_file
+#' @export
+write_ext.txt <- function(file, x, ...) {
+  readr::write_lines(x = x, file = file, ...)
+}
+
+#' @description
+#' * `csv`: [readr::write_csv()]
+#'
+#' @examples
+#' # Write CSV file
+#' temp_csv <- tempfile("iris", fileext = ".csv")
+#' write_file(iris, temp_csv)
+#'
+#' @rdname write_file
 #' @export
 write_ext.csv <- function(file, x, ...) {
-  readr::write_csv(x, file, ...)
+  readr::write_csv(x = x, file = file, ...)
 }
 
-#' For parquet files
-#' @rdname write_ext
+#' @description
+#' * `parquet`: [arrow::write_parquet()]
 #'
-#' @importFrom arrow write_parquet
+#' @rdname write_file
 #' @export
 write_ext.parquet <- function(file, x, ...) {
-  arrow::write_parquet(x, file, ...)
+  arrow::write_parquet(x = x, sink = file, ...)
 }
 
-#' For RDS files
-#' @rdname write_ext
+#' @description
+#' * `rds`: [readr::write_rds()]
 #'
-#' @importFrom readr write_rds
+#' @rdname write_file
 #' @export
 write_ext.rds <- function(file, x, ...) {
-  readr::write_rds(x, file, ...)
+  readr::write_rds(x = x, file = file, ...)
 }
 
-#' For xpt files
-#' @rdname write_ext
+#' @description
+#' * `sas7bdat`: [haven::write_sas()]
 #'
-#' @importFrom haven write_xpt
+#' @rdname write_file
 #' @export
 write_ext.xpt <- function(file, x, ...) {
   # TODO: Use xportr to create nice pharmaverse style XPT files?
-  haven::write_xpt(x, file, ...)
+  haven::write_xpt(data = x, path = file, ...)
 }
+
+#' @description
+#' * `yml`/`yaml`: [yaml::write_yaml()]
+#'
+#' @rdname write_file
+#' @export
+write_ext.yml <- function(file, x, ...) {
+  yaml::write_yaml(x = x, file = file, ...)
+}
+
+#' @export
+write_ext.yaml <- write_ext.yml
