@@ -4,10 +4,13 @@
 \alias{connect}
 \title{Connect to datasources specified in a config file}
 \usage{
-connect(config = "_connector.yml", set_env = TRUE)
+connect(config = "_connector.yml", datasource = NULL, set_env = TRUE)
 }
 \arguments{
 \item{config}{\link{character} path to a connector config file or a \link{list} of specifications}
+
+\item{datasource}{\link{character} Name(s) of the datasource(s) to connect to.
+If \code{NULL} (the default) all datasources are connected.}
 
 \item{set_env}{\link{logical} Should environment variables from the yaml file be set? Default is TRUE.}
 }
@@ -26,10 +29,18 @@ See also \code{vignette("connector")} on how to use configuration files in your 
 details below for the required structure of the configuration.
 }
 \details{
-The input list have to have the following structure:
+The input list can be specified in two ways:
+\enumerate{
+\item A named list containing the specifications of a single \link{connectors} object.
+\item An unnamed list, where each element is of the same structure as in 1., which
+returns a nested \link{connectors} object. See example below.
+}
+
+Each specification of a single \link{connectors}  have to have the following structure:
 \itemize{
-\item Only metadata, env, connections, and datasources are allowed.
+\item Only name, metadata, env, connections, and datasources are allowed.
 \item All elements must be named.
+\item \strong{name} is only required when using nested connectors.
 \item \strong{connections} and \strong{datasources} are mandatory.
 \item \strong{metadata} and \strong{env} must each be a list of named character vectors of length 1 if specified.
 \item \strong{connections} and \strong{datasources} must each be a list of unnamed lists.
@@ -45,7 +56,7 @@ config
 
 # Show the raw configuration file
 readLines(config) |>
- cat(sep = "\n")
+  cat(sep = "\n")
 
 # Connect to the datasources specified in it
 cnts <- connect(config)
@@ -56,4 +67,20 @@ cnts
 cnts$adam
 cnts$sdtm
 
+# Connect only to the adam datasource
+
+connect(config, "adam")
+
+# Connect to several projects in a nested structure
+
+config_nested <- system.file("config", "_connector_nested.yml", package = "connector")
+
+readLines(config_nested) |>
+  cat(sep = "\n")
+
+cnts_nested <- connect(config_nested)
+
+cnts_nested
+
+cnts_nested$study1
 }
