@@ -46,7 +46,7 @@ iris_cnt |>
   dplyr::summarise(
     n = dplyr::n(),
     mean.Sepal.Length = mean(Sepal.Length, na.rm = TRUE)
-    ) |>
+  ) |>
   dplyr::collect()
 
 }
