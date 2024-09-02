@@ -51,3 +51,6 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 inst/doc
+
+# megalinter stuff
+megalinter-reports/
