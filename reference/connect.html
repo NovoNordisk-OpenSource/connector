@@ -61,7 +61,7 @@ details below for the required structure of the configuration.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">connect</span><span class="op">(</span>config <span class="op">=</span> <span class="st">"_connector.yml"</span>, set_env <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">connect</span><span class="op">(</span>config <span class="op">=</span> <span class="st">"_connector.yml"</span>, datasource <span class="op">=</span> <span class="cn">NULL</span>, set_env <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -70,6 +70,11 @@ details below for the required structure of the configuration.</p>
 
 <dl><dt id="arg-config">config<a class="anchor" aria-label="anchor" href="#arg-config"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> path to a connector config file or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of specifications</p></dd>
+
+
+<dt id="arg-datasource">datasource<a class="anchor" aria-label="anchor" href="#arg-datasource"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> Name(s) of the datasource(s) to connect to.
+If <code>NULL</code> (the default) all datasources are connected.</p></dd>
 
 
 <dt id="arg-set-env">set_env<a class="anchor" aria-label="anchor" href="#arg-set-env"></a></dt>
@@ -82,8 +87,12 @@ details below for the required structure of the configuration.</p>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The input list have to have the following structure:</p><ul><li><p>Only metadata, env, connections, and datasources are allowed.</p></li>
+    <p>The input list can be specified in two ways:</p><ol><li><p>A named list containing the specifications of a single <a href="connectors.html">connectors</a> object.</p></li>
+<li><p>An unnamed list, where each element is of the same structure as in 1., which
+returns a nested <a href="connectors.html">connectors</a> object. See example below.</p></li>
+</ol><p>Each specification of a single <a href="connectors.html">connectors</a>  have to have the following structure:</p><ul><li><p>Only name, metadata, env, connections, and datasources are allowed.</p></li>
 <li><p>All elements must be named.</p></li>
+<li><p><strong>name</strong> is only required when using nested connectors.</p></li>
 <li><p><strong>connections</strong> and <strong>datasources</strong> are mandatory.</p></li>
 <li><p><strong>metadata</strong> and <strong>env</strong> must each be a list of named character vectors of length 1 if specified.</p></li>
 <li><p><strong>connections</strong> and <strong>datasources</strong> must each be a list of unnamed lists.</p></li>
@@ -101,7 +110,7 @@ details below for the required structure of the configuration.</p>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Show the raw configuration file</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">config</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span> <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # A example of the configuration file for FS and Database</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> metadata:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   trial: "demo_trial"</span>
@@ -161,6 +170,55 @@ details below for the required structure of the configuration.</p>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Specifications:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> conn: <span style="color: #0000BB;">&lt;SQLiteConnection&gt;</span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Connect only to the adam datasource</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">connect</span><span class="op">(</span><span class="va">config</span>, <span class="st">"adam"</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   $adam <span style="color: #0000BB;">&lt;test2&gt;</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Connect to several projects in a nested structure</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">config_nested</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"config"</span>, <span class="st">"_connector_nested.yml"</span>, package <span class="op">=</span> <span class="st">"connector"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">config_nested</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> # A example of the configuration file nested connectors</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - name: "study1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   metadata:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     trial: "demo_trial"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     root_path: !expr system.file(package = "connector")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   connections:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     - con: "adam_fs"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       backend:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           type: "connector_fs"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           path: "{metadata.root_path}/{metadata.trial}/adam"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   datasources:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     - name: "adam"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       con: "adam_fs"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> - name: "study2"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   metadata:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     trial: "demo_trial"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     root_path: !expr system.file(package = "connector")</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   connections:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     - con: "adam_fs"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       backend:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           type: "connector_fs"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>           path: "{metadata.root_path}/{metadata.trial}/adam"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   datasources:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     - name: "adam"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>       con: "adam_fs"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cnts_nested</span> <span class="op">&lt;-</span> <span class="fu">connect</span><span class="op">(</span><span class="va">config_nested</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cnts_nested</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   $study1 <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   $study2 <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cnts_nested</span><span class="op">$</span><span class="va">study1</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   $adam <span style="color: #0000BB;">&lt;connector_fs&gt;</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
