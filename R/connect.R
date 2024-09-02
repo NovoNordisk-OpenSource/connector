@@ -12,10 +12,16 @@
 #' details below for the required structure of the configuration.
 #'
 #' @details
-#' The input list have to have the following structure:
+#' The input list can be specified in two ways:
+#' 1. A named list containing the specifications of a single [connectors] object.
+#' 1. An unnamed list, where each element is of the same structure as in 1., which
+#' returns a nested [connectors] object. See example below.
 #'
-#' * Only metadata, env, connections, and datasources are allowed.
+#' Each specification of a single [connectors]  have to have the following structure:
+#'
+#' * Only name, metadata, env, connections, and datasources are allowed.
 #' * All elements must be named.
+#' * **name** is only required when using nested connectors.
 #' * **connections** and **datasources** are mandatory.
 #' * **metadata** and **env** must each be a list of named character vectors of length 1 if specified.
 #' * **connections** and **datasources** must each be a list of unnamed lists.
@@ -24,6 +30,8 @@
 #' * For each connection **backend**.**type** must be provided
 #'
 #' @param config [character] path to a connector config file or a [list] of specifications
+#' @param datasource [character] Name(s) of the datasource(s) to connect to.
+#' If `NULL` (the default) all datasources are connected.
 #' @param set_env [logical] Should environment variables from the yaml file be set? Default is TRUE.
 #' @return [connectors]
 #' @examples
@@ -44,9 +52,25 @@
 #' cnts$adam
 #' cnts$sdtm
 #'
+#' # Connect only to the adam datasource
+#'
+#' connect(config, "adam")
+#'
+#' # Connect to several projects in a nested structure
+#'
+#' config_nested <- system.file("config", "_connector_nested.yml", package = "connector")
+#'
+#' readLines(config_nested) |>
+#'   cat(sep = "\n")
+#'
+#' cnts_nested <- connect(config_nested)
+#'
+#' cnts_nested
+#'
+#' cnts_nested$study1
 #' @export
 
-connect <- function(config = "_connector.yml", set_env = TRUE) {
+connect <- function(config = "_connector.yml", datasource = NULL, set_env = TRUE) {
   if (!is.list(config)) {
     if (tools::file_ext(config) %in% c("yml", "yaml")) {
       config <- read_file(config, eval.expr = TRUE)
@@ -55,9 +79,17 @@ connect <- function(config = "_connector.yml", set_env = TRUE) {
     }
   }
 
+  if (is.null(names(config))) {
+    names(config) <- purrr::map(config, "name")
+    cnts <- config |>
+      purrr::map(\(x) connect(x, datasource, set_env))
+    return(do.call(connectors, cnts))
+  }
+
   config |>
     assert_config() |>
     parse_config(set_env = set_env) |>
+    filter_config(datasource = datasource) |>
     connect_from_config()
 }
 
@@ -155,6 +187,26 @@ parse_config <- function(config, set_env = TRUE) {
   return(config)
 }
 
+#' Filter config to only use the specified datasource
+#' @noRd
+filter_config <- function(config, datasource) {
+  if (is.null(datasource)) {
+    return(config)
+  }
+
+  config[["datasources"]] <- config[["datasources"]] |>
+    purrr::keep(\(x) x[["name"]] %in% datasource)
+
+  used_con <- config[["datasources"]] |>
+    purrr::map_chr("con") |>
+    unique()
+
+  config[["connections"]] <- config[["connections"]] |>
+    purrr::keep(\(x) x[["con"]] %in% used_con)
+
+  return(config)
+}
+
 #' Config input validation. See [connect()] for details.
 #' @noRd
 assert_config <- function(config, env = parent.frame()) {
@@ -165,7 +217,7 @@ assert_config <- function(config, env = parent.frame()) {
   checkmate::assert_names(
     x = names(config),
     type = "unique",
-    subset.of = c("metadata", "env", "connections", "datasources"),
+    subset.of = c("name", "metadata", "env", "connections", "datasources"),
     must.include = c("connections", "datasources"),
     what = "Config",
     .var.name = "yaml",
