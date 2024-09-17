@@ -66,15 +66,15 @@ metadata:
   trial: "yyyy"
   project: "nnxxxx"
   instance: "current"
-  http_path: "sql/protocolv1/o/273240340063409/0216-121054-v8tdvp00"
+  http_path:  !!expr Sys.getenv("DATABRICKS_HTTP_PATH")
   catalog:  !!expr Sys.getenv("DATABRICKS_CATALOG_NAME")
-  sharepoint: "https://novonordisk.sharepoint.com"
-  root_path: "/home/novonordisk"
+  sharepoint: "https://my_organisation.sharepoint.com"
+  root_path: "/home/my_root_path"
 connections:
   - con: "adam"
     backend:
         type: "fs"
-        path: "{root_path}/{project}/{trial}/{instance}/stats/data/{name}"
+        path: "{root_path}/{project}/{trial}/{instance}/adam"
   - con: "tfl"
     backend:
       type: "connector.databricks::connector_databricks_volume"
