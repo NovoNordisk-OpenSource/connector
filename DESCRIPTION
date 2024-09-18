@@ -37,7 +37,8 @@ Suggests:
     RSQLite,
     testthat (>= 3.0.0),
     withr,
-    yaml
+    yaml,
+    ggplot2
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
