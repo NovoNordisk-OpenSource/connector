@@ -247,6 +247,92 @@ db$output_sh$upload(tmp_file, "fsetosa.png")
 db$tfl$cnt_upload(contents = tmp_file, file_path = "fsetosa.png")
 ```
 
+## Working example
+
+Here is an example anyone can run to see how the `connector` package works.
+We will use the configuration file provided below, which will only use file
+system as type of connection for ADaM and TFL data.
+
+```{r eval=FALSE}
+metadata:
+  adam_path: !expr file.path(tempdir(), "adam")
+  tfl_path: !expr file.path(tempdir(), "tfl")
+
+connections:
+  - con: "adam"
+    backend:
+      type: "connector_fs"
+      path: "{metadata.adam_path}"
+  - con: "tfl"
+    backend:
+      type: "connector_fs"
+      path: "{metadata.tfl_path}"
+
+datasources:
+  - name: "adam"
+    con: "adam"
+  - name: "tfl"
+    con: "tfl"
+
+```
+
+Now, let's run the example:
+
+```{r}
+library(connector)
+library(dplyr)
+library(ggplot2)
+
+# Let's create ADaM and TFL directories in temporary directory of the session
+dir.create(file.path(tempdir(), "adam"))
+dir.create(file.path(tempdir(), "tfl"))
+
+# Get example configuration from file
+config_file <- system.file("config", "config_file_system.yml", package = "connector")
+
+# Load data connections
+db <- connect(config = config_file)
+
+## Iris data
+setosa <- iris %>%
+  filter(Species == "setosa")
+
+mean_for_all_iris <- iris %>%
+  group_by(Species) %>%
+  summarise_all(list(mean, median, sd, min, max))
+
+## Store data
+db$adam %>%
+  cnt_write(setosa, "setosa.rds")
+
+db$adam %>%
+  cnt_write(mean_for_all_iris, "mean_iris.rds")
+
+## List and load data
+db$adam %>%
+  cnt_list_content()
+
+# Manipulate data
+setosa_fsetosa <- db$adam %>%
+  cnt_read("setosa") %>%
+  filter(Sepal.Length > 5)
+
+fsetosa <- ggplot(setosa) +
+  aes(x = Sepal.Length, y = Sepal.Width) +
+  geom_point()
+
+## Store Tfls
+db$tfl$cnt_write(fsetosa$data, "fsetosa.csv")
+db$tfl$cnt_write(fsetosa, "fsetosa.rds")
+
+## Store images
+tmp_file <- tempfile(fileext = ".png")
+ggsave(tmp_file, fsetosa)
+db$tfl$cnt_upload(tmp_file, "fsetosa.png")
+
+# Check if everything is written into temporary TFL directory
+db$tfl$cnt_list_content()
+```
 ## Conclusion
 
 In this vignette we showed how to connect to different datasources, read and write
