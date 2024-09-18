@@ -18,7 +18,6 @@ jobs:
   test-coverage-internal:
     runs-on: ubuntu-latest
     env:
-      GITHUB_PAT: ${{ secrets.CONNECTOR_ACTION_PAT }}
       POSTGRES_PW: ${{secrets.TEST_POSTGRES_DB_PW}}
     steps:
       - uses: actions/checkout@v4
