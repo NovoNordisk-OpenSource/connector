@@ -27,7 +27,6 @@ jobs:
           - date: 2023-10-25    # 08mar2024: Next release date for SCE-R
             r: 4.3.1
     env:
-      GITHUB_PAT: ${{ secrets.CONNECTOR_ACTION_PAT }}
       R_KEEP_PKG_SOURCE: yes
       POSTGRES_PW: ${{secrets.TEST_POSTGRES_DB_PW}}
 
