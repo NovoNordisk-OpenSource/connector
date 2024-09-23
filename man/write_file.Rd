@@ -40,7 +40,7 @@ write_ext(file, x, ...)
 \code{write_ext()}: The return of the functions behind the individual methods.
 }
 \description{
-\code{write_file()} is the backbone of all \code{\link[=cnt_write]{cnt_write()}} methods, where files are written
+\code{write_file()} is the backbone of all \code{\link[=write_cnt]{write_cnt()}} methods, where files are written
 to a connector. The function is a wrapper around \code{write_ext()} where the appropriate
 function to write the file is chosen depending on the file extension.
 

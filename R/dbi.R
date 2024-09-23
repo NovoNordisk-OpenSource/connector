@@ -10,7 +10,7 @@
 #'
 #' @details
 #' Upon garbage collection, the connection will try to disconnect from the database.
-#' But it is good practice to call [cnt_disconnect] when you are done with the connection.
+#' But it is good practice to call [disconnect_cnt] when you are done with the connection.
 #'
 #' @examples
 #' # Create DBI connector
@@ -30,7 +30,7 @@
 #'
 #' # List available tables
 #'
-#' cnt$cnt_list_content()
+#' cnt$list_content_cnt()
 #'
 #' # Use the connector to run a query
 #'
@@ -41,13 +41,13 @@
 #'
 #' # Use dplyr verbs and collect data
 #'
-#' cnt$cnt_tbl("iris") |>
+#' cnt$tbl_cnt("iris") |>
 #'   dplyr::filter(Sepal.Length > 7) |>
 #'   dplyr::collect()
 #'
 #' # Disconnect from the database
 #'
-#' cnt$cnt_disconnect()
+#' cnt$disconnect_cnt()
 #'
 #' @export
 
@@ -67,20 +67,20 @@ connector_dbi <- R6::R6Class(
 
     #' @description
     #' Disconnect from the database.
-    #' See also [cnt_disconnect].
+    #' See also [disconnect_cnt].
     #' @return [invisible] `self`.
-    cnt_disconnect = function() {
+    disconnect_cnt = function() {
       self %>%
-        cnt_disconnect()
+        disconnect_cnt()
     },
 
     #' @description
     #' Use dplyr verbs to interact with the remote database table.
-    #' See also [cnt_tbl].
+    #' See also [tbl_cnt].
     #' @return A [dplyr::tbl] object.
-    cnt_tbl = function(name, ...) {
+    tbl_cnt = function(name, ...) {
       self %>%
-        cnt_tbl(name, ...)
+        tbl_cnt(name, ...)
     }
   ),
   active = list(
@@ -96,7 +96,7 @@ connector_dbi <- R6::R6Class(
 
     # Finalize the connection on garbage collection
     finalize = function() {
-      if (DBI::dbIsValid(dbObj = self$conn)) self$cnt_disconnect()
+      if (DBI::dbIsValid(dbObj = self$conn)) self$disconnect_cnt()
     }
   )
 )
