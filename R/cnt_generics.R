@@ -8,12 +8,12 @@
 #' @param ... `r rd_connector_utils("...")`
 #' @return R object with the content. For rectangular data a [data.frame].
 #' @export
-cnt_read <- function(connector_object, name, ...) {
-  UseMethod("cnt_read")
+read_cnt <- function(connector_object, name, ...) {
+  UseMethod("read_cnt")
 }
 
 #' @export
-cnt_read.default <- function(connector_object, name, ...) {
+read_cnt.default <- function(connector_object, name, ...) {
   method_error_msg()
 }
 
@@ -28,12 +28,12 @@ cnt_read.default <- function(connector_object, name, ...) {
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-cnt_write <- function(connector_object, x, name, ...) {
-  UseMethod("cnt_write")
+write_cnt <- function(connector_object, x, name, ...) {
+  UseMethod("write_cnt")
 }
 
 #' @export
-cnt_write.default <- function(connector_object, ...) {
+write_cnt.default <- function(connector_object, ...) {
   method_error_msg()
 }
 
@@ -47,12 +47,12 @@ cnt_write.default <- function(connector_object, ...) {
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-cnt_remove <- function(connector_object, name, ...) {
-  UseMethod("cnt_remove")
+remove_cnt <- function(connector_object, name, ...) {
+  UseMethod("remove_cnt")
 }
 
 #' @export
-cnt_remove.default <- function(connector_object, ...) {
+remove_cnt.default <- function(connector_object, ...) {
   method_error_msg()
 }
 
@@ -65,12 +65,12 @@ cnt_remove.default <- function(connector_object, ...) {
 #' @param ... `r rd_connector_utils("...")`
 #' @return A [character] vector of content names
 #' @export
-cnt_list_content <- function(connector_object, ...) {
-  UseMethod("cnt_list_content")
+list_content_cnt <- function(connector_object, ...) {
+  UseMethod("list_content_cnt")
 }
 
 #' @export
-cnt_list_content.default <- function(connector_object, ...) {
+list_content_cnt.default <- function(connector_object, ...) {
   method_error_msg()
 }
 
@@ -85,12 +85,12 @@ cnt_list_content.default <- function(connector_object, ...) {
 #' @param ... `r rd_connector_utils("...")`
 #' @return [invisible] file.
 #' @export
-cnt_download <- function(connector_object, name, file = basename(name), ...) {
-  UseMethod("cnt_download")
+download_cnt <- function(connector_object, name, file = basename(name), ...) {
+  UseMethod("download_cnt")
 }
 
 #' @export
-cnt_download.default <- function(connector_object, ...) {
+download_cnt.default <- function(connector_object, ...) {
   method_error_msg()
 }
 
@@ -105,12 +105,12 @@ cnt_download.default <- function(connector_object, ...) {
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-cnt_upload <- function(connector_object, file, name = basename(file), ...) {
-  UseMethod("cnt_upload")
+upload_cnt <- function(connector_object, file, name = basename(file), ...) {
+  UseMethod("upload_cnt")
 }
 
 #' @export
-cnt_upload.default <- function(connector_object, ...) {
+upload_cnt.default <- function(connector_object, ...) {
   method_error_msg()
 }
 
@@ -125,12 +125,12 @@ cnt_upload.default <- function(connector_object, ...) {
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-cnt_create_directory <- function(connector_object, name, ...) {
-  UseMethod("cnt_create_directory")
+create_directory_cnt <- function(connector_object, name, ...) {
+  UseMethod("create_directory_cnt")
 }
 
 #' @export
-cnt_create_directory.default <- function(connector_object, ...) {
+create_directory_cnt.default <- function(connector_object, ...) {
   method_error_msg()
 }
 
@@ -145,12 +145,12 @@ cnt_create_directory.default <- function(connector_object, ...) {
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-cnt_remove_directory <- function(connector_object, name, ...) {
-  UseMethod("cnt_remove_directory")
+remove_directory_cnt <- function(connector_object, name, ...) {
+  UseMethod("remove_directory_cnt")
 }
 
 #' @export
-cnt_remove_directory.default <- function(connector_object, ...) {
+remove_directory_cnt.default <- function(connector_object, ...) {
   method_error_msg()
 }
 
@@ -164,12 +164,12 @@ cnt_remove_directory.default <- function(connector_object, ...) {
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-cnt_disconnect <- function(connector_object, ...) {
-  UseMethod("cnt_disconnect")
+disconnect_cnt <- function(connector_object, ...) {
+  UseMethod("disconnect_cnt")
 }
 
 #' @export
-cnt_disconnect.default <- function(connector_object, ...) {
+disconnect_cnt.default <- function(connector_object, ...) {
   method_error_msg()
 }
 
@@ -185,12 +185,12 @@ cnt_disconnect.default <- function(connector_object, ...) {
 #' @param ... `r rd_connector_utils("...")`
 #' @return A [dplyr::tbl] object.
 #' @export
-cnt_tbl <- function(connector_object, name, ...) {
-  UseMethod("cnt_tbl")
+tbl_cnt <- function(connector_object, name, ...) {
+  UseMethod("tbl_cnt")
 }
 
 #' @export
-cnt_tbl.default <- function(connector_object, ...) {
+tbl_cnt.default <- function(connector_object, ...) {
   method_error_msg()
 }
 

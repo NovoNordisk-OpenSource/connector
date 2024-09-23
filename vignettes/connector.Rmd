@@ -184,16 +184,16 @@ mean_for_all_mtcars <- mtcars %>%
 
 ## Store data
 db$adam %>%
-  cnt_write(setosa, "setosa", overwrite = TRUE)
+  write_cnt(setosa, "setosa", overwrite = TRUE)
 
 db$adam %>%
-  cnt_write(mean_for_all_iris, "mean_iris", overwrite = TRUE)
+  write_cnt(mean_for_all_iris, "mean_iris", overwrite = TRUE)
 
 db$adam %>%
-  cnt_write(cars, "cars_mpg", overwrite = TRUE)
+  write_cnt(cars, "cars_mpg", overwrite = TRUE)
 
 db$adam %>%
-  cnt_write(mean_for_all_mtcars, "mean_mtcars", overwrite = TRUE)
+  write_cnt(mean_for_all_mtcars, "mean_mtcars", overwrite = TRUE)
 
 ```
 
@@ -207,26 +207,26 @@ library(ggplot2)
 
 # List and load data
 db$adam %>%
-  cnt_list_content()
+  list_content_cnt()
 
 table <- db$adam %>%
-  cnt_read("mean_mtcars")
+  read_cnt("mean_mtcars")
 
 gttable <- table %>%
   gt(groupname_col = "gear")
 
 ## Save table
-db$tfl$cnt_write(gttable$`_data`, "tmeanallmtcars.csv")
-db$tfl$cnt_write(gttable, "tmeanallmtcars.rds")
+db$tfl$write_cnt(gttable$`_data`, "tmeanallmtcars.csv")
+db$tfl$write_cnt(gttable, "tmeanallmtcars.rds")
 
 ## Using Sharepoint
 tmp_file <- tempfile(fileext = ".docx")
 gtsave(gttable, tmp_file)
-db$output_sh$cnt_upload(tmp_file, "tmeanallmtcars.docx")
+db$output_sh$upload_cnt(tmp_file, "tmeanallmtcars.docx")
 
 # Manipulate data
 setosa_fsetosa <- db$adam %>%
-  cnt_read("setosa") %>%
+  read_cnt("setosa") %>%
   filter(Sepal.Length > 5)
 
 fsetosa <- ggplot(setosa) +
@@ -235,8 +235,8 @@ fsetosa <- ggplot(setosa) +
 
 ## Using Databricks Volumes
 ## Store Tfls
-db$tfl$cnt_write(fsetosa$data, "fsetosa.csv")
-db$tfl$cnt_write(fsetosa, "fsetosa.rds")
+db$tfl$write_cnt(fsetosa$data, "fsetosa.csv")
+db$tfl$write_cnt(fsetosa, "fsetosa.rds")
 
 ## Using Sharepoint
 tmp_file <- tempfile(fileext = ".png")
@@ -244,7 +244,7 @@ ggsave(tmp_file, fsetosa)
 db$output_sh$upload(tmp_file, "fsetosa.png")
 
 ## Using Databricks Volumes
-db$tfl$cnt_upload(contents = tmp_file, file_path = "fsetosa.png")
+db$tfl$upload_cnt(contents = tmp_file, file_path = "fsetosa.png")
 ```
 
 ## Working example
@@ -303,18 +303,18 @@ mean_for_all_iris <- iris %>%
 
 ## Store data
 db$adam %>%
-  cnt_write(setosa, "setosa.rds")
+  write_cnt(setosa, "setosa.rds")
 
 db$adam %>%
-  cnt_write(mean_for_all_iris, "mean_iris.rds")
+  write_cnt(mean_for_all_iris, "mean_iris.rds")
 
 ## List and load data
 db$adam %>%
-  cnt_list_content()
+  list_content_cnt()
 
 # Manipulate data
 setosa_fsetosa <- db$adam %>%
-  cnt_read("setosa") %>%
+  read_cnt("setosa") %>%
   filter(Sepal.Length > 5)
 
 fsetosa <- ggplot(setosa) +
@@ -322,16 +322,16 @@ fsetosa <- ggplot(setosa) +
   geom_point()
 
 ## Store Tfls
-db$tfl$cnt_write(fsetosa$data, "fsetosa.csv")
-db$tfl$cnt_write(fsetosa, "fsetosa.rds")
+db$tfl$write_cnt(fsetosa$data, "fsetosa.csv")
+db$tfl$write_cnt(fsetosa, "fsetosa.rds")
 
 ## Store images
 tmp_file <- tempfile(fileext = ".png")
 ggsave(tmp_file, fsetosa)
-db$tfl$cnt_upload(tmp_file, "fsetosa.png")
+db$tfl$upload_cnt(tmp_file, "fsetosa.png")
 
 # Check if everything is written into temporary TFL directory
-db$tfl$cnt_list_content()
+db$tfl$list_content_cnt()
 ```
 ## Conclusion
 

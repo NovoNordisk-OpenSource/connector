@@ -32,25 +32,25 @@ for (i in seq_along(specs)) {
       }
     )
 
-    cnt$cnt_list_content() |>
+    cnt$list_content_cnt() |>
       expect_equal(character(0))
 
-    cnt$cnt_write(x, "mtcars") |>
+    cnt$write_cnt(x, "mtcars") |>
       expect_no_condition()
 
-    cnt$cnt_write(x, "mtcars") |>
+    cnt$write_cnt(x, "mtcars") |>
       expect_error()
 
-    cnt$cnt_list_content() |>
+    cnt$list_content_cnt() |>
       expect_equal("mtcars")
 
-    cnt$cnt_read("mtcars") |>
+    cnt$read_cnt("mtcars") |>
       expect_equal(x)
 
-    cnt$cnt_write(x, "mtcars", overwrite = TRUE) |>
+    cnt$write_cnt(x, "mtcars", overwrite = TRUE) |>
       expect_no_condition()
 
-    cnt$cnt_tbl("mtcars") |>
+    cnt$tbl_cnt("mtcars") |>
       dplyr::filter(car == "Mazda RX4") |>
       dplyr::select(car, mpg) |>
       dplyr::collect() |>
@@ -60,13 +60,13 @@ for (i in seq_along(specs)) {
       DBI::dbGetQuery("SELECT * FROM mtcars") |>
       expect_equal(x)
 
-    cnt$cnt_remove("mtcars") |>
+    cnt$remove_cnt("mtcars") |>
       expect_no_condition()
 
-    cnt$cnt_disconnect() |>
+    cnt$disconnect_cnt() |>
       expect_no_condition()
 
-    cnt$cnt_read("mtcars") |>
+    cnt$read_cnt("mtcars") |>
       expect_error(regexp = "Invalid(| or closed) connection") # Different messages for postgres and sqlite
   })
 }

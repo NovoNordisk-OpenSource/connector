@@ -17,7 +17,7 @@ cnt
 
 # Standard error message if no method is implemented
 cnt |>
-  cnt_read("fake_data") |>
+  read_cnt("fake_data") |>
   try()
 
 # Connection with extra class
@@ -26,12 +26,12 @@ cnt_my_class <- connector$new(extra_class = "my_class")
 cnt_my_class
 
 # Custom method for the extra class
-cnt_read.my_class <- function(connector_object) "Hello!"
-registerS3method("cnt_read", "my_class", "cnt_read.my_class")
+read_cnt.my_class <- function(connector_object) "Hello!"
+registerS3method("read_cnt", "my_class", "read_cnt.my_class")
 
 cnt_my_class
 
-cnt_read(cnt_my_class)
+read_cnt(cnt_my_class)
 
 }
 \seealso{
@@ -43,10 +43,10 @@ and concrete examples in \link{connector_fs} and \link{connector_dbi}.
 \itemize{
 \item \href{#method-connector-new}{\code{connector$new()}}
 \item \href{#method-connector-print}{\code{connector$print()}}
-\item \href{#method-connector-cnt_list_content}{\code{connector$cnt_list_content()}}
-\item \href{#method-connector-cnt_read}{\code{connector$cnt_read()}}
-\item \href{#method-connector-cnt_write}{\code{connector$cnt_write()}}
-\item \href{#method-connector-cnt_remove}{\code{connector$cnt_remove()}}
+\item \href{#method-connector-list_content_cnt}{\code{connector$list_content_cnt()}}
+\item \href{#method-connector-read_cnt}{\code{connector$read_cnt()}}
+\item \href{#method-connector-write_cnt}{\code{connector$write_cnt()}}
+\item \href{#method-connector-remove_cnt}{\code{connector$remove_cnt()}}
 \item \href{#method-connector-clone}{\code{connector$clone()}}
 }
 }
@@ -82,12 +82,12 @@ specifications from the active bindings.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector-cnt_list_content"></a>}}
-\if{latex}{\out{\hypertarget{method-connector-cnt_list_content}{}}}
-\subsection{Method \code{cnt_list_content()}}{
-List available content from the connector. See also \link{cnt_list_content}.
+\if{html}{\out{<a id="method-connector-list_content_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-connector-list_content_cnt}{}}}
+\subsection{Method \code{list_content_cnt()}}{
+List available content from the connector. See also \link{list_content_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector$cnt_list_content(...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector$list_content_cnt(...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -102,12 +102,12 @@ A \link{character} vector of content names
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector-cnt_read"></a>}}
-\if{latex}{\out{\hypertarget{method-connector-cnt_read}{}}}
-\subsection{Method \code{cnt_read()}}{
-Read content from the connector. See also \link{cnt_read}.
+\if{html}{\out{<a id="method-connector-read_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-connector-read_cnt}{}}}
+\subsection{Method \code{read_cnt()}}{
+Read content from the connector. See also \link{read_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector$cnt_read(name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector$read_cnt(name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -124,12 +124,12 @@ R object with the content. For rectangular data a \link{data.frame}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector-cnt_write"></a>}}
-\if{latex}{\out{\hypertarget{method-connector-cnt_write}{}}}
-\subsection{Method \code{cnt_write()}}{
-Write content to the connector.See also \link{cnt_write}.
+\if{html}{\out{<a id="method-connector-write_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-connector-write_cnt}{}}}
+\subsection{Method \code{write_cnt()}}{
+Write content to the connector.See also \link{write_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector$cnt_write(x, name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector$write_cnt(x, name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -148,12 +148,12 @@ Write content to the connector.See also \link{cnt_write}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector-cnt_remove"></a>}}
-\if{latex}{\out{\hypertarget{method-connector-cnt_remove}{}}}
-\subsection{Method \code{cnt_remove()}}{
-Remove or delete content from the connector. See also \link{cnt_remove}.
+\if{html}{\out{<a id="method-connector-remove_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-connector-remove_cnt}{}}}
+\subsection{Method \code{remove_cnt()}}{
+Remove or delete content from the connector. See also \link{remove_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector$cnt_remove(name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector$remove_cnt(name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
