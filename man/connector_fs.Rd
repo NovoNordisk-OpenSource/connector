@@ -16,19 +16,19 @@ cnt
 
 # List content
 
-cnt$cnt_list_content()
+cnt$list_content_cnt()
 
 # Write to the connector
 
-cnt$cnt_write(iris, "iris.rds")
+cnt$write_cnt(iris, "iris.rds")
 
 # Check it is there
 
-cnt$cnt_list_content()
+cnt$list_content_cnt()
 
 # Read the result back
 
-cnt$cnt_read("iris.rds") |>
+cnt$read_cnt("iris.rds") |>
   head()
 
 }
@@ -46,21 +46,21 @@ cnt$cnt_read("iris.rds") |>
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-connector_fs-new}{\code{connector_fs$new()}}
-\item \href{#method-connector_fs-cnt_download}{\code{connector_fs$cnt_download()}}
-\item \href{#method-connector_fs-cnt_upload}{\code{connector_fs$cnt_upload()}}
-\item \href{#method-connector_fs-cnt_create_directory}{\code{connector_fs$cnt_create_directory()}}
-\item \href{#method-connector_fs-cnt_remove_directory}{\code{connector_fs$cnt_remove_directory()}}
+\item \href{#method-connector_fs-download_cnt}{\code{connector_fs$download_cnt()}}
+\item \href{#method-connector_fs-upload_cnt}{\code{connector_fs$upload_cnt()}}
+\item \href{#method-connector_fs-create_directory_cnt}{\code{connector_fs$create_directory_cnt()}}
+\item \href{#method-connector_fs-remove_directory_cnt}{\code{connector_fs$remove_directory_cnt()}}
 \item \href{#method-connector_fs-clone}{\code{connector_fs$clone()}}
 }
 }
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_list_content"><a href='../../connector/html/connector.html#method-connector-cnt_list_content'><code>connector::connector$cnt_list_content()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_read"><a href='../../connector/html/connector.html#method-connector-cnt_read'><code>connector::connector$cnt_read()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_remove"><a href='../../connector/html/connector.html#method-connector-cnt_remove'><code>connector::connector$cnt_remove()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_write"><a href='../../connector/html/connector.html#method-connector-cnt_write'><code>connector::connector$cnt_write()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="list_content_cnt"><a href='../../connector/html/connector.html#method-connector-list_content_cnt'><code>connector::connector$list_content_cnt()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="print"><a href='../../connector/html/connector.html#method-connector-print'><code>connector::connector$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="read_cnt"><a href='../../connector/html/connector.html#method-connector-read_cnt'><code>connector::connector$read_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="remove_cnt"><a href='../../connector/html/connector.html#method-connector-remove_cnt'><code>connector::connector$remove_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="write_cnt"><a href='../../connector/html/connector.html#method-connector-write_cnt'><code>connector::connector$write_cnt()</code></a></span></li>
 </ul>
 </details>
 }}
@@ -87,13 +87,13 @@ Checked using \link[checkmate:checkDirectoryExists]{checkmate::assert_directory_
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-cnt_download"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-cnt_download}{}}}
-\subsection{Method \code{cnt_download()}}{
+\if{html}{\out{<a id="method-connector_fs-download_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-download_cnt}{}}}
+\subsection{Method \code{download_cnt()}}{
 Download content from the file storage.
-See also \link{cnt_download}.
+See also \link{download_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$cnt_download(name, file = basename(name), ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$download_cnt(name, file = basename(name), ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -112,13 +112,13 @@ See also \link{cnt_download}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-cnt_upload"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-cnt_upload}{}}}
-\subsection{Method \code{cnt_upload()}}{
+\if{html}{\out{<a id="method-connector_fs-upload_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-upload_cnt}{}}}
+\subsection{Method \code{upload_cnt()}}{
 Upload a file to the file storage.
-See also \link{cnt_upload}.
+See also \link{upload_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$cnt_upload(file, name = basename(file), ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$upload_cnt(file, name = basename(file), ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -137,13 +137,13 @@ See also \link{cnt_upload}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-cnt_create_directory"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-cnt_create_directory}{}}}
-\subsection{Method \code{cnt_create_directory()}}{
+\if{html}{\out{<a id="method-connector_fs-create_directory_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-create_directory_cnt}{}}}
+\subsection{Method \code{create_directory_cnt()}}{
 Create a directory in the file storage.
-See also \link{cnt_create_directory}.
+See also \link{create_directory_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$cnt_create_directory(name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$create_directory_cnt(name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -160,13 +160,13 @@ See also \link{cnt_create_directory}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-cnt_remove_directory"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-cnt_remove_directory}{}}}
-\subsection{Method \code{cnt_remove_directory()}}{
+\if{html}{\out{<a id="method-connector_fs-remove_directory_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-remove_directory_cnt}{}}}
+\subsection{Method \code{remove_directory_cnt()}}{
 Remove a directory from the file storage.
-See also \link{cnt_remove_directory}.
+See also \link{remove_directory_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$cnt_remove_directory(name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$remove_directory_cnt(name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{

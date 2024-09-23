@@ -6,44 +6,44 @@ test_that("fs connector", {
   fs <- connector_fs$new(path = t_dir) |>
     expect_no_condition()
 
-  fs$cnt_list_content() |>
+  fs$list_content_cnt() |>
     expect_vector(ptype = character(), size = 0)
 
-  fs$cnt_write(mtcars, "mtcars.rds") |>
+  fs$write_cnt(mtcars, "mtcars.rds") |>
     expect_no_condition()
 
-  fs$cnt_list_content() |>
+  fs$list_content_cnt() |>
     expect_vector(ptype = character(), size = 1)
 
-  fs$cnt_read("mtcars.rds") |>
+  fs$read_cnt("mtcars.rds") |>
     expect_equal(mtcars)
 
   fs$path |>
     expect_vector(ptype = character(), size = 1)
 
-  fs$cnt_remove("mtcars.rds") |>
+  fs$remove_cnt("mtcars.rds") |>
     expect_no_condition()
 
-  fs$cnt_list_content() |>
+  fs$list_content_cnt() |>
     expect_vector(ptype = character(), size = 0)
 
-  fs$cnt_create_directory("new_dir")
+  fs$create_directory_cnt("new_dir")
 
-  fs$cnt_list_content("new_dir") |>
+  fs$list_content_cnt("new_dir") |>
     expect_vector(ptype = character(), size = 1)
 
-  fs$cnt_remove_directory("new_dir")
+  fs$remove_directory_cnt("new_dir")
 
-  fs$cnt_list_content("new_dir") |>
+  fs$list_content_cnt("new_dir") |>
     expect_vector(ptype = character(), size = 0)
 
-  fs$cnt_upload(file = t_file1, name = "t_file.txt")
-  fs$cnt_list_content("t_file.txt") |>
+  fs$upload_cnt(file = t_file1, name = "t_file.txt")
+  fs$list_content_cnt("t_file.txt") |>
     expect_vector(ptype = character(), size = 1)
-  fs$cnt_read("t_file.txt") |>
+  fs$read_cnt("t_file.txt") |>
     expect_equal("hello")
 
-  fs$cnt_download("t_file.txt", file = t_file2)
+  fs$download_cnt("t_file.txt", file = t_file2)
   readr::read_lines(t_file2) |>
     expect_equal("hello")
 
