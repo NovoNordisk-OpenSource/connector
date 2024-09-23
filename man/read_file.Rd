@@ -42,7 +42,7 @@ read_ext(path, ...)
 the result of the reading function
 }
 \description{
-\code{read_file()} is the backbone of all \link{cnt_read} methods, where files are read
+\code{read_file()} is the backbone of all \link{read_cnt} methods, where files are read
 from their source. The function is a wrapper around \code{\link[=read_ext]{read_ext()}}, that controls
 the dispatch based on the file extension.
 

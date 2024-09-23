@@ -8,15 +8,15 @@
 #' cnt <- connector_fs$new(tempdir())
 #'
 #' cnt |>
-#'   cnt_write(iris, "iris.csv")
+#'   write_cnt(iris, "iris.csv")
 #'
 #' cnt |>
-#'   cnt_read("iris.csv") |>
+#'   read_cnt("iris.csv") |>
 #'   head()
 #'
-#' @rdname cnt_read
+#' @rdname read_cnt
 #' @export
-cnt_read.connector_fs <- function(connector_object, name, ...) {
+read_cnt.connector_fs <- function(connector_object, name, ...) {
   name |>
     find_file(root = connector_object$path) |>
     read_file(...)
@@ -32,22 +32,22 @@ cnt_read.connector_fs <- function(connector_object, name, ...) {
 #' cnt <- connector_fs$new(tempdir())
 #'
 #' cnt |>
-#'   cnt_list_content(pattern = "iris")
+#'   list_content_cnt(pattern = "iris")
 #'
 #' # rds file
 #' cnt |>
-#'   cnt_write(iris, "iris.rds")
+#'   write_cnt(iris, "iris.rds")
 #'
 #' # CSV file
 #' cnt |>
-#'   cnt_write(iris, "iris.csv")
+#'   write_cnt(iris, "iris.csv")
 #'
 #' cnt |>
-#'   cnt_list_content(pattern = "iris")
+#'   list_content_cnt(pattern = "iris")
 #'
-#' @rdname cnt_write
+#' @rdname write_cnt
 #' @export
-cnt_write.connector_fs <- function(connector_object, x, name, ...) {
+write_cnt.connector_fs <- function(connector_object, x, name, ...) {
   file <- file.path(connector_object$path, name)
   write_file(x, file, ...)
   return(invisible(connector_object))
@@ -61,16 +61,16 @@ cnt_write.connector_fs <- function(connector_object, x, name, ...) {
 #' cnt <- connector_fs$new(tempdir())
 #'
 #' cnt |>
-#'   cnt_list_content()
+#'   list_content_cnt()
 #'
 #' # Only list CSV files using the pattern argument of list.files
 #'
 #' cnt |>
-#'   cnt_list_content(pattern = "\\.csv$")
+#'   list_content_cnt(pattern = "\\.csv$")
 #'
-#' @rdname cnt_list_content
+#' @rdname list_content_cnt
 #' @export
-cnt_list_content.connector_fs <- function(connector_object, ...) {
+list_content_cnt.connector_fs <- function(connector_object, ...) {
   connector_object$path %>%
     list.files(...)
 }
@@ -83,23 +83,23 @@ cnt_list_content.connector_fs <- function(connector_object, ...) {
 #' cnt <- connector_fs$new(tempdir())
 #'
 #' cnt |>
-#'   cnt_write("this is an example", "example.txt")
+#'   write_cnt("this is an example", "example.txt")
 
 #' cnt |>
-#'   cnt_list_content(pattern = "example.txt")
+#'   list_content_cnt(pattern = "example.txt")
 #'
 #' cnt |>
-#'   cnt_read("example.txt")
+#'   read_cnt("example.txt")
 #'
 #' cnt |>
-#'   cnt_remove("example.txt")
+#'   remove_cnt("example.txt")
 #'
 #' cnt |>
-#'   cnt_list_content(pattern = "example.txt")
+#'   list_content_cnt(pattern = "example.txt")
 #'
-#' @rdname cnt_remove
+#' @rdname remove_cnt
 #' @export
-cnt_remove.connector_fs <- function(connector_object, name, ...) {
+remove_cnt.connector_fs <- function(connector_object, name, ...) {
   path <- file.path(connector_object$path, name)
   unlink(path, ...)
   return(invisible(connector_object))
@@ -113,19 +113,19 @@ cnt_remove.connector_fs <- function(connector_object, name, ...) {
 #' cnt <- connector_fs$new(tempdir())
 #'
 #' cnt |>
-#'   cnt_write("this is an example", "example.txt")
+#'   write_cnt("this is an example", "example.txt")
 #'
 #' list.files(pattern = "example.txt")
 #'
 #' cnt |>
-#'   cnt_download("example.txt")
+#'   download_cnt("example.txt")
 #'
 #' list.files(pattern = "example.txt")
 #' readLines("example.txt")
 #'
-#' @rdname cnt_download
+#' @rdname download_cnt
 #' @export
-cnt_download.connector_fs <- function(connector_object, name, file = basename(name), ...) {
+download_cnt.connector_fs <- function(connector_object, name, file = basename(name), ...) {
   name <- file.path(connector_object$path, name)
   file.copy(from = name, to = file, ...)
   return(invisible(file))
@@ -142,17 +142,17 @@ cnt_download.connector_fs <- function(connector_object, name, file = basename(na
 #' cnt <- connector_fs$new(tempdir())
 #'
 #' cnt |>
-#'   cnt_list_content(pattern = "example.txt")
+#'   list_content_cnt(pattern = "example.txt")
 #'
 #' cnt |>
-#'   cnt_upload("example.txt")
+#'   upload_cnt("example.txt")
 #'
 #' cnt |>
-#'   cnt_list_content(pattern = "example.txt")
+#'   list_content_cnt(pattern = "example.txt")
 #'
-#' @rdname cnt_upload
+#' @rdname upload_cnt
 #' @export
-cnt_upload.connector_fs <- function(connector_object, file, name = basename(file), ...) {
+upload_cnt.connector_fs <- function(connector_object, file, name = basename(file), ...) {
   name <- file.path(connector_object$path, name)
   file.copy(from = file, to = name, ...)
   return(invisible(connector_object))
@@ -167,18 +167,18 @@ cnt_upload.connector_fs <- function(connector_object, file, name = basename(file
 #' cnt <- connector_fs$new(tempdir())
 #'
 #' cnt |>
-#'   cnt_list_content(pattern = "new_folder")
+#'   list_content_cnt(pattern = "new_folder")
 #'
 #' cnt |>
-#'   cnt_create_directory("new_folder") |>
-#'   cnt_list_content(pattern = "new_folder")
+#'   create_directory_cnt("new_folder") |>
+#'   list_content_cnt(pattern = "new_folder")
 #'
 #' cnt |>
-#'   cnt_remove_directory("new_folder")
+#'   remove_directory_cnt("new_folder")
 #'
-#' @rdname cnt_create_directory
+#' @rdname create_directory_cnt
 #' @export
-cnt_create_directory.connector_fs <- function(connector_object, name, ...) {
+create_directory_cnt.connector_fs <- function(connector_object, name, ...) {
   path <- file.path(connector_object$path, name)
   dir.create(path = path, ...)
   return(invisible(connector_object))
@@ -193,16 +193,16 @@ cnt_create_directory.connector_fs <- function(connector_object, name, ...) {
 #' cnt <- connector_fs$new(tempdir())
 #'
 #' cnt |>
-#'   cnt_create_directory("new_folder") |>
-#'   cnt_list_content(pattern = "new_folder")
+#'   create_directory_cnt("new_folder") |>
+#'   list_content_cnt(pattern = "new_folder")
 #'
 #' cnt |>
-#'   cnt_remove_directory("new_folder") |>
-#'   cnt_list_content(pattern = "new_folder")
+#'   remove_directory_cnt("new_folder") |>
+#'   list_content_cnt(pattern = "new_folder")
 #'
-#' @rdname cnt_remove_directory
+#' @rdname remove_directory_cnt
 #' @export
-cnt_remove_directory.connector_fs <- function(connector_object, name, ...) {
+remove_directory_cnt.connector_fs <- function(connector_object, name, ...) {
   path <- file.path(connector_object$path, name)
   unlink(x = path, recursive = TRUE, ...)
   return(invisible(connector_object))

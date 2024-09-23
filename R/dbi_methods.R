@@ -6,18 +6,18 @@
 #' cnt <- connector_dbi$new(RSQLite::SQLite())
 #'
 #' cnt |>
-#'   cnt_write(iris, "iris")
+#'   write_cnt(iris, "iris")
 #'
 #' cnt |>
-#'   cnt_list_content()
+#'   list_content_cnt()
 #'
 #' cnt |>
-#'   cnt_read("iris") |>
+#'   read_cnt("iris") |>
 #'   head()
 #'
-#' @rdname cnt_read
+#' @rdname read_cnt
 #' @export
-cnt_read.connector_dbi <- function(connector_object, name, ...) {
+read_cnt.connector_dbi <- function(connector_object, name, ...) {
   connector_object$conn %>%
     DBI::dbReadTable(name = name, ...)
 }
@@ -30,17 +30,17 @@ cnt_read.connector_dbi <- function(connector_object, name, ...) {
 #' cnt <- connector_dbi$new(RSQLite::SQLite())
 #'
 #' cnt |>
-#'   cnt_list_content()
+#'   list_content_cnt()
 #'
 #' cnt |>
-#'   cnt_write(iris, "iris")
+#'   write_cnt(iris, "iris")
 #'
 #' cnt |>
-#'   cnt_list_content()
+#'   list_content_cnt()
 #'
-#' @rdname cnt_write
+#' @rdname write_cnt
 #' @export
-cnt_write.connector_dbi <- function(connector_object, x, name, ...) {
+write_cnt.connector_dbi <- function(connector_object, x, name, ...) {
   connector_object$conn %>%
     DBI::dbWriteTable(name = name, value = x, ...)
   return(invisible(connector_object))
@@ -54,11 +54,11 @@ cnt_write.connector_dbi <- function(connector_object, x, name, ...) {
 #' cnt <- connector_dbi$new(RSQLite::SQLite())
 #'
 #' cnt |>
-#'   cnt_list_content()
+#'   list_content_cnt()
 #'
-#' @rdname cnt_list_content
+#' @rdname list_content_cnt
 #' @export
-cnt_list_content.connector_dbi <- function(connector_object, ...) {
+list_content_cnt.connector_dbi <- function(connector_object, ...) {
   connector_object$conn %>%
     DBI::dbListTables(...)
 }
@@ -71,16 +71,16 @@ cnt_list_content.connector_dbi <- function(connector_object, ...) {
 #' cnt <- connector_dbi$new(RSQLite::SQLite())
 #'
 #' cnt |>
-#'   cnt_write(iris, "iris") |>
-#'   cnt_list_content()
+#'   write_cnt(iris, "iris") |>
+#'   list_content_cnt()
 #'
 #' cnt |>
-#'   cnt_remove("iris") |>
-#'   cnt_list_content()
+#'   remove_cnt("iris") |>
+#'   list_content_cnt()
 #'
-#' @rdname cnt_remove
+#' @rdname remove_cnt
 #' @export
-cnt_remove.connector_dbi <- function(connector_object, name, ...) {
+remove_cnt.connector_dbi <- function(connector_object, name, ...) {
   connector_object$conn %>%
     DBI::dbRemoveTable(name = name, ...)
   return(invisible(connector_object))
@@ -94,8 +94,8 @@ cnt_remove.connector_dbi <- function(connector_object, name, ...) {
 #' cnt <- connector_dbi$new(RSQLite::SQLite())
 #'
 #' iris_cnt <- cnt |>
-#'   cnt_write(iris, "iris") |>
-#'   cnt_tbl("iris")
+#'   write_cnt(iris, "iris") |>
+#'   tbl_cnt("iris")
 #'
 #' iris_cnt
 #'
@@ -110,9 +110,9 @@ cnt_remove.connector_dbi <- function(connector_object, name, ...) {
 #'   ) |>
 #'   dplyr::collect()
 #'
-#' @rdname cnt_tbl
+#' @rdname tbl_cnt
 #' @export
-cnt_tbl.connector_dbi <- function(connector_object, name, ...) {
+tbl_cnt.connector_dbi <- function(connector_object, name, ...) {
   connector_object$conn %>%
     dplyr::tbl(from = name, ...)
 }
@@ -127,12 +127,12 @@ cnt_tbl.connector_dbi <- function(connector_object, name, ...) {
 #' cnt$conn
 #'
 #' cnt |>
-#'   cnt_disconnect()
+#'   disconnect_cnt()
 #'
 #' cnt$conn
-#' @rdname cnt_disconnect
+#' @rdname disconnect_cnt
 #' @export
-cnt_disconnect.connector_dbi <- function(connector_object, ...) {
+disconnect_cnt.connector_dbi <- function(connector_object, ...) {
   connector_object$conn %>%
     DBI::dbDisconnect(...)
 }
