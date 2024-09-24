@@ -44,4 +44,9 @@ cnt |>
 cnt |>
   list_content_cnt(pattern = "example.txt")
 
+cnt |>
+  remove_cnt("example.txt")
+
+file.remove("example.txt")
+
 }

@@ -123,6 +123,9 @@ remove_cnt.connector_fs <- function(connector_object, name, ...) {
 #' list.files(pattern = "example.txt")
 #' readLines("example.txt")
 #'
+#' cnt |>
+#'   remove_cnt("example.txt")
+#'
 #' @rdname download_cnt
 #' @export
 download_cnt.connector_fs <- function(connector_object, name, file = basename(name), ...) {
@@ -149,6 +152,11 @@ download_cnt.connector_fs <- function(connector_object, name, file = basename(na
 #'
 #' cnt |>
 #'   list_content_cnt(pattern = "example.txt")
+#'
+#' cnt |>
+#'   remove_cnt("example.txt")
+#'
+#' file.remove("example.txt")
 #'
 #' @rdname upload_cnt
 #' @export
