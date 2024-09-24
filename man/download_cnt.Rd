@@ -43,4 +43,7 @@ cnt |>
 list.files(pattern = "example.txt")
 readLines("example.txt")
 
+cnt |>
+  remove_cnt("example.txt")
+
 }

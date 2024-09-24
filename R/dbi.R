@@ -21,11 +21,11 @@
 #'
 #' # Write to the database
 #'
-#' cnt$cnt_write(iris, "iris")
+#' cnt$write_cnt(iris, "iris")
 #'
 #' # Read from the database
 #'
-#' cnt$cnt_read("iris") |>
+#' cnt$read_cnt("iris") |>
 #'   head()
 #'
 #' # List available tables
