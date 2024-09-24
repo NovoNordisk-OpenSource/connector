@@ -5,7 +5,7 @@
 #' @noRd
 #' @examples
 #' yaml_file <- system.file("config", "default_config.yml", package = "connector")
-#' yaml_content <- read_yaml_config(yaml_file)
+#' yaml_content <- yaml::read_yaml(yaml_file, eval.expr=TRUE)
 #'
 #' only_one <- yaml_content[["connections"]][[2]][["backend"]]
 #'
