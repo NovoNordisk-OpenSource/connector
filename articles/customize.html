@@ -78,14 +78,14 @@ classes.</p>
 <span><span class="co">#' These methods are a S3 method that dispatches to the specific methods for the connector object.</span></span>
 <span><span class="co">#'</span></span>
 <span><span class="co">#' @details</span></span>
-<span><span class="co">#' For example, if you have a connector object `connector_fs`, you can use `cnt_read(connector_fs, "file.csv")`</span></span>
-<span><span class="co">#' to read the file. It will be dispatch to the `cnt_read.connector_fs` method.</span></span>
+<span><span class="co">#' For example, if you have a connector object `connector_fs`, you can use `read_cnt(connector_fs, "file.csv")`</span></span>
+<span><span class="co">#' to read the file. It will be dispatch to the `read_cnt.connector_fs` method.</span></span>
 <span><span class="co">#' Why? The main aim is to allow the user to use the same function for different connector objects by</span></span>
 <span><span class="co">#' using the builder function `connector_fs` and add an "extra_class".</span></span>
 <span><span class="co">#' By doing so, you can create a subclass of the `connector_fs` object and</span></span>
 <span><span class="co">#' dispatch to the specific methods for this subclass.</span></span>
 <span><span class="co">#' For example, if you have a subclass `subclass`, you can use `cnr_read(subclass, "file.csv")` to read the file.</span></span>
-<span><span class="co">#' It will be dispatch to the `cnt_read.subclass` method. And you can still use the `connector_fs` methods.</span></span>
+<span><span class="co">#' It will be dispatch to the `read_cnt.subclass` method. And you can still use the `connector_fs` methods.</span></span>
 <span><span class="co">#'</span></span>
 <span><span class="co">#' @param connector_object A connector object to be able to use functions from it</span></span>
 <span><span class="co">#' @param ... Additional arguments passed to the method</span></span>

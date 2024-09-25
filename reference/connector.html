@@ -64,10 +64,10 @@ and concrete examples in <a href="connector_fs.html">connector_fs</a> and <a hre
 
 <ul><li><p><a href="#method-connector-new"><code>connector$new()</code></a></p></li>
 <li><p><a href="#method-connector-print"><code>connector$print()</code></a></p></li>
-<li><p><a href="#method-connector-cnt_list_content"><code>connector$cnt_list_content()</code></a></p></li>
-<li><p><a href="#method-connector-cnt_read"><code>connector$cnt_read()</code></a></p></li>
-<li><p><a href="#method-connector-cnt_write"><code>connector$cnt_write()</code></a></p></li>
-<li><p><a href="#method-connector-cnt_remove"><code>connector$cnt_remove()</code></a></p></li>
+<li><p><a href="#method-connector-list_content_cnt"><code>connector$list_content_cnt()</code></a></p></li>
+<li><p><a href="#method-connector-read_cnt"><code>connector$read_cnt()</code></a></p></li>
+<li><p><a href="#method-connector-write_cnt"><code>connector$write_cnt()</code></a></p></li>
+<li><p><a href="#method-connector-remove_cnt"><code>connector$remove_cnt()</code></a></p></li>
 <li><p><a href="#method-connector-clone"><code>connector$clone()</code></a></p></li>
 </ul></div><p></p><hr><a id="method-connector-new"></a><div class="section">
 <h3 id="method-new-">Method <code>new()</code><a class="anchor" aria-label="anchor" href="#method-new-"></a></h3>
@@ -98,11 +98,11 @@ specifications from the active bindings.</p><div class="section">
 <p><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a> self.</p>
 </div>
 
-</div><p></p><hr><a id="method-connector-cnt_list_content"></a><div class="section">
-<h3 id="method-cnt-list-content-">Method <code><a href="cnt_list_content.html">cnt_list_content()</a></code><a class="anchor" aria-label="anchor" href="#method-cnt-list-content-"></a></h3>
-<p>List available content from the connector. See also <a href="cnt_list_content.html">cnt_list_content</a>.</p><div class="section">
+</div><p></p><hr><a id="method-connector-list_content_cnt"></a><div class="section">
+<h3 id="method-list-content-cnt-">Method <code><a href="list_content_cnt.html">list_content_cnt()</a></code><a class="anchor" aria-label="anchor" href="#method-list-content-cnt-"></a></h3>
+<p>List available content from the connector. See also <a href="list_content_cnt.html">list_content_cnt</a>.</p><div class="section">
 <h4 id="usage-2">Usage<a class="anchor" aria-label="anchor" href="#usage-2"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">cnt_list_content</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">list_content_cnt</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -118,11 +118,11 @@ specifications from the active bindings.</p><div class="section">
 <p>A <a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> vector of content names</p>
 </div>
 
-</div><p></p><hr><a id="method-connector-cnt_read"></a><div class="section">
-<h3 id="method-cnt-read-">Method <code><a href="cnt_read.html">cnt_read()</a></code><a class="anchor" aria-label="anchor" href="#method-cnt-read-"></a></h3>
-<p>Read content from the connector. See also <a href="cnt_read.html">cnt_read</a>.</p><div class="section">
+</div><p></p><hr><a id="method-connector-read_cnt"></a><div class="section">
+<h3 id="method-read-cnt-">Method <code><a href="read_cnt.html">read_cnt()</a></code><a class="anchor" aria-label="anchor" href="#method-read-cnt-"></a></h3>
+<p>Read content from the connector. See also <a href="read_cnt.html">read_cnt</a>.</p><div class="section">
 <h4 id="usage-3">Usage<a class="anchor" aria-label="anchor" href="#usage-3"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">cnt_read</span><span class="op">(</span><span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">read_cnt</span><span class="op">(</span><span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -142,11 +142,11 @@ specifications from the active bindings.</p><div class="section">
 <p>R object with the content. For rectangular data a <a href="https://rdrr.io/r/base/data.frame.html" class="external-link">data.frame</a>.</p>
 </div>
 
-</div><p></p><hr><a id="method-connector-cnt_write"></a><div class="section">
-<h3 id="method-cnt-write-">Method <code><a href="cnt_write.html">cnt_write()</a></code><a class="anchor" aria-label="anchor" href="#method-cnt-write-"></a></h3>
-<p>Write content to the connector.See also <a href="cnt_write.html">cnt_write</a>.</p><div class="section">
+</div><p></p><hr><a id="method-connector-write_cnt"></a><div class="section">
+<h3 id="method-write-cnt-">Method <code><a href="write_cnt.html">write_cnt()</a></code><a class="anchor" aria-label="anchor" href="#method-write-cnt-"></a></h3>
+<p>Write content to the connector.See also <a href="write_cnt.html">write_cnt</a>.</p><div class="section">
 <h4 id="usage-4">Usage<a class="anchor" aria-label="anchor" href="#usage-4"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">cnt_write</span><span class="op">(</span><span class="va">x</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">write_cnt</span><span class="op">(</span><span class="va">x</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -170,11 +170,11 @@ specifications from the active bindings.</p><div class="section">
 <p><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a> self.</p>
 </div>
 
-</div><p></p><hr><a id="method-connector-cnt_remove"></a><div class="section">
-<h3 id="method-cnt-remove-">Method <code><a href="cnt_remove.html">cnt_remove()</a></code><a class="anchor" aria-label="anchor" href="#method-cnt-remove-"></a></h3>
-<p>Remove or delete content from the connector. See also <a href="cnt_remove.html">cnt_remove</a>.</p><div class="section">
+</div><p></p><hr><a id="method-connector-remove_cnt"></a><div class="section">
+<h3 id="method-remove-cnt-">Method <code><a href="remove_cnt.html">remove_cnt()</a></code><a class="anchor" aria-label="anchor" href="#method-remove-cnt-"></a></h3>
+<p>Remove or delete content from the connector. See also <a href="remove_cnt.html">remove_cnt</a>.</p><div class="section">
 <h4 id="usage-5">Usage<a class="anchor" aria-label="anchor" href="#usage-5"></a></h4>
-<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">cnt_remove</span><span class="op">(</span><span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
+<p></p><div class="r"><div class="sourceCode"><pre><code><span><span class="va">connector</span><span class="op">$</span><span class="fu">remove_cnt</span><span class="op">(</span><span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div><p></p></div>
 </div>
 
 <div class="section">
@@ -224,9 +224,9 @@ specifications from the active bindings.</p><div class="section">
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Standard error message if no method is implemented</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="cnt_read.html">cnt_read</a></span><span class="op">(</span><span class="st">"fake_data"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"fake_data"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="kw"><a href="https://rdrr.io/r/base/try.html" class="external-link">try</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> Error in cnt_read(cnt, "fake_data") : </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Error in read_cnt(cnt, "fake_data") : </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Method not implemented for class <span style="color: #0000BB;">&lt;connector/R6&gt;</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> See the customize (`vignette(connector::customize)`) vignette on how to</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   create custom connectors and methods</span>
@@ -238,15 +238,15 @@ specifications from the active bindings.</p><div class="section">
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;my_class/connector&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Custom method for the extra class</span></span></span>
-<span class="r-in"><span><span class="va">cnt_read.my_class</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">connector_object</span><span class="op">)</span> <span class="st">"Hello!"</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/ns-internal.html" class="external-link">registerS3method</a></span><span class="op">(</span><span class="st">"cnt_read"</span>, <span class="st">"my_class"</span>, <span class="st">"cnt_read.my_class"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">read_cnt.my_class</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">connector_object</span><span class="op">)</span> <span class="st">"Hello!"</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/ns-internal.html" class="external-link">registerS3method</a></span><span class="op">(</span><span class="st">"read_cnt"</span>, <span class="st">"my_class"</span>, <span class="st">"read_cnt.my_class"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt_my_class</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;my_class/connector&gt;</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Registered methods:</span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `cnt_read.my_class()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `read_cnt.my_class()`</span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="cnt_read.html">cnt_read</a></span><span class="op">(</span><span class="va">cnt_my_class</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="va">cnt_my_class</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] "Hello!"</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
