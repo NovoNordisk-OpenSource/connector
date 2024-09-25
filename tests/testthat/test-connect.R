@@ -7,26 +7,26 @@ test_that("Connect datasources to the connections for a yaml file", {
 
   ## write and read for a system file
   withr::with_options(list(readr.show_col_types = FALSE), {
-    cnts$adam$cnt_read("adsl.csv") %>%
+    cnts$adam$read_cnt("adsl.csv") %>%
       expect_s3_class("data.frame")
-    expect_error(cnts$adam$cnt_read("do_not_exits.csv"))
+    expect_error(cnts$adam$read_cnt("do_not_exits.csv"))
 
-    cnts$adam$cnt_write(data.frame(a = 1:10, b = 11:20), "example.csv") %>%
+    cnts$adam$write_cnt(data.frame(a = 1:10, b = 11:20), "example.csv") %>%
       expect_no_error()
 
-    expect_no_error(cnts$adam$cnt_read("example.csv"))
-    expect_no_error(cnts$adam$cnt_remove("example.csv"))
-    expect_error(cnts$adam$cnt_read("example.csv"))
+    expect_no_error(cnts$adam$read_cnt("example.csv"))
+    expect_no_error(cnts$adam$remove_cnt("example.csv"))
+    expect_error(cnts$adam$read_cnt("example.csv"))
   })
 
   ## write and read for a dbi connection
-  expect_no_error(cnts$sdtm$cnt_write(iris, "iris"))
+  expect_no_error(cnts$sdtm$write_cnt(iris, "iris"))
 
-  expect_no_error(cnts$sdtm$cnt_read("iris"))
+  expect_no_error(cnts$sdtm$read_cnt("iris"))
 
   ## Manipulate a table with the database
 
-  iris_f <- cnts$sdtm$cnt_tbl("iris") %>%
+  iris_f <- cnts$sdtm$tbl_cnt("iris") %>%
     dplyr::filter(Sepal.Length > 5)
 
   expect_s3_class(iris_f, "tbl_dbi")
