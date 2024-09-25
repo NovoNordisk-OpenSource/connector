@@ -1,7 +1,7 @@
 #' Read files based on the extension
 #'
 #' @description
-#' `read_file()` is the backbone of all [cnt_read] methods, where files are read
+#' `read_file()` is the backbone of all [read_cnt] methods, where files are read
 #' from their source. The function is a wrapper around [read_ext()], that controls
 #' the dispatch based on the file extension.
 #'

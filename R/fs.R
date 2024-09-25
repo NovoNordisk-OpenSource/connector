@@ -19,19 +19,19 @@
 #'
 #' # List content
 #'
-#' cnt$cnt_list_content()
+#' cnt$list_content_cnt()
 #'
 #' # Write to the connector
 #'
-#' cnt$cnt_write(iris, "iris.rds")
+#' cnt$write_cnt(iris, "iris.rds")
 #'
 #' # Check it is there
 #'
-#' cnt$cnt_list_content()
+#' cnt$list_content_cnt()
 #'
 #' # Read the result back
 #'
-#' cnt$cnt_read("iris.rds") |>
+#' cnt$read_cnt("iris.rds") |>
 #'   head()
 #'
 #' @export
@@ -52,40 +52,40 @@ connector_fs <- R6::R6Class(
 
     #' @description
     #' Download content from the file storage.
-    #' See also [cnt_download].
+    #' See also [download_cnt].
     #' @return [invisible] `file`
-    cnt_download = function(name, file = basename(name), ...) {
+    download_cnt = function(name, file = basename(name), ...) {
       self %>%
-        cnt_download(name, file, ...)
+        download_cnt(name, file, ...)
     },
 
     #' @description
     #' Upload a file to the file storage.
-    #' See also [cnt_upload].
+    #' See also [upload_cnt].
     #' @return `r rd_connector_utils("inv_self")`
-    cnt_upload = function(file, name = basename(file), ...) {
+    upload_cnt = function(file, name = basename(file), ...) {
       self %>%
-        cnt_upload(file, name, ...)
+        upload_cnt(file, name, ...)
     },
 
     #' @description
     #' Create a directory in the file storage.
-    #' See also [cnt_create_directory].
+    #' See also [create_directory_cnt].
     #' @param name [character] The name of the directory to create
     #' @return `r rd_connector_utils("inv_self")`
-    cnt_create_directory = function(name, ...) {
+    create_directory_cnt = function(name, ...) {
       self %>%
-        cnt_create_directory(name, ...)
+        create_directory_cnt(name, ...)
     },
 
     #' @description
     #' Remove a directory from the file storage.
-    #' See also [cnt_remove_directory].
+    #' See also [remove_directory_cnt].
     #' @param name [character] The name of the directory to remove
     #' @return `r rd_connector_utils("inv_self")`
-    cnt_remove_directory = function(name, ...) {
+    remove_directory_cnt = function(name, ...) {
       self %>%
-        cnt_remove_directory(name, ...)
+        remove_directory_cnt(name, ...)
     }
   ),
   active = list(
