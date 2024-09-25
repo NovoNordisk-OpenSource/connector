@@ -1,7 +1,7 @@
 #' Write files based on the extension
 #'
 #' @description
-#' `write_file()` is the backbone of all [cnt_write()] methods, where files are written
+#' `write_file()` is the backbone of all [write_cnt()] methods, where files are written
 #' to a connector. The function is a wrapper around `write_ext()` where the appropriate
 #' function to write the file is chosen depending on the file extension.
 #'

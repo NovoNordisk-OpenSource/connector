@@ -9,7 +9,7 @@ See the \href{https://dbi.r-dbi.org/}{DBI package} for which backends are suppor
 }
 \details{
 Upon garbage collection, the connection will try to disconnect from the database.
-But it is good practice to call \link{cnt_disconnect} when you are done with the connection.
+But it is good practice to call \link{disconnect_cnt} when you are done with the connection.
 }
 \examples{
 # Create DBI connector
@@ -20,16 +20,16 @@ cnt
 
 # Write to the database
 
-cnt$cnt_write(iris, "iris")
+cnt$write_cnt(iris, "iris")
 
 # Read from the database
 
-cnt$cnt_read("iris") |>
+cnt$read_cnt("iris") |>
   head()
 
 # List available tables
 
-cnt$cnt_list_content()
+cnt$list_content_cnt()
 
 # Use the connector to run a query
 
@@ -40,13 +40,13 @@ cnt$conn |>
 
 # Use dplyr verbs and collect data
 
-cnt$cnt_tbl("iris") |>
+cnt$tbl_cnt("iris") |>
   dplyr::filter(Sepal.Length > 7) |>
   dplyr::collect()
 
 # Disconnect from the database
 
-cnt$cnt_disconnect()
+cnt$disconnect_cnt()
 
 }
 \section{Super class}{
@@ -63,19 +63,19 @@ cnt$cnt_disconnect()
 \subsection{Public methods}{
 \itemize{
 \item \href{#method-connector_dbi-new}{\code{connector_dbi$new()}}
-\item \href{#method-connector_dbi-cnt_disconnect}{\code{connector_dbi$cnt_disconnect()}}
-\item \href{#method-connector_dbi-cnt_tbl}{\code{connector_dbi$cnt_tbl()}}
+\item \href{#method-connector_dbi-disconnect_cnt}{\code{connector_dbi$disconnect_cnt()}}
+\item \href{#method-connector_dbi-tbl_cnt}{\code{connector_dbi$tbl_cnt()}}
 \item \href{#method-connector_dbi-clone}{\code{connector_dbi$clone()}}
 }
 }
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_list_content"><a href='../../connector/html/connector.html#method-connector-cnt_list_content'><code>connector::connector$cnt_list_content()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_read"><a href='../../connector/html/connector.html#method-connector-cnt_read'><code>connector::connector$cnt_read()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_remove"><a href='../../connector/html/connector.html#method-connector-cnt_remove'><code>connector::connector$cnt_remove()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="cnt_write"><a href='../../connector/html/connector.html#method-connector-cnt_write'><code>connector::connector$cnt_write()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="list_content_cnt"><a href='../../connector/html/connector.html#method-connector-list_content_cnt'><code>connector::connector$list_content_cnt()</code></a></span></li>
 <li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="print"><a href='../../connector/html/connector.html#method-connector-print'><code>connector::connector$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="read_cnt"><a href='../../connector/html/connector.html#method-connector-read_cnt'><code>connector::connector$read_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="remove_cnt"><a href='../../connector/html/connector.html#method-connector-remove_cnt'><code>connector::connector$remove_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="write_cnt"><a href='../../connector/html/connector.html#method-connector-write_cnt'><code>connector::connector$write_cnt()</code></a></span></li>
 </ul>
 </details>
 }}
@@ -101,13 +101,13 @@ Initialize the connection
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_dbi-cnt_disconnect"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_dbi-cnt_disconnect}{}}}
-\subsection{Method \code{cnt_disconnect()}}{
+\if{html}{\out{<a id="method-connector_dbi-disconnect_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_dbi-disconnect_cnt}{}}}
+\subsection{Method \code{disconnect_cnt()}}{
 Disconnect from the database.
-See also \link{cnt_disconnect}.
+See also \link{disconnect_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$cnt_disconnect()}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$disconnect_cnt()}\if{html}{\out{</div>}}
 }
 
 \subsection{Returns}{
@@ -115,13 +115,13 @@ See also \link{cnt_disconnect}.
 }
 }
 \if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_dbi-cnt_tbl"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_dbi-cnt_tbl}{}}}
-\subsection{Method \code{cnt_tbl()}}{
+\if{html}{\out{<a id="method-connector_dbi-tbl_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_dbi-tbl_cnt}{}}}
+\subsection{Method \code{tbl_cnt()}}{
 Use dplyr verbs to interact with the remote database table.
-See also \link{cnt_tbl}.
+See also \link{tbl_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$cnt_tbl(name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_dbi$tbl_cnt(name, ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
