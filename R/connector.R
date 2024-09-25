@@ -22,7 +22,7 @@
 #'
 #' # Standard error message if no method is implemented
 #' cnt |>
-#'   cnt_read("fake_data") |>
+#'   read_cnt("fake_data") |>
 #'   try()
 #'
 #' # Connection with extra class
@@ -31,12 +31,12 @@
 #' cnt_my_class
 #'
 #' # Custom method for the extra class
-#' cnt_read.my_class <- function(connector_object) "Hello!"
-#' registerS3method("cnt_read", "my_class", "cnt_read.my_class")
+#' read_cnt.my_class <- function(connector_object) "Hello!"
+#' registerS3method("read_cnt", "my_class", "read_cnt.my_class")
 #'
 #' cnt_my_class
 #'
-#' cnt_read(cnt_my_class)
+#' read_cnt(cnt_my_class)
 #'
 #' @importFrom R6 R6Class
 #' @export
@@ -58,40 +58,40 @@ connector <- R6::R6Class(
     #' @return `r rd_connector_utils("inv_self")`
     print = function() {
       self |>
-        cnt_print()
+        print_cnt()
     },
 
     #' @description
-    #' List available content from the connector. See also [cnt_list_content].
+    #' List available content from the connector. See also [list_content_cnt].
     #' @return A [character] vector of content names
-    cnt_list_content = function(...) {
+    list_content_cnt = function(...) {
       self %>%
-        cnt_list_content(...)
+        list_content_cnt(...)
     },
 
     #' @description
-    #' Read content from the connector. See also [cnt_read].
+    #' Read content from the connector. See also [read_cnt].
     #' @return
     #' R object with the content. For rectangular data a [data.frame].
-    cnt_read = function(name, ...) {
+    read_cnt = function(name, ...) {
       self %>%
-        cnt_read(name, ...)
+        read_cnt(name, ...)
     },
 
     #' @description
-    #' Write content to the connector.See also [cnt_write].
+    #' Write content to the connector.See also [write_cnt].
     #' @return `r rd_connector_utils("inv_self")`
-    cnt_write = function(x, name, ...) {
+    write_cnt = function(x, name, ...) {
       self %>%
-        cnt_write(x, name, ...)
+        write_cnt(x, name, ...)
     },
 
     #' @description
-    #' Remove or delete content from the connector. See also [cnt_remove].
+    #' Remove or delete content from the connector. See also [remove_cnt].
     #' @return `r rd_connector_utils("inv_self")`
-    cnt_remove = function(name, ...) {
+    remove_cnt = function(name, ...) {
       self %>%
-        cnt_remove(name, ...)
+        remove_cnt(name, ...)
     }
   )
 )
@@ -99,7 +99,7 @@ connector <- R6::R6Class(
 #' Print method for connector objects
 #' @return Invisible `connector_object`
 #' @noRd
-cnt_print <- function(connector_object) {
+print_cnt <- function(connector_object) {
   methods <- list_methods(connector_object)
 
   packages <- methods |>

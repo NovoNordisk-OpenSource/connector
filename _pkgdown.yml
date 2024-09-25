@@ -14,7 +14,7 @@ reference:
     - connector_dbi
   - title: Connector functions
     contents:
-    - matches("^cnt_[^\\.]+$")
+    - matches(".*_cnt$")
   - title: Read and write files
     contents:
     - read_file
