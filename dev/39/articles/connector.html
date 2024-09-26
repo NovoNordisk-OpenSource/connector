@@ -108,20 +108,16 @@ structure:</p>
 allowed.</li>
 <li>All elements must be named.</li>
 <li>
-<strong>connections</strong> and <strong>datasources</strong> are
-mandatory.</li>
+<strong>datasources</strong> is mandatory.</li>
 <li>
 <strong>metadata</strong> and <strong>env</strong> must each be a
 list of named character vectors of length 1 specified.</li>
 <li>
-<strong>connections</strong> and <strong>datasources</strong> must
-each be a list of unnamed lists.</li>
-<li>Each connection must have the named character element
-<strong>con</strong> and the named list element
+<strong>datasources</strong> must each be a list of unnamed
+lists.</li>
+<li>Each datasources must have the named character element
+<strong>name</strong> and the named list element
 <strong>backend</strong>
-</li>
-<li>Each datasource must have the named character element
-<strong>name</strong>
 </li>
 <li>For each connection <strong>backend</strong>.<strong>type</strong>
 must be provided</li>
@@ -136,39 +132,29 @@ connections:</p>
 <span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  catalog<span class="sc">:</span>  <span class="sc">!!</span>expr <span class="fu">Sys.getenv</span>(<span class="st">"DATABRICKS_CATALOG_NAME"</span>)</span>
 <span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  sharepoint<span class="sc">:</span> <span class="st">"https://my_organisation.sharepoint.com"</span></span>
 <span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  root_path<span class="sc">:</span> <span class="st">"/home/my_root_path"</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>connections<span class="sc">:</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="sc">-</span> con<span class="sc">:</span> <span class="st">"adam"</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>datasources<span class="sc">:</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"adam"</span></span>
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>    backend<span class="sc">:</span></span>
 <span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>        type<span class="sc">:</span> <span class="st">"fs"</span></span>
 <span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>        path<span class="sc">:</span> <span class="st">"{root_path}/{project}/{trial}/{instance}/adam"</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="sc">-</span> con<span class="sc">:</span> <span class="st">"tfl"</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"tfl"</span></span>
 <span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>    backend<span class="sc">:</span></span>
 <span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector.databricks::connector_databricks_volume"</span></span>
 <span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>      catalog<span class="sc">:</span> <span class="st">"{metadata.catalog}"</span></span>
 <span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>      schema<span class="sc">:</span> <span class="st">"{metadata.project}_{metadata.trial}_tfl"</span></span>
 <span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>      path<span class="sc">:</span> <span class="st">"output"</span></span>
 <span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>  <span class="sc">-</span> con<span class="sc">:</span> <span class="st">"metadata"</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"metadata"</span></span>
 <span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>    backend<span class="sc">:</span></span>
 <span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector.databricks::connector_databricks_dbi"</span></span>
 <span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>      http_path<span class="sc">:</span> <span class="st">"{metadata.http_path}"</span></span>
 <span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>      catalog<span class="sc">:</span> <span class="st">"{metadata.catalog}"</span></span>
 <span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>      schema<span class="sc">:</span> <span class="st">"{metadata.project}_{metadata.trial}_metadata"</span></span>
 <span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>  <span class="sc">-</span> con<span class="sc">:</span> <span class="st">"output_sh"</span></span>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"output_sh"</span></span>
 <span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>    backend<span class="sc">:</span></span>
 <span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector.sharepoint::connector_sharepoint"</span></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>      site_url<span class="sc">:</span> <span class="st">"{metadata.sharepoint}/sites/{metadata.project}_{metadata.trial}_output"</span></span>
-<span id="cb2-32"><a href="#cb2-32" tabindex="-1"></a></span>
-<span id="cb2-33"><a href="#cb2-33" tabindex="-1"></a>datasources<span class="sc">:</span></span>
-<span id="cb2-34"><a href="#cb2-34" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"adam"</span></span>
-<span id="cb2-35"><a href="#cb2-35" tabindex="-1"></a>    con<span class="sc">:</span> <span class="st">"adam"</span></span>
-<span id="cb2-36"><a href="#cb2-36" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"tfl"</span></span>
-<span id="cb2-37"><a href="#cb2-37" tabindex="-1"></a>    con<span class="sc">:</span> <span class="st">"tfl"</span></span>
-<span id="cb2-38"><a href="#cb2-38" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"output_sh"</span></span>
-<span id="cb2-39"><a href="#cb2-39" tabindex="-1"></a>    con<span class="sc">:</span> <span class="st">"output_sh"</span></span>
-<span id="cb2-40"><a href="#cb2-40" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"metadata"</span></span>
-<span id="cb2-41"><a href="#cb2-41" tabindex="-1"></a>    con<span class="sc">:</span> <span class="st">"metadata"</span></span></code></pre></div>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>      site_url<span class="sc">:</span> <span class="st">"{metadata.sharepoint}/sites/{metadata.project}_{metadata.trial}_output"</span></span></code></pre></div>
 <p>In this example we have multiple connections to multiple data
 sources. ADaM data is stored on the file system, metadata resides on
 Databricks Tables, TFL is also on Databricks, but on Volumes, because
@@ -313,21 +299,15 @@ for ADaM and TFL data.</p>
 <span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  adam_path<span class="sc">:</span> <span class="sc">!</span>expr <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"adam"</span>)</span>
 <span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  tfl_path<span class="sc">:</span> <span class="sc">!</span>expr <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"tfl"</span>)</span>
 <span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>connections<span class="sc">:</span></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="sc">-</span> con<span class="sc">:</span> <span class="st">"adam"</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>datasources<span class="sc">:</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"adam"</span></span>
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>    backend<span class="sc">:</span></span>
 <span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector_fs"</span></span>
 <span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>      path<span class="sc">:</span> <span class="st">"{metadata.adam_path}"</span></span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="sc">-</span> con<span class="sc">:</span> <span class="st">"tfl"</span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"tfl"</span></span>
 <span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>    backend<span class="sc">:</span></span>
 <span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector_fs"</span></span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>      path<span class="sc">:</span> <span class="st">"{metadata.tfl_path}"</span></span>
-<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a></span>
-<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a>datasources<span class="sc">:</span></span>
-<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"adam"</span></span>
-<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a>    con<span class="sc">:</span> <span class="st">"adam"</span></span>
-<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"tfl"</span></span>
-<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a>    con<span class="sc">:</span> <span class="st">"tfl"</span></span></code></pre></div>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>      path<span class="sc">:</span> <span class="st">"{metadata.tfl_path}"</span></span></code></pre></div>
 <p>Now, let’s run the example:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jubilant-adventure-yr95p3g.pages.github.io/" class="external-link">connector</a></span><span class="op">)</span></span>
