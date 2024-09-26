@@ -19,14 +19,13 @@
 #'
 #' Each specification of a single [connectors]  have to have the following structure:
 #'
-#' * Only name, metadata, env, connections, and datasources are allowed.
+#' * Only name, metadata, env and datasources are allowed.
 #' * All elements must be named.
 #' * **name** is only required when using nested connectors.
-#' * **connections** and **datasources** are mandatory.
+#' * **datasources** is mandatory.
 #' * **metadata** and **env** must each be a list of named character vectors of length 1 if specified.
-#' * **connections** and **datasources** must each be a list of unnamed lists.
-#' * Each connection must have the named character element **con** and the named list element **backend**
-#' * Each datasource must have the named character element **name**
+#' * **datasources** must each be a list of unnamed lists.
+#' * Each datasource must have the named character element **name** and the named list element **backend**
 #' * For each connection **backend**.**type** must be provided
 #'
 #' @param config [character] path to a connector config file or a [list] of specifications
