@@ -3,24 +3,18 @@
   metadata:
     trial: "demo_trial"
     root_path: !expr system.file(package = "connector")
-  connections:
-    - con: "adam_fs"
+  datasources:
+    - name: "adam_fs"
       backend:
           type: "connector_fs"
           path: "{metadata.root_path}/{metadata.trial}/adam"
-  datasources:
-    - name: "adam"
-      con: "adam_fs"
 
 - name: "study2"
   metadata:
     trial: "demo_trial"
     root_path: !expr system.file(package = "connector")
-  connections:
-    - con: "adam_fs"
+  datasources:
+    - name: "adam_fs"
       backend:
           type: "connector_fs"
           path: "{metadata.root_path}/{metadata.trial}/adam"
-  datasources:
-    - name: "adam"
-      con: "adam_fs"

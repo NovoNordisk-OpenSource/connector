@@ -4,32 +4,25 @@ metadata:
   project: "nn1234"
   instance: "current"
   root_path: "/home/novonordisk"
-connections:
-  - con: "data_fs"
+datasources:
+  - name: "data_fs"
     backend:
         type: "fs"
         path: "{root_path}/{project}/{trial}/{instance}/stats/data/{name}"
-  - con: "general_fs"
-    backend: 
+  - name: "general_fs"
+    backend:
         type: "fs"
         path: "{root_path}/{project}/{trial}/{instance}/stats/{name}"
-datasources:
-  - name: "adam"
-    con: "data_fs"
-  - name: "stdm"
-    con: "data_fs"
-  - name: "statprog"
-    con: "general_fs"
 #Idea for specific backend configuration
 # specs:
-#   connections:
+#   datasources:
 #     # Specify backend from other namespace than connector
-#     - con: "roche_fs"
+#     - name: "roche_fs"
 #       backend:
 #           type: "roche::fs"
 #           some_other_arg_than_path: "something different"
 #     # Specify that we should use the roche method
-#     - con: "fs_rochemethod"
+#     - name: "fs_rochemethod"
 #       backend:
 #           type: "fs"
 #           extraclass: "roche"
