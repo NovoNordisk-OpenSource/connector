@@ -87,7 +87,7 @@ If <code>NULL</code> (the default) all datasources are connected.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The input list can be specified in two ways:</p><ol><li><p>A named list containing the specifications of a single <a href="connectors.html">connectors</a> object.</p></li>
+    <p>The input list can be specified in two ways:</p><ol><li><p>A named list containing the specifications of a single <code><a href="connectors.html">connector</a></code> object.</p></li>
 <li><p>An unnamed list, where each element is of the same structure as in 1., which
 returns a nested <a href="connectors.html">connectors</a> object. See example below.</p></li>
 </ol><p>Each specification of a single <a href="connectors.html">connectors</a>  have to have the following structure:</p><ul><li><p>Only name, metadata, env, connections, and datasources are allowed.</p></li>
@@ -117,22 +117,17 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 <span class="r-out co"><span class="r-pr">#&gt;</span>   root_path: !expr system.file(package = "connector")</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   extra_class: "test2"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> connections:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - con: "adam_fs"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> datasources:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - name: "adam"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     backend:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         type: "connector_fs"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         path: "{metadata.root_path}/{metadata.trial}/adam"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         extra_class: "{metadata.extra_class}"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - con: "general_dbi"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     backend: </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   - name: "sdtm"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     backend:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         type: "connector_dbi"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         drv: "RSQLite::SQLite()"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         dbname: ":memory:"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> datasources:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - name: "adam"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     con: "adam_fs"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   - name: "sdtm"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     con: "general_dbi"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Connect to the datasources specified in it</span></span></span>
 <span class="r-in"><span><span class="va">cnts</span> <span class="op">&lt;-</span> <span class="fu">connect</span><span class="op">(</span><span class="va">config</span><span class="op">)</span></span></span>
@@ -187,27 +182,21 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 <span class="r-out co"><span class="r-pr">#&gt;</span>   metadata:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     trial: "demo_trial"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     root_path: !expr system.file(package = "connector")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   connections:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     - con: "adam_fs"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   datasources:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     - name: "adam_fs"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       backend:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           type: "connector_fs"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           path: "{metadata.root_path}/{metadata.trial}/adam"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   datasources:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     - name: "adam"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       con: "adam_fs"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - name: "study2"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   metadata:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     trial: "demo_trial"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>     root_path: !expr system.file(package = "connector")</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   connections:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     - con: "adam_fs"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   datasources:</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     - name: "adam_fs"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>       backend:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           type: "connector_fs"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           path: "{metadata.root_path}/{metadata.trial}/adam"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>   datasources:</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>     - name: "adam"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>       con: "adam_fs"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnts_nested</span> <span class="op">&lt;-</span> <span class="fu">connect</span><span class="op">(</span><span class="va">config_nested</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
@@ -218,7 +207,7 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnts_nested</span><span class="op">$</span><span class="va">study1</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span>   $adam <span style="color: #0000BB;">&lt;connector_fs&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   $adam_fs <span style="color: #0000BB;">&lt;connector_fs&gt;</span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
