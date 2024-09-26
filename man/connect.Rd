@@ -31,7 +31,7 @@ details below for the required structure of the configuration.
 \details{
 The input list can be specified in two ways:
 \enumerate{
-\item A named list containing the specifications of a single \link{connectors} object.
+\item A named list containing the specifications of a single \code{\link[=connectors]{connector}} object.
 \item An unnamed list, where each element is of the same structure as in 1., which
 returns a nested \link{connectors} object. See example below.
 }
