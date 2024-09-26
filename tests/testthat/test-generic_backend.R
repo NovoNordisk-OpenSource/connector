@@ -1,6 +1,6 @@
 test_that("Create a backend for generic backend", {
   only_one <- yaml_content_parsed |>
-    purrr::pluck("connections", 1, "backend")
+    purrr::pluck("datasources", 1, "backend")
 
   connection <- create_backend(only_one)
 
