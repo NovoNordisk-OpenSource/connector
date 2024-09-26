@@ -51,12 +51,11 @@ The input list (or configuration file) has to have the following structure:
 
  * Only metadata, env, connections, and datasources fields are allowed.
  * All elements must be named.
- * **connections** and **datasources** are mandatory.
+ * **datasources** is mandatory.
  * **metadata** and **env** must each be a list of named character vectors of 
  length 1  specified.
- * **connections** and **datasources** must each be a list of unnamed lists.
- * Each connection must have the named character element **con** and the named list element **backend**
- * Each datasource must have the named character element **name**
+ * **datasources** must each be a list of unnamed lists.
+ * Each datasources must have the named character element **name** and the named list element **backend**
  * For each connection **backend**.**type** must be provided
 
 Here is an example of a configuration file with different types of connections:
@@ -70,39 +69,29 @@ metadata:
   catalog:  !!expr Sys.getenv("DATABRICKS_CATALOG_NAME")
   sharepoint: "https://my_organisation.sharepoint.com"
   root_path: "/home/my_root_path"
-connections:
-  - con: "adam"
+datasources:
+  - name: "adam"
     backend:
         type: "fs"
         path: "{root_path}/{project}/{trial}/{instance}/adam"
-  - con: "tfl"
+  - name: "tfl"
     backend:
       type: "connector.databricks::connector_databricks_volume"
       catalog: "{metadata.catalog}"
       schema: "{metadata.project}_{metadata.trial}_tfl"
       path: "output"
 
-  - con: "metadata"
+  - name: "metadata"
     backend:
       type: "connector.databricks::connector_databricks_dbi"
       http_path: "{metadata.http_path}"
       catalog: "{metadata.catalog}"
       schema: "{metadata.project}_{metadata.trial}_metadata"
 
-  - con: "output_sh"
+  - name: "output_sh"
     backend:
       type: "connector.sharepoint::connector_sharepoint"
       site_url: "{metadata.sharepoint}/sites/{metadata.project}_{metadata.trial}_output"
-
-datasources:
-  - name: "adam"
-    con: "adam"
-  - name: "tfl"
-    con: "tfl"
-  - name: "output_sh"
-    con: "output_sh"
-  - name: "metadata"
-    con: "metadata"
 
 ```
 
@@ -258,21 +247,15 @@ metadata:
   adam_path: !expr file.path(tempdir(), "adam")
   tfl_path: !expr file.path(tempdir(), "tfl")
 
-connections:
-  - con: "adam"
+datasources:
+  - name: "adam"
     backend:
       type: "connector_fs"
       path: "{metadata.adam_path}"
-  - con: "tfl"
+  - name: "tfl"
     backend:
       type: "connector_fs"
       path: "{metadata.tfl_path}"
-
-datasources:
-  - name: "adam"
-    con: "adam"
-  - name: "tfl"
-    con: "tfl"
 
 ```
 

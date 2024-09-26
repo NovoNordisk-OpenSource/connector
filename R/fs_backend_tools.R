@@ -7,7 +7,7 @@
 #' yaml_file <- system.file("config", "default_config.yml", package = "connector")
 #' yaml_content <- yaml::read_yaml(yaml_file, eval.expr=TRUE)
 #'
-#' only_one <- yaml_content[["connections"]][[1]][["backend"]]
+#' only_one <- yaml_content[["datasources"]][[1]][["backend"]]
 #'
 #' test <- create_backend_fs(only_one)
 #'
