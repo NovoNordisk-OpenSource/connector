@@ -2,18 +2,12 @@
 metadata:
   tmp_dir_path: !expr tempdir()
 
-connections:
-  - con: "adam"
+datasources:
+  - name: "adam"
     backend:
       type: "connector_fs"
       path: "{metadata.tmp_dir_path}/adam"
-  - con: "tfl"
+  - name: "tfl"
     backend:
       type: "connector_fs"
       path: "{metadata.tmp_dir_path}/tfl"
-
-datasources:
-  - name: "adam"
-    con: "adam"
-  - name: "tfl"
-    con: "tfl"

@@ -96,15 +96,11 @@ connect <- function(config = "_connector.yml", datasource = NULL, set_env = TRUE
 #' Connect datasources to the connections from the yaml content
 #' @noRd
 connect_from_config <- function(config) {
-  connections <- config$connections |>
+  connections <- config$datasources |>
     purrr::map(create_connection) |>
-    rlang::set_names(purrr::map_chr(config$connections, list("con", 1)))
-
-  connector_ <- config$datasources |>
-    purrr::map(\(x) connections[[x$con]]) %>%
     rlang::set_names(purrr::map_chr(config$datasources, list("name", 1)))
 
-  do.call(what = connectors, args = connector_)
+  do.call(what = connectors, args = connections)
 }
 
 #' Create a connection object depending on the backend type
@@ -178,9 +174,6 @@ parse_config <- function(config, set_env = TRUE) {
   config[["metadata"]] <- config[["metadata"]] |>
     parse_config_helper(input = list(env = env))
 
-  config[["connections"]] <- config[["connections"]] |>
-    parse_config_helper(input = list(env = env, metadata = config[["metadata"]]))
-
   config[["datasources"]] <- config[["datasources"]] |>
     parse_config_helper(input = list(env = env, metadata = config[["metadata"]]))
 
@@ -197,13 +190,6 @@ filter_config <- function(config, datasource) {
   config[["datasources"]] <- config[["datasources"]] |>
     purrr::keep(\(x) x[["name"]] %in% datasource)
 
-  used_con <- config[["datasources"]] |>
-    purrr::map_chr("con") |>
-    unique()
-
-  config[["connections"]] <- config[["connections"]] |>
-    purrr::keep(\(x) x[["con"]] %in% used_con)
-
   return(config)
 }
 
@@ -217,8 +203,8 @@ assert_config <- function(config, env = parent.frame()) {
   checkmate::assert_names(
     x = names(config),
     type = "unique",
-    subset.of = c("name", "metadata", "env", "connections", "datasources"),
-    must.include = c("connections", "datasources"),
+    subset.of = c("name", "metadata", "env", "datasources"),
+    must.include = c("datasources"),
     what = "Config",
     .var.name = "yaml",
     add = val
@@ -257,38 +243,6 @@ assert_config <- function(config, env = parent.frame()) {
   )
 
   checkmate::assert_list(
-    x = config[["connections"]],
-    null.ok = FALSE,
-    .var.name = "connections",
-    add = val
-  )
-
-  purrr::walk2(
-    .x = config[["connections"]],
-    .y = seq_along(config[["connections"]]),
-    .f = \(x, y) {
-      var <- paste0("connections.", y)
-      checkmate::assert_list(x, .var.name = var, add = val)
-      checkmate::assert_names(names(x),
-        type = "unique", must.include = c("con", "backend"),
-        .var.name = var, add = val
-      )
-      checkmate::assert_character(x[["con"]],
-        len = 1,
-        .var.name = paste0(var, ".con"), add = val
-      )
-      checkmate::assert_list(x[["backend"]],
-        names = "unique",
-        .var.name = paste0(var, ".backend"), add = val
-      )
-      checkmate::assert_character(x[["backend"]][["type"]],
-        len = 1,
-        .var.name = paste0(var, ".backend.type"), add = val
-      )
-    }
-  )
-
-  checkmate::assert_list(
     x = config[["datasources"]],
     null.ok = FALSE,
     .var.name = "datasources",
@@ -299,10 +253,24 @@ assert_config <- function(config, env = parent.frame()) {
     .x = config[["datasources"]],
     .y = seq_along(config[["datasources"]]),
     .f = \(x, y) {
-      var <- paste0("datasources.", y)
+      var <- paste0("datasources", y)
       checkmate::assert_list(x, .var.name = var, add = val)
-      checkmate::assert_names(names(x), type = "unique", must.include = c("name"), .var.name = var, add = val)
-      checkmate::assert_character(x[["name"]], len = 1, .var.name = paste0(var, ".name"), add = val)
+      checkmate::assert_names(names(x),
+        type = "unique", must.include = c("name", "backend"),
+        .var.name = var, add = val
+      )
+      checkmate::assert_character(x[["name"]],
+        len = 1,
+        .var.name = paste0(var, ".name"), add = val
+      )
+      checkmate::assert_list(x[["backend"]],
+        names = "unique",
+        .var.name = paste0(var, ".backend"), add = val
+      )
+      checkmate::assert_character(x[["backend"]][["type"]],
+        len = 1,
+        .var.name = paste0(var, ".backend.type"), add = val
+      )
     }
   )
 
