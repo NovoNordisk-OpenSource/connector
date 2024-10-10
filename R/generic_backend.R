@@ -73,7 +73,9 @@ try_connect <- function(connect_fct, params_from_user) {
   connect_ <- try(do.call(connect_fct, params_from_user), silent = TRUE)
 
   if (inherits(connect_, "try-error")) {
-    stop("Error in connection to the backend. Please check the parameters.")
+    c("Problem in connection to the backend :",
+      connect_) |>
+    cli::cli_abort()
   }
 
   return(connect_)

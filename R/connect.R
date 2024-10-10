@@ -110,7 +110,11 @@ create_connection <- function(config) {
     "connector_fs" = create_backend_fs(config$backend),
     "connector_dbi" = create_backend_dbi(config$backend),
     {
-      zephyr::msg("Using generic backend connection for con: {config$con}")
+      zephyr::msg(
+        c("i" = "Connection to :",
+                  "*"= "{config$name} {cli::symbol$arrow_right} {.emph {config$backend$type}}"),
+        msg_fun = cli::cli_bullets
+        )
       create_backend(config$backend)
     }
   )
