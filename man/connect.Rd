@@ -31,21 +31,20 @@ details below for the required structure of the configuration.
 \details{
 The input list can be specified in two ways:
 \enumerate{
-\item A named list containing the specifications of a single \code{\link[=connectors]{connector}} object.
+\item A named list containing the specifications of a single \link{connectors} object.
 \item An unnamed list, where each element is of the same structure as in 1., which
 returns a nested \link{connectors} object. See example below.
 }
 
 Each specification of a single \link{connectors}  have to have the following structure:
 \itemize{
-\item Only name, metadata, env, connections, and datasources are allowed.
+\item Only name, metadata, env and datasources are allowed.
 \item All elements must be named.
 \item \strong{name} is only required when using nested connectors.
-\item \strong{connections} and \strong{datasources} are mandatory.
+\item \strong{datasources} is mandatory.
 \item \strong{metadata} and \strong{env} must each be a list of named character vectors of length 1 if specified.
-\item \strong{connections} and \strong{datasources} must each be a list of unnamed lists.
-\item Each connection must have the named character element \strong{con} and the named list element \strong{backend}
-\item Each datasource must have the named character element \strong{name}
+\item \strong{datasources} must each be a list of unnamed lists.
+\item Each datasource must have the named character element \strong{name} and the named list element \strong{backend}
 \item For each connection \strong{backend}.\strong{type} must be provided
 }
 }
