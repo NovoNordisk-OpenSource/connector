@@ -107,12 +107,23 @@ connect_from_config <- function(config) {
 #' @noRd
 create_connection <- function(config) {
   switch(config$backend$type,
-    "connector_fs" = create_backend_fs(config$backend),
-    "connector_dbi" = create_backend_dbi(config$backend),
-    {
-      zephyr::msg("Using generic backend connection for con: {config$con}")
-      create_backend(config$backend)
-    }
+         "connector_fs" = create_backend_fs(config$backend),
+         "connector_dbi" = create_backend_dbi(config$backend),
+         {
+
+           msg_ <- c(">" = "{.strong {config$name}}",
+                     "*" = "{config$backend$type}",
+                     "*" = "{config$backend[!names(config$backend) %in% 'type']}"
+           )
+
+           cli::cat_rule()
+           zephyr::msg(
+             c("Connection to:",
+               msg_),
+             msg_fun = cli::cli_bullets
+           )
+           create_backend(config$backend)
+         }
   )
 }
 
@@ -255,20 +266,20 @@ assert_config <- function(config, env = parent.frame()) {
       var <- paste0("datasources", y)
       checkmate::assert_list(x, .var.name = var, add = val)
       checkmate::assert_names(names(x),
-        type = "unique", must.include = c("name", "backend"),
-        .var.name = var, add = val
+                              type = "unique", must.include = c("name", "backend"),
+                              .var.name = var, add = val
       )
       checkmate::assert_character(x[["name"]],
-        len = 1,
-        .var.name = paste0(var, ".name"), add = val
+                                  len = 1,
+                                  .var.name = paste0(var, ".name"), add = val
       )
       checkmate::assert_list(x[["backend"]],
-        names = "unique",
-        .var.name = paste0(var, ".backend"), add = val
+                             names = "unique",
+                             .var.name = paste0(var, ".backend"), add = val
       )
       checkmate::assert_character(x[["backend"]][["type"]],
-        len = 1,
-        .var.name = paste0(var, ".backend.type"), add = val
+                                  len = 1,
+                                  .var.name = paste0(var, ".backend.type"), add = val
       )
     }
   )
