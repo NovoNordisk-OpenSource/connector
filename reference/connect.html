@@ -87,17 +87,16 @@ If <code>NULL</code> (the default) all datasources are connected.</p></dd>
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>The input list can be specified in two ways:</p><ol><li><p>A named list containing the specifications of a single <code><a href="connectors.html">connector</a></code> object.</p></li>
+    <p>The input list can be specified in two ways:</p><ol><li><p>A named list containing the specifications of a single <a href="connectors.html">connectors</a> object.</p></li>
 <li><p>An unnamed list, where each element is of the same structure as in 1., which
 returns a nested <a href="connectors.html">connectors</a> object. See example below.</p></li>
-</ol><p>Each specification of a single <a href="connectors.html">connectors</a>  have to have the following structure:</p><ul><li><p>Only name, metadata, env, connections, and datasources are allowed.</p></li>
+</ol><p>Each specification of a single <a href="connectors.html">connectors</a>  have to have the following structure:</p><ul><li><p>Only name, metadata, env and datasources are allowed.</p></li>
 <li><p>All elements must be named.</p></li>
 <li><p><strong>name</strong> is only required when using nested connectors.</p></li>
-<li><p><strong>connections</strong> and <strong>datasources</strong> are mandatory.</p></li>
+<li><p><strong>datasources</strong> is mandatory.</p></li>
 <li><p><strong>metadata</strong> and <strong>env</strong> must each be a list of named character vectors of length 1 if specified.</p></li>
-<li><p><strong>connections</strong> and <strong>datasources</strong> must each be a list of unnamed lists.</p></li>
-<li><p>Each connection must have the named character element <strong>con</strong> and the named list element <strong>backend</strong></p></li>
-<li><p>Each datasource must have the named character element <strong>name</strong></p></li>
+<li><p><strong>datasources</strong> must each be a list of unnamed lists.</p></li>
+<li><p>Each datasource must have the named character element <strong>name</strong> and the named list element <strong>backend</strong></p></li>
 <li><p>For each connection <strong>backend</strong>.<strong>type</strong> must be provided</p></li>
 </ul></div>
 
