@@ -54,7 +54,7 @@ test_that("yaml config parsed correctly", {
 
   # Run with no env vars set
 
-  if (getRversion() >= as.package_version("4.3.1"))
+  if (getRversion() >= as.package_version("4.4.1"))
     withr::with_envvar(
       new = list(hello = "", RSQLite_db = "", system_path = ""),
       code = {
@@ -68,7 +68,7 @@ test_that("yaml config parsed correctly", {
     )
 
   # Run below with already set "hello" env var
-  if (getRversion() >= as.package_version("4.3.1"))
+  if (getRversion() >= as.package_version("4.4.1"))
     withr::with_envvar(
       new = c(hello = "test", RSQLite_db = "", system_path = ""),
       code = {
