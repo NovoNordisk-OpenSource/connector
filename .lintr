@@ -4,6 +4,7 @@ linters: linters_with_defaults(
   object_name_linter = NULL
   ) # see vignette("lintr")
 exclusions: list(
-  "dev/"
+  "dev/",
+  "vignettes/connector.Rmd"
   )
 encoding: "UTF-8"
