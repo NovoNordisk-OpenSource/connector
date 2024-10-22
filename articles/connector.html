@@ -124,37 +124,37 @@ must be provided</li>
 </ul>
 <p>Here is an example of a configuration file with different types of
 connections:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>metadata<span class="sc">:</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>  trial<span class="sc">:</span> <span class="st">"yyyy"</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>  project<span class="sc">:</span> <span class="st">"nnxxxx"</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>  instance<span class="sc">:</span> <span class="st">"current"</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>  http_path<span class="sc">:</span>  <span class="sc">!!</span>expr <span class="fu">Sys.getenv</span>(<span class="st">"DATABRICKS_HTTP_PATH"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>  catalog<span class="sc">:</span>  <span class="sc">!!</span>expr <span class="fu">Sys.getenv</span>(<span class="st">"DATABRICKS_CATALOG_NAME"</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>  sharepoint<span class="sc">:</span> <span class="st">"https://my_organisation.sharepoint.com"</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>  root_path<span class="sc">:</span> <span class="st">"/home/my_root_path"</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a>datasources<span class="sc">:</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"adam"</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a>    backend<span class="sc">:</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>        type<span class="sc">:</span> <span class="st">"fs"</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>        path<span class="sc">:</span> <span class="st">"{root_path}/{project}/{trial}/{instance}/adam"</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"tfl"</span></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>    backend<span class="sc">:</span></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector.databricks::connector_databricks_volume"</span></span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a>      catalog<span class="sc">:</span> <span class="st">"{metadata.catalog}"</span></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a>      schema<span class="sc">:</span> <span class="st">"{metadata.project}_{metadata.trial}_tfl"</span></span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a>      path<span class="sc">:</span> <span class="st">"output"</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="at">  </span><span class="fu">trial</span><span class="kw">:</span><span class="at"> </span><span class="st">"yyyy"</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="at">  </span><span class="fu">project</span><span class="kw">:</span><span class="at"> </span><span class="st">"nnxxxx"</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="at">  </span><span class="fu">instance</span><span class="kw">:</span><span class="at"> </span><span class="st">"current"</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="at">  </span><span class="fu">http_path</span><span class="kw">:</span><span class="at">  </span><span class="ot">!!expr</span><span class="at"> Sys.getenv("DATABRICKS_HTTP_PATH")</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="at">  </span><span class="fu">catalog</span><span class="kw">:</span><span class="at">  </span><span class="ot">!!expr</span><span class="at"> Sys.getenv("DATABRICKS_CATALOG_NAME")</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="at">  </span><span class="fu">sharepoint</span><span class="kw">:</span><span class="at"> </span><span class="st">"https://my_organisation.sharepoint.com"</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="at">  </span><span class="fu">root_path</span><span class="kw">:</span><span class="at"> </span><span class="st">"/home/my_root_path"</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="fu">datasources</span><span class="kw">:</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"adam"</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"fs"</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"{root_path}/{project}/{trial}/{instance}/adam"</span></span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"tfl"</span></span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector.databricks::connector_databricks_volume"</span></span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="at">      </span><span class="fu">catalog</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.catalog}"</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="at">      </span><span class="fu">schema</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.project}_{metadata.trial}_tfl"</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="at">      </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"output"</span></span>
 <span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"metadata"</span></span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>    backend<span class="sc">:</span></span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector.databricks::connector_databricks_dbi"</span></span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>      http_path<span class="sc">:</span> <span class="st">"{metadata.http_path}"</span></span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>      catalog<span class="sc">:</span> <span class="st">"{metadata.catalog}"</span></span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a>      schema<span class="sc">:</span> <span class="st">"{metadata.project}_{metadata.trial}_metadata"</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"metadata"</span></span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector.databricks::connector_databricks_dbi"</span></span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="at">      </span><span class="fu">http_path</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.http_path}"</span></span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="at">      </span><span class="fu">catalog</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.catalog}"</span></span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="at">      </span><span class="fu">schema</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.project}_{metadata.trial}_metadata"</span></span>
 <span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"output_sh"</span></span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a>    backend<span class="sc">:</span></span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector.sharepoint::connector_sharepoint"</span></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a>      site_url<span class="sc">:</span> <span class="st">"{metadata.sharepoint}/sites/{metadata.project}_{metadata.trial}_output"</span></span></code></pre></div>
+<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"output_sh"</span></span>
+<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
+<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector.sharepoint::connector_sharepoint"</span></span>
+<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="at">      </span><span class="fu">site_url</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.sharepoint}/sites/{metadata.project}_{metadata.trial}_output"</span></span></code></pre></div>
 <p>In this example we have multiple connections to multiple data
 sources. ADaM data is stored on the file system, metadata resides on
 Databricks Tables, TFL is also on Databricks, but on Volumes, because
