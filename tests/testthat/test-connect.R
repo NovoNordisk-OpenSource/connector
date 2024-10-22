@@ -54,38 +54,39 @@ test_that("yaml config parsed correctly", {
 
   # Run with no env vars set
 
-  withr::with_envvar(
-    new = list(hello = "", RSQLite_db = "", system_path = ""),
-    code = {
-      Sys.unsetenv(c("hello", "RSQLite_db", "system_path"))
-      yaml_file_env |>
-        read_file(eval.expr = TRUE) |>
-        assert_config() |>
-        parse_config() |>
-        expect_no_condition()
-    }
-  )
+  if (getRversion() >= as.package_version("4.3.1"))
+    withr::with_envvar(
+      new = list(hello = "", RSQLite_db = "", system_path = ""),
+      code = {
+        Sys.unsetenv(c("hello", "RSQLite_db", "system_path"))
+        yaml_file_env |>
+          read_file(eval.expr = TRUE) |>
+          assert_config() |>
+          parse_config() |>
+          expect_no_condition()
+      }
+    )
 
   # Run below with already set "hello" env var
+  if (getRversion() >= as.package_version("4.3.1"))
+    withr::with_envvar(
+      new = c(hello = "test", RSQLite_db = "", system_path = ""),
+      code = {
+        Sys.unsetenv(c("RSQLite_db", "system_path"))
 
-  withr::with_envvar(
-    new = c(hello = "test", RSQLite_db = "", system_path = ""),
-    code = {
-      Sys.unsetenv(c("RSQLite_db", "system_path"))
+        yaml_file_env |>
+          read_file(eval.expr = TRUE) |>
+          assert_config() |>
+          parse_config(set_env = FALSE) |>
+          expect_message("Inconsistencies between existing environment variables and env entries:") |>
+          suppressMessages() # Not print the bullets to the test log
 
-      yaml_file_env |>
-        read_file(eval.expr = TRUE) |>
-        assert_config() |>
-        parse_config(set_env = FALSE) |>
-        expect_message("Inconsistencies between existing environment variables and env entries:") |>
-        suppressMessages() # Not print the bullets to the test log
-
-      yaml_file_env |>
-        read_file(eval.expr = TRUE) |>
-        assert_config() |>
-        parse_config() |>
-        expect_message("Overwriting already set environment variables:") |>
-        suppressMessages() # Not print the bullets to the test log
-    }
-  )
+        yaml_file_env |>
+          read_file(eval.expr = TRUE) |>
+          assert_config() |>
+          parse_config() |>
+          expect_message("Overwriting already set environment variables:") |>
+          suppressMessages() # Not print the bullets to the test log
+      }
+    )
 })
