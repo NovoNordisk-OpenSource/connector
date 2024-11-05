@@ -130,6 +130,16 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Connect to the datasources specified in it</span></span></span>
 <span class="r-in"><span><span class="va">cnts</span> <span class="op">&lt;-</span> <span class="fu">connect</span><span class="op">(</span><span class="va">config</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Connection to:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="font-weight: bold;">adam</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> connector_fs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> /home/runner/work/_temp/Library/connector/demo_trial/adam and test2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Connection to:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="font-weight: bold;">sdtm</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> connector_dbi</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> RSQLite::SQLite() and :memory:</span>
 <span class="r-in"><span><span class="va">cnts</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   $adam <span style="color: #0000BB;">&lt;test2&gt;</span></span>
@@ -167,6 +177,11 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 <span class="r-in"><span><span class="co"># Connect only to the adam datasource</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">connect</span><span class="op">(</span><span class="va">config</span>, <span class="st">"adam"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Connection to:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="font-weight: bold;">adam</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> connector_fs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> /home/runner/work/_temp/Library/connector/demo_trial/adam and test2</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   $adam <span style="color: #0000BB;">&lt;test2&gt;</span></span>
 <span class="r-in"><span></span></span>
@@ -198,6 +213,16 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 <span class="r-out co"><span class="r-pr">#&gt;</span>           path: "{metadata.root_path}/{metadata.trial}/adam"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnts_nested</span> <span class="op">&lt;-</span> <span class="fu">connect</span><span class="op">(</span><span class="va">config_nested</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Connection to:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="font-weight: bold;">adam_fs</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> connector_fs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> /home/runner/work/_temp/Library/connector/demo_trial/adam</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Connection to:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="font-weight: bold;">adam_fs</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> connector_fs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> /home/runner/work/_temp/Library/connector/demo_trial/adam</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnts_nested</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
