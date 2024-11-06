@@ -70,7 +70,7 @@ cnt$read_cnt("iris.rds") |>
 \subsection{Method \code{new()}}{
 Initializes the connector for file storage.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$new(path, access = "rw", extra_class = NULL)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$new(path, extra_class = NULL)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -78,10 +78,8 @@ Initializes the connector for file storage.
 \describe{
 \item{\code{path}}{\link{character} Path to the file storage}
 
-\item{\code{access}}{\link{character} Access type ("rw" by default).
+\item{\code{extra_class}}{\link{character} Extra class to be added
 Checked using \link[checkmate:checkDirectoryExists]{checkmate::assert_directory_exists}.}
-
-\item{\code{extra_class}}{\link{character} Extra class to assign to the new connector.}
 }
 \if{html}{\out{</div>}}
 }
