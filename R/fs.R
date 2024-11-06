@@ -42,11 +42,13 @@ connector_fs <- R6::R6Class(
 
     #' @description
     #' Initializes the connector for file storage.
+    #'
     #' @param path [character] Path to the file storage
-    #' @param access [character] Access type ("rw" by default).
+    #' @param extra_class [character] Extra class to be added
     #' Checked using [checkmate::assert_directory_exists].
-    initialize = function(path, access = "rw", extra_class = NULL) {
-      private$.path <- assert_path(path, access)
+    initialize = function(path, extra_class = NULL) {
+
+      private$.path <- path
       super$initialize(extra_class = extra_class)
     },
 
@@ -98,36 +100,3 @@ connector_fs <- R6::R6Class(
     .path = character(0)
   )
 )
-
-#' Validate the path and access
-#' @description
-#' The assert_path function validates the path and access type for file system operations.
-#' @param path Path to be validated
-#' @param access Type of access ("rw" for read/write by default)
-#' @return Invisible path
-#' @importFrom checkmate makeAssertCollection assert_character assert_directory_exists reportAssertions
-#' @noRd
-assert_path <- function(path, access) {
-  val <- checkmate::makeAssertCollection()
-
-  checkmate::assert_character(
-    x = path,
-    len = 1,
-    any.missing = FALSE,
-    add = val
-  )
-
-  checkmate::assert_directory_exists(
-    x = path,
-    access = access,
-    add = val
-  )
-
-  checkmate::reportAssertions(
-    val
-  )
-
-  return(
-    invisible(path)
-  )
-}
