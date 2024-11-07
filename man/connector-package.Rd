@@ -5,6 +5,8 @@
 \alias{connector-package}
 \title{connector: Connect to your data easily}
 \description{
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
+
 The connector package helps connecting R to databases that contains ADAM, STDM and so on. The package defines an interface that can be reuse for any databases.
 }
 \seealso{
