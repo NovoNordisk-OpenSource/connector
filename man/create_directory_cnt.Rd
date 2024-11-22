@@ -36,7 +36,10 @@ cnt |>
   list_content_cnt(pattern = "new_folder")
 
 cnt |>
-  create_directory_cnt("new_folder") |>
+  create_directory_cnt("new_folder")
+
+# This will return new connector object of a newly created folder
+new_connector <- cnt |>
   list_content_cnt(pattern = "new_folder")
 
 cnt |>

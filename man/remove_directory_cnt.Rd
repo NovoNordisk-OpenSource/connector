@@ -33,7 +33,9 @@ Mostly relevant for file storage connectors.
 cnt <- connector_fs$new(tempdir())
 
 cnt |>
-  create_directory_cnt("new_folder") |>
+  create_directory_cnt("new_folder")
+
+cnt |>
   list_content_cnt(pattern = "new_folder")
 
 cnt |>
