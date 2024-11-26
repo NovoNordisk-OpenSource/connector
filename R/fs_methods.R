@@ -192,7 +192,7 @@ upload_cnt.connector_fs <- function(connector_object, file, name = basename(file
 create_directory_cnt.connector_fs <- function(connector_object, name, ...) {
   path <- file.path(connector_object$path, name)
   dir.create(path = path, ...)
-  return(connector_fs$new(path))
+  return(invisible(connector_fs$new(path)))
 }
 
 #' @description
