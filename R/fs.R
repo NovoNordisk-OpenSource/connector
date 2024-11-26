@@ -74,7 +74,7 @@ connector_fs <- R6::R6Class(
     #' Create a directory in the file storage.
     #' See also [create_directory_cnt].
     #' @param name [character] The name of the directory to create
-    #' @return `r rd_connector_utils("inv_self")`
+    #' @return [connector_fs] object of a newly created directory
     create_directory_cnt = function(name, ...) {
       self %>%
         create_directory_cnt(name, ...)
