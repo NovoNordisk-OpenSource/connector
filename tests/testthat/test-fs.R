@@ -27,7 +27,10 @@ test_that("fs connector", {
   fs$list_content_cnt() |>
     expect_vector(ptype = character(), size = 0)
 
-  fs$create_directory_cnt("new_dir")
+  new_directory <- fs$create_directory_cnt("new_dir")
+
+  checkmate::assert_r6(new_directory, classes = "connector_fs")
+  testthat::expect_true(basename(new_directory$path) == "new_dir")
 
   fs$list_content_cnt("new_dir") |>
     expect_vector(ptype = character(), size = 1)
