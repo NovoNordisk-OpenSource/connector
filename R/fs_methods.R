@@ -178,7 +178,10 @@ upload_cnt.connector_fs <- function(connector_object, file, name = basename(file
 #'   list_content_cnt(pattern = "new_folder")
 #'
 #' cnt |>
-#'   create_directory_cnt("new_folder") |>
+#'   create_directory_cnt("new_folder")
+#'
+#' # This will return new connector object of a newly created folder
+#' new_connector <- cnt |>
 #'   list_content_cnt(pattern = "new_folder")
 #'
 #' cnt |>
@@ -189,7 +192,7 @@ upload_cnt.connector_fs <- function(connector_object, file, name = basename(file
 create_directory_cnt.connector_fs <- function(connector_object, name, ...) {
   path <- file.path(connector_object$path, name)
   dir.create(path = path, ...)
-  return(invisible(connector_object))
+  return(invisible(connector_fs$new(path)))
 }
 
 #' @description
@@ -201,7 +204,9 @@ create_directory_cnt.connector_fs <- function(connector_object, name, ...) {
 #' cnt <- connector_fs$new(tempdir())
 #'
 #' cnt |>
-#'   create_directory_cnt("new_folder") |>
+#'   create_directory_cnt("new_folder")
+#'
+#' cnt |>
 #'   list_content_cnt(pattern = "new_folder")
 #'
 #' cnt |>
