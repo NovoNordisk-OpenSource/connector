@@ -1,0 +1,24 @@
+#' Update metadata field
+#'
+#' @param old_metadata [list] a list of element to be replace 
+#' @param new_metadata [list] a list of element to replace old's
+#'
+#' @importFrom checkmate assert_list
+#' 
+#' @return [list] a updated list with new metadata 
+#'  
+change_to_new_md <- function(old_metadata, new_metadata){
+  # check params
+  checkmate::assert_list(old_metadata, names = "unique", null.ok = TRUE)
+  checkmate::assert_list(new_metadata, names = "unique")
+  
+
+  field_to_replace <- names(new_metadata)
+
+  # for loop to change in place
+  for(i in field_to_replace){
+    old_metadata[i] <- new_metadata[i]
+  }
+  
+  return(old_metadata)
+} 
