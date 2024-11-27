@@ -69,7 +69,7 @@
 #' cnts_nested$study1
 #' @export
 
-connect <- function(config = "_connector.yml", datasource = NULL, set_env = TRUE) {
+connect <- function(config = "_connector.yml", datasource = NULL, set_env = TRUE, logging = FALSE) {
   if (!is.list(config)) {
     if (tools::file_ext(config) %in% c("yml", "yaml")) {
       config <- read_file(config, eval.expr = TRUE)
@@ -85,12 +85,21 @@ connect <- function(config = "_connector.yml", datasource = NULL, set_env = TRUE
     return(do.call(connectors, cnts))
   }
 
-  config |>
+  connections <- config |>
     assert_config() |>
     parse_config(set_env = set_env) |>
     filter_config(datasource = datasource) |>
     connect_from_config()
+
+  if(logging){
+    rlang::check_installed("connector.logger")
+    connections <- connector.logger::add_logs(connections)
+  }
+
+  connections
 }
+
+
 
 #' Connect datasources to the connections from the yaml content
 #' @noRd
@@ -330,3 +339,4 @@ glue_if_character <- function(x, ..., .envir = parent.frame()) {
     x
   }
 }
+
