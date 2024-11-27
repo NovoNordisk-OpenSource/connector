@@ -32,7 +32,9 @@
 #' @param datasource [character] Name(s) of the datasource(s) to connect to.
 #' If `NULL` (the default) all datasources are connected.
 #' @param set_env [logical] Should environment variables from the yaml file be set? Default is TRUE.
+#' @param logging [logical] Add logs to the console as well as to the whirl log html files. See details with this vignette.
 #' @return [connectors]
+#'
 #' @examples
 #' config <- system.file("config", "default_config.yml", package = "connector")
 #'
@@ -70,6 +72,8 @@
 #' @export
 
 connect <- function(config = "_connector.yml", datasource = NULL, set_env = TRUE, logging = FALSE) {
+  checkmate::assert_logical(logging)
+
   if (!is.list(config)) {
     if (tools::file_ext(config) %in% c("yml", "yaml")) {
       config <- read_file(config, eval.expr = TRUE)
