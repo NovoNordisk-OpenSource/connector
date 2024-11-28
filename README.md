@@ -1,6 +1,14 @@
 
 # connector <a href="https://fantastic-adventure-gqozn9k.pages.github.io/"><img src="man/figures/logo.png" align="right" height="138" alt="connector website" /></a>
 
+Connector provides a consistent interface for connecting to different
+data sources, such as as simple file storage systems and databases.
+
+It also gives the option to use a central configuration file to manage
+your connections in your project, which ensures a consistent reference
+to the same data source across different scripts in your project, and
+enables you to easily switch between different data sources.
+
 ``` r
 library(connector)
 ```
@@ -29,7 +37,7 @@ db <- connect(config)
 #> Connection to:
 #> → folder
 #> • connector_fs
-#> • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpvHQppu/file9d25600ee130
+#> • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpFV1PqD/filec56a7eae5068
 #> ────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → database
@@ -57,7 +65,7 @@ db$folder
 #> • `write_cnt.connector_fs()`
 #> Specifications:
 #> • path:
-#>   /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpvHQppu/file9d25600ee130
+#>   /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpFV1PqD/filec56a7eae5068
 db$database
 #> <connector_dbi>
 #> Inherits from: <connector>
