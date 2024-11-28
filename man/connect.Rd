@@ -76,7 +76,7 @@ cnts$sdtm
 # Overwrite metadata informations
 
 connect(config, metadata = list(extra_class = "my_class"))
- 
+
 # Connect only to the adam datasource
 
 connect(config, datasource = "adam")

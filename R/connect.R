@@ -53,9 +53,9 @@
 #' cnts$sdtm
 #'
 #' # Overwrite metadata informations
-#' 
+#'
 #' connect(config, metadata = list(extra_class = "my_class"))
-#'  
+#'
 #' # Connect only to the adam datasource
 #'
 #' connect(config, datasource = "adam")
@@ -92,13 +92,13 @@ connect <- function(config = "_connector.yml", metadata = NULL, datasource = NUL
       purrr::map(\(x) connect(x, metadata, datasource, set_env))
     return(do.call(connectors, cnts))
   }
- 
+
   # Replace metadata if needed
   if(!is.null(metadata)){
     zephyr::msg(
       c("Replace some metadata informations...")
     )
-    config[["metadata"]] <- change_to_new_md(
+    config[["metadata"]] <- change_to_new_metadata(
        old_metadata = config[["metadata"]],
        new_metadata = metadata
       )
