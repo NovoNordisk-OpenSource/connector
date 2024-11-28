@@ -13,6 +13,13 @@ knitr::opts_chunk$set(
 
 # connector <a href="https://fantastic-adventure-gqozn9k.pages.github.io/"><img src="man/figures/logo.png" align="right" height="138" alt="connector website" /></a>
 
+Connector provides a consistent interface for connecting to different data sources, 
+such as as simple file storage systems and databases.
+
+It also gives the option to use a central configuration file to manage your connections in your project,
+which ensures a consistent reference to the same data source across different scripts in your project,
+and enables you to easily switch between different data sources.
+
 ```{r}
 library(connector)
 ```
