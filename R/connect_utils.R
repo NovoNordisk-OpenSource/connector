@@ -6,7 +6,7 @@
 #' @importFrom checkmate assert_list
 #'
 #' @return [list] a updated list with new data
-#'
+#' @noRd
 change_to_new_metadata <- function(old_metadata, new_metadata) {
   # check params
   checkmate::assert_list(old_metadata, names = "unique", null.ok = TRUE)
