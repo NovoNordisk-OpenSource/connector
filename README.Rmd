@@ -2,57 +2,132 @@
 output: github_document
 ---
 
-```{r, include = FALSE}
+```{r setup, include = FALSE}
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
+
+# Use a temporary directory as working directory and add the yaml example
+tmp <- withr::local_tempdir()
+
+system.file("examples/readme.yml", package = "connector") |> 
+  file.copy(to = file.path(tmp, "_connector.yml"))
+
+knitr::opts_knit$set(root.dir = tmp)
 ```
 
 # connector <a href="https://fantastic-adventure-gqozn9k.pages.github.io/"><img src="man/figures/logo.png" align="right" height="138" alt="connector website" /></a>
 
-Connector provides a consistent interface for connecting to different data sources, 
+## Overview
+
+connector provides a consistent interface for connecting to different data sources, 
 such as as simple file storage systems and databases.
 
 It also gives the option to use a central configuration file to manage your connections in your project,
 which ensures a consistent reference to the same data source across different scripts in your project,
 and enables you to easily switch between different data sources.
 
-```{r}
+The connector package comes with the possibilities of creating connections to file system folders using `connector_fs()` and general databases using `connector_dbi()`,
+which is built on top of the `{DBI}` package.
+
+connector also has a series of expansion packages that allows you to easily connect to more specific data sources:
+
+* `{connector.databricks}`: Connect to Databricks
+* `{connector.sharepoint}`: Connect to SharePoint sites
+* `{connector.logger}`: Log connector actions, see also `{whirl}` for how to log scripts
+
+## Usage
+
+The recommended way of using connector is to specify a common yaml configuration file in your project 
+that contains the connection details to all your data sources.
+
+A simple example creating connectors to both a folder and a database is shown below:
+
+`_connector.yml:`
+```yaml
+`r paste(readLines("_connector.yml"), collapse = "\n")`
+```
+
+First we specify common metadata for the connectors, which here is a temporary folder
+that we want to use. Afterwards we specify the datasources needed in the project, and their specifications.
+
+The first we name "folder", specify the type to be `connector_fs()`, and the path to the folder.
+The second is a database connector to an in memory SQLite database, that we specify using the `connector_dbi()` type,
+which uses `DBI::dbConnect()` to initalize the connection. Therefor we also give the `DBI driver` to use, and arguments to it.
+
+To connect and create the conenctors we use `connect()` with the configuration file as input:
+
+```{r connect}
 library(connector)
-```
 
-```{yml, file = system.file("config/readme.yml", package = "connector"), eval = FALSE}
-```
-
-```{r}
-config <- system.file("config/readme.yml", package = "connector")
-
-db <- connect(config)
+db <- connect("_connector.yml")
 
 print(db)
 ```
 
-```{r}
-db$folder
-db$database
+This creates a `connectors` objects that contains each `connector`. When printing the individual `conenctor` you
+get the some general information on their methods and specifications.
+
+```{r print-connector}
+print(db$database)
 ```
 
-```{r}
+We are now ready to use the `connectors`, so we can start by writing some data to the `folder` one:
+
+```{r example-fs}
+# Initially it is empty
 db$folder |> 
   list_content_cnt()
 
-cars <- mtcars |> tibble::as_tibble(rownames = "car")
+# Create some data
+cars <- mtcars |> 
+  tibble::as_tibble(rownames = "car")
 
+# Write to folder as a parquet file
 db$folder |> 
   write_cnt(x = cars, name = "cars.parquet")
 
+# Now the folder contains the file
 db$folder |> 
   list_content_cnt()
 
+# And we can read it back in
 db$folder |>
   read_cnt(name = "cars.parquet")
 ```
 
+Here the parquet format has been used, but when using a `connector_fs()` it is possible to read and write several different file types. 
+See `read_file()` and `write_file()` for more information.
+
+For the `database` connector it works in the same way:
+
+```{r example-dbi}
+# Initially no tables exists
+db$database |> 
+  list_content_cnt()
+
+# Write cars to the database as a table
+db$database |> 
+  write_cnt(x = cars, name = "cars")
+
+# Now the cara table exists
+db$database |> 
+  list_content_cnt()
+
+# And we can read it back in
+db$database |>
+  read_cnt(name = "cars") |> 
+  dplyr::as_tibble()
+```
+
+## Useful links
+
+For more information on how to use the package, see the following links:
+
+* `connect()` for more documentation and how to specify the configuration file
+* `vignette("connector")` for more examples and how to use the package
+* `vignette("extend")` on how to create your own connector
+* [NovoNordisk-OpenSource/R-packages](https://novonordisk-opensource.github.io/R-packages/) for an overview of connector and other R packages published by Novo Nordisk
