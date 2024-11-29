@@ -1,0 +1,10 @@
+name: Specific setup for connector
+description: Starts a postgres database for unit tests
+runs:
+  using: "composite"
+  steps:
+    - name: Start local postgres server with Docker
+        if: runner.os == 'Linux'
+        run: |
+          docker pull postgres
+          docker run --name my-postgres --env POSTGRES_PASSWORD=${{env.POSTGRES_PW}} --publish 5432:5432
