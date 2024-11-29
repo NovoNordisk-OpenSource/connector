@@ -3,8 +3,8 @@ pkgdown: 2.1.1
 pkgdown_sha: ~
 articles:
   connector: connector.html
-  customize: customize.html
-last_built: 2024-11-28T11:50Z
+  extend: extend.html
+last_built: 2024-11-29T11:42Z
 urls:
   reference: https://fantastic-adventure-gqozn9k.pages.github.io/reference
   article: https://fantastic-adventure-gqozn9k.pages.github.io/articles
