@@ -122,3 +122,25 @@ testthat::test_that("Using and uptade metadata", {
 
   expect_s3_class(test_yaml$adam, "test_from_metadata")
 })
+
+test_that("Add logs to connectors object",{
+   # Don't test the logic of connector.logger because it is not the purpose of connector
+   cnts <- connect(yaml_file, logging = TRUE)
+
+
+  lapply(cnts, function(x){
+    expect_s3_class(x, "connector")
+    expect_true(
+      all(
+        c("read_cnt", "write_cnt", "remove_cnt", "list_content_cnt") %in% names(x$.__enclos_env__$self)
+        )
+      )
+    expect_equal(class(x$read_cnt), "function")
+  })
+
+
+  lapply(cnts, function(x){
+    expect_s3_class(x, "connector_logger")
+  })
+})
+
