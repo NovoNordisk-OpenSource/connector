@@ -7,4 +7,4 @@ runs:
         if: runner.os == 'Linux'
         run: |
           docker pull postgres
-          docker run --name my-postgres --env POSTGRES_PASSWORD=${{env.POSTGRES_PW}} --publish 5432:5432
+          docker run --name my-postgres --env POSTGRES_PASSWORD=password --publish 5432:5432
