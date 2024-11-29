@@ -3,8 +3,9 @@
 
 ## Overview
 
-connector provides a consistent interface for connecting to different
-data sources, such as as simple file storage systems and databases.
+connector provides a seamless and consistent interface for connecting to
+different data sources, such as as simple file storage systems and
+databases.
 
 It also gives the option to use a central configuration file to manage
 your connections in your project, which ensures a consistent reference
@@ -72,7 +73,7 @@ db <- connect("_connector.yml")
 #> Connection to:
 #> → folder
 #> • connector_fs
-#> • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpboXbEl/filef23c181b1d1e
+#> • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//Rtmp7DGIBJ/filef4a44de0d58b
 #> ────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → database
