@@ -11,6 +11,7 @@
 \alias{read_ext.sas7bdat}
 \alias{read_ext.xpt}
 \alias{read_ext.yml}
+\alias{read_ext.json}
 \title{Read files based on the extension}
 \usage{
 read_file(path, ...)
@@ -32,6 +33,8 @@ read_ext(path, ...)
 \method{read_ext}{xpt}(path, ...)
 
 \method{read_ext}{yml}(path, ...)
+
+\method{read_ext}{json}(path, ...)
 }
 \arguments{
 \item{path}{\code{\link[=character]{character()}} Path to the file.}
@@ -79,6 +82,10 @@ Below is a list of all the pre-defined methods:
 
 \itemize{
 \item \code{yml}/\code{yaml}: \code{\link[yaml:read_yaml]{yaml::read_yaml()}}
+}
+
+\itemize{
+\item \code{json}: \code{\link[jsonlite:read_json]{jsonlite::read_json()}}
 }
 }
 \examples{

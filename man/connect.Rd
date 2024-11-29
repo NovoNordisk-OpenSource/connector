@@ -6,6 +6,7 @@
 \usage{
 connect(
   config = "_connector.yml",
+  metadata = NULL,
   datasource = NULL,
   set_env = TRUE,
   logging = FALSE
@@ -13,6 +14,8 @@ connect(
 }
 \arguments{
 \item{config}{\link{character} path to a connector config file or a \link{list} of specifications}
+
+\item{metadata}{\link{list} Replace, add or create elements to the metadata field found in config}
 
 \item{datasource}{\link{character} Name(s) of the datasource(s) to connect to.
 If \code{NULL} (the default) all datasources are connected.}
@@ -73,9 +76,13 @@ cnts
 cnts$adam
 cnts$sdtm
 
+# Overwrite metadata informations
+
+connect(config, metadata = list(extra_class = "my_class"))
+
 # Connect only to the adam datasource
 
-connect(config, "adam")
+connect(config, datasource = "adam")
 
 # Connect to several projects in a nested structure
 
