@@ -19,6 +19,7 @@ Imports:
     dplyr,
     glue,
     haven,
+    jsonlite,
     magrittr,
     options,
     purrr,

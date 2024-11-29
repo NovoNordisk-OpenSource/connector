@@ -3,9 +3,10 @@
     Code
       supported_fs()
     Output
-      [1] "read_ext.csv"      "read_ext.default"  "read_ext.parquet" 
-      [4] "read_ext.rds"      "read_ext.sas7bdat" "read_ext.txt"     
-      [7] "read_ext.xpt"      "read_ext.yaml"     "read_ext.yml"     
+       [1] "read_ext.csv"      "read_ext.default"  "read_ext.json"    
+       [4] "read_ext.parquet"  "read_ext.rds"      "read_ext.sas7bdat"
+       [7] "read_ext.txt"      "read_ext.xpt"      "read_ext.yaml"    
+      [10] "read_ext.yml"     
 
 ---
 
@@ -13,6 +14,7 @@
     i Supported extensions are:
     * read_ext.csv
     * read_ext.default
+    * read_ext.json
     * read_ext.parquet
     * read_ext.rds
     * read_ext.sas7bdat
