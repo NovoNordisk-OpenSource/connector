@@ -61,7 +61,12 @@ details below for the required structure of the configuration.</p>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">connect</span><span class="op">(</span>config <span class="op">=</span> <span class="st">"_connector.yml"</span>, datasource <span class="op">=</span> <span class="cn">NULL</span>, set_env <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">connect</span><span class="op">(</span></span>
+<span>  config <span class="op">=</span> <span class="st">"_connector.yml"</span>,</span>
+<span>  metadata <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  datasource <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  set_env <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -70,6 +75,10 @@ details below for the required structure of the configuration.</p>
 
 <dl><dt id="arg-config">config<a class="anchor" aria-label="anchor" href="#arg-config"></a></dt>
 <dd><p><a href="https://rdrr.io/r/base/character.html" class="external-link">character</a> path to a connector config file or a <a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> of specifications</p></dd>
+
+
+<dt id="arg-metadata">metadata<a class="anchor" aria-label="anchor" href="#arg-metadata"></a></dt>
+<dd><p><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a> Replace, add or create elements to the metadata field found in config</p></dd>
 
 
 <dt id="arg-datasource">datasource<a class="anchor" aria-label="anchor" href="#arg-datasource"></a></dt>
@@ -174,9 +183,27 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Specifications:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> conn: <span style="color: #0000BB;">&lt;SQLiteConnection&gt;</span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Overwrite metadata informations</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">connect</span><span class="op">(</span><span class="va">config</span>, metadata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>extra_class <span class="op">=</span> <span class="st">"my_class"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Replace some metadata informations...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Connection to:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="font-weight: bold;">adam</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> connector_fs</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> /home/runner/work/_temp/Library/connector/demo_trial/adam and my_class</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Connection to:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="font-weight: bold;">sdtm</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> connector_dbi</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> RSQLite::SQLite() and :memory:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   $adam <span style="color: #0000BB;">&lt;my_class&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   $sdtm <span style="color: #0000BB;">&lt;connector_dbi&gt;</span></span>
+<span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Connect only to the adam datasource</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">connect</span><span class="op">(</span><span class="va">config</span>, <span class="st">"adam"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">connect</span><span class="op">(</span><span class="va">config</span>, datasource <span class="op">=</span> <span class="st">"adam"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Connection to:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="font-weight: bold;">adam</span></span>
