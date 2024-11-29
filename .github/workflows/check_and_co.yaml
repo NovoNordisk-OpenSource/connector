@@ -8,6 +8,9 @@ on:
       - main
       - master
 name: All actions
+env:
+  R_KEEP_PKG_SOURCE: true
+  POSTGRES_PW: ${{secrets.TEST_POSTGRES_DB_PW}}
 jobs:
   check-current-version:
     name: Check current version
