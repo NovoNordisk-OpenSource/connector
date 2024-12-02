@@ -1,0 +1,79 @@
+---
+title: "How to extend connector"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{How to extend connector}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+# Setting up a tmp folder to use as the working directory for
+# the vignette. Also create a folder used in examples below.
+
+tmp <- withr::local_tempdir()
+dir.create(file.path(tmp, "my_root_path"))
+knitr::opts_knit$set(root.dir = tmp)
+
+library(connector)
+```
+
+`connector` is build to be easily extensible. This vignette will show you how to create your own connector classes, 
+and how to customize the existing ones, and their methods.
+
+The basic `connector` class is a simple `{R6}` object, with no additional functionality.
+It serves as the foundation for all other connectors, that should inherit from it in their `R6::R6Class()` definition -
+either directly or indirectly. Both `connector_fs()` and `connector_dbi()` inherit from `connector` in this way.
+
+
+
+# Creating a new connector
+
+```{r}
+connector_myclass <- R6::R6Class(
+  "connector_myclass",
+  inherit = connector
+)
+
+connector_myclass$new()
+```
+
+```{r}
+connector_project <- R6::R6Class(
+  "connector_project",
+  inherit = connector_fs,
+  public = list(
+    initialize = function(project) {
+      path <- file.path("my_root_path", project)
+      super$initialize(path)
+    }
+  )
+)
+
+my_project <- connector_project$new(project = "my_project")
+
+print(my_project)
+```
+## Create custom generic method
+
+```{r}
+list_content_cnt.connector_project <- function(self, ...) {
+  cat("This is a custom method for connector_project")
+  NextMethod()
+}
+
+print(my_project)
+
+my_project |> 
+  list_content_cnt()
+```
+
+## Special handling of files
+
+
+
