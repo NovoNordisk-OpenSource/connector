@@ -55,7 +55,7 @@ extract_datasources(yaml_content)
 only_one <- extract_connections(yaml_content)[[1]]
 
 ## Extract fct
-my_backend <- only_one %>%
+my_backend <- only_one |> 
     extract_backends()
 
 #### Create the backend for fs
@@ -124,7 +124,7 @@ connect$sdtm$read("iris")
 
 ## Manipulate a table with the database 
 
-connect$sdtm$tbl("iris")  %>% 
+connect$sdtm$tbl("iris") |>  
     dplyr::filter(Sepal.Length > 5)
 
 

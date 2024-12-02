@@ -18,7 +18,7 @@
 #' @rdname read_cnt
 #' @export
 read_cnt.connector_dbi <- function(connector_object, name, ...) {
-  connector_object$conn %>%
+  connector_object$conn |>
     DBI::dbReadTable(name = name, ...)
 }
 
@@ -41,7 +41,7 @@ read_cnt.connector_dbi <- function(connector_object, name, ...) {
 #' @rdname write_cnt
 #' @export
 write_cnt.connector_dbi <- function(connector_object, x, name, ...) {
-  connector_object$conn %>%
+  connector_object$conn |>
     DBI::dbWriteTable(name = name, value = x, ...)
   return(invisible(connector_object))
 }
@@ -59,7 +59,7 @@ write_cnt.connector_dbi <- function(connector_object, x, name, ...) {
 #' @rdname list_content_cnt
 #' @export
 list_content_cnt.connector_dbi <- function(connector_object, ...) {
-  connector_object$conn %>%
+  connector_object$conn |>
     DBI::dbListTables(...)
 }
 
@@ -81,7 +81,7 @@ list_content_cnt.connector_dbi <- function(connector_object, ...) {
 #' @rdname remove_cnt
 #' @export
 remove_cnt.connector_dbi <- function(connector_object, name, ...) {
-  connector_object$conn %>%
+  connector_object$conn |>
     DBI::dbRemoveTable(name = name, ...)
   return(invisible(connector_object))
 }
@@ -113,7 +113,7 @@ remove_cnt.connector_dbi <- function(connector_object, name, ...) {
 #' @rdname tbl_cnt
 #' @export
 tbl_cnt.connector_dbi <- function(connector_object, name, ...) {
-  connector_object$conn %>%
+  connector_object$conn |>
     dplyr::tbl(from = name, ...)
 }
 
@@ -133,6 +133,6 @@ tbl_cnt.connector_dbi <- function(connector_object, name, ...) {
 #' @rdname disconnect_cnt
 #' @export
 disconnect_cnt.connector_dbi <- function(connector_object, ...) {
-  connector_object$conn %>%
+  connector_object$conn |>
     DBI::dbDisconnect(...)
 }
