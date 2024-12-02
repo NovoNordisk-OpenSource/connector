@@ -74,6 +74,3 @@ my_project |>
 ```
 
 ## Special handling of files
-
-
-
