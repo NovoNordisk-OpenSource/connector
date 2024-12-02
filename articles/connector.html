@@ -43,6 +43,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/novonordisk-opensource/connector/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -59,7 +60,7 @@
       <h1>connector</h1>
             
       
-
+      <small class="dont-index">Source: <a href="https://github.com/novonordisk-opensource/connector/blob/main/vignettes/connector.Rmd" class="external-link"><code>vignettes/connector.Rmd</code></a></small>
       <div class="d-none name"><code>connector.Rmd</code></div>
     </div>
 
@@ -80,7 +81,7 @@ package to connect to either a <strong>file system</strong> or a
 <p>First let’s load all the packages we’re going to use in this
 vignette:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jubilant-adventure-yr95p3g.pages.github.io/" class="external-link">connector</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector">connector</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">connector.databricks</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">connector.sharepoint</span><span class="op">)</span></span></code></pre></div>
 <p>You may notice we’re not loading only connector package, but
@@ -310,7 +311,7 @@ for ADaM and TFL data.</p>
 <span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>      path<span class="sc">:</span> <span class="st">"{metadata.tfl_path}"</span></span></code></pre></div>
 <p>Now, let’s run the example:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jubilant-adventure-yr95p3g.pages.github.io/" class="external-link">connector</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector">connector</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
@@ -335,12 +336,12 @@ for ADaM and TFL data.</p>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → <span style="font-weight: bold;">adam</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> connector_fs</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpT051MV/adam</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpfiqKqB/adam</span></span>
 <span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → <span style="font-weight: bold;">tfl</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> connector_fs</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpT051MV/tfl</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpfiqKqB/tfl</span></span>
 <span></span>
 <span><span class="co">## Iris data</span></span>
 <span><span class="va">setosa</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op"><a href="../reference/pipe.html">%&gt;%</a></span></span>
