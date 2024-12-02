@@ -154,7 +154,7 @@ See also \link{create_directory_cnt}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\link{invisible} self.
+\link{connector_fs} object of a newly created directory
 }
 }
 \if{html}{\out{<hr>}}

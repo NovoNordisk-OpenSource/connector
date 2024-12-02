@@ -15,7 +15,7 @@ specs <- list(
     drv = RPostgres::Postgres(),
     dbname = "postgres",
     user = "postgres",
-    password = Sys.getenv("POSTGRES_PW"), # Stored in GH actions
+    password = "password",
     port = 5432,
     host = "localhost"
   )

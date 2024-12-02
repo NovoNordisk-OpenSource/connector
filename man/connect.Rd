@@ -4,15 +4,25 @@
 \alias{connect}
 \title{Connect to datasources specified in a config file}
 \usage{
-connect(config = "_connector.yml", datasource = NULL, set_env = TRUE)
+connect(
+  config = "_connector.yml",
+  metadata = NULL,
+  datasource = NULL,
+  set_env = TRUE,
+  logging = FALSE
+)
 }
 \arguments{
 \item{config}{\link{character} path to a connector config file or a \link{list} of specifications}
+
+\item{metadata}{\link{list} Replace, add or create elements to the metadata field found in config}
 
 \item{datasource}{\link{character} Name(s) of the datasource(s) to connect to.
 If \code{NULL} (the default) all datasources are connected.}
 
 \item{set_env}{\link{logical} Should environment variables from the yaml file be set? Default is TRUE.}
+
+\item{logging}{\link{logical} Add logs to the console as well as to the whirl log html files. See details with this vignette.}
 }
 \value{
 \link{connectors}
@@ -66,9 +76,13 @@ cnts
 cnts$adam
 cnts$sdtm
 
+# Overwrite metadata informations
+
+connect(config, metadata = list(extra_class = "my_class"))
+
 # Connect only to the adam datasource
 
-connect(config, "adam")
+connect(config, datasource = "adam")
 
 # Connect to several projects in a nested structure
 

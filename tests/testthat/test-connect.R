@@ -54,7 +54,7 @@ test_that("yaml config parsed correctly", {
 
   # Run with no env vars set
 
-  if (getRversion() >= as.package_version("4.4.1"))
+  if (getRversion() >= as.package_version("4.4.1")) {
     withr::with_envvar(
       new = list(hello = "", RSQLite_db = "", system_path = ""),
       code = {
@@ -66,9 +66,10 @@ test_that("yaml config parsed correctly", {
           expect_no_condition()
       }
     )
+  }
 
   # Run below with already set "hello" env var
-  if (getRversion() >= as.package_version("4.4.1"))
+  if (getRversion() >= as.package_version("4.4.1")) {
     withr::with_envvar(
       new = c(hello = "test", RSQLite_db = "", system_path = ""),
       code = {
@@ -89,4 +90,53 @@ test_that("yaml config parsed correctly", {
           suppressMessages() # Not print the bullets to the test log
       }
     )
+  }
+})
+
+testthat::test_that("Using a list instead of yaml", {
+  # using yaml already parsed as list
+
+  connect(yaml_content_raw) |>
+    expect_no_error()
+})
+
+testthat::test_that("Using a json instead of yaml", {
+  # using json file
+
+  connect(test_path("config_json.json")) |>
+    expect_no_error()
+})
+
+testthat::test_that("Using and uptade metadata", {
+
+  test_list <- connect(yaml_content_raw, metadata = list(extra_class = "test_from_metadata")) |>
+    expect_no_error()
+
+  expect_s3_class(test_list$adam, "test_from_metadata")
+
+  test_yaml <- connect(yaml_file, metadata = list(extra_class = "test_from_metadata")) |>
+    expect_no_error()
+
+  expect_s3_class(test_yaml$adam, "test_from_metadata")
+})
+
+test_that("Add logs to connectors object",{
+   # Don't test the logic of connector.logger because it is not the purpose of connector
+   cnts <- connect(yaml_file, logging = TRUE)
+
+
+  lapply(cnts, function(x){
+    expect_s3_class(x, "connector")
+    expect_true(
+      all(
+        c("read_cnt", "write_cnt", "remove_cnt", "list_content_cnt") %in% names(x$.__enclos_env__$self)
+        )
+      )
+    expect_equal(class(x$read_cnt), "function")
+  })
+
+
+  lapply(cnts, function(x){
+    expect_s3_class(x, "connector_logger")
+  })
 })

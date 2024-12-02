@@ -12,7 +12,8 @@ The connector package helps connecting R to databases that contains ADAM, STDM a
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://fantastic-adventure-gqozn9k.pages.github.io}
+  \item \url{https://novonordisk-opensource.github.io/connector}
+  \item \url{https://github.com/novonordisk-opensource/connector}
 }
 
 }

@@ -29,10 +29,13 @@
 #' * For each connection **backend**.**type** must be provided
 #'
 #' @param config [character] path to a connector config file or a [list] of specifications
+#' @param metadata [list] Replace, add or create elements to the metadata field found in config
 #' @param datasource [character] Name(s) of the datasource(s) to connect to.
 #' If `NULL` (the default) all datasources are connected.
 #' @param set_env [logical] Should environment variables from the yaml file be set? Default is TRUE.
+#' @param logging [logical] Add logs to the console as well as to the whirl log html files. See details with this vignette.
 #' @return [connectors]
+#'
 #' @examples
 #' config <- system.file("config", "default_config.yml", package = "connector")
 #'
@@ -51,9 +54,13 @@
 #' cnts$adam
 #' cnts$sdtm
 #'
+#' # Overwrite metadata informations
+#'
+#' connect(config, metadata = list(extra_class = "my_class"))
+#'
 #' # Connect only to the adam datasource
 #'
-#' connect(config, "adam")
+#' connect(config, datasource = "adam")
 #'
 #' # Connect to several projects in a nested structure
 #'
@@ -69,7 +76,11 @@
 #' cnts_nested$study1
 #' @export
 
-connect <- function(config = "_connector.yml", datasource = NULL, set_env = TRUE) {
+connect <- function(config = "_connector.yml", metadata = NULL, datasource = NULL, set_env = TRUE, logging = FALSE) {
+  ## Check params
+  checkmate::assert_list(metadata, names = "unique", null.ok = TRUE)
+  checkmate::assert_logical(logging)
+
   if (!is.list(config)) {
     if (tools::file_ext(config) %in% c("yml", "yaml")) {
       config <- read_file(config, eval.expr = TRUE)
@@ -81,15 +92,33 @@ connect <- function(config = "_connector.yml", datasource = NULL, set_env = TRUE
   if (is.null(names(config))) {
     names(config) <- purrr::map(config, "name")
     cnts <- config |>
-      purrr::map(\(x) connect(x, datasource, set_env))
+      purrr::map(\(x) connect(x, metadata, datasource, set_env))
     return(do.call(connectors, cnts))
   }
 
-  config |>
+  # Replace metadata if needed
+  if(!is.null(metadata)){
+    zephyr::msg(
+      c("Replace some metadata informations...")
+    )
+    config[["metadata"]] <- change_to_new_metadata(
+       old_metadata = config[["metadata"]],
+       new_metadata = metadata
+      )
+  }
+
+  connections <- config |>
     assert_config() |>
     parse_config(set_env = set_env) |>
     filter_config(datasource = datasource) |>
     connect_from_config()
+
+  if(logging){
+    rlang::check_installed("connector.logger")
+    connections <- connector.logger::add_logs(connections)
+  }
+
+  connections
 }
 
 #' Connect datasources to the connections from the yaml content
