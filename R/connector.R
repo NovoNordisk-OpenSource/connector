@@ -123,6 +123,9 @@ print_cnt <- function(connector_object) {
     utils::head(1)
 
   specs <- if(R6::is.R6(connector_object)) {connector_object$.__enclos_env__$.__active__} else {NULL}
+  if (length(specs) == 0) {
+    specs <- NULL
+  }
 
   if (!is.null(specs)) {
     specs <- specs |>

@@ -1,3 +1,7 @@
+# connector dev
+
+- Add README and vignette on how to extend connector
+
 # connector 0.0.4 (2024-12-03)
 
 ### Migration:
