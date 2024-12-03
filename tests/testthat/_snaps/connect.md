@@ -1,7 +1,7 @@
 # Connect datasources to the connections for a yaml file
 
     Code
-      iris_f %>% dplyr::collect()
+      dplyr::collect(iris_f)
     Output
       # A tibble: 118 x 5
          Sepal.Length Sepal.Width Petal.Length Petal.Width Species

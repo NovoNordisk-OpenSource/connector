@@ -65,7 +65,7 @@ connector <- R6::R6Class(
     #' List available content from the connector. See also [list_content_cnt].
     #' @return A [character] vector of content names
     list_content_cnt = function(...) {
-      self %>%
+      self |>
         list_content_cnt(...)
     },
 
@@ -74,7 +74,7 @@ connector <- R6::R6Class(
     #' @return
     #' R object with the content. For rectangular data a [data.frame].
     read_cnt = function(name, ...) {
-      self %>%
+      self |>
         read_cnt(name, ...)
     },
 
@@ -82,7 +82,7 @@ connector <- R6::R6Class(
     #' Write content to the connector.See also [write_cnt].
     #' @return `r rd_connector_utils("inv_self")`
     write_cnt = function(x, name, ...) {
-      self %>%
+      self |>
         write_cnt(x, name, ...)
     },
 
@@ -90,7 +90,7 @@ connector <- R6::R6Class(
     #' Remove or delete content from the connector. See also [remove_cnt].
     #' @return `r rd_connector_utils("inv_self")`
     remove_cnt = function(name, ...) {
-      self %>%
+      self |>
         remove_cnt(name, ...)
     }
   )
