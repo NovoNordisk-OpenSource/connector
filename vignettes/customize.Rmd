@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 # the vignette. Also create a folder used in examples below.
 
 tmp <- withr::local_tempdir()
-dir.create(file.path(tmp, "my_root_path"))
+dir.create(path = file.path(tmp, "my_root_path", "my_project"), recursive = TRUE)
 knitr::opts_knit$set(root.dir = tmp)
 
 library(connector)
@@ -30,9 +30,9 @@ The basic `connector` class is a simple `{R6}` object, with no additional functi
 It serves as the foundation for all other connectors, that should inherit from it in their `R6::R6Class()` definition -
 either directly or indirectly. Both `connector_fs()` and `connector_dbi()` inherit from `connector` in this way.
 
+## Creating a new connector
 
-
-# Creating a new connector
+We can create a new connector by creating a new R6 class that inherits from `connector`:
 
 ```{r}
 connector_myclass <- R6::R6Class(
@@ -43,34 +43,221 @@ connector_myclass <- R6::R6Class(
 connector_myclass$new()
 ```
 
+This is the simplest type of inheritance, and you should note that the `connector` 
+parent class has no methods for e.g. reading (`read_cnt()`) or writing (`write_cnt()`) data.
+
+In most cases you want to inherit from either `connector_fs()` or `connector_dbi()` depending
+on if your new connector is used to access files or databases respectively.
+
+Below we create a new `connector_project` class that inherits and acts exactly as the `connector_fs()`,
+but instead of the user having the provide the `path` to the folder as an argument, 
+they provide the `project` name, and the `path` is constructed from that.
+
 ```{r}
 connector_project <- R6::R6Class(
   "connector_project",
   inherit = connector_fs,
   public = list(
     initialize = function(project) {
+      private$.project <- project
       path <- file.path("my_root_path", project)
       super$initialize(path)
     }
+  ),
+  private = list(
+    .project = NULL
+  ),
+  active = list(
+    project = function() {
+      private$.project
+    }
   )
 )
+```
 
+This way of extending connector could e.g. be relevant inside an organisation where 
+all projects are stored in a common folder structure.
+
+When we not initialize a `connector_project` you can see that it still has all the methods from `connector_fs()`,
+and that the path has been assigned correctly based on the `project` argument:
+
+```{r}
 my_project <- connector_project$new(project = "my_project")
 
 print(my_project)
 ```
-## Create custom generic method
+
+We can now use this `connector` to read and write data, just as we would with `connector_fs()`:
 
 ```{r}
-list_content_cnt.connector_project <- function(self, ...) {
-  cat("This is a custom method for connector_project")
+# First list current content:
+my_project |> 
+  list_content_cnt()
+
+# Write some content:
+my_project |> 
+  write_cnt("Hello world!", "my_file.txt")
+
+# List content again:
+my_project |> 
+  list_content_cnt()
+
+# Read the content:
+my_project |> 
+  read_cnt("my_file.txt")
+```
+
+## Create custom generic method
+
+All `connector`generics such as `list_content_cnt()`, `read_cnt()`, and `write_cnt()` are S3 generics.
+This means that you can create custom methods for your new connector class, and they will be used when the generic is called, 
+instead of the one associated with the parent class.
+
+To illustrate this we can take a look at the `list_content_cnt()` generic:
+
+```{r}
+# Print the generic 
+print(list_content_cnt)
+
+# List the registered s3 methods
+methods("list_content_cnt") |> 
+  cat(sep = "\n")
+```
+Building further on the example below we can define a custom method for `list_content_cnt()` for the `connector_project` class,
+to be used instead of `list_content_cnt.connector_fs()`:
+
+```{r}
+list_content_cnt.connector_project <- function(connector_object, ...) {
+  cli::cli_alert("Listing content of {connector_object$project}")
   NextMethod()
 }
+```
 
+This is of course a very simple example, that just prints a message before calling the `connector_fs` method.
+
+We can now see that this method is available and that is it associated with the `connector_project` class:
+
+```{r}
+# List methods again
+methods("list_content_cnt") |> 
+  cat(sep = "\n")
+
+# Print my_project connector to see associated methods
 print(my_project)
+```
+And when we use `list_content_cnt()` on our `my_project` object, we see that the custom method is used and we get the message:
 
+```{r}
 my_project |> 
   list_content_cnt()
 ```
 
+## Use extra class for simple customization
+
+If you as above just want to slightly tweak the behavior of an existing functionality
+an alternative solution is to use the `extra_class` argument when initializing of the connector.
+
+This argument adds the `extra_class` as the first class of the creating the connector,
+meaning that for any generic dispatch, such as of `list_content_cnt()`, a method for this class will
+be used before any of the connector classes.
+
+To redo the two examples above we make a new `connector_fs` with the extra class `demo_extra`:
+
+```{r}
+my_project_extra <- connector_fs$new(
+  path = "my_root_path/my_project", 
+  extra_class = "my_extra_class"
+  )
+
+print(my_project_extra)
+```
+As you can see here we have all the methods from `connector_fs()`, but the `demo_extra` is now the first class in the class hierarchy.
+
+To create a custom method for `list_content_cnt()` for the `demo_extra` we do the same as for the `connector_project` above:
+
+```{r}
+list_content_cnt.my_extra_class <- function(connector_object, ...) {
+  cli::cli_alert("Listing content of {connector_object$path}")
+  NextMethod()
+}
+```
+
+The project information is of course not available now, so we just print the path instead,
+but otherwise everything is the same:
+
+```{r}
+# List methods
+methods("list_content_cnt")
+
+# Print my_project_extra connector to see associated methods
+print(my_project_extra)
+
+# List content to see the new message
+my_project_extra |> 
+  list_content_cnt()
+```
+
 ## Special handling of files
+
+A special property of file storage connectors (inheriting from `connector_fs()`) is
+that they are operating on files on not databases. This means that they can handle 
+multiple file formats, and also not only file formats for reading and writing rectangular data.
+
+When handling files the user will only use the `read_cnt()` and `write_cnt()` generics, 
+but behind the scenes the following chain of functions are called:
+
+* `read_cnt()` --> `read_file()` --> `read_ext()` --> External read function
+* `write_cnt()` --> `write_file()` --> `write_ext()` --> External write function
+
+Here `read_cnt()` dispatches based on the class of the `connector` object. 
+For the file storage connectors (inheriting from `connector_fs()`) the `read_file()` method is 
+then called on the path of the file. 
+
+`read_file()` here is only a helper function, that then calls `read_ext()` which is a 
+generic that dispatches based on file extension of the file, and uses general functions
+from other packages to read the file. As an example any file with the extension `.csv` 
+will be read using `readr::read_csv()`.
+
+The same logic applies to `write_cnt()`.
+
+### Add new file format
+
+The currently supported file types can be seen in reference of the `read_cnt()` and 
+`write_cnt()` functions respectively.
+
+But let us imagine we want to support a new imaginary file format `myformat`. 
+In order to this all we need to do is to create the appropriate `read_ext()` and 
+`write_ext()` methods:
+
+```{r}
+read_ext.myformat <- function(path, ...) {
+  cli::cli_alert("Reading myformat file")
+  readLines(con = path)
+}
+
+write_ext.myformat <- function(file, x, ...) {
+  cli::cli_alert("Writing myformat file")
+  writeLines(text = x, con = file)
+}
+```
+
+And we can now use them to write and read our new file format with out
+existing `my_project` connector:
+
+```{r}
+# List already existing content:
+my_project |> 
+  list_content_cnt()
+
+# Write some content in myformat:
+my_project |> 
+  write_cnt("Hello new format!", "new_file.myformat")
+
+# List content again:
+my_project |> 
+  list_content_cnt()
+
+# Read the content:
+my_project |> 
+  read_cnt("new_file.myformat")
+```
