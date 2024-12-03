@@ -11,7 +11,7 @@
 #' @return `write_file()`: [invisible()] file.
 #' @export
 write_file <- function(x, file, ...) {
-  find_ext <- tools::file_ext(file) |>
+  find_ext <- get_file_ext(file) |>
     assert_ext("write_ext")
 
   class(file) <- c(find_ext, class(file))

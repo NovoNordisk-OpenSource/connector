@@ -70,7 +70,7 @@ connector_dbi <- R6::R6Class(
     #' See also [disconnect_cnt].
     #' @return [invisible] `self`.
     disconnect_cnt = function() {
-      self %>%
+      self |>
         disconnect_cnt()
     },
 
@@ -79,7 +79,7 @@ connector_dbi <- R6::R6Class(
     #' See also [tbl_cnt].
     #' @return A [dplyr::tbl] object.
     tbl_cnt = function(name, ...) {
-      self %>%
+      self |>
         tbl_cnt(name, ...)
     }
   ),
