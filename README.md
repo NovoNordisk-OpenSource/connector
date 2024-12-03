@@ -73,7 +73,7 @@ db <- connect("_connector.yml")
 #> Connection to:
 #> → folder
 #> • connector_fs
-#> • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//Rtmp7DGIBJ/filef4a44de0d58b
+#> • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpfTSxQB/file1c1d28730925
 #> ────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → database
@@ -194,7 +194,8 @@ For more information on how to use the package, see the following links:
 - `connect()` for more documentation and how to specify the
   configuration file
 - `vignette("connector")` for more examples and how to use the package
-- `vignette("extend")` on how to create your own connector
+- `vignette("customize")` on how to create your own connector and
+  customize behavior
 - [NovoNordisk-OpenSource/R-packages](https://novonordisk-opensource.github.io/R-packages/)
   for an overview of connector and other R packages published by Novo
   Nordisk
