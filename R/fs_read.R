@@ -10,7 +10,7 @@
 #' @return the result of the reading function
 #' @export
 read_file <- function(path, ...) {
-  find_ext <- tools::file_ext(path)
+  find_ext <- get_file_ext(path)
 
   class(path) <- c(find_ext, class(path))
 
