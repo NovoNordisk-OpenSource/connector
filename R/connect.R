@@ -82,7 +82,7 @@ connect <- function(config = "_connector.yml", metadata = NULL, datasource = NUL
   checkmate::assert_logical(logging)
 
   if (!is.list(config)) {
-    if (tools::file_ext(config) %in% c("yml", "yaml")) {
+    if (get_file_ext(config) %in% c("yml", "yaml")) {
       config <- read_file(config, eval.expr = TRUE)
     } else {
       config <- read_file(config)
