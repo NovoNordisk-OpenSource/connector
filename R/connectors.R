@@ -5,6 +5,7 @@
 #' connections in your project.
 #'
 #' @param ... Named individual [connector] objects
+#' @param datasources [list] of information for datasources from the connect function. By default NULL, only used with connect
 #'
 #' @examples
 #' # Create connectors objects
@@ -27,10 +28,18 @@
 #' @export
 connectors <- function(...) {
   x <- rlang::list2(...)
+  if(is.null(x$datasources)){
+    cnts <- substitute(list(...))
+    datasources <- connectors_to_datasources(cnts)
+  }else{
+    datasources <- x$datasources
+  }
+  datasources <- structure(datasources, class = "cnts_datasources")
   checkmate::assert_list(x = x, names = "named")
   structure(
-    x,
-    class = c("connectors")
+    x[names(x) != "datasources"],
+    class = c("connectors"),
+    datasources = datasources
   )
 }
 
@@ -54,4 +63,24 @@ print.connectors <- function(x, ...) {
     )
   )
   return(invisible(x))
+}
+
+#' @export
+print.cnts_datasources <- function(x, ...) {
+  cli::cli_h1("Datasources")
+  
+  for (ds in x$datasources) {
+    cli::cli_h2(ds$name)
+    cli::cli_ul()
+    cli::cli_li("Backend Type: {.val {ds$backend$type}}")
+    for (param_name in names(ds$backend)[names(ds$backend) != "type"]) {
+      cli::cli_li("{param_name}: {.val {ds$backend[[param_name]]}}")
+    }
+    cli::cli_end()
+  }
+}
+
+datasources <- function(connectors){
+  ds <- attr(connectors, "datasources")
+  ds
 }

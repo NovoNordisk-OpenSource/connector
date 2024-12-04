@@ -117,7 +117,7 @@ connect <- function(config = "_connector.yml", metadata = NULL, datasource = NUL
     rlang::check_installed("connector.logger")
     connections <- connector.logger::add_logs(connections)
   }
-
+  
   connections
 }
 
@@ -126,11 +126,14 @@ connect <- function(config = "_connector.yml", metadata = NULL, datasource = NUL
 #' Connect datasources to the connections from the yaml content
 #' @noRd
 connect_from_config <- function(config) {
+ 
   connections <- config$datasources |>
     purrr::map(create_connection) |>
     rlang::set_names(purrr::map_chr(config$datasources, list("name", 1)))
-
+  connections$datasources <- config$datasources
+  
   do.call(what = connectors, args = connections)
+  
 }
 
 #' @noRd
