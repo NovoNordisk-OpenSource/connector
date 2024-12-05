@@ -6,7 +6,7 @@
 #' @noRd
 #' @examples
 #' yaml_file <- system.file("config", "example_for_generic.yml", package = "connector")
-#' yaml_content <- yaml::read_yaml(yaml_file, eval.expr=TRUE)
+#' yaml_content <- yaml::read_yaml(yaml_file, eval.expr = TRUE)
 #'
 #' only_one <- yaml_content[["datasources"]][[1]][["backend"]]
 #'
@@ -73,9 +73,11 @@ try_connect <- function(connect_fct, params_from_user) {
   connect_ <- try(do.call(connect_fct, params_from_user), silent = TRUE)
 
   if (inherits(connect_, "try-error")) {
-    c("Problem in connection to the backend:",
-      connect_) |>
-    cli::cli_abort()
+    c(
+      "Problem in connection to the backend:",
+      connect_
+    ) |>
+      cli::cli_abort()
   }
 
   return(connect_)

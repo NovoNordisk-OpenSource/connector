@@ -47,7 +47,6 @@ connector_fs <- R6::R6Class(
     #' @param extra_class [character] Extra class to be added
     #' Checked using [checkmate::assert_directory_exists].
     initialize = function(path, extra_class = NULL) {
-
       private$.path <- path
       super$initialize(extra_class = extra_class)
     },
