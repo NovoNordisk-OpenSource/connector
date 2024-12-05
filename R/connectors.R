@@ -5,7 +5,7 @@
 #' connections in your project.
 #'
 #' @param ... Named individual [connector] objects
-#' 
+#'
 #' @examples
 #' # Create connectors objects
 #'
@@ -26,12 +26,11 @@
 #'
 #' @export
 connectors <- function(...) {
-
   x <- rlang::list2(...)
 
-  if(!is.null(x$atasources) & !inherits(x$datasources, "cnts_datasources")){
+  if (!is.null(x$atasources) & !inherits(x$datasources, "cnts_datasources")) {
     cli::cli_abort("'datasources' is a reserved name. It cannot be used as a name for a data source.")
-  } 
+  }
 
   if (is.null(x$datasources)) {
     cnts <- substitute(list(...))
@@ -49,8 +48,8 @@ connectors <- function(...) {
 }
 
 #' @export
-print.connectors <- function(x, ...){
-  print_connectors(x,...)
+print.connectors <- function(x, ...) {
+  print_connectors(x, ...)
 }
 
 #' @noRd
@@ -115,7 +114,7 @@ as_datasources <- function(...) {
 #' # Assume we have a 'my_connectors' object with a 'datasources' attribute
 #' my_connectors <- list()
 #' attr(my_connectors, "datasources") <- list(source1 = "data1", source2 = "data2")
-#' 
+#'
 #' # Using the function
 #' result <- datasources(my_connectors)
 #' print(result)
@@ -134,7 +133,7 @@ datasources <- function(connectors) {
 #'
 #' @return A list with class "nested_connectors" containing the provided arguments.
 #' @export
-nested_connectors <- function(...){
+nested_connectors <- function(...) {
   x <- rlang::list2(...)
   structure(
     x,
@@ -143,6 +142,6 @@ nested_connectors <- function(...){
 }
 
 #' @export
-print.nested_connectors <- function(x, ...){
-  print_connectors(x,...)
+print.nested_connectors <- function(x, ...) {
+  print_connectors(x, ...)
 }
