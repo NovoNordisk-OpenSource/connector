@@ -44,7 +44,7 @@ connector_myclass$new()
 ```
 
 This is the simplest type of inheritance, and you should note that the `connector` 
-parent class has no methods for e.g. reading (`read_cnt()`) or writing (`write_cnt()`) data.
+parent class has no methods capable of e.g. reading (`read_cnt()`) or writing (`write_cnt()`) data.  It only has default methods that throws meaningful errors if you have not defined the method (e.g. `write_cnt.my_class()`) for your new connector class.
 
 In most cases you want to inherit from either `connector_fs()` or `connector_dbi()` depending
 on if your new connector is used to access files or databases respectively.
