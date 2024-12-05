@@ -1,0 +1,13 @@
+metadata:
+  path: !expr withr::local_tempdir()
+
+datasources:
+  - name: "folder"
+    backend:
+        type: "connector_fs"
+        path: "{metadata.path}"
+  - name: "database"
+    backend:
+        type: "connector_dbi"
+        drv: "RSQLite::SQLite()"
+        dbname: ":memory:"
