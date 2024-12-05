@@ -1,3 +1,8 @@
+# connector 0.0.4.9000
+
+- Connectors constructor builds the datasources attribute
+- Create a new class for nested connectors objects, "nested_connectors"
+
 # connector 0.0.4 (2024-12-03)
 
 ### Migration:
