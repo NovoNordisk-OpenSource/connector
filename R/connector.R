@@ -126,6 +126,10 @@ print_cnt <- function(connector_object) {
     connector_object$.__enclos_env__$.__active__
   } else {
     NULL
+ }
+  
+  if (length(specs) == 0) {
+    specs <- NULL
   }
 
   if (!is.null(specs)) {

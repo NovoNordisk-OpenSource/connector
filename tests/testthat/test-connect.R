@@ -68,9 +68,6 @@ test_that("yaml config parsed correctly", {
     )
   }
 
-
-
-
   # Run below with already set "hello" env var
   if (getRversion() >= as.package_version("4.4.1")) {
     withr::with_envvar(

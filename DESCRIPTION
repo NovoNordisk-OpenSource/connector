@@ -8,7 +8,7 @@ Authors@R: c(
   )
 Description: The connector package helps connecting R to databases that contains
     ADAM, STDM and so on. The package defines an interface that can be
-    reuse for any databases.
+    reused for any databases.
 License: Apache License (>= 2)
 URL: https://novonordisk-opensource.github.io/connector, https://github.com/novonordisk-opensource/connector
 Imports: 

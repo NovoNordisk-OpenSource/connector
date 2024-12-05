@@ -122,8 +122,6 @@ connect <- function(config = "_connector.yml", metadata = NULL, datasource = NUL
   connections
 }
 
-
-
 #' Connect datasources to the connections from the yaml content
 #' @noRd
 connect_from_config <- function(config) {
