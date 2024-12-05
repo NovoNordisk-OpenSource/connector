@@ -56,7 +56,7 @@ connector_fs <- R6::R6Class(
     #' See also [download_cnt].
     #' @return [invisible] `file`
     download_cnt = function(name, file = basename(name), ...) {
-      self %>%
+      self |>
         download_cnt(name, file, ...)
     },
 
@@ -65,7 +65,7 @@ connector_fs <- R6::R6Class(
     #' See also [upload_cnt].
     #' @return `r rd_connector_utils("inv_self")`
     upload_cnt = function(file, name = basename(file), ...) {
-      self %>%
+      self |>
         upload_cnt(file, name, ...)
     },
 
@@ -75,7 +75,7 @@ connector_fs <- R6::R6Class(
     #' @param name [character] The name of the directory to create
     #' @return [connector_fs] object of a newly created directory
     create_directory_cnt = function(name, ...) {
-      self %>%
+      self |>
         create_directory_cnt(name, ...)
     },
 
@@ -85,7 +85,7 @@ connector_fs <- R6::R6Class(
     #' @param name [character] The name of the directory to remove
     #' @return `r rd_connector_utils("inv_self")`
     remove_directory_cnt = function(name, ...) {
-      self %>%
+      self |>
         remove_directory_cnt(name, ...)
     }
   ),

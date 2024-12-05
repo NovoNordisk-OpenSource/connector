@@ -7,11 +7,11 @@ test_that("Connect datasources to the connections for a yaml file", {
 
   ## write and read for a system file
   withr::with_options(list(readr.show_col_types = FALSE), {
-    cnts$adam$read_cnt("adsl.csv") %>%
+    cnts$adam$read_cnt("adsl.csv") |>
       expect_s3_class("data.frame")
     expect_error(cnts$adam$read_cnt("do_not_exits.csv"))
 
-    cnts$adam$write_cnt(data.frame(a = 1:10, b = 11:20), "example.csv") %>%
+    cnts$adam$write_cnt(data.frame(a = 1:10, b = 11:20), "example.csv") |>
       expect_no_error()
 
     expect_no_error(cnts$adam$read_cnt("example.csv"))
@@ -26,12 +26,12 @@ test_that("Connect datasources to the connections for a yaml file", {
 
   ## Manipulate a table with the database
 
-  iris_f <- cnts$sdtm$tbl_cnt("iris") %>%
+  iris_f <- cnts$sdtm$tbl_cnt("iris") |>
     dplyr::filter(Sepal.Length > 5)
 
   expect_s3_class(iris_f, "tbl_dbi")
 
-  expect_snapshot(iris_f %>% dplyr::collect())
+  expect_snapshot(dplyr::collect(iris_f))
 })
 
 test_that("Tools for yaml parsinbg", {
@@ -122,7 +122,12 @@ testthat::test_that("Using and uptade metadata", {
   expect_s3_class(test_yaml$adam, "test_from_metadata")
 })
 
-test_that("Add logs to connectors object", {
+test_that("Add logs to connectors object",{
+
+  # connector.logger needs to be installed to pass this test - if not available
+  # then skip the test
+  testthat::skip_if_not_installed("connector.logger")
+
   # Don't test the logic of connector.logger because it is not the purpose of connector
   cnts <- connect(yaml_file, logging = TRUE)
 

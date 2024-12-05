@@ -58,14 +58,14 @@ assert_ext <- function(ext, method) {
 #' @importFrom rlang set_names
 #' @noRd
 error_extension <- function() {
-  ext_supp <- supported_fs() %>%
+  ext_supp <- supported_fs() |>
     rlang::set_names("*")
   c(
     "No method found for this extension, please implement your own method
     (to see an example run `connector::example_read_ext()`) or use a supported extension",
     "i" = "Supported extensions are:",
     ext_supp
-  ) %>%
+  ) |>
     cli::cli_abort()
 }
 

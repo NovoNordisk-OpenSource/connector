@@ -71,7 +71,7 @@ write_cnt.connector_fs <- function(connector_object, x, name, ...) {
 #' @rdname list_content_cnt
 #' @export
 list_content_cnt.connector_fs <- function(connector_object, ...) {
-  connector_object$path %>%
+  connector_object$path |>
     list.files(...)
 }
 
