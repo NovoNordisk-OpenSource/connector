@@ -104,7 +104,7 @@ if your new connector is used to access files or databases
 respectively.</p>
 <p>Below we create a new <code>connector_project</code> class that
 inherits and acts exactly as the <code><a href="../reference/connector_fs.html">connector_fs()</a></code>, but
-instead of the user having the provide the <code>path</code> to the
+instead of the user having to provide the <code>path</code> to the
 folder as an argument, they provide the <code>project</code> name, and
 the <code>path</code> is constructed from that.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
@@ -192,7 +192,7 @@ class.</p>
 <span><span class="co">#&gt; {</span></span>
 <span><span class="co">#&gt;     UseMethod("list_content_cnt")</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x56534f829b50&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x555fb00c8b50&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:connector&gt;</span></span>
 <span></span>
 <span><span class="co"># List the registered s3 methods</span></span>
@@ -329,7 +329,7 @@ print the path instead, but otherwise everything is the same:</p>
 <h2 id="special-handling-of-files">Special handling of files<a class="anchor" aria-label="anchor" href="#special-handling-of-files"></a>
 </h2>
 <p>A special property of file storage connectors (inheriting from
-<code><a href="../reference/connector_fs.html">connector_fs()</a></code>) is that they are operating on files on not
+<code><a href="../reference/connector_fs.html">connector_fs()</a></code>) is that they are operating on files not on
 databases. This means that they can handle multiple file formats, and
 also not only file formats for reading and writing rectangular data.</p>
 <p>When handling files the user will only use the
