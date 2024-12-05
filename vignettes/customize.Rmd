@@ -50,7 +50,7 @@ In most cases you want to inherit from either `connector_fs()` or `connector_dbi
 on if your new connector is used to access files or databases respectively.
 
 Below we create a new `connector_project` class that inherits and acts exactly as the `connector_fs()`,
-but instead of the user having the provide the `path` to the folder as an argument, 
+but instead of the user having to provide the `path` to the folder as an argument, 
 they provide the `project` name, and the `path` is constructed from that.
 
 ```{r}
@@ -200,7 +200,7 @@ my_project_extra |>
 ## Special handling of files
 
 A special property of file storage connectors (inheriting from `connector_fs()`) is
-that they are operating on files on not databases. This means that they can handle 
+that they are operating on files not on databases. This means that they can handle 
 multiple file formats, and also not only file formats for reading and writing rectangular data.
 
 When handling files the user will only use the `read_cnt()` and `write_cnt()` generics, 
