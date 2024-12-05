@@ -1,6 +1,6 @@
 test_that("extract_function_info works for standard functions", {
   result <- extract_function_info("stats::lm(formula = y ~ x, data = df)")
-  
+
   expect_s3_class(result, "clean_fct_info")
   expect_equal(result$function_name, "lm")
   expect_equal(result$package_name, "stats")
@@ -12,7 +12,7 @@ test_that("extract_function_info works for R6 class constructors", {
   # Mocking an R6 class for testing
   call_ <- deparse(substitute(connector$new(extra_class = "test")))
   result <- extract_function_info(call_)
-  
+
   expect_s3_class(result, "clean_fct_info")
   expect_equal(result$function_name, "connector")
   expect_true(result$is_r6)
@@ -22,7 +22,7 @@ test_that("extract_function_info works for R6 class constructors", {
 test_that("extract_base_info correctly extracts package and function names", {
   result1 <- extract_base_info("stats::lm", FALSE)
   expect_equal(result1, list(package_name = "stats", func_name = "lm"))
-  
+
   result2 <- extract_base_info("connector$new", TRUE)
   expect_equal(result2, list(package_name = c(name = "connector"), func_name = "connector"))
 })
@@ -36,9 +36,9 @@ test_that("get_standard_specific_info works correctly", {
 test_that("extract_and_process_params handles named and unnamed parameters", {
   expr <- rlang::parse_expr("lm(y ~ x, data = df, 42)")
   formal_args <- c("formula", "data", "subset", "weights")
-  
+
   result <- extract_and_process_params(expr, formal_args)
-  expect_equal(result, list( data = "df", formula = "y ~ x", subset = "42"))
+  expect_equal(result, list(data = "df", formula = "y ~ x", subset = "42"))
 })
 
 test_that("process_ellipsis_params handles ... correctly", {

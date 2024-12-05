@@ -4,6 +4,5 @@ yaml_content_raw <- yaml::read_yaml(yaml_file, eval.expr = TRUE)
 yaml_content_parsed <- connector:::parse_config(yaml_content_raw)
 
 # create the json file
-# jsonlite::toJSON(yaml_content_raw, pretty = TRUE) |> 
+# jsonlite::toJSON(yaml_content_raw, pretty = TRUE) |>
 #   cat(file = "tests/testthat/config_json.json")
-

@@ -62,8 +62,10 @@ transform_as_backend <- function(infos, name) {
 #'
 #' @keywords internal
 transform_as_datasources <- function(bks) {
-  list(
-    datasources = bks
+  as_datasources(
+    list(
+      datasources = bks
+    )
   )
 }
 

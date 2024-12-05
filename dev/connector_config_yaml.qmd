@@ -17,30 +17,30 @@ Read and understand the yaml file
 
 ```{r}
 yaml_file <- system.file("config", "default_config.yml", package = "connector")
-yaml_content <- yaml::read_yaml(yaml_file, eval.expr=TRUE)
+yaml_content <- yaml::read_yaml(yaml_file, eval.expr = TRUE)
 
 class(yaml_content)
 print(yaml_content)
 
-extract_element <- function(yaml_content, element){
-    yaml_content[[element]]
+extract_element <- function(yaml_content, element) {
+  yaml_content[[element]]
 }
 
-extract_metadata <- function(yaml_content){
-    extract_element(yaml_content, "metadata")
+extract_metadata <- function(yaml_content) {
+  extract_element(yaml_content, "metadata")
 }
 
 
-extract_connections <- function(yaml_content){
-        extract_element(yaml_content, "connections")
+extract_connections <- function(yaml_content) {
+  extract_element(yaml_content, "connections")
 }
 
-extract_datasources <- function(yaml_content){
-        extract_element(yaml_content, "datasources")
+extract_datasources <- function(yaml_content) {
+  extract_element(yaml_content, "datasources")
 }
 
-extract_backends <- function(yaml_content){
-    extract_element(yaml_content, "backend")
+extract_backends <- function(yaml_content) {
+  extract_element(yaml_content, "backend")
 }
 
 extract_datasources(yaml_content)
@@ -56,12 +56,11 @@ only_one <- extract_connections(yaml_content)[[1]]
 
 ## Extract fct
 my_backend <- only_one %>%
-    extract_backends()
+  extract_backends()
 
 #### Create the backend for fs
 
-test <- create_backend_fs(yaml_content, only_one$backend, only_one$con )
-
+test <- create_backend_fs(yaml_content, only_one$backend, only_one$con)
 ```
 
 #### Second try for connector_db
@@ -71,7 +70,7 @@ test <- create_backend_fs(yaml_content, only_one$backend, only_one$con )
 only_dbi_backend <- extract_connections(yaml_content)[[3]]
 
 ## Extract fct
-my_backend <- only_dbi_backend 
+my_backend <- only_dbi_backend
 
 #### Create the backend for dbi
 
@@ -79,7 +78,7 @@ backend <- only_dbi_backend$backend
 
 name <- only_dbi_backend$con
 
-test_dbi <- create_backend_dbi(yaml_content, only_dbi_backend$backend, only_dbi_backend$con )
+test_dbi <- create_backend_dbi(yaml_content, only_dbi_backend$backend, only_dbi_backend$con)
 
 class(test_dbi$general_dbi)
 ```
@@ -89,7 +88,6 @@ class(test_dbi$general_dbi)
 
 
 ```{r}
-
 ```
 
 
@@ -99,15 +97,15 @@ class(test_dbi$general_dbi)
 ```{r}
 # read yaml file
 yaml_file <- system.file("config", "default_config.yml", package = "connector")
-yaml_content <- yaml::read_yaml(yaml_file, eval.expr=TRUE)
+yaml_content <- yaml::read_yaml(yaml_file, eval.expr = TRUE)
 
 
 # create the connections
 connect <- connect_from_yaml(yaml_content)
 
-print.Connector <- function(x){
-    print("Connector object")
-    print(names(x))
+print.Connector <- function(x) {
+  print("Connector object")
+  print(names(x))
 }
 
 print(connect)
@@ -115,17 +113,15 @@ print(connect)
 ## write and read for a system file
 connect$adam$read("adsl.csv")
 
-connect$adam$write(data.frame(a=1:10, b=11:20), "example.csv")
+connect$adam$write(data.frame(a = 1:10, b = 11:20), "example.csv")
 
 ## write and read for a dbi connection
 connect$sdtm$write(iris, "iris")
 
 connect$sdtm$read("iris")
 
-## Manipulate a table with the database 
+## Manipulate a table with the database
 
-connect$sdtm$tbl("iris")  %>% 
-    dplyr::filter(Sepal.Length > 5)
-
-
+connect$sdtm$tbl("iris") %>%
+  dplyr::filter(Sepal.Length > 5)
 ```
