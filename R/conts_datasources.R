@@ -84,6 +84,7 @@ transform_as_datasources <- function(bks) {
 #' @importFrom purrr compact
 extract_function_info <- function(func_string) {
   # Parse the function string into an expression
+
   expr <- parse_expr(func_string)
   full_func_name <- expr_text(expr[[1]])
 
@@ -197,7 +198,15 @@ extract_and_process_params <- function(expr, formal_args) {
   params <- call_args(expr)
 
   # Convert symbols to strings and evaluate expressions
-  params <- map(params, ~ if (is_symbol(.x)) as_string(.x) else as_string(deparse((.x))))
+  params <- map(params, ~ {
+    if (is_symbol(.x)) {
+      as.character(.x)
+    } else if(rlang::is_call(.x)){
+      as.character(deparse(.x))
+    }  else {
+      as.character(.x)
+    }
+  })
 
   # Process parameters based on whether the function uses ... or not
   if (formal_args[1] == "...") {

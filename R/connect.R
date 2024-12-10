@@ -129,7 +129,13 @@ connect_from_config <- function(config) {
     purrr::map(create_connection) |>
     rlang::set_names(purrr::map_chr(config$datasources, list("name", 1)))
 
-  connections$datasources <- as_datasources(config$datasources)
+    ## clean datasources
+    # unlist name of datasource
+  for(i in seq_along(config$datasources)){
+    config$datasources[[i]]$name <- config$datasources[[i]]$name[[1]]
+  }
+  
+  connections$datasources <- config$datasources
 
   do.call(what = connectors, args = connections)
 }

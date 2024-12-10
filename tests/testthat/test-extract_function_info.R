@@ -16,7 +16,7 @@ test_that("extract_function_info works for R6 class constructors", {
   expect_s3_class(result, "clean_fct_info")
   expect_equal(result$function_name, "connector")
   expect_true(result$is_r6)
-  expect_equal(result$parameters, list(extra_class = "\"test\""))
+  expect_equal(result$parameters, list(extra_class = "test"))
 })
 
 test_that("extract_base_info correctly extracts package and function names", {

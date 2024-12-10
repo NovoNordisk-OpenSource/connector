@@ -33,10 +33,10 @@ connectors <- function(...) {
   }
 
   if (is.null(x$datasources)) {
-    cnts <- substitute(list(...))
+    cnts <- substitute(rlang::list2(...))
     datasources <- connectors_to_datasources(cnts)
   } else {
-    datasources <- x$datasources
+    datasources <- as_datasources(x["datasources"])
   }
 
   checkmate::assert_list(x = x, names = "named")
@@ -78,7 +78,7 @@ print_connectors <- function(x, ...) {
 print.cnts_datasources <- function(x, ...) {
   cli::cli_h1("Datasources")
 
-  for (ds in x$datasources) {
+ for(ds in x[["datasources"]]) {
     cli::cli_h2(ds$name)
     cli::cli_ul()
     cli::cli_li("Backend Type: {.val {ds$backend$type}}")
@@ -86,7 +86,10 @@ print.cnts_datasources <- function(x, ...) {
       cli::cli_li("{param_name}: {.val {ds$backend[[param_name]]}}")
     }
     cli::cli_end()
+    cli::cli_end()
   }
+
+  x
 }
 
 #' @noRd

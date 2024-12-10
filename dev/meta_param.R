@@ -8,7 +8,7 @@ yaml_file <- system.file("config", "default_config.yml", package = "connector")
 sans_metadata <- list(datasources = list(ok = "test"))
 old_metadata <- yaml_file[["metadata"]]
 
-test <- connect(config = yaml_file, logging = TRUE)
+test <- connect(config = yaml_file, logging = FALSE)
 
 test$adam$list_content_cnt()
 test$adam
@@ -211,4 +211,42 @@ purrr::imap(test, ~ deparse(.x) |>
 
 connect("test.yml")
 
+# function to write the datasources attribute to ymal/json/rds
+write_datasources <- function(connectors, file, format = "yaml") {
+ # tesating extension of file
+  ext <- tools::file_ext(file)
+  stopifnot(ext %in% c("yaml", "yml", "json", "rds")) 
+ ## using our own write function from connector
+ dts <- datasources(connectors)
+ write_file(dts, file)
+}
 
+test <- connect(config = yaml_file, logging = FALSE)
+
+ok <- datasources(test)
+
+
+
+str(datasources(test))
+attr(test, "datasources")
+
+
+write_datasources(connectors = test, file = "test.yml")
+
+testthat::expect_equal(datasources(test), datasources(test2))
+
+## test 2
+
+test2 <- connectors(
+  adam = connector_fs$new(path = "dev"),
+  adam2 = connector_fs$new(extra_class = "dev" ,"dev")
+)
+
+str(datasources(test2))
+write_datasources(connectors = test2, file = "test2.yml")
+
+
+test_check <- connect(config = "test.yml", logging = FALSE)
+
+test_check$adam
+test_check$adam2
