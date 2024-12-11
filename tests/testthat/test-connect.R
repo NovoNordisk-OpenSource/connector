@@ -103,12 +103,11 @@ testthat::test_that("Using a list instead of yaml", {
 testthat::test_that("Using a json instead of yaml", {
   # using json file
 
-  connect(test_path("config_json.json")) |>
+  connect(test_path( "configs", "config_json.json")) |>
     expect_no_error()
 })
 
 testthat::test_that("Using and uptade metadata", {
-
   test_list <- connect(yaml_content_raw, metadata = list(extra_class = "test_from_metadata")) |>
     expect_no_error()
 
@@ -129,18 +128,19 @@ test_that("Add logs to connectors object",{
   # Don't test the logic of connector.logger because it is not the purpose of connector
   cnts <- connect(yaml_file, logging = TRUE)
 
-  lapply(cnts, function(x){
+
+  lapply(cnts, function(x) {
     expect_s3_class(x, "connector")
     expect_true(
       all(
         c("read_cnt", "write_cnt", "remove_cnt", "list_content_cnt") %in% names(x$.__enclos_env__$self)
-        )
       )
+    )
     expect_equal(class(x$read_cnt), "function")
   })
 
 
-  lapply(cnts, function(x){
+  lapply(cnts, function(x) {
     expect_s3_class(x, "connector_logger")
   })
 })

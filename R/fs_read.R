@@ -123,7 +123,6 @@ read_ext.yaml <- read_ext.yml
 #' * `json`: [jsonlite::read_json()]
 #'
 #' @rdname read_file
-#' @importFrom jsonlite read_json
 #' @export
 read_ext.json <- function(path, ...) {
   jsonlite::read_json(path = path, ...)
