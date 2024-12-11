@@ -135,7 +135,7 @@ connect_from_config <- function(config) {
     config$datasources[[i]]$name <- config$datasources[[i]]$name[[1]]
   }
   
-  connections$datasources <- config$datasources
+  connections$datasources <- as_datasources(config["datasources"])
 
   do.call(what = connectors, args = connections)
 }

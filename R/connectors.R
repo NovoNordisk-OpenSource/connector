@@ -27,16 +27,17 @@
 #' @export
 connectors <- function(...) {
   x <- rlang::list2(...)
-
-  if (!is.null(x$atasources) & !inherits(x$datasources, "cnts_datasources")) {
+  ds_ <- x[["datasources"]]
+  
+  if (!is.null(ds_) & !inherits(ds_, "cnts_datasources")) {
     cli::cli_abort("'datasources' is a reserved name. It cannot be used as a name for a data source.")
   }
 
-  if (is.null(x$datasources)) {
+  if (is.null(ds_)) {
     cnts <- substitute(rlang::list2(...))
     datasources <- connectors_to_datasources(cnts)
   } else {
-    datasources <- as_datasources(x["datasources"])
+    datasources <- ds_
   }
 
   checkmate::assert_list(x = x, names = "named")
@@ -89,7 +90,7 @@ print.cnts_datasources <- function(x, ...) {
     cli::cli_end()
   }
 
-  x
+ return(x)
 }
 
 #' @noRd

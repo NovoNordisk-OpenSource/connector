@@ -38,7 +38,6 @@
 #'
 #' read_cnt(cnt_my_class)
 #'
-#' @importFrom R6 R6Class
 #' @export
 
 connector <- R6::R6Class(

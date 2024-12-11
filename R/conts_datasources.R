@@ -6,8 +6,6 @@
 #' @param data A list of function calls as expressions.
 #' @return A list with a 'datasources' element containing the transformed backends.
 #'
-#' @importFrom purrr imap
-#' @importFrom rlang expr_text
 #'
 connectors_to_datasources <- function(data) {
   data[-1] |>
@@ -31,7 +29,6 @@ connectors_to_datasources <- function(data) {
 #'
 #' @return A list representing the backend, with 'name' and 'backend' components or an error if the input is not of class "clean_fct_info".
 #'
-#' @importFrom cli cli_abort
 #' @keywords internal
 transform_as_backend <- function(infos, name) {
   if (!inherits(infos, "clean_fct_info")) {
@@ -80,8 +77,6 @@ transform_as_datasources <- function(bks) {
 #'   \item{parameters}{A list of parameters passed to the function}
 #'   \item{is_r6}{A boolean indicating whether it's an R6 class constructor}
 #'   \item{package_name}{The name of the package containing the function}
-#' @importFrom rlang parse_expr expr_text
-#' @importFrom purrr compact
 extract_function_info <- function(func_string) {
   # Parse the function string into an expression
 
@@ -106,12 +101,14 @@ extract_function_info <- function(func_string) {
 
   # Construct and return the final result
   structure(
-    compact(list(
+    purrr::compact(
+      list(
       function_name = base_info$func_name,
       parameters = params,
       is_r6 = is_r6,
       package_name = base_info$package_name
-    )),
+    )
+  ),
     class = "clean_fct_info"
   )
 }
@@ -191,17 +188,16 @@ get_r6_specific_info <- function(package_name, func_name) {
 #' @param formal_args The formal arguments of the function.
 #' @return A list of processed parameters.
 #' @keywords internal
-#' @importFrom rlang call_args is_symbol as_string eval_tidy
-#' @importFrom purrr map
+#' 
 extract_and_process_params <- function(expr, formal_args) {
   # Extract parameters from the function call
   params <- call_args(expr)
 
   # Convert symbols to strings and evaluate expressions
-  params <- map(params, ~ {
+  params <- purrr::map(params, ~ {
     if (is_symbol(.x)) {
       as.character(.x)
-    } else if(rlang::is_call(.x)){
+    } else if(is_call(.x)){
       as.character(deparse(.x))
     }  else {
       as.character(.x)

@@ -1,4 +1,5 @@
 #' @keywords internal
+#' @import rlang
 "_PACKAGE"
 
 ## usethis namespace: start

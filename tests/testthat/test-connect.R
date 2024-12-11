@@ -103,7 +103,7 @@ testthat::test_that("Using a list instead of yaml", {
 testthat::test_that("Using a json instead of yaml", {
   # using json file
 
-  connect(test_path("config_json.json")) |>
+  connect(test_path( "configs", "config_json.json")) |>
     expect_no_error()
 })
 
