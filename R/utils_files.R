@@ -54,8 +54,6 @@ assert_ext <- function(ext, method) {
 
 #' Error extension
 #' Function to call when no method is found for the extension
-#' @importFrom cli cli_abort
-#' @importFrom rlang set_names
 #' @noRd
 error_extension <- function() {
   ext_supp <- supported_fs() |>
@@ -70,7 +68,6 @@ error_extension <- function() {
 }
 
 #' Example for creating a new method for reading files
-#' @importFrom cli cli_inform cli_alert cli_code cli_text
 #' @noRd
 #' @examples
 #' example_read_ext()

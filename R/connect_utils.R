@@ -3,8 +3,6 @@
 #' @param old_metadata [list] a list of element to be replace
 #' @param new_metadata [list] a list of element to replace old's
 #'
-#' @importFrom checkmate assert_list
-#'
 #' @return [list] a updated list with new data
 #' @noRd
 change_to_new_metadata <- function(old_metadata, new_metadata) {

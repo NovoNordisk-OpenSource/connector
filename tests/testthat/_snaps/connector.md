@@ -4,5 +4,5 @@
       connector_obj
     Message
       <connectors>
-        $test <character>
+        $test <connector_fs>
 

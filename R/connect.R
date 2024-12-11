@@ -93,18 +93,19 @@ connect <- function(config = "_connector.yml", metadata = NULL, datasource = NUL
     names(config) <- purrr::map(config, "name")
     cnts <- config |>
       purrr::map(\(x) connect(x, metadata, datasource, set_env))
-    return(do.call(connectors, cnts))
+
+    return(do.call(nested_connectors, cnts))
   }
 
   # Replace metadata if needed
-  if(!is.null(metadata)){
+  if (!is.null(metadata)) {
     zephyr::msg(
       c("Replace some metadata informations...")
     )
     config[["metadata"]] <- change_to_new_metadata(
-       old_metadata = config[["metadata"]],
-       new_metadata = metadata
-      )
+      old_metadata = config[["metadata"]],
+      new_metadata = metadata
+    )
   }
 
   connections <- config |>
@@ -113,7 +114,7 @@ connect <- function(config = "_connector.yml", metadata = NULL, datasource = NUL
     filter_config(datasource = datasource) |>
     connect_from_config()
 
-  if(logging){
+  if (logging) {
     rlang::check_installed("connector.logger")
     connections <- connector.logger::add_logs(connections)
   }
@@ -128,20 +129,31 @@ connect_from_config <- function(config) {
     purrr::map(create_connection) |>
     rlang::set_names(purrr::map_chr(config$datasources, list("name", 1)))
 
+    ## clean datasources
+    # unlist name of datasource
+  for(i in seq_along(config$datasources)){
+    config$datasources[[i]]$name <- config$datasources[[i]]$name[[1]]
+  }
+  
+  connections$datasources <- as_datasources(config["datasources"])
+
   do.call(what = connectors, args = connections)
 }
 
 #' @noRd
-info_config <- function(config){
-  msg_ <- c(">" = "{.strong {config$name}}",
-            "*" = "{config$backend$type}",
-            "*" = "{config$backend[!names(config$backend) %in% 'type']}"
+info_config <- function(config) {
+  msg_ <- c(
+    ">" = "{.strong {config$name}}",
+    "*" = "{config$backend$type}",
+    "*" = "{config$backend[!names(config$backend) %in% 'type']}"
   )
 
   cli::cat_rule()
   zephyr::msg(
-    c("Connection to:",
-      msg_),
+    c(
+      "Connection to:",
+      msg_
+    ),
     msg_fun = cli::cli_bullets
   )
 }
@@ -150,19 +162,18 @@ info_config <- function(config){
 #' @param config [list] The configuration of a single connection
 #' @noRd
 create_connection <- function(config) {
-
   info_config(config)
 
   switch(config$backend$type,
-         "connector_fs" = {
-           create_backend_fs(config$backend)
-         },
-         "connector_dbi" = {
-           create_backend_dbi(config$backend)
-         },
-         {
-           create_backend(config$backend)
-         }
+    "connector_fs" = {
+      create_backend_fs(config$backend)
+    },
+    "connector_dbi" = {
+      create_backend_dbi(config$backend)
+    },
+    {
+      create_backend(config$backend)
+    }
   )
 }
 
@@ -305,20 +316,20 @@ assert_config <- function(config, env = parent.frame()) {
       var <- paste0("datasources", y)
       checkmate::assert_list(x, .var.name = var, add = val)
       checkmate::assert_names(names(x),
-                              type = "unique", must.include = c("name", "backend"),
-                              .var.name = var, add = val
+        type = "unique", must.include = c("name", "backend"),
+        .var.name = var, add = val
       )
       checkmate::assert_character(x[["name"]],
-                                  len = 1,
-                                  .var.name = paste0(var, ".name"), add = val
+        len = 1,
+        .var.name = paste0(var, ".name"), add = val
       )
       checkmate::assert_list(x[["backend"]],
-                             names = "unique",
-                             .var.name = paste0(var, ".backend"), add = val
+        names = "unique",
+        .var.name = paste0(var, ".backend"), add = val
       )
       checkmate::assert_character(x[["backend"]][["type"]],
-                                  len = 1,
-                                  .var.name = paste0(var, ".backend.type"), add = val
+        len = 1,
+        .var.name = paste0(var, ".backend.type"), add = val
       )
     }
   )
