@@ -44,7 +44,7 @@ connectors_to_datasources <- function(data) {
 #' 
 #' @export
 write_datasources <- function(connectors, file) {
-  checkmate::assert_character(file)
+  checkmate::assert_character(file, null.ok = FALSE, any.missing = FALSE)
   if (!is_connectors(connectors)) {
     cli::cli_abort("param 'connectors' should be a connectors object.")
   }
@@ -53,6 +53,12 @@ write_datasources <- function(connectors, file) {
   stopifnot(ext %in% c("yaml", "yml", "json", "rds"))
   ## using our own write function from connector
   dts <- datasources(connectors)
+
+  ## Remove class for json to avoid S3 class problem
+  if(ext == "json"){
+    class(dts) <- NULL
+  }
+
   write_file(dts, file)
 }
 
