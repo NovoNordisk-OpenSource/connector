@@ -26,6 +26,10 @@ sas7bdat: haven::write_sas()
 
 yml/yaml: yaml::write_yaml()
 
+
+
+json: jsonlite::write_json()
+
 "><meta property="og:description" content="write_file() is the backbone of all write_cnt() methods, where files are written
 to a connector. The function is a wrapper around write_ext() where the appropriate
 function to write the file is chosen depending on the file extension.
@@ -52,6 +56,10 @@ sas7bdat: haven::write_sas()
 
 
 yml/yaml: yaml::write_yaml()
+
+
+
+json: jsonlite::write_json()
 
 "><meta property="og:image" content="https://novonordisk-opensource.github.io/connector/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -102,6 +110,7 @@ function to write the file is chosen depending on the file extension.</p>
 </ul><ul><li><p><code>rds</code>: <code><a href="https://readr.tidyverse.org/reference/read_rds.html" class="external-link">readr::write_rds()</a></code></p></li>
 </ul><ul><li><p><code>sas7bdat</code>: <code><a href="https://haven.tidyverse.org/reference/write_sas.html" class="external-link">haven::write_sas()</a></code></p></li>
 </ul><ul><li><p><code>yml</code>/<code>yaml</code>: <code><a href="https://rdrr.io/pkg/yaml/man/write_yaml.html" class="external-link">yaml::write_yaml()</a></code></p></li>
+</ul><ul><li><p><code>json</code>: <code><a href="https://rdrr.io/pkg/jsonlite/man/read_json.html" class="external-link">jsonlite::write_json()</a></code></p></li>
 </ul></div>
 
     <div class="section level2">
@@ -126,6 +135,9 @@ function to write the file is chosen depending on the file extension.</p>
 <span><span class="fu">write_ext</span><span class="op">(</span><span class="va">file</span>, <span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'yml'</span></span>
+<span><span class="fu">write_ext</span><span class="op">(</span><span class="va">file</span>, <span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'json'</span></span>
 <span><span class="fu">write_ext</span><span class="op">(</span><span class="va">file</span>, <span class="va">x</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
