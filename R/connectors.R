@@ -28,7 +28,7 @@
 connectors <- function(...) {
   x <- rlang::list2(...)
   ds_ <- x[["datasources"]]
-  
+
   if (!is.null(ds_) & !inherits(ds_, "cnts_datasources")) {
     cli::cli_abort("'datasources' is a reserved name. It cannot be used as a name for a data source.")
   }
@@ -115,16 +115,20 @@ as_datasources <- function(...) {
 #' modification.
 #'
 #' @examples
-#' # Assume we have a 'my_connectors' object with a 'datasources' attribute
-#' my_connectors <- list()
-#' attr(my_connectors, "datasources") <- list(source1 = "data1", source2 = "data2")
+#' # Assume we have a 'mock_connectors' object with a 'datasources' attribute
+#' mock_connectors <- structure(list(), class = "connectors" )
+#' attr(mock_connectors, "datasources") <- list(source1 = "data1", source2 = "data2")
 #'
 #' # Using the function
-#' result <- datasources(my_connectors)
+#' result <- datasources(mock_connectors)
 #' print(result)
 #'
 #' @export
 datasources <- function(connectors) {
+  if(!is_connectors(connectors)){
+    cli::cli_abort("param connectors should be a connectors object.")
+  }
+
   ds <- attr(connectors, "datasources")
   ds
 }
@@ -148,4 +152,9 @@ nested_connectors <- function(...) {
 #' @export
 print.nested_connectors <- function(x, ...) {
   print_connectors(x, ...)
+}
+
+#' @noRd
+is_connectors <- function(connectors){
+  inherits(connectors, "connectors")
 }

@@ -9,6 +9,7 @@
 \alias{write_ext.rds}
 \alias{write_ext.xpt}
 \alias{write_ext.yml}
+\alias{write_ext.json}
 \title{Write files based on the extension}
 \usage{
 write_file(x, file, ...)
@@ -26,6 +27,8 @@ write_ext(file, x, ...)
 \method{write_ext}{xpt}(file, x, ...)
 
 \method{write_ext}{yml}(file, x, ...)
+
+\method{write_ext}{json}(file, x, ...)
 }
 \arguments{
 \item{x}{Object to write}
@@ -68,6 +71,10 @@ function to write the file is chosen depending on the file extension.
 
 \itemize{
 \item \code{yml}/\code{yaml}: \code{\link[yaml:write_yaml]{yaml::write_yaml()}}
+}
+
+\itemize{
+\item \code{json}: \code{\link[jsonlite:read_json]{jsonlite::write_json()}}
 }
 }
 \examples{
