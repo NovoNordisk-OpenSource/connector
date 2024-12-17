@@ -21,41 +21,44 @@ connectors_to_datasources <- function(data) {
 
 #' Write datasources attribute into a config file
 #'
-#' Reproduce your workflow by creating a config file based on a connectors object and his datacrouces attribut
+#' Reproduce your workflow by creating a config file based on a connectors
+#' object and the associated datasource attributes.
 #'
-#' @param connectors An object containing connectors with a "datasources" attribute.
+#' @param connectors A connectors object with associated "datasources"
+#'   attribute.
 #' @param file path to the config file
-#' 
-#' @return A config file with the datasources attribute and can be reuse in the connect function
-#' 
-#' @examples 
-#' 
+#'
+#' @return A config file with datasource attributes which can be reused in the
+#'   connect function
+#'
+#' @examples
+#'
 #' # Connect to the datasources specified in it
 #' config <- system.file("config", "default_config.yml", package = "connector")
 #' cnts <- connect(config)
-#' 
+#'
 #' # Extract the datasources to a config file
 #' yml_file <- tempfile(fileext = ".yml")
 #' write_datasources(cnts, yml_file)
-#' 
+#'
 #' # Reconnect using the new config file
 #' re_connect <- connect(yml_file)
 #' re_connect
-#' 
+#'
 #' @export
 write_datasources <- function(connectors, file) {
   checkmate::assert_character(file, null.ok = FALSE, any.missing = FALSE)
   if (!is_connectors(connectors)) {
     cli::cli_abort("param 'connectors' should be a connectors object.")
   }
-  # tesating extension of file
+  # testing extension of file
   ext <- tools::file_ext(file)
   stopifnot(ext %in% c("yaml", "yml", "json", "rds"))
   ## using our own write function from connector
   dts <- datasources(connectors)
 
   ## Remove class for json to avoid S3 class problem
-  if(ext == "json"){
+  if (ext == "json") {
     class(dts) <- NULL
   }
 
@@ -67,10 +70,13 @@ write_datasources <- function(connectors, file) {
 #' This function takes the output of `extract_function_info` and transforms it
 #' into a backend format suitable for further processing or API integration.
 #'
-#' @param infos A list with class "clean_fct_info", typically the output of `extract_function_info`.
-#' @param name A character string representing the name to be assigned to the backend.
+#' @param infos A list with class "clean_fct_info", typically the output of
+#'   `extract_function_info`.
+#' @param name A character string representing the name to be assigned to the
+#'   backend.
 #'
-#' @return A list representing the backend, with 'name' and 'backend' components or an error if the input is not of class "clean_fct_info".
+#' @return A list representing the backend, with 'name' and 'backend' components
+#'   or an error if the input is not of class "clean_fct_info".
 #'
 #' @noRd
 transform_as_backend <- function(infos, name) {
@@ -92,13 +98,16 @@ transform_as_backend <- function(infos, name) {
 
 #' Transform Multiple Backends to Datasources Format
 #'
-#' This function takes a list of backends (typically created by `transform_as_backend`)
-#' and wraps them in a 'datasources' list. This is useful for creating a structure
-#' that represents multiple data sources or backends.
+#' This function takes a list of backends (typically created by
+#' `transform_as_backend`) and wraps them in a 'datasources' list. This is
+#' useful for creating a structure that represents multiple data sources or
+#' backends.
 #'
-#' @param bks A list of backends, each typically created by `transform_as_backend`.
+#' @param bks A list of backends, each typically created by
+#'   `transform_as_backend`.
 #'
-#' @return A list with a single 'datasources' element containing all input backends.
+#' @return A list with a single 'datasources' element containing all input
+#'   backends.
 #'
 #' @noRd
 transform_as_datasources <- function(bks) {
@@ -121,7 +130,7 @@ transform_as_datasources <- function(bks) {
 #'   \item{is_r6}{A boolean indicating whether it's an R6 class constructor}
 #'   \item{package_name}{The name of the package containing the function}
 #' @noRd
-#' 
+#'
 extract_function_info <- function(func_string) {
   # Parse the function string into an expression
 
@@ -160,9 +169,11 @@ extract_function_info <- function(func_string) {
 
 #' Extract Base Information
 #'
-#' Extracts the package name and function/class name from the full function name.
+#' Extracts the package name and function/class name from the full function
+#' name.
 #'
-#' @param full_func_name The full name of the function (potentially including package).
+#' @param full_func_name The full name of the function (potentially including
+#'   package).
 #' @param is_r6 Boolean indicating whether it's an R6 class constructor.
 #' @return A list with package_name and func_name.
 #' @noRd
