@@ -23,6 +23,7 @@ Useful links:
 Authors:
 \itemize{
   \item Aksel Thomsen \email{oath@novonordisk.com}
+  \item Vladimir Obucina \email{vlob@novonordisk.com}
 }
 
 Other contributors:
