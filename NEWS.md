@@ -5,6 +5,11 @@
 - Create a new class for nested connectors objects, "nested_connectors"
 - Add README and vignette on how to extend connector
 
+# connector 0.0.5 (2025-01-05)
+
+### Features:
+-   Add configuration manipulation functions for adding/removing metadata and datasources
+-   `connector_dbi` now overwrites tables by default, to have mirror behaviour between `fs` and `dbi` connectors.
 
 # connector 0.0.4 (2024-12-03)
 

@@ -4,6 +4,7 @@ Version: 0.0.4.9000
 Authors@R: c(
     person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
     person("Aksel", "Thomsen", , "oath@novonordisk.com", role = "aut"),
+    person("Vladimir", "Obucina", , "vlob@novonordisk.com", role = "aut"),
     person("Novo Nordisk A/S", role = "cph")
   )
 Description: The connector package helps connecting R to databases that contains
@@ -25,7 +26,6 @@ Imports:
     R6 (>= 2.4.0),
     readr,
     rlang,
-    tools,
     utils,
     vroom,
     zephyr (>= 0.0.0.9000)
