@@ -21,12 +21,12 @@ of the \code{connectors} object. It directly returns this attribute without any
 modification.
 }
 \examples{
-# Assume we have a 'my_connectors' object with a 'datasources' attribute
-my_connectors <- list()
-attr(my_connectors, "datasources") <- list(source1 = "data1", source2 = "data2")
+# Assume we have a 'mock_connectors' object with a 'datasources' attribute
+mock_connectors <- structure(list(), class = "connectors" )
+attr(mock_connectors, "datasources") <- list(source1 = "data1", source2 = "data2")
 
 # Using the function
-result <- datasources(my_connectors)
+result <- datasources(mock_connectors)
 print(result)
 
 }
