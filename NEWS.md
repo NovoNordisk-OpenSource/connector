@@ -2,6 +2,7 @@
 # connector dev
 
 - Connectors constructor builds the datasources attribute
+- Ability to write datasources attribute to a configuration file 
 - Create a new class for nested connectors objects, "nested_connectors"
 - Add README and vignette on how to extend connector
 

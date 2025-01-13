@@ -11,7 +11,7 @@
 #' @return `write_file()`: [invisible()] file.
 #' @export
 write_file <- function(x, file, ...) {
-  find_ext <- get_file_ext(file) |>
+  find_ext <- tools::file_ext(file) |>
     assert_ext("write_ext")
 
   class(file) <- c(find_ext, class(file))
@@ -93,3 +93,12 @@ write_ext.yml <- function(file, x, ...) {
 
 #' @export
 write_ext.yaml <- write_ext.yml
+
+#' @description
+#' * `json`: [jsonlite::write_json()]
+#'
+#' @rdname write_file
+#' @export
+write_ext.json <- function(file, x, ...) {
+  jsonlite::write_json(x = x, path = file, ...)
+}
