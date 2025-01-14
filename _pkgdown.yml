@@ -21,6 +21,10 @@ reference:
     - read_file
     - write_file
     - write_datasources
+    - add_datasource
+    - remove_datasource
+    - add_metadata
+    - remove_metadata
   - title: Utils
     contents:
     - datasources
