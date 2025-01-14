@@ -20,3 +20,25 @@ The updated configuration after adding the new datasource
 This function adds a new datasource to a YAML configuration file by appending the
 provided datasource information to the existing datasources.
 }
+\examples{
+
+# Read the YAML file
+test_config <- system.file("config", "default_config.yml", package = "connector")
+file.copy(test_config, "test_config.yaml")
+
+# Add a new datasource
+# Define the backend as a named list
+new_backend <- list(
+  type = "connector_jdbc",
+  driver = "org.postgresql.Driver",
+  url = "jdbc:postgresql://localhost:5432/mydatabase",
+  user = "username",
+  password = "password"
+)
+
+# Add a new datasource with the defined backend
+config <- add_datasource("test_config.yaml", "new_datasource", new_backend)
+
+unlink("test_config.yaml")
+
+}

@@ -19,3 +19,14 @@ The updated configuration after adding the new metadata
 \description{
 This function adds metadata to a YAML configuration file by modifying the provided key-value pair in the metadata section of the file.
 }
+\examples{
+# Read the YAML file
+test_config <- system.file("config", "default_config.yml", package = "connector")
+file.copy(test_config, "test_config.yaml")
+
+# Add metadata
+config <- add_metadata("test_config.yaml", "new_metadata", "new_value")
+
+unlink("test_config.yaml")
+
+}
