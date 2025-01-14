@@ -14,7 +14,7 @@
 #' # Add metadata
 #' config <- add_metadata("test_config.yaml", "new_metadata", "new_value")
 #'
-#' unlink("test_config.yaml)
+#' unlink("test_config.yaml")
 #'
 #' @export
 add_metadata <- function(config_path, key, value) {
@@ -46,7 +46,7 @@ add_metadata <- function(config_path, key, value) {
 #' # Remove metadata
 #' config <- remove_metadata("test_config.yaml", "new_metadata")
 #'
-#' unlink("test_config.yaml)
+#' unlink("test_config.yaml")
 #'
 #' @export
 remove_metadata <- function(config_path, key) {
@@ -87,7 +87,7 @@ remove_metadata <- function(config_path, key) {
 #' # Add a new datasource with the defined backend
 #' config <- add_datasource("test_config.yaml", "new_datasource", new_backend)
 #'
-#' unlink("test_config.yaml)
+#' unlink("test_config.yaml")
 #'
 #' @export
 add_datasource <- function(config_path, name, backend) {
@@ -113,6 +113,8 @@ add_datasource <- function(config_path, name, backend) {
 #' @param config_path The file path to the YAML configuration file
 #' @param name The name of the datasource to be removed
 #' @return The updated configuration after removing the specified datasource
+#'
+#' @examples
 #' # Read the YAML file
 #' test_config <- system.file("config", "default_config.yml", package = "connector")
 #' file.copy(test_config, "test_config.yaml")
@@ -133,7 +135,7 @@ add_datasource <- function(config_path, name, backend) {
 #' # Remove a datasource
 #' config <- remove_datasource("test_config.yaml", "new_datasource")
 #'
-#' unlink("test_config.yaml)
+#' unlink("test_config.yaml")
 #'
 #' @export
 remove_datasource <- function(config_path, name) {

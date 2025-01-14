@@ -12,26 +12,33 @@ remove_datasource(config_path, name)
 \item{name}{The name of the datasource to be removed}
 }
 \value{
-The updated configuration after removing the specified datasourceRead the YAML file
-
-test_config <- system.file("config", "default_config.yml", package = "connector")
-file.copy(test_config, "test_config.yaml")Add a new datasourceDefine the backend as a named list
-
-new_backend <- list(
-type = "connector_jdbc",
-driver = "org.postgresql.Driver",
-url = "jdbc:postgresql://localhost:5432/mydatabase",
-user = "username",
-password = "password"
-)Add a new datasource with the defined backend
-
-config <- add_datasource("test_config.yaml", "new_datasource", new_backend)Remove a datasource
-
-config <- remove_datasource("test_config.yaml", "new_datasource")
-
-unlink("test_config.yaml)
+The updated configuration after removing the specified datasource
 }
 \description{
 This function removes a datasource from a YAML configuration file based on the
 provided name, ensuring that it doesn't interfere with other existing datasources.
+}
+\examples{
+# Read the YAML file
+test_config <- system.file("config", "default_config.yml", package = "connector")
+file.copy(test_config, "test_config.yaml")
+
+# Add a new datasource
+# Define the backend as a named list
+new_backend <- list(
+  type = "connector_jdbc",
+  driver = "org.postgresql.Driver",
+  url = "jdbc:postgresql://localhost:5432/mydatabase",
+  user = "username",
+  password = "password"
+)
+
+# Add a new datasource with the defined backend
+config <- add_datasource("test_config.yaml", "new_datasource", new_backend)
+
+# Remove a datasource
+config <- remove_datasource("test_config.yaml", "new_datasource")
+
+unlink("test_config.yaml")
+
 }
