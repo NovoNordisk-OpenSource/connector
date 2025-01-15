@@ -8,7 +8,7 @@
 \usage{
 write_cnt(connector_object, x, name, ...)
 
-\method{write_cnt}{connector_dbi}(connector_object, x, name, ...)
+\method{write_cnt}{connector_dbi}(connector_object, x, name, overwrite = TRUE, ...)
 
 \method{write_cnt}{connector_fs}(connector_object, x, name, ...)
 }
@@ -20,6 +20,9 @@ write_cnt(connector_object, x, name, ...)
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
 \item{...}{Additional arguments passed to the method for the individual connector.}
+
+\item{overwrite}{By default set to TRUE, in order to allow interchangeability between how
+\code{connector_fs} works and \code{connector_dbi}.}
 }
 \value{
 \link{invisible} connector_object.

@@ -60,7 +60,7 @@ The input list (or configuration file) has to have the following structure:
 
 Here is an example of a configuration file with different types of connections:
 
-```{yml eval=FALSE}
+```yaml
 metadata:
   trial: "yyyy"
   project: "nnxxxx"
@@ -72,8 +72,8 @@ metadata:
 datasources:
   - name: "adam"
     backend:
-        type: "fs"
-        path: "{root_path}/{project}/{trial}/{instance}/adam"
+        type: "connector::connector_fs"
+        path: "{metadata.root_path}/{metadata.project}/{metadata.trial}/{metadata.instance}/adam"
   - name: "tfl"
     backend:
       type: "connector.databricks::connector_databricks_volume"
@@ -250,11 +250,11 @@ metadata:
 datasources:
   - name: "adam"
     backend:
-      type: "connector_fs"
+      type: "connector::connector_fs"
       path: "{metadata.adam_path}"
   - name: "tfl"
     backend:
-      type: "connector_fs"
+      type: "connector::connector_fs"
       path: "{metadata.tfl_path}"
 
 ```
