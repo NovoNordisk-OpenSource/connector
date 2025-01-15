@@ -60,7 +60,7 @@ The input list (or configuration file) has to have the following structure:
 
 Here is an example of a configuration file with different types of connections:
 
-```{yml eval=FALSE}
+```yaml
 metadata:
   trial: "yyyy"
   project: "nnxxxx"
