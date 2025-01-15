@@ -134,7 +134,7 @@ connect_from_config <- function(config) {
   for(i in seq_along(config$datasources)){
     config$datasources[[i]]$name <- config$datasources[[i]]$name[[1]]
   }
-  
+
   connections$datasources <- as_datasources(config["datasources"])
 
   do.call(what = connectors, args = connections)
@@ -336,8 +336,8 @@ assert_config <- function(config, env = parent.frame()) {
 
   zephyr::report_checkmate_assertions(
     collection = val,
-    msg = "Invalid configuration file:",
-    env = env
+    message = "Invalid configuration file:",
+    .envir = env
   )
 
   return(invisible(config))

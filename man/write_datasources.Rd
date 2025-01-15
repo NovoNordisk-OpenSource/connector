@@ -7,15 +7,18 @@
 write_datasources(connectors, file)
 }
 \arguments{
-\item{connectors}{An object containing connectors with a "datasources" attribute.}
+\item{connectors}{A connectors object with associated "datasources"
+attribute.}
 
 \item{file}{path to the config file}
 }
 \value{
-A config file with the datasources attribute and can be reuse in the connect function
+A config file with datasource attributes which can be reused in the
+connect function
 }
 \description{
-Reproduce your workflow by creating a config file based on a connectors object and his datacrouces attribut
+Reproduce your workflow by creating a config file based on a connectors
+object and the associated datasource attributes.
 }
 \examples{
 
