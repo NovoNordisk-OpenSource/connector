@@ -7,6 +7,8 @@
 <url><loc>https://novonordisk-opensource.github.io/connector/authors.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/index.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/news/index.html</loc></url>
+<url><loc>https://novonordisk-opensource.github.io/connector/reference/add_datasource.html</loc></url>
+<url><loc>https://novonordisk-opensource.github.io/connector/reference/add_metadata.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/connect.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/connector-package.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/connector.html</loc></url>
@@ -25,7 +27,9 @@
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/read_cnt.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/read_file.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/remove_cnt.html</loc></url>
+<url><loc>https://novonordisk-opensource.github.io/connector/reference/remove_datasource.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/remove_directory_cnt.html</loc></url>
+<url><loc>https://novonordisk-opensource.github.io/connector/reference/remove_metadata.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/tbl_cnt.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/upload_cnt.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/write_cnt.html</loc></url>

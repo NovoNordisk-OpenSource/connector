@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.4.9001</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -130,7 +130,7 @@ must be provided</li>
 </ul>
 <p>Here is an example of a configuration file with different types of
 connections:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
 <span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="at">  </span><span class="fu">trial</span><span class="kw">:</span><span class="at"> </span><span class="st">"yyyy"</span></span>
 <span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="at">  </span><span class="fu">project</span><span class="kw">:</span><span class="at"> </span><span class="st">"nnxxxx"</span></span>
 <span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="at">  </span><span class="fu">instance</span><span class="kw">:</span><span class="at"> </span><span class="st">"current"</span></span>
@@ -141,8 +141,8 @@ connections:</p>
 <span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="fu">datasources</span><span class="kw">:</span></span>
 <span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"adam"</span></span>
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"fs"</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"{root_path}/{project}/{trial}/{instance}/adam"</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector::connector_fs"</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.root_path}/{metadata.project}/{metadata.trial}/{metadata.instance}/adam"</span></span>
 <span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"tfl"</span></span>
 <span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
 <span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector.databricks::connector_databricks_volume"</span></span>
@@ -308,11 +308,11 @@ for ADaM and TFL data.</p>
 <span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>datasources<span class="sc">:</span></span>
 <span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"adam"</span></span>
 <span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>    backend<span class="sc">:</span></span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector_fs"</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector::connector_fs"</span></span>
 <span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>      path<span class="sc">:</span> <span class="st">"{metadata.adam_path}"</span></span>
 <span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"tfl"</span></span>
 <span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>    backend<span class="sc">:</span></span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector_fs"</span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector::connector_fs"</span></span>
 <span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>      path<span class="sc">:</span> <span class="st">"{metadata.tfl_path}"</span></span></code></pre></div>
 <p>Now, let’s run the example:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
@@ -341,12 +341,12 @@ for ADaM and TFL data.</p>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → <span style="font-weight: bold;">adam</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> connector_fs</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpLsMnyo/adam</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/Rtmpav0T1L/adam</span></span>
 <span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → <span style="font-weight: bold;">tfl</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> connector_fs</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpLsMnyo/tfl</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/Rtmpav0T1L/tfl</span></span>
 <span></span>
 <span><span class="co">## Iris data</span></span>
 <span><span class="va">setosa</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span> </span>
@@ -409,7 +409,7 @@ can be added easily.</p>
 
 
     <footer><div class="pkgdown-footer-left">
-  <p>Developed by Cervan Girard, Aksel Thomsen.</p>
+  <p>Developed by Cervan Girard, Aksel Thomsen, Vladimir Obucina.</p>
 </div>
 
 <div class="pkgdown-footer-right">
