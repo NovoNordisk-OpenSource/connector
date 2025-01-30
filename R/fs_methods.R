@@ -220,3 +220,30 @@ remove_directory_cnt.connector_fs <- function(connector_object, name, ...) {
   unlink(x = path, recursive = TRUE, ...)
   return(invisible(connector_object))
 }
+
+#' @description
+#' * [connector_fs]: Uses [dplyr::tbl()] to create a tibble out of tabular data.
+#'
+#' @examples
+#' # Use dplyr verbs on a table
+#' cnt <- connector_fs$new(tempdir())
+#'
+#' iris_cnt <- cnt |>
+#'   write_cnt(iris, "iris") |>
+#'   tbl_cnt("iris")
+#'
+#' iris_cnt
+#'
+#' iris_cnt |>
+#'   dplyr::group_by(Species) |>
+#'   dplyr::summarise(
+#'     n = dplyr::n(),
+#'     mean.Sepal.Length = mean(Sepal.Length, na.rm = TRUE)
+#'   )
+#'
+#' @rdname tbl_cnt
+#' @export
+tbl_cnt.connector_fs <- function(connector_object, name, ...) {
+  connector_object$conn |>
+    dplyr::tbl(from = name, ...)
+}
