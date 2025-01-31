@@ -127,3 +127,15 @@ read_ext.yaml <- read_ext.yml
 read_ext.json <- function(path, ...) {
   jsonlite::read_json(path = path, ...)
 }
+
+#' @description
+#' * `excel`: [readxl::read_excel()]
+#'
+#' @rdname read_file
+#' @export
+read_ext.xlsx <- function(path, ...) {
+  readxl::read_excel(path = path, ...)
+}
+
+#' @export
+read_ext.xls <- read_ext.xlsx

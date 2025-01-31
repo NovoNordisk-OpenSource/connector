@@ -102,3 +102,12 @@ write_ext.yaml <- write_ext.yml
 write_ext.json <- function(file, x, ...) {
   jsonlite::write_json(x = x, path = file, ...)
 }
+
+#' @description
+#' * `excel`: [writexl::write_xlsx()]
+#'
+#' @rdname write_file
+#' @export
+write_ext.xlsx <- function(file, x, ...) {
+  writexl::write_xlsx(x = x, path = file, ...)
+}
