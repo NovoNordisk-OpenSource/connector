@@ -222,15 +222,17 @@ remove_directory_cnt.connector_fs <- function(connector_object, name, ...) {
 }
 
 #' @description
-#' * [connector_fs]: Uses [dplyr::tbl()] to create a tibble out of tabular data.
+#' * [connector_fs]: Uses `read_cnt()` to allow redundancy between fs and dbi.
 #'
 #' @examples
 #' # Use dplyr verbs on a table
 #' cnt <- connector_fs$new(tempdir())
 #'
-#' iris_cnt <- cnt |>
-#'   write_cnt(iris, "iris") |>
-#'   tbl_cnt("iris")
+#' cnt |>
+#'   write_cnt(iris, "iris.csv")
+#' 
+#' iris_cnt <- cnt |> 
+#'   tbl_cnt("iris.csv")
 #'
 #' iris_cnt
 #'
@@ -244,6 +246,5 @@ remove_directory_cnt.connector_fs <- function(connector_object, name, ...) {
 #' @rdname tbl_cnt
 #' @export
 tbl_cnt.connector_fs <- function(connector_object, name, ...) {
-  connector_object$conn |>
-    dplyr::tbl(from = name, ...)
+  read_cnt(connector_object = connector_object, name = name, ...)
 }
