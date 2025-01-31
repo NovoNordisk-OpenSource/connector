@@ -50,6 +50,7 @@ cnt$read_cnt("iris.rds") |>
 \item \href{#method-connector_fs-upload_cnt}{\code{connector_fs$upload_cnt()}}
 \item \href{#method-connector_fs-create_directory_cnt}{\code{connector_fs$create_directory_cnt()}}
 \item \href{#method-connector_fs-remove_directory_cnt}{\code{connector_fs$remove_directory_cnt()}}
+\item \href{#method-connector_fs-tbl_cnt}{\code{connector_fs$tbl_cnt()}}
 \item \href{#method-connector_fs-clone}{\code{connector_fs$clone()}}
 }
 }
@@ -178,6 +179,29 @@ See also \link{remove_directory_cnt}.
 }
 \subsection{Returns}{
 \link{invisible} self.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-connector_fs-tbl_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-connector_fs-tbl_cnt}{}}}
+\subsection{Method \code{tbl_cnt()}}{
+Use dplyr verbs to interact with the tibble.
+See also \link{tbl_cnt}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{connector_fs$tbl_cnt(name, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
+
+\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+A \link[dplyr:tbl]{dplyr::tbl} object.
 }
 }
 \if{html}{\out{<hr>}}
