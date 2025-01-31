@@ -12,6 +12,7 @@
 \alias{read_ext.xpt}
 \alias{read_ext.yml}
 \alias{read_ext.json}
+\alias{read_ext.xlsx}
 \title{Read files based on the extension}
 \usage{
 read_file(path, ...)
@@ -35,6 +36,8 @@ read_ext(path, ...)
 \method{read_ext}{yml}(path, ...)
 
 \method{read_ext}{json}(path, ...)
+
+\method{read_ext}{xlsx}(path, ...)
 }
 \arguments{
 \item{path}{\code{\link[=character]{character()}} Path to the file.}
@@ -86,6 +89,10 @@ Below is a list of all the pre-defined methods:
 
 \itemize{
 \item \code{json}: \code{\link[jsonlite:read_json]{jsonlite::read_json()}}
+}
+
+\itemize{
+\item \code{excel}: \code{\link[readxl:read_excel]{readxl::read_excel()}}
 }
 }
 \examples{
