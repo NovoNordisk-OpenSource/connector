@@ -32,7 +32,7 @@ Mostly relevant for DBI connectors.
 }
 
 \itemize{
-\item \link{connector_fs}: Uses \code{\link[dplyr:tbl]{dplyr::tbl()}} to create a tibble out of tabular data.
+\item \link{connector_fs}: Uses \code{read_cnt()} to allow redundancy between fs and dbi.
 }
 }
 \examples{
@@ -59,9 +59,11 @@ iris_cnt |>
 # Use dplyr verbs on a table
 cnt <- connector_fs$new(tempdir())
 
-iris_cnt <- cnt |>
-  write_cnt(iris, "iris") |>
-  tbl_cnt("iris")
+cnt |>
+  write_cnt(iris, "iris.csv")
+
+iris_cnt <- cnt |> 
+  tbl_cnt("iris.csv")
 
 iris_cnt
 

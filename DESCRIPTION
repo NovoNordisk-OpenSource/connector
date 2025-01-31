@@ -1,6 +1,6 @@
 Package: connector
 Title: Connect to your data easily
-Version: 0.0.5
+Version: 0.0.5.9000
 Authors@R: c(
     person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
     person("Aksel", "Thomsen", , "oath@novonordisk.com", role = "aut"),
