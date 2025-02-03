@@ -59,6 +59,8 @@ read_ext.txt <- function(path, ...) {
 #' @description
 #' * `csv`: [readr::read_csv()]
 #'
+#' @param delim [character()] Delimiter to use. Default is `","`.
+#'
 #' @examples
 #' # Read CSV file
 #' temp_csv <- tempfile("iris", fileext = ".csv")
@@ -66,9 +68,10 @@ read_ext.txt <- function(path, ...) {
 #' read_file(temp_csv)
 #'
 #' @rdname read_file
+#' @param delim Single character used to separate fields within a record.
 #' @export
-read_ext.csv <- function(path, ...) {
-  readr::read_csv(file = path, ...)
+read_ext.csv <- function(path, delim = ",", ...) {
+  readr::read_delim(file = path, delim = delim, ...)
 }
 
 #' @description

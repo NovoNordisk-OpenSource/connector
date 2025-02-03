@@ -43,6 +43,8 @@ write_ext.txt <- function(file, x, ...) {
 #' @description
 #' * `csv`: [readr::write_csv()]
 #'
+#' @param delim [character()] Delimiter to use. Default is `","`.
+#'
 #' @examples
 #' # Write CSV file
 #' temp_csv <- tempfile("iris", fileext = ".csv")
@@ -50,8 +52,8 @@ write_ext.txt <- function(file, x, ...) {
 #'
 #' @rdname write_file
 #' @export
-write_ext.csv <- function(file, x, ...) {
-  readr::write_csv(x = x, file = file, ...)
+write_ext.csv <- function(file, x, delim = ",", ...) {
+  readr::write_delim(x = x, file = file, delim = delim, ...)
 }
 
 #' @description

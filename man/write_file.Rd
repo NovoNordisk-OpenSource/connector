@@ -19,7 +19,7 @@ write_ext(file, x, ...)
 
 \method{write_ext}{txt}(file, x, ...)
 
-\method{write_ext}{csv}(file, x, ...)
+\method{write_ext}{csv}(file, x, delim = ",", ...)
 
 \method{write_ext}{parquet}(file, x, ...)
 
@@ -39,6 +39,8 @@ write_ext(file, x, ...)
 \item{file}{\code{\link[=character]{character()}} Path to write the file}
 
 \item{...}{Other parameters passed on the functions behind the methods for each file extension.}
+
+\item{delim}{\code{\link[=character]{character()}} Delimiter to use. Default is \code{","}.}
 }
 \value{
 \code{write_file()}: \code{\link[=invisible]{invisible()}} file.
