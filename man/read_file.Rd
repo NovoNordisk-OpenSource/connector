@@ -23,7 +23,7 @@ read_ext(path, ...)
 
 \method{read_ext}{txt}(path, ...)
 
-\method{read_ext}{csv}(path, ...)
+\method{read_ext}{csv}(path, delim = ",", ...)
 
 \method{read_ext}{parquet}(path, ...)
 
@@ -43,6 +43,8 @@ read_ext(path, ...)
 \item{path}{\code{\link[=character]{character()}} Path to the file.}
 
 \item{...}{Other parameters passed on the functions behind the methods for each file extension.}
+
+\item{delim}{Single character used to separate fields within a record.}
 }
 \value{
 the result of the reading function
