@@ -92,7 +92,7 @@ connector_fs <- R6::R6Class(
     #' @description
     #' Use dplyr verbs to interact with the tibble.
     #' See also [tbl_cnt].
-    #' @return A [dplyr::tbl] object.
+    #' @return A table object.
     tbl_cnt = function(name, ...) {
       self |>
         tbl_cnt(name, ...)
