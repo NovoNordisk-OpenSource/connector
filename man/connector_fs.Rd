@@ -201,7 +201,7 @@ See also \link{tbl_cnt}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-A \link[dplyr:tbl]{dplyr::tbl} object.
+A table object.
 }
 }
 \if{html}{\out{<hr>}}
