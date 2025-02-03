@@ -10,3 +10,4 @@
 ^cspell\.yaml$
 ^connector\.Rproj$
 ^dev$
+^vignettes/articles$
