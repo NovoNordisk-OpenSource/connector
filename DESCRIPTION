@@ -28,7 +28,8 @@ Imports:
     rlang,
     utils,
     vroom,
-    zephyr
+    zephyr,
+    whirl
 Suggests:
     dbplyr,
     knitr,
@@ -38,13 +39,10 @@ Suggests:
     testthat (>= 3.0.0),
     withr,
     yaml,
-    ggplot2,
-    connector.logger (>= 0.0.1)
+    ggplot2
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE, r6 = TRUE)
 RoxygenNote: 7.3.2
-Remotes: 
-    NovoNordisk-OpenSource/connector.logger
