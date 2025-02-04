@@ -115,8 +115,7 @@ connect <- function(config = "_connector.yml", metadata = NULL, datasource = NUL
     connect_from_config()
 
   if (logging) {
-    rlang::check_installed("connector.logger")
-    connections <- connector.logger::add_logs(connections)
+    add_logs(connections)
   }
 
   connections
