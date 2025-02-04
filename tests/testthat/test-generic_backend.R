@@ -12,4 +12,13 @@ test_that("Create a backend for generic backend", {
   wrong_backend$a_random_param <- "a_random_param"
 
   expect_error(create_backend(wrong_backend))
+
+  # no path
+  no_path <- only_one
+  no_path$path <- NULL
+  expect_error(create_backend_fs(no_path))
+
+  # no drv
+
+  expect_error(create_backend_dbi(only_one))
 })
