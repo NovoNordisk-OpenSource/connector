@@ -14,7 +14,7 @@ read_cnt <- function(connector_object, name, ...) {
 
 #' @export
 read_cnt.default <- function(connector_object, name, ...) {
-  method_error_msg()
+  method_error_msg(connector_object)
 }
 
 #' Write content to the connector
@@ -34,7 +34,7 @@ write_cnt <- function(connector_object, x, name, ...) {
 
 #' @export
 write_cnt.default <- function(connector_object, ...) {
-  method_error_msg()
+  method_error_msg(connector_object)
 }
 
 #' Remove content from the connector
@@ -53,7 +53,7 @@ remove_cnt <- function(connector_object, name, ...) {
 
 #' @export
 remove_cnt.default <- function(connector_object, ...) {
-  method_error_msg()
+  method_error_msg(connector_object)
 }
 
 #' List available content from the connector
@@ -71,7 +71,7 @@ list_content_cnt <- function(connector_object, ...) {
 
 #' @export
 list_content_cnt.default <- function(connector_object, ...) {
-  method_error_msg()
+  method_error_msg(connector_object)
 }
 
 #' Download content from the connector
@@ -91,7 +91,7 @@ download_cnt <- function(connector_object, name, file = basename(name), ...) {
 
 #' @export
 download_cnt.default <- function(connector_object, ...) {
-  method_error_msg()
+  method_error_msg(connector_object)
 }
 
 #' Upload content to the connector
@@ -111,7 +111,7 @@ upload_cnt <- function(connector_object, file, name = basename(file), ...) {
 
 #' @export
 upload_cnt.default <- function(connector_object, ...) {
-  method_error_msg()
+  method_error_msg(connector_object)
 }
 
 #' Create a directory
@@ -131,7 +131,7 @@ create_directory_cnt <- function(connector_object, name, ...) {
 
 #' @export
 create_directory_cnt.default <- function(connector_object, ...) {
-  method_error_msg()
+  method_error_msg(connector_object)
 }
 
 #' Remove a directory
@@ -151,7 +151,7 @@ remove_directory_cnt <- function(connector_object, name, ...) {
 
 #' @export
 remove_directory_cnt.default <- function(connector_object, ...) {
-  method_error_msg()
+  method_error_msg(connector_object)
 }
 
 #' Disconnect (close) the connection of the connector
@@ -170,7 +170,7 @@ disconnect_cnt <- function(connector_object, ...) {
 
 #' @export
 disconnect_cnt.default <- function(connector_object, ...) {
-  method_error_msg()
+  method_error_msg(connector_object)
 }
 
 #' Use dplyr verbs to interact with the remote database table
@@ -191,17 +191,16 @@ tbl_cnt <- function(connector_object, name, ...) {
 
 #' @export
 tbl_cnt.default <- function(connector_object, ...) {
-  method_error_msg()
+  method_error_msg(connector_object)
 }
 
 #' @noRd
-method_error_msg <- function(env = parent.frame()) {
+method_error_msg <- function(connector_object) {
   cli::cli_abort(
     c(
       "Method not implemented for class {.cls {class(connector_object)}}",
       "i" = "See the {.vignette [customize](connector::customize)} vignette
              on how to create custom connectors and methods"
-    ),
-    .envir = env
+    )
   )
 }

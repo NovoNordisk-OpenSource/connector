@@ -28,12 +28,12 @@
 ---
 
     Code
-      example_read_ext()
-    Message
-      Here an example for CSV files:
-      > Your own method by creating a new function with the name `read_ext.<extension>`
-      read_ext.csv <- function(path, ...) {
-        readr::read_csv(path, ...)
-      }
-      
+      test
+    Output
+      [1] "Here an example for CSV files:"                                                   
+      [2] "> Your own method by creating a new function with the name `read_ext.<extension>`"
+      [3] "read_ext.csv <- function(path, ...) {"                                            
+      [4] "  readr::read_csv(path, ...)"                                                     
+      [5] "}"                                                                                
+      [6] ""                                                                                 
 
