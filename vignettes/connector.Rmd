@@ -261,7 +261,7 @@ datasources:
 
 Now, let's run the example:
 
-```{r eval = FALSE}
+```{r}
 library(connector)
 library(dplyr)
 library(ggplot2)
