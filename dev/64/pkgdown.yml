@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   connector: connector.html
   customize: customize.html
-last_built: 2025-02-03T11:02Z
+last_built: 2025-02-05T11:57Z
 urls:
   reference: https://novonordisk-opensource.github.io/connector/reference
   article: https://novonordisk-opensource.github.io/connector/articles
