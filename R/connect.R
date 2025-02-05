@@ -120,10 +120,10 @@ connect <- function(
     filter_config(datasource = datasource) |>
     connect_from_config()
 
-  # if (logging) {
-  #   rlang::check_installed("connector.logger")
-  #   connections <- connector.logger::add_logs(connections)
-  # }
+  if (logging) {
+    rlang::check_installed("connector.logger")
+    connections <- connector.logger::add_logs(connections)
+  }
 
   connections
 }
