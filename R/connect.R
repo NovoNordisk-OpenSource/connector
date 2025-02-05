@@ -76,7 +76,13 @@
 #' cnts_nested$study1
 #' @export
 
-connect <- function(config = "_connector.yml", metadata = NULL, datasource = NULL, set_env = TRUE, logging = FALSE) {
+connect <- function(
+  config = "_connector.yml",
+  metadata = NULL,
+  datasource = NULL,
+  set_env = TRUE,
+  logging = FALSE
+) {
   ## Check params
   checkmate::assert_list(metadata, names = "unique", null.ok = TRUE)
   checkmate::assert_logical(logging)
@@ -114,10 +120,10 @@ connect <- function(config = "_connector.yml", metadata = NULL, datasource = NUL
     filter_config(datasource = datasource) |>
     connect_from_config()
 
-  if (logging) {
-    rlang::check_installed("connector.logger")
-    connections <- connector.logger::add_logs(connections)
-  }
+  # if (logging) {
+  #   rlang::check_installed("connector.logger")
+  #   connections <- connector.logger::add_logs(connections)
+  # }
 
   connections
 }
@@ -129,9 +135,9 @@ connect_from_config <- function(config) {
     purrr::map(create_connection) |>
     rlang::set_names(purrr::map_chr(config$datasources, list("name", 1)))
 
-    ## clean datasources
-    # unlist name of datasource
-  for(i in seq_along(config$datasources)){
+  ## clean datasources
+  # unlist name of datasource
+  for (i in seq_along(config$datasources)) {
     config$datasources[[i]]$name <- config$datasources[[i]]$name[[1]]
   }
 
@@ -164,7 +170,8 @@ info_config <- function(config) {
 create_connection <- function(config) {
   info_config(config)
 
-  switch(config$backend$type,
+  switch(
+    config$backend$type,
     "connector_fs" = {
       create_backend_fs(config$backend)
     },
@@ -235,7 +242,9 @@ parse_config <- function(config, set_env = TRUE) {
     parse_config_helper(input = list(env = env))
 
   config[["datasources"]] <- config[["datasources"]] |>
-    parse_config_helper(input = list(env = env, metadata = config[["metadata"]]))
+    parse_config_helper(
+      input = list(env = env, metadata = config[["metadata"]])
+    )
 
   return(config)
 }
@@ -282,7 +291,12 @@ assert_config <- function(config, env = parent.frame()) {
     .x = config[["metadata"]],
     .y = names(config[["metadata"]]),
     .f = \(x, y) {
-      checkmate::assert_character(x, len = 1, .var.name = paste0("metadata.", y), add = val)
+      checkmate::assert_character(
+        x,
+        len = 1,
+        .var.name = paste0("metadata.", y),
+        add = val
+      )
     }
   )
 
@@ -298,7 +312,12 @@ assert_config <- function(config, env = parent.frame()) {
     .x = config[["env"]],
     .y = names(config[["env"]]),
     .f = \(x, y) {
-      checkmate::assert_character(x, len = 1, .var.name = paste0("env.", y), add = val)
+      checkmate::assert_character(
+        x,
+        len = 1,
+        .var.name = paste0("env.", y),
+        add = val
+      )
     }
   )
 
@@ -315,21 +334,30 @@ assert_config <- function(config, env = parent.frame()) {
     .f = \(x, y) {
       var <- paste0("datasources", y)
       checkmate::assert_list(x, .var.name = var, add = val)
-      checkmate::assert_names(names(x),
-        type = "unique", must.include = c("name", "backend"),
-        .var.name = var, add = val
+      checkmate::assert_names(
+        names(x),
+        type = "unique",
+        must.include = c("name", "backend"),
+        .var.name = var,
+        add = val
       )
-      checkmate::assert_character(x[["name"]],
+      checkmate::assert_character(
+        x[["name"]],
         len = 1,
-        .var.name = paste0(var, ".name"), add = val
+        .var.name = paste0(var, ".name"),
+        add = val
       )
-      checkmate::assert_list(x[["backend"]],
+      checkmate::assert_list(
+        x[["backend"]],
         names = "unique",
-        .var.name = paste0(var, ".backend"), add = val
+        .var.name = paste0(var, ".backend"),
+        add = val
       )
-      checkmate::assert_character(x[["backend"]][["type"]],
+      checkmate::assert_character(
+        x[["backend"]][["type"]],
         len = 1,
-        .var.name = paste0(var, ".backend.type"), add = val
+        .var.name = paste0(var, ".backend.type"),
+        add = val
       )
     }
   )
