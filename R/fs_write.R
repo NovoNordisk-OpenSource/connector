@@ -43,6 +43,8 @@ write_ext.txt <- function(file, x, ...) {
 #' @description
 #' * `csv`: [readr::write_csv()]
 #'
+#' @param delim [character()] Delimiter to use. Default is `","`.
+#'
 #' @examples
 #' # Write CSV file
 #' temp_csv <- tempfile("iris", fileext = ".csv")
@@ -50,8 +52,8 @@ write_ext.txt <- function(file, x, ...) {
 #'
 #' @rdname write_file
 #' @export
-write_ext.csv <- function(file, x, ...) {
-  readr::write_csv(x = x, file = file, ...)
+write_ext.csv <- function(file, x, delim = ",", ...) {
+  readr::write_delim(x = x, file = file, delim = delim, ...)
 }
 
 #' @description
@@ -101,4 +103,13 @@ write_ext.yaml <- write_ext.yml
 #' @export
 write_ext.json <- function(file, x, ...) {
   jsonlite::write_json(x = x, path = file, ...)
+}
+
+#' @description
+#' * `excel`: [writexl::write_xlsx()]
+#'
+#' @rdname write_file
+#' @export
+write_ext.xlsx <- function(file, x, ...) {
+  writexl::write_xlsx(x = x, path = file, ...)
 }

@@ -1,6 +1,6 @@
 Package: connector
 Title: Connect to your data easily
-Version: 0.0.5
+Version: 0.0.5.9000
 Authors@R: c(
     person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
     person("Aksel", "Thomsen", , "oath@novonordisk.com", role = "aut"),
@@ -25,10 +25,12 @@ Imports:
     purrr,
     R6 (>= 2.4.0),
     readr,
+    readxl,
     rlang,
     utils,
     vroom,
-    zephyr (>= 0.0.0.9000)
+    writexl,
+    zephyr (>= 0.1.1)
 Suggests:
     dbplyr,
     knitr,
@@ -46,6 +48,5 @@ Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE, r6 = TRUE)
 RoxygenNote: 7.3.2
-Remotes: 
-    NovoNordisk-OpenSource/zephyr,
-    NovoNordisk-OpenSource/connector.logger
+Remotes:  
+    novonordisk-opensource/connector.logger
