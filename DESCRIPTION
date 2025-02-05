@@ -49,5 +49,5 @@ Encoding: UTF-8
 Roxygen: list(markdown = TRUE, r6 = TRUE)
 RoxygenNote: 7.3.2
 Remotes: 
-    NovoNordisk-OpenSource/zephyr,
+    NovoNordisk-OpenSource/zephyr@a4d5163108e2c4042f98bd00f17f1af7353b08c2,
     NovoNordisk-OpenSource/connector.logger
