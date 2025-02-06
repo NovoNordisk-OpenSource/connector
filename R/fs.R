@@ -87,6 +87,15 @@ connector_fs <- R6::R6Class(
     remove_directory_cnt = function(name, ...) {
       self |>
         remove_directory_cnt(name, ...)
+    },
+
+    #' @description
+    #' Use dplyr verbs to interact with the tibble.
+    #' See also [tbl_cnt].
+    #' @return A table object.
+    tbl_cnt = function(name, ...) {
+      self |>
+        tbl_cnt(name, ...)
     }
   ),
   active = list(
