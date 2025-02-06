@@ -49,8 +49,14 @@ read_cnt.connector_fs <- function(connector_object, name, ...) {
 #' @export
 write_cnt.connector_fs <- function(connector_object, x, name, ...) {
   file <- file.path(connector_object$path, name)
-  write_file(x, file, ...)
-  return(invisible(connector_object))
+  write_file(
+    x,
+    file,
+    ...
+  )
+  return(
+    invisible(connector_object)
+  )
 }
 
 #' @description
@@ -100,9 +106,16 @@ list_content_cnt.connector_fs <- function(connector_object, ...) {
 #' @rdname remove_cnt
 #' @export
 remove_cnt.connector_fs <- function(connector_object, name, ...) {
-  path <- file.path(connector_object$path, name)
+  path <- file.path(
+    connector_object$path,
+    name
+  )
+
   unlink(path, ...)
-  return(invisible(connector_object))
+
+  return(
+    invisible(connector_object)
+  )
 }
 
 #' @description
@@ -128,10 +141,18 @@ remove_cnt.connector_fs <- function(connector_object, name, ...) {
 #'
 #' @rdname download_cnt
 #' @export
-download_cnt.connector_fs <- function(connector_object, name, file = basename(name), ...) {
+download_cnt.connector_fs <- function(
+  connector_object,
+  name,
+  file = basename(name),
+  ...
+) {
   name <- file.path(connector_object$path, name)
   file.copy(from = name, to = file, ...)
-  return(invisible(file))
+
+  return(
+    invisible(connector_object)
+  )
 }
 
 #' @description
@@ -160,14 +181,25 @@ download_cnt.connector_fs <- function(connector_object, name, file = basename(na
 #'
 #' @rdname upload_cnt
 #' @export
-upload_cnt.connector_fs <- function(connector_object, file, name = basename(file), ...) {
+upload_cnt.connector_fs <- function(
+  connector_object,
+  file,
+  name = basename(file),
+  ...
+) {
   name <- file.path(connector_object$path, name)
+
   file.copy(from = file, to = name, ...)
-  return(invisible(connector_object))
+
+  return(
+    invisible(connector_object)
+  )
 }
 
 #' @description
 #' * [connector_fs]: Uses [dir.create()] to create a directory at the path of the connector.
+#'
+#' @param open create a new connector object
 #'
 #' @examples
 #' # Create a directory in a file storage
@@ -189,10 +221,23 @@ upload_cnt.connector_fs <- function(connector_object, file, name = basename(file
 #'
 #' @rdname create_directory_cnt
 #' @export
-create_directory_cnt.connector_fs <- function(connector_object, name, ...) {
+create_directory_cnt.connector_fs <- function(
+  connector_object,
+  name,
+  ...,
+  open = TRUE
+) {
   path <- file.path(connector_object$path, name)
   dir.create(path = path, ...)
-  return(invisible(connector_fs$new(path)))
+
+  # create a new connector object from the new path
+  if (open) {
+    connector_object <- connector_fs$new(path)
+  }
+
+  return(
+    invisible(connector_object)
+  )
 }
 
 #' @description
@@ -216,9 +261,16 @@ create_directory_cnt.connector_fs <- function(connector_object, name, ...) {
 #' @rdname remove_directory_cnt
 #' @export
 remove_directory_cnt.connector_fs <- function(connector_object, name, ...) {
-  path <- file.path(connector_object$path, name)
+  path <- file.path(
+    connector_object$path,
+    name
+  )
+
   unlink(x = path, recursive = TRUE, ...)
-  return(invisible(connector_object))
+
+  return(
+    invisible(connector_object)
+  )
 }
 
 #' @description

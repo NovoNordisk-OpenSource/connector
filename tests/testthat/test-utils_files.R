@@ -8,7 +8,7 @@ test_that("Test utils for file", {
   expect_snapshot_error(error_extension())
 
   # Example for extension
-  expect_snapshot(example_read_ext())
+  expect_snapshot_out(example_read_ext())
 
   ## find file
   temp_dir <- tempdir()

@@ -79,7 +79,9 @@ test_that("yaml config parsed correctly", {
           read_file(eval.expr = TRUE) |>
           assert_config() |>
           parse_config(set_env = FALSE) |>
-          expect_message("Inconsistencies between existing environment variables and env entries:") |>
+          expect_message(
+            "Inconsistencies between existing environment variables and env entries:"
+          ) |>
           suppressMessages() # Not print the bullets to the test log
 
         yaml_file_env |>
@@ -103,24 +105,29 @@ testthat::test_that("Using a list instead of yaml", {
 testthat::test_that("Using a json instead of yaml", {
   # using json file
 
-  connect(test_path( "configs", "config_json.json")) |>
+  connect(test_path("configs", "config_json.json")) |>
     expect_no_error()
 })
 
 testthat::test_that("Using and uptade metadata", {
-  test_list <- connect(yaml_content_raw, metadata = list(extra_class = "test_from_metadata")) |>
+  test_list <- connect(
+    yaml_content_raw,
+    metadata = list(extra_class = "test_from_metadata")
+  ) |>
     expect_no_error()
 
   expect_s3_class(test_list$adam, "test_from_metadata")
 
-  test_yaml <- connect(yaml_file, metadata = list(extra_class = "test_from_metadata")) |>
+  test_yaml <- connect(
+    yaml_file,
+    metadata = list(extra_class = "test_from_metadata")
+  ) |>
     expect_no_error()
 
   expect_s3_class(test_yaml$adam, "test_from_metadata")
 })
 
-test_that("Add logs to connectors object",{
-
+test_that("Add logs to connectors object", {
   # connector.logger needs to be installed to pass this test - if not available
   # then skip the test
   testthat::skip_if_not_installed("connector.logger")
@@ -128,17 +135,16 @@ test_that("Add logs to connectors object",{
   # Don't test the logic of connector.logger because it is not the purpose of connector
   cnts <- connect(yaml_file, logging = TRUE)
 
-
   lapply(cnts, function(x) {
     expect_s3_class(x, "connector")
     expect_true(
       all(
-        c("read_cnt", "write_cnt", "remove_cnt", "list_content_cnt") %in% names(x$.__enclos_env__$self)
+        c("read_cnt", "write_cnt", "remove_cnt", "list_content_cnt") %in%
+          names(x$.__enclos_env__$self)
       )
     )
     expect_equal(class(x$read_cnt), "function")
   })
-
 
   lapply(cnts, function(x) {
     expect_s3_class(x, "connector_logger")
