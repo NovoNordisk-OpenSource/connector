@@ -1,0 +1,74 @@
+---
+title: "Understanding Connector Package Methods"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Understanding Connector Package Methods}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+This vignette provides best practices for users and developers on what is returned by each method in connector packages. Understanding these methods and their return values is crucial for both users of connector packages and developers who want to create their own connector packages.
+
+## Why This Vignette?
+
+We realized it might be confusing for users to understand which method returns which value. This vignette explains what each method does and provides an overview of general rules. This information is also helpful for developers creating their own connector packages, as it outlines what each method should return to maintain consistency and interoperability between different connector packages.
+
+## Methods and Return Values
+
+Below is a table summarizing the methods, their return values, and explanations for each:
+
+| Method | Return Value | Explanation |
+|--------|--------------|-------------|
+| `read_cnt()` | Content of the file | Returns the actual content of the file, allowing users to directly access and work with the data. |
+| `write_cnt()` | Connector object | Returns the connector object to allow for method chaining and to confirm the write operation was completed. |
+| `list_content_cnt()` | Vector of items | Provides a list of items (files/directories) in the current location, allowing users to explore the content structure. |
+| `remove_cnt()` | Connector object | Returns the connector object to allow for method chaining and to confirm the removal operation was completed. |
+| `download_cnt()` | Connector object | Returns the connector object to allow for method chaining and to confirm the download operation was completed. |
+| `upload_cnt()` | Connector object | Returns the connector object to allow for method chaining and to confirm the upload operation was completed. |
+| `create_directory_cnt()` | Connector object, if `open = TRUE`, then new connector object | Returns the current connector object or a new one if the directory was opened, allowing for immediate use of the new directory. |
+| `remove_directory_cnt()` | Connector object | Returns the connector object to allow for method chaining and to confirm the directory removal was completed. |
+| `tbl_cnt()` | Content of the file (`read_cnt()` or tibble for DBI) | Returns the content in a tabular format, either as read by `read_cnt()` or as a tibble (view) for database connections. |
+
+## Detailed Explanations
+
+### `read_cnt()`
+This method reads the content of a file and returns it directly. This allows users to immediately work with the data without additional steps.
+
+### `write_cnt()`
+After writing content, this method returns the connector object. This enables method chaining and provides confirmation that the write operation was successful.
+
+### `list_content_cnt()`
+Returns a vector of items in the current location. This is useful for exploring the structure of the connected resource.
+
+### `remove_cnt()`
+After removing a file or item, this method returns the connector object, allowing for further operations and confirming the removal was successful.
+
+### `download_cnt()`
+This method returns the connector object after a download operation, enabling further actions and confirming the download was completed.
+
+### `upload_cnt()`
+Similar to `download_cnt()`, this returns the connector object after an upload, allowing for method chaining and operation confirmation.
+
+### `create_directory_cnt()`
+This method returns the connector object. If the `open` parameter is set to `TRUE`, it returns a new connector object pointing to the newly created directory.
+
+### `remove_directory_cnt()`
+After removing a directory, this method returns the connector object, allowing for further operations and confirming the removal was successful.
+
+### `tbl_cnt()`
+This method returns the content of a file in a tabular format. For file-based connectors, it typically uses `read_cnt()` to get the content. For database connections (DBI), it returns a tibble representation of the data.
+
+## Conclusion
+
+Understanding these return values is crucial for effectively using and developing connector packages. By maintaining consistency in what each method returns, we ensure that different connector packages can be used interchangeably, promoting code reusability and a smoother user experience.
+
+For developers creating new connector packages, adhering to these return value conventions will help maintain compatibility with existing tools and workflows that expect certain return types from these methods.

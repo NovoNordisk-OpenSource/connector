@@ -19,12 +19,15 @@
 #' @export
 read_cnt.connector_dbi <- function(connector_object, name, ...) {
   connector_object$conn |>
-    DBI::dbReadTable(name = name, ...)
+    DBI::dbReadTable(
+      name = name,
+      ...
+    )
 }
 
 #' @description
 #' * [connector_dbi]: Uses [DBI::dbWriteTable()] to write the table to the DBI connection.
-#' 
+#'
 #' @param overwrite By default set to TRUE, in order to allow interchangeability between how
 #' `connector_fs` works and `connector_dbi`.
 #' @examples
@@ -42,10 +45,23 @@ read_cnt.connector_dbi <- function(connector_object, name, ...) {
 #'
 #' @rdname write_cnt
 #' @export
-write_cnt.connector_dbi <- function(connector_object, x, name, overwrite = TRUE, ...) {
+write_cnt.connector_dbi <- function(
+  connector_object,
+  x,
+  name,
+  overwrite = TRUE,
+  ...
+) {
   connector_object$conn |>
-    DBI::dbWriteTable(name = name, value = x, overwrite = overwrite, ...)
-  return(invisible(connector_object))
+    DBI::dbWriteTable(
+      name = name,
+      value = x,
+      overwrite = overwrite,
+      ...
+    )
+  return(
+    invisible(connector_object)
+  )
 }
 
 #' @description
@@ -60,9 +76,14 @@ write_cnt.connector_dbi <- function(connector_object, x, name, overwrite = TRUE,
 #'
 #' @rdname list_content_cnt
 #' @export
-list_content_cnt.connector_dbi <- function(connector_object, ...) {
+list_content_cnt.connector_dbi <- function(
+  connector_object,
+  ...
+) {
   connector_object$conn |>
-    DBI::dbListTables(...)
+    DBI::dbListTables(
+      ...
+    )
 }
 
 #' @description
@@ -84,8 +105,13 @@ list_content_cnt.connector_dbi <- function(connector_object, ...) {
 #' @export
 remove_cnt.connector_dbi <- function(connector_object, name, ...) {
   connector_object$conn |>
-    DBI::dbRemoveTable(name = name, ...)
-  return(invisible(connector_object))
+    DBI::dbRemoveTable(
+      name = name,
+      ...
+    )
+  return(
+    invisible(connector_object)
+  )
 }
 
 #' @description
@@ -116,7 +142,10 @@ remove_cnt.connector_dbi <- function(connector_object, name, ...) {
 #' @export
 tbl_cnt.connector_dbi <- function(connector_object, name, ...) {
   connector_object$conn |>
-    dplyr::tbl(from = name, ...)
+    dplyr::tbl(
+      from = name,
+      ...
+    )
 }
 
 #' @description
@@ -136,5 +165,7 @@ tbl_cnt.connector_dbi <- function(connector_object, name, ...) {
 #' @export
 disconnect_cnt.connector_dbi <- function(connector_object, ...) {
   connector_object$conn |>
-    DBI::dbDisconnect(...)
+    DBI::dbDisconnect(
+      ...
+    )
 }

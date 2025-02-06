@@ -7,7 +7,7 @@
 \usage{
 create_directory_cnt(connector_object, name, ...)
 
-\method{create_directory_cnt}{connector_fs}(connector_object, name, ...)
+\method{create_directory_cnt}{connector_fs}(connector_object, name, ..., open = TRUE)
 }
 \arguments{
 \item{connector_object}{\link{connector} The connector object to use.}
@@ -15,6 +15,8 @@ create_directory_cnt(connector_object, name, ...)
 \item{name}{\link{character} The name of the directory to create}
 
 \item{...}{Additional arguments passed to the method for the individual connector.}
+
+\item{open}{create a new connector object}
 }
 \value{
 \link{invisible} connector_object.
