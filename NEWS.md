@@ -5,6 +5,7 @@
 - Ability to write datasources attribute to a configuration file 
 - Create a new class for nested connectors objects, "nested_connectors"
 - Add README and vignette on how to extend connector
+- Add `tbl_cnt` to `connector_fs` in order to have redundancy between `fs` and `dbi` types of connectors
 
 # connector 0.0.5 (2025-01-15)
 

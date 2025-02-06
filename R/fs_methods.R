@@ -272,3 +272,31 @@ remove_directory_cnt.connector_fs <- function(connector_object, name, ...) {
     invisible(connector_object)
   )
 }
+
+#' @description
+#' * [connector_fs]: Uses `read_cnt()` to allow redundancy between fs and dbi.
+#'
+#' @examples
+#' # Use dplyr verbs on a table
+#' cnt <- connector_fs$new(tempdir())
+#'
+#' cnt |>
+#'   write_cnt(iris, "iris.csv")
+#' 
+#' iris_cnt <- cnt |> 
+#'   tbl_cnt("iris.csv")
+#'
+#' iris_cnt
+#'
+#' iris_cnt |>
+#'   dplyr::group_by(Species) |>
+#'   dplyr::summarise(
+#'     n = dplyr::n(),
+#'     mean.Sepal.Length = mean(Sepal.Length, na.rm = TRUE)
+#'   )
+#'
+#' @rdname tbl_cnt
+#' @export
+tbl_cnt.connector_fs <- function(connector_object, name, ...) {
+  read_cnt(connector_object = connector_object, name = name, ...)
+}

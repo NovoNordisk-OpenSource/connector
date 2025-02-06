@@ -18,6 +18,9 @@ test_that("fs connector", {
   fs$read_cnt("mtcars.rds") |>
     expect_equal(mtcars)
 
+  fs$tbl_cnt("mtcars.rds") |>
+    expect_equal(mtcars)
+
   fs$path |>
     expect_vector(ptype = character(), size = 1)
 
