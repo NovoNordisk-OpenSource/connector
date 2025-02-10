@@ -19,7 +19,9 @@ knitr::opts_chunk$set(
 tmp <- withr::local_tempdir()
 dir.create(path = file.path(tmp, "my_root_path", "my_project"), recursive = TRUE)
 knitr::opts_knit$set(root.dir = tmp)
-
+if( isTRUE(as.logical(Sys.getenv("CI", "false")))){
+  old <- setwd(tmp)
+}
 library(connector)
 ```
 
@@ -261,3 +263,4 @@ my_project |>
 my_project |> 
   read_cnt("new_file.myformat")
 ```
+
