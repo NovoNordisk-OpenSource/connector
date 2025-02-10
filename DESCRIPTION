@@ -1,6 +1,6 @@
 Package: connector
 Title: Connect to your data easily
-Version: 0.0.5.9000
+Version: 0.0.5.9001
 Authors@R: c(
     person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
     person("Aksel", "Thomsen", , "oath@novonordisk.com", role = "aut"),
@@ -41,12 +41,13 @@ Suggests:
     withr,
     yaml,
     ggplot2,
-    connector.logger (>= 0.0.1)
+    whirl (>= 0.1.8.9000),
+    mockery
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE, r6 = TRUE)
 RoxygenNote: 7.3.2
-Remotes:  
-    novonordisk-opensource/connector.logger
+Remotes: 
+    novonordisk-opensource/whirl
