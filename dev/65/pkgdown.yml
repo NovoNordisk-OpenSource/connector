@@ -1,0 +1,11 @@
+pandoc: 3.1.11
+pkgdown: 2.1.1
+pkgdown_sha: ~
+articles:
+  connector: connector.html
+  articles/Consistent-API: Consistent-API.html
+  customize: customize.html
+last_built: 2025-02-10T09:02Z
+urls:
+  reference: https://novonordisk-opensource.github.io/connector/reference
+  article: https://novonordisk-opensource.github.io/connector/articles
