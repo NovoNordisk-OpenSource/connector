@@ -22,8 +22,6 @@ easily connect to more specific data sources:
 
 - `{connector.databricks}`: Connect to Databricks
 - `{connector.sharepoint}`: Connect to SharePoint sites
-- `{connector.logger}`: Log connector actions, see also `{whirl}` for
-  how to log scripts
 
 ## Usage
 
@@ -69,12 +67,12 @@ configuration file as input:
 library(connector)
 
 db <- connect("_connector.yml")
-#> ────────────────────────────────────────────────────────────────────────────────
+#> ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → folder
 #> • connector_fs
-#> • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpfTSxQB/file1c1d28730925
-#> ────────────────────────────────────────────────────────────────────────────────
+#> • /var/folders/kv/q2rqqp3s0s5f9rxn_854l2lm0000gp/T//RtmpSG4d1j/filec8b85d9370a6
+#> ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → database
 #> • connector_dbi
@@ -97,6 +95,9 @@ print(db$database)
 #> Registered methods:
 #> • `disconnect_cnt.connector_dbi()`
 #> • `list_content_cnt.connector_dbi()`
+#> • `log_read_connector.connector_dbi()`
+#> • `log_remove_connector.connector_dbi()`
+#> • `log_write_connector.connector_dbi()`
 #> • `read_cnt.connector_dbi()`
 #> • `remove_cnt.connector_dbi()`
 #> • `tbl_cnt.connector_dbi()`
@@ -110,20 +111,20 @@ some data to the `folder` one:
 
 ``` r
 # Initially it is empty
-db$folder |> 
+db$folder |>
   list_content_cnt()
 #> character(0)
 
 # Create some data
-cars <- mtcars |> 
+cars <- mtcars |>
   tibble::as_tibble(rownames = "car")
 
 # Write to folder as a parquet file
-db$folder |> 
+db$folder |>
   write_cnt(x = cars, name = "cars.parquet")
 
 # Now the folder contains the file
-db$folder |> 
+db$folder |>
   list_content_cnt()
 #> [1] "cars.parquet"
 
@@ -154,22 +155,22 @@ For the `database` connector it works in the same way:
 
 ``` r
 # Initially no tables exists
-db$database |> 
+db$database |>
   list_content_cnt()
 #> character(0)
 
 # Write cars to the database as a table
-db$database |> 
+db$database |>
   write_cnt(x = cars, name = "cars")
 
 # Now the cara table exists
-db$database |> 
+db$database |>
   list_content_cnt()
 #> [1] "cars"
 
 # And we can read it back in
 db$database |>
-  read_cnt(name = "cars") |> 
+  read_cnt(name = "cars") |>
   dplyr::as_tibble()
 #> # A tibble: 32 × 12
 #>    car           mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb

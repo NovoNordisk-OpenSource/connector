@@ -25,6 +25,11 @@ reference:
     - remove_datasource
     - add_metadata
     - remove_metadata
+  - title: Logs
+    contents:
+    - add_logs
+    - matches("log_.*")
+    - matches("logger")
   - title: Utils
     contents:
     - datasources
