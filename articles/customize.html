@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -148,6 +148,9 @@ that the path has been assigned correctly based on the
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `create_directory_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `download_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `list_content_cnt.connector_fs()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_read_connector.connector_fs()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_remove_connector.connector_fs()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_write_connector.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `read_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `remove_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `remove_directory_cnt.connector_fs()`</span></span>
@@ -197,7 +200,7 @@ class.</p>
 <span><span class="co">#&gt; {</span></span>
 <span><span class="co">#&gt;     UseMethod("list_content_cnt")</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x55f223077aa8&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x555d80297b48&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:connector&gt;</span></span>
 <span></span>
 <span><span class="co"># List the registered s3 methods</span></span>
@@ -205,6 +208,7 @@ class.</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; list_content_cnt.connector_dbi</span></span>
 <span><span class="co">#&gt; list_content_cnt.connector_fs</span></span>
+<span><span class="co">#&gt; list_content_cnt.connector_logger</span></span>
 <span><span class="co">#&gt; list_content_cnt.default</span></span></code></pre></div>
 <p>Building further on the example below we can define a custom method
 for <code><a href="../reference/list_content_cnt.html">list_content_cnt()</a></code> for the
@@ -225,6 +229,7 @@ associated with the <code>connector_project</code> class:</p>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; list_content_cnt.connector_dbi</span></span>
 <span><span class="co">#&gt; list_content_cnt.connector_fs</span></span>
+<span><span class="co">#&gt; list_content_cnt.connector_logger</span></span>
 <span><span class="co">#&gt; list_content_cnt.connector_project</span></span>
 <span><span class="co">#&gt; list_content_cnt.default</span></span>
 <span></span>
@@ -236,6 +241,9 @@ associated with the <code>connector_project</code> class:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `list_content_cnt.connector_project()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `create_directory_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `download_cnt.connector_fs()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_read_connector.connector_fs()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_remove_connector.connector_fs()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_write_connector.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `read_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `remove_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `remove_directory_cnt.connector_fs()`</span></span>
@@ -281,6 +289,9 @@ used before any of the connector classes.</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `create_directory_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `download_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `list_content_cnt.connector_fs()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_read_connector.connector_fs()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_remove_connector.connector_fs()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_write_connector.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `read_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `remove_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `remove_directory_cnt.connector_fs()`</span></span>
@@ -306,8 +317,8 @@ print the path instead, but otherwise everything is the same:</p>
 <code class="sourceCode R"><span><span class="co"># List methods</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html" class="external-link">methods</a></span><span class="op">(</span><span class="st">"list_content_cnt"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] list_content_cnt.connector_dbi*    list_content_cnt.connector_fs*    </span></span>
-<span><span class="co">#&gt; [3] list_content_cnt.connector_project list_content_cnt.default*         </span></span>
-<span><span class="co">#&gt; [5] list_content_cnt.my_extra_class   </span></span>
+<span><span class="co">#&gt; [3] list_content_cnt.connector_logger* list_content_cnt.connector_project</span></span>
+<span><span class="co">#&gt; [5] list_content_cnt.default*          list_content_cnt.my_extra_class   </span></span>
 <span><span class="co">#&gt; see '?methods' for accessing help and source code</span></span>
 <span></span>
 <span><span class="co"># Print my_project_extra connector to see associated methods</span></span>
@@ -318,6 +329,9 @@ print the path instead, but otherwise everything is the same:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `list_content_cnt.my_extra_class()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `create_directory_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `download_cnt.connector_fs()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_read_connector.connector_fs()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_remove_connector.connector_fs()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_write_connector.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `read_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `remove_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `remove_directory_cnt.connector_fs()`</span></span>

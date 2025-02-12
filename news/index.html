@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,6 +37,28 @@
       <small>Source: <a href="https://github.com/novonordisk-opensource/connector/blob/main/NEWS.md" class="external-link"><code>NEWS.md</code></a></small>
     </div>
 
+    <div class="section level2">
+<h2 class="pkg-version" data-toc-text="0.0.6" id="connector-006">connector 0.0.6<a class="anchor" aria-label="anchor" href="#connector-006"></a></h2>
+<div class="section level3">
+<h3 id="breaking-changes-0-0-6">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-0-6"></a></h3>
+<ul><li>Removed dependency on {connector.logger} package. Logging functionality is now integrated directly into {connector} using {whirl}.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="features-0-0-6">Features<a class="anchor" aria-label="anchor" href="#features-0-0-6"></a></h3>
+<ul><li>Added integrated logging functionality using {whirl}.</li>
+<li>Implemented <code><a href="../reference/log_read_connector.html">log_read_connector()</a></code>, <code><a href="../reference/log_write_connector.html">log_write_connector()</a></code>, and <code><a href="../reference/log_remove_connector.html">log_remove_connector()</a></code> generics and methods for different connector types.</li>
+<li>Connectors constructor now builds the datasources attribute.</li>
+<li>Added ability to write datasources attribute to a configuration file.</li>
+<li>Created a new class for nested connectors objects, “nested_connectors”.</li>
+<li>Added <code>tbl_cnt</code> to <code>connector_fs</code> for redundancy between <code>fs</code> and <code>dbi</code> types of connectors.</li>
+</ul></div>
+<div class="section level3">
+<h3 id="enhancements-0-0-6">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-0-6"></a></h3>
+<ul><li>Fixed <code><a href="../reference/add_logs.html">add_logs()</a></code> function to add logging capability to connections.</li>
+<li>Enhanced CI compatibility in vignettes by adding a condition to set working directory when running in a CI environment.</li>
+<li>Expanded test coverage to include new logging functionality.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.5" id="connector-005-2025-01-15">connector 0.0.5 (2025-01-15)<a class="anchor" aria-label="anchor" href="#connector-005-2025-01-15"></a></h2>
 <div class="section level4">

@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.5.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -79,8 +79,6 @@
 <code>{connector.databricks}</code>: Connect to Databricks</li>
 <li>
 <code>{connector.sharepoint}</code>: Connect to SharePoint sites</li>
-<li>
-<a href="https://github.com/NN-OpenSource/connector.logger" class="external-link">connector.logger</a>: Log connector actions, see also <a href="https://novonordisk-opensource.github.io/whirl/" class="external-link">whirl</a> for how to log scripts</li>
 </ul>
 </div>
 <div class="section level2">
@@ -109,12 +107,12 @@
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector">connector</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span><span class="op">(</span><span class="st">"_connector.yml"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → folder</span></span>
 <span><span class="co">#&gt; • connector_fs</span></span>
-<span><span class="co">#&gt; • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpfTSxQB/file1c1d28730925</span></span>
-<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; • /var/folders/kv/q2rqqp3s0s5f9rxn_854l2lm0000gp/T//RtmpSG4d1j/filec8b85d9370a6</span></span>
+<span><span class="co">#&gt; ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → database</span></span>
 <span><span class="co">#&gt; • connector_dbi</span></span>
@@ -132,6 +130,9 @@
 <span><span class="co">#&gt; Registered methods:</span></span>
 <span><span class="co">#&gt; • `disconnect_cnt.connector_dbi()`</span></span>
 <span><span class="co">#&gt; • `list_content_cnt.connector_dbi()`</span></span>
+<span><span class="co">#&gt; • `log_read_connector.connector_dbi()`</span></span>
+<span><span class="co">#&gt; • `log_remove_connector.connector_dbi()`</span></span>
+<span><span class="co">#&gt; • `log_write_connector.connector_dbi()`</span></span>
 <span><span class="co">#&gt; • `read_cnt.connector_dbi()`</span></span>
 <span><span class="co">#&gt; • `remove_cnt.connector_dbi()`</span></span>
 <span><span class="co">#&gt; • `tbl_cnt.connector_dbi()`</span></span>
@@ -141,20 +142,20 @@
 <p>We are now ready to use the <code>connectors</code>, so we can start by writing some data to the <code>folder</code> one:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Initially it is empty</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">folder</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">folder</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; character(0)</span></span>
 <span></span>
 <span><span class="co"># Create some data</span></span>
-<span><span class="va">cars</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">cars</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span>rownames <span class="op">=</span> <span class="st">"car"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Write to folder as a parquet file</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">folder</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">folder</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/write_cnt.html">write_cnt</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cars</span>, name <span class="op">=</span> <span class="st">"cars.parquet"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Now the folder contains the file</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">folder</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">folder</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "cars.parquet"</span></span>
 <span></span>
@@ -179,22 +180,22 @@
 <p>For the <code>database</code> connector it works in the same way:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Initially no tables exists</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">database</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">database</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; character(0)</span></span>
 <span></span>
 <span><span class="co"># Write cars to the database as a table</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">database</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">database</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/write_cnt.html">write_cnt</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">cars</span>, name <span class="op">=</span> <span class="st">"cars"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Now the cara table exists</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">database</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">database</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "cars"</span></span>
 <span></span>
 <span><span class="co"># And we can read it back in</span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">database</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="reference/read_cnt.html">read_cnt</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"cars"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="reference/read_cnt.html">read_cnt</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"cars"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">dplyr</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html" class="external-link">as_tibble</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; # A tibble: 32 × 12</span></span>
 <span><span class="co">#&gt;    car           mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
