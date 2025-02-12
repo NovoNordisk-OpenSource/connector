@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 # Use a temporary directory as working directory and add the yaml example
 tmp <- withr::local_tempdir()
 
-system.file("examples/readme.yml", package = "connector") |> 
+system.file("examples/readme.yml", package = "connector") |>
   file.copy(to = file.path(tmp, "_connector.yml"))
 
 knitr::opts_knit$set(root.dir = tmp)
@@ -37,7 +37,6 @@ connector also has a series of expansion packages that allows you to easily conn
 
 * `{connector.databricks}`: Connect to Databricks
 * `{connector.sharepoint}`: Connect to SharePoint sites
-* `{connector.logger}`: Log connector actions, see also `{whirl}` for how to log scripts
 
 ## Usage
 
@@ -79,19 +78,19 @@ We are now ready to use the `connectors`, so we can start by writing some data t
 
 ```{r example-fs}
 # Initially it is empty
-db$folder |> 
+db$folder |>
   list_content_cnt()
 
 # Create some data
-cars <- mtcars |> 
+cars <- mtcars |>
   tibble::as_tibble(rownames = "car")
 
 # Write to folder as a parquet file
-db$folder |> 
+db$folder |>
   write_cnt(x = cars, name = "cars.parquet")
 
 # Now the folder contains the file
-db$folder |> 
+db$folder |>
   list_content_cnt()
 
 # And we can read it back in
@@ -106,20 +105,20 @@ For the `database` connector it works in the same way:
 
 ```{r example-dbi}
 # Initially no tables exists
-db$database |> 
+db$database |>
   list_content_cnt()
 
 # Write cars to the database as a table
-db$database |> 
+db$database |>
   write_cnt(x = cars, name = "cars")
 
 # Now the cara table exists
-db$database |> 
+db$database |>
   list_content_cnt()
 
 # And we can read it back in
 db$database |>
-  read_cnt(name = "cars") |> 
+  read_cnt(name = "cars") |>
   dplyr::as_tibble()
 ```
 
