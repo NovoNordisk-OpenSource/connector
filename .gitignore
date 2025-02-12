@@ -54,3 +54,5 @@ inst/doc
 
 # megalinter stuff
 megalinter-reports/
+
+/.quarto/

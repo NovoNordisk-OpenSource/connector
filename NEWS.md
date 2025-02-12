@@ -1,11 +1,21 @@
 
-# connector dev
+# connector 0.0.6
 
-- Connectors constructor builds the datasources attribute
-- Ability to write datasources attribute to a configuration file 
-- Create a new class for nested connectors objects, "nested_connectors"
-- Add README and vignette on how to extend connector
-- Add `tbl_cnt` to `connector_fs` in order to have redundancy between `fs` and `dbi` types of connectors
+## Breaking Changes
+* Removed dependency on {connector.logger} package. Logging functionality is now integrated directly into {connector} using {whirl}.
+
+## Features
+* Added integrated logging functionality using {whirl}.
+* Implemented `log_read_connector()`, `log_write_connector()`, and `log_remove_connector()` generics and methods for different connector types.
+* Connectors constructor now builds the datasources attribute.
+* Added ability to write datasources attribute to a configuration file.
+* Created a new class for nested connectors objects, "nested_connectors".
+* Added `tbl_cnt` to `connector_fs` for redundancy between `fs` and `dbi` types of connectors.
+
+## Enhancements
+* Fixed `add_logs()` function to add logging capability to connections.
+* Enhanced CI compatibility in vignettes by adding a condition to set working directory when running in a CI environment.
+* Expanded test coverage to include new logging functionality.
 
 # connector 0.0.5 (2025-01-15)
 
