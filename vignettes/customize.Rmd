@@ -18,10 +18,8 @@ knitr::opts_chunk$set(
 
 tmp <- withr::local_tempdir()
 dir.create(path = file.path(tmp, "my_root_path", "my_project"), recursive = TRUE)
-knitr::opts_knit$set(root.dir = tmp)
-if( isTRUE(as.logical(Sys.getenv("CI", "false")))){
-  old <- setwd(tmp)
-}
+# knitr::opts_knit$set(root.dir = tmp)
+
 library(connector)
 ```
 
@@ -62,7 +60,7 @@ connector_project <- R6::R6Class(
   public = list(
     initialize = function(project) {
       private$.project <- project
-      path <- file.path("my_root_path", project)
+      path <- file.path(tmp, "my_root_path", project)
       super$initialize(path)
     }
   ),
@@ -167,7 +165,7 @@ To redo the two examples above we make a new `connector_fs` with the extra class
 
 ```{r}
 my_project_extra <- connector_fs$new(
-  path = "my_root_path/my_project", 
+  path = file.path(tmp, "my_root_path", "my_project"), 
   extra_class = "my_extra_class"
   )
 
