@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.6</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.7</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -118,7 +118,7 @@ the <code>path</code> is constructed from that.</p>
 <span>  public <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
 <span>    initialize <span class="op">=</span> <span class="kw">function</span><span class="op">(</span><span class="va">project</span><span class="op">)</span> <span class="op">{</span></span>
 <span>      <span class="va">private</span><span class="op">$</span><span class="va">.project</span> <span class="op">&lt;-</span> <span class="va">project</span></span>
-<span>      <span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="st">"my_root_path"</span>, <span class="va">project</span><span class="op">)</span></span>
+<span>      <span class="va">path</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"my_root_path"</span>, <span class="va">project</span><span class="op">)</span></span>
 <span>      <span class="va">super</span><span class="op">$</span><span class="fu">initialize</span><span class="op">(</span><span class="va">path</span><span class="op">)</span></span>
 <span>    <span class="op">}</span></span>
 <span>  <span class="op">)</span>,</span>
@@ -158,7 +158,7 @@ that the path has been assigned correctly based on the
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpsIVmvT/file25115f46b394/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> project: my_project</span></span></code></pre></div>
 <p>We can now use this <code>connector</code> to read and write data,
 just as we would with <code><a href="../reference/connector_fs.html">connector_fs()</a></code>:</p>
@@ -200,7 +200,7 @@ class.</p>
 <span><span class="co">#&gt; {</span></span>
 <span><span class="co">#&gt;     UseMethod("list_content_cnt")</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x555d80297b48&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x55690648ea58&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:connector&gt;</span></span>
 <span></span>
 <span><span class="co"># List the registered s3 methods</span></span>
@@ -251,7 +251,7 @@ associated with the <code>connector_project</code> class:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpsIVmvT/file25115f46b394/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> project: my_project</span></span></code></pre></div>
 <p>And when we use <code><a href="../reference/list_content_cnt.html">list_content_cnt()</a></code> on our
 <code>my_project</code> object, we see that the custom method is used
@@ -278,7 +278,7 @@ used before any of the connector classes.</p>
 <code>demo_extra</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_project_extra</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/connector_fs.html">connector_fs</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
-<span>  path <span class="op">=</span> <span class="st">"my_root_path/my_project"</span>, </span>
+<span>  path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"my_root_path"</span>, <span class="st">"my_project"</span><span class="op">)</span>, </span>
 <span>  extra_class <span class="op">=</span> <span class="st">"my_extra_class"</span></span>
 <span>  <span class="op">)</span></span>
 <span></span>
@@ -299,7 +299,7 @@ used before any of the connector classes.</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: my_root_path/my_project</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpsIVmvT/file25115f46b394/my_root_path/my_project</span></span></code></pre></div>
 <p>As you can see here we have all the methods from
 <code><a href="../reference/connector_fs.html">connector_fs()</a></code>, but the <code>demo_extra</code> is now the
 first class in the class hierarchy.</p>
@@ -339,12 +339,12 @@ print the path instead, but otherwise everything is the same:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpsIVmvT/file25115f46b394/my_root_path/my_project</span></span>
 <span></span>
 <span><span class="co"># List content to see the new message</span></span>
 <span><span class="va">my_project_extra</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; → Listing content of my_root_path/my_project</span></span>
+<span><span class="co">#&gt; → Listing content of /tmp/RtmpsIVmvT/file25115f46b394/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; [1] "my_file.txt"</span></span></code></pre></div>
 </div>
 <div class="section level2">
