@@ -1,5 +1,3 @@
-library(testthat)
-
 # Mock whirl functions
 whirl <- new.env()
 whirl$log_read <- function(name) {}
@@ -8,10 +6,12 @@ whirl$log_delete <- function(name) {}
 
 # Define the log_mock_generator
 log_mock_generator <- function() {
-  call_count <- 0
+  env <- new.env(parent = emptyenv())
+  env$call_count <- 0
+
   function(...) {
-    current_count <- call_count
-    call_count <<- call_count + 1
+    current_count <- env$call_count
+    env$call_count <- env$call_count + 1
     current_count
   }
 }
@@ -221,5 +221,87 @@ test_that("print.connector_logger works correctly", {
   output <- capture.output(print(logger))
 
   # Check that the output is as expected
+  expect_true(any(grepl("connector_logger", output)))
+})
+
+
+# Additional tests
+
+# Test connector_logger creation
+test_that("connector_logger is created correctly", {
+  logger <- connector_logger
+  expect_s3_class(logger, "connector_logger")
+  expect_equal(length(logger), 0)
+})
+
+# Test generic functions
+test_that("generic functions call the correct method", {
+  logger <- connector_logger
+  mock_method <- function(...) "mock called"
+
+  # Use local_mocked_bindings for the generic functions
+  local_mocked_bindings(
+    log_read_connector = function(...) mock_method(...),
+    log_write_connector = function(...) mock_method(...),
+    log_remove_connector = function(...) mock_method(...),
+    log_list_content_connector = function(...) mock_method(...)
+  )
+
+  expect_equal(log_read_connector(logger, "test"), "mock called")
+  expect_equal(log_write_connector(logger, "test"), "mock called")
+  expect_equal(log_remove_connector(logger, "test"), "mock called")
+  expect_equal(log_list_content_connector(logger), "mock called")
+})
+
+# Test default methods
+test_that("default methods call correct whirl functions", {
+  logger <- list()
+
+  # Mock whirl functions
+  local_mocked_bindings(
+    log_read = function(...) "read called",
+    log_write = function(...) "write called",
+    log_delete = function(...) "delete called",
+    .package = "whirl"
+  )
+
+  expect_equal(log_read_connector(logger, "test"), "read called")
+  expect_equal(log_write_connector(logger, "test"), "write called")
+  expect_equal(log_remove_connector(logger, "test"), "delete called")
+})
+
+# Test list_content_cnt.connector_logger
+test_that("list_content_cnt.connector_logger works correctly", {
+  logger <- connector_logger
+
+  # Create a mock NextMethod function
+  mock_next_method <- function(...) c("file1", "file2")
+
+  # Temporarily replace the NextMethod function
+  original_next_method <- base::NextMethod
+  base::unlockBinding("NextMethod", as.environment("package:base"))
+  base::assign("NextMethod", mock_next_method, as.environment("package:base"))
+
+  # Use local_mocked_bindings for log_read_connector
+  local_mocked_bindings(
+    log_read_connector = function(...) NULL
+  )
+
+  # Run the test
+  tryCatch({
+    result <- list_content_cnt.connector_logger(logger)
+    expect_equal(result, c("file1", "file2"))
+  }, finally = {
+    # Restore the original NextMethod function
+    base::assign("NextMethod", original_next_method, as.environment("package:base"))
+    base::lockBinding("NextMethod", as.environment("package:base"))
+  })
+})
+
+# Test print.connector_logger
+test_that("print.connector_logger works correctly", {
+  logger <- connector_logger
+
+  output <- capture.output(print(logger))
   expect_true(any(grepl("connector_logger", output)))
 })
