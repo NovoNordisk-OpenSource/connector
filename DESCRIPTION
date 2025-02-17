@@ -42,7 +42,8 @@ Suggests:
     yaml,
     ggplot2,
     whirl (>= 0.1.8.9000),
-    mockery
+    mockery,
+    tibble
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
