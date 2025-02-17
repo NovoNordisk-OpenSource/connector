@@ -1,6 +1,6 @@
 ---
 name: PR Template
-about: Describe this issue template's purpose here.
+about: Template for PRs.
 title: "[PR] PR name"
 labels: ''
 assignees: ''
