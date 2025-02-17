@@ -1,6 +1,7 @@
 # Create a connector_fs object with a temporary folder path
+normalized_temp_dir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
 fs_connector <- connector::connector_fs$new(
-  path = tempdir(),
+  path = normalized_temp_dir,
   extra_class = "connector_logger"
 )
 
@@ -13,8 +14,8 @@ test_that("log_read_connector.connector_fs logs correct message", {
   })
 
   # Verify the correct message was logged
-  expected_msg <- glue::glue("test.csv @ {tempdir()}")
-  expect_true(any(grepl(expected_msg, log_output)))
+  expected_msg <- glue::glue("test.csv @ {normalized_temp_dir}")
+  expect_true(any(grepl(expected_msg, log_output, fixed = TRUE)))
 })
 
 test_that("log_write_connector.connector_fs logs correct message", {
@@ -26,8 +27,8 @@ test_that("log_write_connector.connector_fs logs correct message", {
   })
 
   # Verify the correct message was logged
-  expected_msg <- glue::glue("test.csv @ {tempdir()}")
-  expect_true(any(grepl(expected_msg, log_output)))
+  expected_msg <- glue::glue("test.csv @ {normalized_temp_dir}")
+  expect_true(any(grepl(expected_msg, log_output, fixed = TRUE)))
 })
 
 test_that("log_remove_connector.connector_fs logs correct message", {
@@ -39,15 +40,15 @@ test_that("log_remove_connector.connector_fs logs correct message", {
   })
 
   # Verify the correct message was logged
-  expected_msg <- glue::glue("test.csv @ {tempdir()}")
-  expect_true(any(grepl(expected_msg, log_output)))
+  expected_msg <- glue::glue("test.csv @ {normalized_temp_dir}")
+  expect_true(any(grepl(expected_msg, log_output, fixed = TRUE)))
 })
 
 test_that("connector_fs logging methods handle spaces in paths", {
   skip_if_not_installed("whirl")
   # Create a connector_fs object with path containing spaces
   fs_connector_spaces <- structure(
-    list(path = file.path(tempdir(), "path with spaces")),
+    list(path = file.path(normalized_temp_dir, "path with spaces")),
     class = "connector_fs"
   )
 
@@ -58,9 +59,9 @@ test_that("connector_fs logging methods handle spaces in paths", {
 
   # Verify the correct message was logged
   expected_msg <- glue::glue(
-    "file with spaces.csv @ {tempdir()}/path with spaces"
+    "file with spaces.csv @ {file.path(normalized_temp_dir, 'path with spaces')}"
   )
-  expect_true(any(grepl(expected_msg, log_output)))
+  expect_true(any(grepl(expected_msg, log_output, fixed = TRUE)))
 })
 
 test_that("connector_fs logging methods handle edge cases", {
@@ -77,8 +78,8 @@ test_that("connector_fs logging methods handle edge cases", {
   })
 
   # Verify the correct message was logged
-  expected_msg_empty_path <- glue::glue("test.csv @ ")
-  expect_true(any(grepl(expected_msg_empty_path, log_output_empty_path)))
+  expected_msg_empty_path <- "test.csv @ "
+  expect_true(any(grepl(expected_msg_empty_path, log_output_empty_path, fixed = TRUE)))
 
   # Test with empty name
   log_output_empty_name <- capture.output({
@@ -86,6 +87,6 @@ test_that("connector_fs logging methods handle edge cases", {
   })
 
   # Verify the correct message was logged
-  expected_msg_empty_name <- glue::glue(" @ {tempdir()}")
-  expect_true(any(grepl(expected_msg_empty_name, log_output_empty_name)))
+  expected_msg_empty_name <- glue::glue(" @ {normalized_temp_dir}")
+  expect_true(any(grepl(expected_msg_empty_name, log_output_empty_name, fixed = TRUE)))
 })
