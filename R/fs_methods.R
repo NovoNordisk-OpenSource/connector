@@ -142,11 +142,10 @@ remove_cnt.connector_fs <- function(connector_object, name, ...) {
 #' @rdname download_cnt
 #' @export
 download_cnt.connector_fs <- function(
-  connector_object,
-  name,
-  file = basename(name),
-  ...
-) {
+    connector_object,
+    name,
+    file = basename(name),
+    ...) {
   name <- file.path(connector_object$path, name)
   file.copy(from = name, to = file, ...)
 
@@ -182,11 +181,10 @@ download_cnt.connector_fs <- function(
 #' @rdname upload_cnt
 #' @export
 upload_cnt.connector_fs <- function(
-  connector_object,
-  file,
-  name = basename(file),
-  ...
-) {
+    connector_object,
+    file,
+    name = basename(file),
+    ...) {
   name <- file.path(connector_object$path, name)
 
   file.copy(from = file, to = name, ...)
@@ -222,11 +220,10 @@ upload_cnt.connector_fs <- function(
 #' @rdname create_directory_cnt
 #' @export
 create_directory_cnt.connector_fs <- function(
-  connector_object,
-  name,
-  ...,
-  open = TRUE
-) {
+    connector_object,
+    name,
+    ...,
+    open = TRUE) {
   path <- file.path(connector_object$path, name)
   dir.create(path = path, ...)
 
@@ -282,8 +279,8 @@ remove_directory_cnt.connector_fs <- function(connector_object, name, ...) {
 #'
 #' cnt |>
 #'   write_cnt(iris, "iris.csv")
-#' 
-#' iris_cnt <- cnt |> 
+#'
+#' iris_cnt <- cnt |>
 #'   tbl_cnt("iris.csv")
 #'
 #' iris_cnt

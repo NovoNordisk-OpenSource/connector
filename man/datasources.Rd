@@ -22,7 +22,7 @@ modification.
 }
 \examples{
 # Assume we have a 'mock_connectors' object with a 'datasources' attribute
-mock_connectors <- structure(list(), class = "connectors" )
+mock_connectors <- structure(list(), class = "connectors")
 attr(mock_connectors, "datasources") <- list(source1 = "data1", source2 = "data2")
 
 # Using the function

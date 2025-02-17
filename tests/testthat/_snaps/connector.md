@@ -5,4 +5,3 @@
     Message
       <connectors>
         $test <connector_fs>
-
