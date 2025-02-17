@@ -1,7 +1,7 @@
 ---
 name: PR Template
 about: Describe this issue template's purpose here.
-title: "[FEAT] Feature name"
+title: "[PR] PR name"
 labels: ''
 assignees: ''
 
