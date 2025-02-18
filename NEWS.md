@@ -1,5 +1,6 @@
-# connector (development version)
+# connector 0.0.6.9000
 
+* Removed test dependency package {mockery} as it has been deprecated. Using recommended testthat::local_mocked_bindings() instead.
 
 # connector 0.0.6
 
