@@ -1,6 +1,11 @@
-# connector 0.0.6.9000
+# connector 0.0.7.9000
 
 * Removed test dependency package {mockery} as it has been deprecated. Using recommended testthat::local_mocked_bindings() instead.
+
+# connector 0.0.7
+
+## Features
+* Modified `vignettes/customize.Rmd` to ensure internal pipeline run successfully.
 
 # connector 0.0.6
 
