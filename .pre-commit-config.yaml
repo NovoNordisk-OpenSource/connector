@@ -81,8 +81,10 @@ repos:
         files: '^\.Rbuildignore$'
     -   id: end-of-file-fixer
         exclude: > 
-            '\.Rd',
-            '\.md'
+            (?x)^(
+            \.Rd|
+            tests/testthat/_snaps/.*
+            )$
 -   repo: https://github.com/pre-commit-ci/pre-commit-ci-config
     rev: v1.6.1
     hooks:
