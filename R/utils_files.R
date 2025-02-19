@@ -28,7 +28,6 @@ find_file <- function(name, root) {
 #' supported_fs()
 supported_fs <- function() {
   fct <- getExportedValue("connector", "read_ext")
-  # TODO: Make some great documentation on which formats are supported and which functions from other packages are used
   utils::methods(fct) |>
     suppressWarnings() |>
     as.character()
@@ -48,7 +47,6 @@ assert_ext <- function(ext, method) {
     x = as.character(utils::methods(method))
   )
 
-  # TODO: Have to be better ! Use cli::bullets?
   checkmate::assert_choice(x = ext, choices = valid)
 }
 

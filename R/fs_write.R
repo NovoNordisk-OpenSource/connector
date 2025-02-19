@@ -80,7 +80,6 @@ write_ext.rds <- function(file, x, ...) {
 #' @rdname write_file
 #' @export
 write_ext.xpt <- function(file, x, ...) {
-  # TODO: Use xportr to create nice pharmaverse style XPT files?
   haven::write_xpt(data = x, path = file, ...)
 }
 
