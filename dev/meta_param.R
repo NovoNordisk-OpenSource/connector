@@ -3,7 +3,8 @@ pkgload::load_all()
 ## if metadata exists
 
 
-yaml_file <- system.file("config", "default_config.yml", package = "connector")
+
+<- system.file("config", "default_config.yml", package = "connector")
 
 sans_metadata <- list(datasources = list(ok = "test"))
 old_metadata <- yaml_file[["metadata"]]
@@ -27,7 +28,7 @@ new_metadata <- list(
 
 field_to_replace <- names(new_metadata)
 
-for(i in field_to_replace){
+for (i in field_to_replace) {
   old_metadata[i] <- new_metadata[i]
 }
 
@@ -50,8 +51,7 @@ config["metadata"] <- change_to_new_md(old_metadata)
 test <- substitute(list(
   adam = connector_fs$new(path = "dev"),
   adam2 = connector_fs$new("dev")
-)
-)
+))
 as.character(test[2])
 
 test2 <- as.character(test)
@@ -93,10 +93,10 @@ extract_function_info <- function(func_string) {
     func_name <- sub("\\$new$", "", func_name)
   }
 
-  if(is.null(package_name)){
-    if(is_r6){
+  if (is.null(package_name)) {
+    if (is_r6) {
       package_name <- getNamespaceName(get(func_name)$parent_env)
-    }else{
+    } else {
       package_name <- getNamespaceName(environment(get(func_name)))
     }
   }
@@ -106,9 +106,9 @@ extract_function_info <- function(func_string) {
 
 
   # Obtenir les arguments formels
-  if(is_r6){
+  if (is_r6) {
     formal_args <- names(formals(func$public_methods$initialize))
-  }else{
+  } else {
     formal_args <- names(formals(func))
   }
 
@@ -117,23 +117,23 @@ extract_function_info <- function(func_string) {
   params <- call_args(expr)
 
   # Convertir les symboles en chaînes et évaluer les expressions
-  params <- map(params, ~ if(is_symbol(.x)) as_string(.x) else eval_tidy(.x))
+  params <- map(params, ~ if (is_symbol(.x)) as_string(.x) else eval_tidy(.x))
 
   # Nommer les paramètres non nommés selon l'ordre des arguments
-  if(formal_args[1] == "..."){
+  if (formal_args[1] == "...") {
     unnamed_args <- params[names(params) == ""]
     named_args <- params[names(params) != ""]
     unnamed_args <- unlist(unnamed_args)
     unnamed_args <- list("..." = unnamed_args)
-  }else{
+  } else {
     unnamed_args <- params[names(params) == ""]
     named_args <- params[names(params) != ""]
-    if(length(unnamed_args) != 0){
+    if (length(unnamed_args) != 0) {
       u_formal_args <- formal_args[!formal_args %in% names(params)]
       u_formal_args <- u_formal_args[u_formal_args != "..."]
       u_formal_args <- u_formal_args[1:length(unnamed_args)]
       names(unnamed_args) <- u_formal_args
-    }else{
+    } else {
       unnamed_args <- NULL
     }
   }
@@ -143,14 +143,15 @@ extract_function_info <- function(func_string) {
   # Créer et retourner la liste résultante
   structure(
     compact(
-    list(
-    function_name = func_name,
-    parameters = params,
-    is_r6 = is_r6,
-    package_name = package_name
+      list(
+        function_name = func_name,
+        parameters = params,
+        is_r6 = is_r6,
+        package_name = package_name
+      )
+    ),
+    class = "clean_fct_info"
   )
-), class = "clean_fct_info")
-
 }
 
 func_string <- "ggplot2::ggplot(mapping = ggplot2::aes(x = Species, y = Sepal.Length), data = iris)"
@@ -160,7 +161,7 @@ func_string <- 'base::paste("Hello", sep = " ", "World")'
 print(result2)
 as.character(rlang::parse_expr(func_string)[[1]][2])
 
-func_string <- 'mean(c(1, 2, 3), na.rm = TRUE)'
+func_string <- "mean(c(1, 2, 3), na.rm = TRUE)"
 print(result4)
 
 func_string <- "connector_fs$new(extra_class = \"dev\" ,\"dev\")"
@@ -176,9 +177,9 @@ transform_as_backend <- function(infos, name) {
   bk <- list(
     name = name,
     backend = list(
-    type = paste0(infos$package_name, "::", infos$function_name)
+      type = paste0(infos$package_name, "::", infos$function_name)
+    )
   )
-)
   bk$backend[names(infos$parameters)] <- infos$parameters
 
   return(bk)
@@ -186,7 +187,7 @@ transform_as_backend <- function(infos, name) {
 
 
 
-transform_as_datasources <- function(bks){
+transform_as_datasources <- function(bks) {
   list(
     datasources = bks
   )
@@ -195,7 +196,7 @@ transform_as_datasources <- function(bks){
 test <- substitute(
   list(
     adam = connector_fs$new(path = "dev"),
-    adam2 = connector_fs$new(extra_class = "dev" ,"dev")
+    adam2 = connector_fs$new(extra_class = "dev", "dev")
   )
 )
 
@@ -213,12 +214,12 @@ connect("test.yml")
 
 # function to write the datasources attribute to ymal/json/rds
 write_datasources <- function(connectors, file, format = "yaml") {
- # tesating extension of file
+  # tesating extension of file
   ext <- tools::file_ext(file)
-  stopifnot(ext %in% c("yaml", "yml", "json", "rds")) 
- ## using our own write function from connector
- dts <- datasources(connectors)
- write_file(dts, file)
+  stopifnot(ext %in% c("yaml", "yml", "json", "rds"))
+  ## using our own write function from connector
+  dts <- datasources(connectors)
+  write_file(dts, file)
 }
 
 test <- connect(config = yaml_file, logging = FALSE)
@@ -239,7 +240,7 @@ testthat::expect_equal(datasources(test), datasources(test2))
 
 test2 <- connectors(
   adam = connector_fs$new(path = "dev"),
-  adam2 = connector_fs$new(extra_class = "dev" ,"dev")
+  adam2 = connector_fs$new(extra_class = "dev", "dev")
 )
 
 str(datasources(test2))

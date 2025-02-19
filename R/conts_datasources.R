@@ -157,12 +157,12 @@ extract_function_info <- function(func_string) {
   structure(
     purrr::compact(
       list(
-      function_name = base_info$func_name,
-      parameters = params,
-      is_r6 = is_r6,
-      package_name = base_info$package_name
-    )
-  ),
+        function_name = base_info$func_name,
+        parameters = params,
+        is_r6 = is_r6,
+        package_name = base_info$package_name
+      )
+    ),
     class = "clean_fct_info"
   )
 }
@@ -253,9 +253,9 @@ extract_and_process_params <- function(expr, formal_args) {
   params <- purrr::map(params, ~ {
     if (is_symbol(.x)) {
       as.character(.x)
-    } else if(is_call(.x)){
+    } else if (is_call(.x)) {
       as.character(deparse(.x))
-    }  else {
+    } else {
       as.character(.x)
     }
   })
@@ -298,7 +298,7 @@ process_named_params <- function(params, formal_args) {
   if (length(unnamed_args) != 0) {
     u_formal_args <- formal_args[!formal_args %in% names(params)]
     u_formal_args <- u_formal_args[u_formal_args != "..."]
-    u_formal_args <- u_formal_args[1:length(unnamed_args)]
+    u_formal_args <- u_formal_args[seq_along(unnamed_args)]
     names(unnamed_args) <- u_formal_args
   } else {
     unnamed_args <- NULL
