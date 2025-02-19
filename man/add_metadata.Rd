@@ -17,8 +17,8 @@ add_metadata(config_path, key, value)
 The updated configuration after adding the new metadata
 }
 \description{
-This function adds metadata to a YAML configuration file by modifying the provided key-value pair
-in the metadata section of the file.
+This function adds metadata to a YAML configuration file by modifying the provided
+key-value pair in the metadata section of the file.
 }
 \examples{
 # Read the YAML file
