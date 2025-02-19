@@ -29,7 +29,7 @@ connectors <- function(...) {
   x <- rlang::list2(...)
   ds_ <- x[["datasources"]]
 
-  if (!is.null(ds_) & !inherits(ds_, "cnts_datasources")) {
+  if (!is.null(ds_) && !inherits(ds_, "cnts_datasources")) {
     cli::cli_abort("'datasources' is a reserved name. It cannot be used as a name for a data source.")
   }
 
@@ -79,7 +79,7 @@ print_connectors <- function(x, ...) {
 print.cnts_datasources <- function(x, ...) {
   cli::cli_h1("Datasources")
 
- for(ds in x[["datasources"]]) {
+  for (ds in x[["datasources"]]) {
     cli::cli_h2(ds$name)
     cli::cli_ul()
     cli::cli_li("Backend Type: {.val {ds$backend$type}}")
@@ -90,7 +90,7 @@ print.cnts_datasources <- function(x, ...) {
     cli::cli_end()
   }
 
- return(x)
+  return(x)
 }
 
 #' @noRd
@@ -116,7 +116,7 @@ as_datasources <- function(...) {
 #'
 #' @examples
 #' # Assume we have a 'mock_connectors' object with a 'datasources' attribute
-#' mock_connectors <- structure(list(), class = "connectors" )
+#' mock_connectors <- structure(list(), class = "connectors")
 #' attr(mock_connectors, "datasources") <- list(source1 = "data1", source2 = "data2")
 #'
 #' # Using the function
@@ -125,7 +125,7 @@ as_datasources <- function(...) {
 #'
 #' @export
 datasources <- function(connectors) {
-  if(!is_connectors(connectors)){
+  if (!is_connectors(connectors)) {
     cli::cli_abort("param connectors should be a connectors object.")
   }
 
@@ -155,6 +155,6 @@ print.nested_connectors <- function(x, ...) {
 }
 
 #' @noRd
-is_connectors <- function(connectors){
+is_connectors <- function(connectors) {
   inherits(connectors, "connectors")
 }

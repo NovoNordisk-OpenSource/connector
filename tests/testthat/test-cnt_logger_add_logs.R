@@ -9,8 +9,9 @@ test_that("add_logs functions correctly", {
 
   expect_s3_class(result, "connectors")
   expect_length(result, 2)
-  expect_true(all(sapply(result, function(x)
-    "connector_logger" %in% class(x))))
+  expect_true(all(sapply(result, function(x) {
+    "connector_logger" %in% class(x)
+  })))
 
   # Test 3: Check if the function preserves existing classes
   mock_connectors_with_class <- structure(list(
@@ -27,5 +28,4 @@ test_that("add_logs functions correctly", {
   expect_true(all(
     c("another_class", "yet_another_class") %in% class(result_with_class[[2]])
   ))
-
 })

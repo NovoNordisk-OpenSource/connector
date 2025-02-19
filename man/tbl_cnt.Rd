@@ -62,7 +62,7 @@ cnt <- connector_fs$new(tempdir())
 cnt |>
   write_cnt(iris, "iris.csv")
 
-iris_cnt <- cnt |> 
+iris_cnt <- cnt |>
   tbl_cnt("iris.csv")
 
 iris_cnt

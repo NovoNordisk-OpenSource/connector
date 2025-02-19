@@ -24,21 +24,25 @@ test_that("write_cnt.connector_logger handles success and failure", {
   log_mock <- log_mock_generator()
 
   write_cnt.connector_logger <- function(connector_object, x, name, ...) {
-    tryCatch({
-      # Simulate successful write operation
-      log_write_connector(connector_object, name, ...)
-      invisible(NULL)
-    }, error = function(e) {
-      stop(e)
-    })
+    tryCatch(
+      {
+        # Simulate successful write operation
+        log_write_connector(connector_object, name, ...)
+        invisible(NULL)
+      },
+      error = function(e) {
+        stop(e)
+      }
+    )
   }
 
-  with_mocked_bindings({
-    result <- write_cnt.connector_logger(logger, data, "test_file")
-    expect_null(result)
-    expect_equal(log_mock(), 1)
-  },
-  log_write_connector = log_mock
+  with_mocked_bindings(
+    {
+      result <- write_cnt.connector_logger(logger, data, "test_file")
+      expect_null(result)
+      expect_equal(log_mock(), 1)
+    },
+    log_write_connector = log_mock
   )
 
   # Test error case
@@ -48,11 +52,12 @@ test_that("write_cnt.connector_logger handles success and failure", {
     stop("error")
   }
 
-  with_mocked_bindings({
-    expect_error(write_cnt.connector_logger(logger, data, "test_file"), "error")
-    expect_equal(log_mock(), 0)
-  },
-  log_write_connector = log_mock
+  with_mocked_bindings(
+    {
+      expect_error(write_cnt.connector_logger(logger, data, "test_file"), "error")
+      expect_equal(log_mock(), 0)
+    },
+    log_write_connector = log_mock
   )
 })
 
@@ -63,21 +68,25 @@ test_that("read_cnt.connector_logger handles success and failure", {
   log_mock <- log_mock_generator()
 
   read_cnt.connector_logger <- function(connector_object, name, ...) {
-    tryCatch({
-      res <- "test_data"
-      log_read_connector(connector_object, name, ...)
-      res
-    }, error = function(e) {
-      stop(e)
-    })
+    tryCatch(
+      {
+        res <- "test_data"
+        log_read_connector(connector_object, name, ...)
+        res
+      },
+      error = function(e) {
+        stop(e)
+      }
+    )
   }
 
-  with_mocked_bindings({
-    result <- read_cnt.connector_logger(logger, "test_file")
-    expect_equal(result, "test_data")
-    expect_equal(log_mock(), 1)
-  },
-  log_read_connector = log_mock
+  with_mocked_bindings(
+    {
+      result <- read_cnt.connector_logger(logger, "test_file")
+      expect_equal(result, "test_data")
+      expect_equal(log_mock(), 1)
+    },
+    log_read_connector = log_mock
   )
 
   # Test error case
@@ -87,11 +96,12 @@ test_that("read_cnt.connector_logger handles success and failure", {
     stop("error")
   }
 
-  with_mocked_bindings({
-    expect_error(read_cnt.connector_logger(logger, "test_file"), "error")
-    expect_equal(log_mock(), 0)
-  },
-  log_read_connector = log_mock
+  with_mocked_bindings(
+    {
+      expect_error(read_cnt.connector_logger(logger, "test_file"), "error")
+      expect_equal(log_mock(), 0)
+    },
+    log_read_connector = log_mock
   )
 })
 
@@ -102,20 +112,24 @@ test_that("remove_cnt.connector_logger handles success and failure", {
   log_mock <- log_mock_generator()
 
   remove_cnt.connector_logger <- function(connector_object, name, ...) {
-    tryCatch({
-      log_remove_connector(connector_object, name, ...)
-      invisible(NULL)
-    }, error = function(e) {
-      stop(e)
-    })
+    tryCatch(
+      {
+        log_remove_connector(connector_object, name, ...)
+        invisible(NULL)
+      },
+      error = function(e) {
+        stop(e)
+      }
+    )
   }
 
-  with_mocked_bindings({
-    result <- remove_cnt.connector_logger(logger, "test_file")
-    expect_null(result)
-    expect_equal(log_mock(), 1)
-  },
-  log_remove_connector = log_mock
+  with_mocked_bindings(
+    {
+      result <- remove_cnt.connector_logger(logger, "test_file")
+      expect_null(result)
+      expect_equal(log_mock(), 1)
+    },
+    log_remove_connector = log_mock
   )
 
   # Test error case
@@ -125,11 +139,12 @@ test_that("remove_cnt.connector_logger handles success and failure", {
     stop("error")
   }
 
-  with_mocked_bindings({
-    expect_error(remove_cnt.connector_logger(logger, "test_file"), "error")
-    expect_equal(log_mock(), 0)
-  },
-  log_remove_connector = log_mock
+  with_mocked_bindings(
+    {
+      expect_error(remove_cnt.connector_logger(logger, "test_file"), "error")
+      expect_equal(log_mock(), 0)
+    },
+    log_remove_connector = log_mock
   )
 })
 
@@ -139,36 +154,41 @@ test_that("list_content_cnt.connector_logger handles success and failure", {
   # Test success case
   log_mock <- log_mock_generator()
 
-  list_content_cnt.connector_logger <- function(connector_object, ...) {
-    tryCatch({
-      res <- c("file1", "file2")
-      log_read_connector(connector_object, name = ".", ...)
-      res
-    }, error = function(e) {
-      stop(e)
-    })
+  list_content_cnt.connector_logger <- function(connector_object, ...) { # nolint
+    tryCatch(
+      {
+        res <- c("file1", "file2")
+        log_read_connector(connector_object, name = ".", ...)
+        res
+      },
+      error = function(e) {
+        stop(e)
+      }
+    )
   }
 
-  with_mocked_bindings({
-    result <- list_content_cnt.connector_logger(logger)
-    expect_equal(result, c("file1", "file2"))
-    expect_equal(log_mock(), 1)
-  },
-  log_read_connector = log_mock
+  with_mocked_bindings(
+    {
+      result <- list_content_cnt.connector_logger(logger)
+      expect_equal(result, c("file1", "file2"))
+      expect_equal(log_mock(), 1)
+    },
+    log_read_connector = log_mock
   )
 
   # Test error case
   log_mock <- log_mock_generator()
 
-  list_content_cnt.connector_logger <- function(connector_object, ...) {
+  list_content_cnt.connector_logger <- function(connector_object, ...) { # nolint
     stop("error")
   }
 
-  with_mocked_bindings({
-    expect_error(list_content_cnt.connector_logger(logger), "error")
-    expect_equal(log_mock(), 0)
-  },
-  log_read_connector = log_mock
+  with_mocked_bindings(
+    {
+      expect_error(list_content_cnt.connector_logger(logger), "error") # nolint
+      expect_equal(log_mock(), 0)
+    },
+    log_read_connector = log_mock
   )
 })
 

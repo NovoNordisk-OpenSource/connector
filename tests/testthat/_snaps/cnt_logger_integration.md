@@ -12,4 +12,3 @@
       6 write
       7  read
       8  read
-

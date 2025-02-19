@@ -2,13 +2,7 @@
 metadata:
   trial: "demo_trial"
   root_path: !expr system.file(package = "connector")
-  extra_class: "{env.hello}"
-  R: "{env.R_HOME}"
-
-env:
-  hello: "world"
-  RSQLite_db: ":memory:"
-  system_path: "path: {env.PATH}"
+  extra_class: "test2"
 
 datasources:
   - name: "adam"
@@ -20,4 +14,4 @@ datasources:
     backend:
         type: "connector_dbi"
         drv: "RSQLite::SQLite()"
-        dbname: "{env.RSQLite_db}"
+        dbname: ":memory:"
