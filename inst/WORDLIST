@@ -197,6 +197,7 @@ png
 postgres
 POSTGRES
 pre
+precommit
 purrr
 Qbt
 RACEGR
@@ -204,6 +205,7 @@ RANDDT
 README
 readr
 readxl
+repo
 Retrievel
 reusability
 RFENDTC
