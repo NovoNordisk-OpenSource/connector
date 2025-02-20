@@ -14,7 +14,7 @@ remove_metadata <- function(config_path, key) {
   return(config)
 }
 
-# Function to add a new datasource 
+# Function to add a new datasource
 add_datasource <- function(config_path, name, backend) {
   config <- read_file(config_path, eval.expr = TRUE)
   new_datasource <- list(

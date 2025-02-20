@@ -21,4 +21,3 @@ datasources:
         type: "connector_dbi"
         drv: "RSQLite::SQLite()"
         dbname: "{env.RSQLite_db}"
-

@@ -24,7 +24,6 @@ create_backend <- function(backend) {
   }
 
   ## In case of db connection
-  ## TODO: detect if a function is used for all params?
   if (!is.null(params_from_user$drv)) {
     params_from_user$drv <- get_backend_fct(backend$drv)()
   }

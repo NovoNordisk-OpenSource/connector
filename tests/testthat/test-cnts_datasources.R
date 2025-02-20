@@ -2,10 +2,10 @@ test_that("write_datasources works correctly", {
   # Create test connector object
   config <- system.file("config", "default_config.yml", package = "connector")
   test_connectors <- connect(config)
-  
+
   # Setup
   valid_extensions <- c("yml", "yaml", "json", "rds")
-  temp_files <- purrr::map_chr(valid_extensions, ~tempfile(fileext = paste0(".", .x))) |>
+  temp_files <- purrr::map_chr(valid_extensions, ~ tempfile(fileext = paste0(".", .x))) |>
     purrr::set_names(valid_extensions)
   temp_invalid <- tempfile(fileext = ".txt")
 
@@ -16,7 +16,7 @@ test_that("write_datasources works correctly", {
   written_sources <- read_file(temp_files["yml"])
   written_sources <- as_datasources(written_sources)
   expect_equal(original_sources, written_sources)
-  
+
   # Test invalid cases
   invalid_inputs <- list(
     list(
@@ -45,7 +45,7 @@ test_that("write_datasources works correctly", {
     write_datasources(.x$input, .x$file),
     .x$error
   ))
-  
+
   # Cleanup
   unlink(c(temp_files, temp_invalid))
 })
