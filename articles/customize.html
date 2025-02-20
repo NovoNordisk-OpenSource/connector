@@ -158,27 +158,27 @@ that the path has been assigned correctly based on the
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpyujGf0/file2473470bb05f/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpZ4uRG5/file24cb5cffb540/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> project: my_project</span></span></code></pre></div>
 <p>We can now use this <code>connector</code> to read and write data,
 just as we would with <code><a href="../reference/connector_fs.html">connector_fs()</a></code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># First list current content:</span></span>
-<span><span class="va">my_project</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">my_project</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; character(0)</span></span>
 <span></span>
 <span><span class="co"># Write some content:</span></span>
-<span><span class="va">my_project</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">my_project</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="st">"Hello world!"</span>, <span class="st">"my_file.txt"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># List content again:</span></span>
-<span><span class="va">my_project</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">my_project</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "my_file.txt"</span></span>
 <span></span>
 <span><span class="co"># Read the content:</span></span>
-<span><span class="va">my_project</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">my_project</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"my_file.txt"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "Hello world!"</span></span></code></pre></div>
 </div>
@@ -194,17 +194,17 @@ class.</p>
 <p>To illustrate this we can take a look at the
 <code><a href="../reference/list_content_cnt.html">list_content_cnt()</a></code> generic:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Print the generic </span></span>
+<code class="sourceCode R"><span><span class="co"># Print the generic</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">list_content_cnt</span><span class="op">)</span></span>
 <span><span class="co">#&gt; function (connector_object, ...) </span></span>
 <span><span class="co">#&gt; {</span></span>
 <span><span class="co">#&gt;     UseMethod("list_content_cnt")</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x558137cc40e8&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x556ec2723450&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:connector&gt;</span></span>
 <span></span>
 <span><span class="co"># List the registered s3 methods</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html" class="external-link">methods</a></span><span class="op">(</span><span class="st">"list_content_cnt"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html" class="external-link">methods</a></span><span class="op">(</span><span class="st">"list_content_cnt"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; list_content_cnt.connector_dbi</span></span>
 <span><span class="co">#&gt; list_content_cnt.connector_fs</span></span>
@@ -225,7 +225,7 @@ before calling the <code>connector_fs</code> method.</p>
 associated with the <code>connector_project</code> class:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># List methods again</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html" class="external-link">methods</a></span><span class="op">(</span><span class="st">"list_content_cnt"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html" class="external-link">methods</a></span><span class="op">(</span><span class="st">"list_content_cnt"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; list_content_cnt.connector_dbi</span></span>
 <span><span class="co">#&gt; list_content_cnt.connector_fs</span></span>
@@ -251,13 +251,13 @@ associated with the <code>connector_project</code> class:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpyujGf0/file2473470bb05f/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpZ4uRG5/file24cb5cffb540/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> project: my_project</span></span></code></pre></div>
 <p>And when we use <code><a href="../reference/list_content_cnt.html">list_content_cnt()</a></code> on our
 <code>my_project</code> object, we see that the custom method is used
 and we get the message:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">my_project</span> <span class="op">|&gt;</span> </span>
+<code class="sourceCode R"><span><span class="va">my_project</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; → Listing content of my_project</span></span>
 <span><span class="co">#&gt; [1] "my_file.txt"</span></span></code></pre></div>
@@ -278,9 +278,9 @@ used before any of the connector classes.</p>
 <code>demo_extra</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_project_extra</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/connector_fs.html">connector_fs</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
-<span>  path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"my_root_path"</span>, <span class="st">"my_project"</span><span class="op">)</span>, </span>
+<span>  path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"my_root_path"</span>, <span class="st">"my_project"</span><span class="op">)</span>,</span>
 <span>  extra_class <span class="op">=</span> <span class="st">"my_extra_class"</span></span>
-<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">my_project_extra</span><span class="op">)</span></span>
 <span><span class="co">#&gt; <span style="color: #0000BB;">&lt;my_extra_class/connector_fs&gt;</span></span></span>
@@ -299,7 +299,7 @@ used before any of the connector classes.</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpyujGf0/file2473470bb05f/my_root_path/my_project</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpZ4uRG5/file24cb5cffb540/my_root_path/my_project</span></span></code></pre></div>
 <p>As you can see here we have all the methods from
 <code><a href="../reference/connector_fs.html">connector_fs()</a></code>, but the <code>demo_extra</code> is now the
 first class in the class hierarchy.</p>
@@ -339,12 +339,12 @@ print the path instead, but otherwise everything is the same:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.connector_fs()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpyujGf0/file2473470bb05f/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpZ4uRG5/file24cb5cffb540/my_root_path/my_project</span></span>
 <span></span>
 <span><span class="co"># List content to see the new message</span></span>
-<span><span class="va">my_project_extra</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">my_project_extra</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; → Listing content of /tmp/RtmpyujGf0/file2473470bb05f/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; → Listing content of /tmp/RtmpZ4uRG5/file24cb5cffb540/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; [1] "my_file.txt"</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -400,24 +400,24 @@ methods:</p>
 out existing <code>my_project</code> connector:</p>
 <div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># List already existing content:</span></span>
-<span><span class="va">my_project</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">my_project</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; → Listing content of my_project</span></span>
 <span><span class="co">#&gt; [1] "my_file.txt"</span></span>
 <span></span>
 <span><span class="co"># Write some content in myformat:</span></span>
-<span><span class="va">my_project</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">my_project</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="st">"Hello new format!"</span>, <span class="st">"new_file.myformat"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; → Writing myformat file</span></span>
 <span></span>
 <span><span class="co"># List content again:</span></span>
-<span><span class="va">my_project</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">my_project</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; → Listing content of my_project</span></span>
 <span><span class="co">#&gt; [1] "my_file.txt"       "new_file.myformat"</span></span>
 <span></span>
 <span><span class="co"># Read the content:</span></span>
-<span><span class="va">my_project</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">my_project</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"new_file.myformat"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; → Reading myformat file</span></span>
 <span><span class="co">#&gt; [1] "Hello new format!"</span></span></code></pre></div>

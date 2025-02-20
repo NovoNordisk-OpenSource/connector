@@ -131,37 +131,38 @@ must be provided</li>
 </ul>
 <p>Here is an example of a configuration file with different types of
 connections:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
-<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="at">  </span><span class="fu">trial</span><span class="kw">:</span><span class="at"> </span><span class="st">"yyyy"</span></span>
-<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="at">  </span><span class="fu">project</span><span class="kw">:</span><span class="at"> </span><span class="st">"nnxxxx"</span></span>
-<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="at">  </span><span class="fu">instance</span><span class="kw">:</span><span class="at"> </span><span class="st">"current"</span></span>
-<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="at">  </span><span class="fu">http_path</span><span class="kw">:</span><span class="at">  </span><span class="ot">!!expr</span><span class="at"> Sys.getenv("DATABRICKS_HTTP_PATH")</span></span>
-<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="at">  </span><span class="fu">catalog</span><span class="kw">:</span><span class="at">  </span><span class="ot">!!expr</span><span class="at"> Sys.getenv("DATABRICKS_CATALOG_NAME")</span></span>
-<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="at">  </span><span class="fu">sharepoint</span><span class="kw">:</span><span class="at"> </span><span class="st">"https://my_organisation.sharepoint.com"</span></span>
-<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="at">  </span><span class="fu">root_path</span><span class="kw">:</span><span class="at"> </span><span class="st">"/home/my_root_path"</span></span>
-<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="fu">datasources</span><span class="kw">:</span></span>
-<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"adam"</span></span>
-<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
-<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector::connector_fs"</span></span>
-<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.root_path}/{metadata.project}/{metadata.trial}/{metadata.instance}/adam"</span></span>
-<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"tfl"</span></span>
-<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
-<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector.databricks::connector_databricks_volume"</span></span>
-<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="at">      </span><span class="fu">catalog</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.catalog}"</span></span>
-<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="at">      </span><span class="fu">schema</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.project}_{metadata.trial}_tfl"</span></span>
-<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a><span class="at">      </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"output"</span></span>
-<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a></span>
-<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"metadata"</span></span>
-<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
-<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector.databricks::connector_databricks_dbi"</span></span>
-<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a><span class="at">      </span><span class="fu">http_path</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.http_path}"</span></span>
-<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a><span class="at">      </span><span class="fu">catalog</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.catalog}"</span></span>
-<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="at">      </span><span class="fu">schema</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.project}_{metadata.trial}_metadata"</span></span>
-<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a></span>
-<span id="cb2-28"><a href="#cb2-28" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"output_sh"</span></span>
-<span id="cb2-29"><a href="#cb2-29" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
-<span id="cb2-30"><a href="#cb2-30" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector.sharepoint::connector_sharepoint"</span></span>
-<span id="cb2-31"><a href="#cb2-31" tabindex="-1"></a><span class="at">      </span><span class="fu">site_url</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.sharepoint}/sites/{metadata.project}_{metadata.trial}_output"</span></span></code></pre></div>
+<pre><code>metadata:
+  trial: "yyyy"
+  project: "nnxxxx"
+  instance: "current"
+  http_path:  !!expr Sys.getenv("DATABRICKS_HTTP_PATH")
+  catalog:  !!expr Sys.getenv("DATABRICKS_CATALOG_NAME")
+  sharepoint: "https://my_organisation.sharepoint.com"
+  root_path: "/home/my_root_path"
+datasources:
+  - name: "adam"
+    backend:
+        type: "connector::connector_fs"
+        path: "{metadata.root_path}/{metadata.project}/{metadata.trial}/{metadata.instance}/adam"
+  - name: "tfl"
+    backend:
+      type: "connector.databricks::connector_databricks_volume"
+      catalog: "{metadata.catalog}"
+      schema: "{metadata.project}_{metadata.trial}_tfl"
+      path: "output"
+
+  - name: "metadata"
+    backend:
+      type: "connector.databricks::connector_databricks_dbi"
+      http_path: "{metadata.http_path}"
+      catalog: "{metadata.catalog}"
+      schema: "{metadata.project}_{metadata.trial}_metadata"
+
+  - name: "output_sh"
+    backend:
+      type: "connector.sharepoint::connector_sharepoint"
+      site_url: "{metadata.sharepoint}/sites/{metadata.project}_{metadata.trial}_output"
+</code></pre>
 <p>In this example we have multiple connections to multiple data
 sources. ADaM data is stored on the file system, metadata resides on
 Databricks Tables, TFL is also on Databricks, but on Volumes, because
@@ -209,42 +210,43 @@ different datasources. In these examples we will be using
 <span><span class="co"># Manipulate data</span></span>
 <span></span>
 <span><span class="co">## Iris data</span></span>
-<span><span class="va">setosa</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">setosa</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">mean_for_all_iris</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">mean_for_all_iris</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html" class="external-link">summarise_all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">mean</span>, <span class="va">median</span>, <span class="va">sd</span>, <span class="va">min</span>, <span class="va">max</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Mtcars data</span></span>
-<span><span class="va">cars</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">cars</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">&gt;</span> <span class="fl">22</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">mean_for_all_mtcars</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">mean_for_all_mtcars</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span></span>
 <span>      <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"mean"</span> <span class="op">=</span> <span class="va">mean</span>, <span class="st">"median"</span> <span class="op">=</span> <span class="va">median</span>, <span class="st">"sd"</span> <span class="op">=</span> <span class="va">sd</span>, <span class="st">"min"</span> <span class="op">=</span> <span class="va">min</span>, <span class="st">"max"</span> <span class="op">=</span> <span class="va">max</span><span class="op">)</span>,</span>
-<span>      .names <span class="op">=</span> <span class="st">"{.col}_{.fn}"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>      .names <span class="op">=</span> <span class="st">"{.col}_{.fn}"</span></span>
+<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span></span>
 <span>    cols <span class="op">=</span> <span class="op">-</span><span class="va">gear</span>,</span>
 <span>    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".value"</span>, <span class="st">"stat"</span><span class="op">)</span>,</span>
 <span>    names_sep <span class="op">=</span> <span class="st">"_"</span></span>
-<span>    <span class="op">)</span></span>
+<span>  <span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Store data</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">setosa</span>, <span class="st">"setosa"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">mean_for_all_iris</span>, <span class="st">"mean_iris"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">cars</span>, <span class="st">"cars_mpg"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">mean_for_all_mtcars</span>, <span class="st">"mean_mtcars"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
 <p>Now, let’s read the data back manipulate it a bit and write it to the
 SharePoint and DataBricks. This way we can save different types of data
@@ -255,13 +257,13 @@ in different formats.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># List and load data</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">table</span> <span class="op">&lt;-</span> <span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">table</span> <span class="op">&lt;-</span> <span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"mean_mtcars"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">gttable</span> <span class="op">&lt;-</span> <span class="va">table</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">gttable</span> <span class="op">&lt;-</span> <span class="va">table</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu">gt</span><span class="op">(</span>groupname_col <span class="op">=</span> <span class="st">"gear"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Save table</span></span>
@@ -274,8 +276,8 @@ in different formats.</p>
 <span><span class="va">db</span><span class="op">$</span><span class="va">output_sh</span><span class="op">$</span><span class="fu">upload_cnt</span><span class="op">(</span><span class="va">tmp_file</span>, <span class="st">"tmeanallmtcars.docx"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># Manipulate data</span></span>
-<span><span class="va">setosa_fsetosa</span> <span class="op">&lt;-</span> <span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"setosa"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">setosa_fsetosa</span> <span class="op">&lt;-</span> <span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"setosa"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Sepal.Length</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fsetosa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">setosa</span><span class="op">)</span> <span class="op">+</span></span>
@@ -302,19 +304,20 @@ in different formats.</p>
 <code>connector</code> package works. We will use the configuration file
 provided below, which will only use file system as type of connection
 for ADaM and TFL data.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a>metadata<span class="sc">:</span></span>
-<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a>  adam_path<span class="sc">:</span> <span class="sc">!</span>expr <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"adam"</span>)</span>
-<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a>  tfl_path<span class="sc">:</span> <span class="sc">!</span>expr <span class="fu">file.path</span>(<span class="fu">tempdir</span>(), <span class="st">"tfl"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a>datasources<span class="sc">:</span></span>
-<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"adam"</span></span>
-<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>    backend<span class="sc">:</span></span>
-<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector::connector_fs"</span></span>
-<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a>      path<span class="sc">:</span> <span class="st">"{metadata.adam_path}"</span></span>
-<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a>  <span class="sc">-</span> name<span class="sc">:</span> <span class="st">"tfl"</span></span>
-<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>    backend<span class="sc">:</span></span>
-<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a>      type<span class="sc">:</span> <span class="st">"connector::connector_fs"</span></span>
-<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a>      path<span class="sc">:</span> <span class="st">"{metadata.tfl_path}"</span></span></code></pre></div>
+<pre><code>metadata:
+  adam_path: !expr file.path(tempdir(), "adam")
+  tfl_path: !expr file.path(tempdir(), "tfl")
+
+datasources:
+  - name: "adam"
+    backend:
+      type: "connector::connector_fs"
+      path: "{metadata.adam_path}"
+  - name: "tfl"
+    backend:
+      type: "connector::connector_fs"
+      path: "{metadata.tfl_path}"
+</code></pre>
 <p>Now, let’s run the example:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector">connector</a></span><span class="op">)</span></span>
@@ -342,36 +345,36 @@ for ADaM and TFL data.</p>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → <span style="font-weight: bold;">adam</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> connector_fs</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpA9zBKT/adam</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/Rtmp2qWWiq/adam</span></span>
 <span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → <span style="font-weight: bold;">tfl</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> connector_fs</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpA9zBKT/tfl</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/Rtmp2qWWiq/tfl</span></span>
 <span></span>
 <span><span class="co">## Iris data</span></span>
-<span><span class="va">setosa</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">setosa</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">mean_for_all_iris</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">mean_for_all_iris</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html" class="external-link">summarise_all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">mean</span>, <span class="va">median</span>, <span class="va">sd</span>, <span class="va">min</span>, <span class="va">max</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## Store data</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">setosa</span>, <span class="st">"setosa.rds"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">mean_for_all_iris</span>, <span class="st">"mean_iris.rds"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">## List and load data</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] "mean_iris.rds" "setosa.rds"</span></span>
 <span></span>
 <span><span class="co"># Manipulate data</span></span>
-<span><span class="va">setosa_fsetosa</span> <span class="op">&lt;-</span> <span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span> </span>
-<span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"setosa"</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span><span class="va">setosa_fsetosa</span> <span class="op">&lt;-</span> <span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"setosa"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Sepal.Length</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">fsetosa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">setosa</span><span class="op">)</span> <span class="op">+</span></span>
