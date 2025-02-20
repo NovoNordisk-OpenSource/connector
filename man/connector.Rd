@@ -36,7 +36,7 @@ read_cnt(cnt_my_class)
 }
 \seealso{
 \code{vignette("customize")} on how to create custom connectors and methods,
-and concrete examples in \link{connector_fs} and \link{connector_dbi}.
+and concrete examples in \link{ConnectorFS} and \link{ConnectorDBI}.
 }
 \section{Methods}{
 \subsection{Public methods}{

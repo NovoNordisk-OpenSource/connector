@@ -171,10 +171,10 @@ create_connection <- function(config) {
   info_config(config)
 
   switch(config$backend$type,
-    "connector_fs" = {
+    "ConnectorFS" = {
       create_backend_fs(config$backend)
     },
-    "connector_dbi" = {
+    "ConnectorDBI" = {
       create_backend_dbi(config$backend)
     },
     {

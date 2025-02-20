@@ -39,13 +39,13 @@ create_backend <- function(backend) {
 
 #' Get the backend function
 #'
-#' @param backend_type The type of the backend, by default it is connector_fs or connector_db
+#' @param backend_type The type of the backend, by default it is ConnectorFS or connector_db
 #'
 #' @return The backend function
 #' @noRd
 #'
 #' @examples
-#' get_backend_fct("connector_fs")
+#' get_backend_fct("ConnectorFS")
 get_backend_fct <- function(backend_type) {
   defaults_backends <- getNamespaceExports("connector")[
     grepl("^connector_", getNamespaceExports("connector"))

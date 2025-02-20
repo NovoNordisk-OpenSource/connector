@@ -7,11 +7,11 @@ metadata:
 datasources:
   - name: "adam"
     backend:
-        type: "connector_fs"
+        type: "ConnectorFS"
         path: "{metadata.root_path}/{metadata.trial}/adam"
         extra_class: "{metadata.extra_class}"
   - name: "sdtm"
     backend:
-        type: "connector_dbi"
+        type: "ConnectorDBI"
         drv: "RSQLite::SQLite()"
         dbname: ":memory:"

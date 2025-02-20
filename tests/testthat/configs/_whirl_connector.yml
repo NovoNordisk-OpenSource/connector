@@ -4,10 +4,10 @@ metadata:
 datasources:
   - name: "folder"
     backend:
-        type: "connector_fs"
+        type: "ConnectorFS"
         path: "{metadata.path}"
   - name: "database"
     backend:
-        type: "connector_dbi"
+        type: "ConnectorDBI"
         drv: "RSQLite::SQLite()"
         dbname: ":memory:"

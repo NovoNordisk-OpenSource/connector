@@ -1,3 +1,43 @@
+#' Create `dbi` connector
+#'
+#' @description
+#' Initializes the connector for DBI type of storage.
+#' See [ConnectorDBI] for details.
+#'
+#' @param drv Driver object inheriting from [DBI::DBIDriver-class].
+#' @param ... Additional arguments passed to [DBI::dbConnect()].
+#' @param extra_class `r rd_connector_utils("extra_class")`
+#'
+#' @return A new [ConnectorDBI] object
+#'
+#' @details
+#' The `extra_class` parameter allows you to create a subclass of the
+#' `ConnectorDBI` object. This can be useful if you want to create
+#' a custom connection object for easier dispatch of new s3 methods, while still
+#' inheriting the methods from the `ConnectorDBI` object.
+#'
+#' @examplesIf FALSE
+#'
+#' # Create DBI connector
+#' cnt <- ConnectorDBI(RSQLite::SQLite(), ":memory:")
+#' cnt
+#'
+#' # Create subclass connection
+#' cnt_subclass <- ConnectorDBI(RSQLite::SQLite(), ":memory:",
+#'   extra_class = "subclass"
+#' )
+#' cnt_subclass
+#' class(cnt_subclass)
+#'
+#' @export
+connector_dbi <- function(drv = DBI::dbDriver(), ..., extra_class = NULL) {
+  ConnectorDBI$new(
+    drv = drv,
+    ...,
+    extra_class = extra_class
+  )
+}
+
 #' Connector for DBI databases
 #'
 #' @description
@@ -15,7 +55,7 @@
 #' @examples
 #' # Create DBI connector
 #'
-#' cnt <- connector_dbi$new(RSQLite::SQLite(), ":memory:")
+#' cnt <- ConnectorDBI$new(RSQLite::SQLite(), ":memory:")
 #'
 #' cnt
 #'
@@ -50,12 +90,10 @@
 #' cnt$disconnect_cnt()
 #'
 #' @export
-
-connector_dbi <- R6::R6Class(
-  classname = "connector_dbi",
+ConnectorDBI <- R6::R6Class(
+  classname = "ConnectorDBI",
   inherit = connector,
   public = list(
-
     #' @description
     #' Initialize the connection
     #' @param drv Driver object inheriting from [DBI::DBIDriver-class].

@@ -1,9 +1,9 @@
 #' @description
-#' * [connector_dbi]: Uses [DBI::dbReadTable()] to read the table from the DBI connection.
+#' * [ConnectorDBI]: Uses [DBI::dbReadTable()] to read the table from the DBI connection.
 #'
 #' @examples
 #' # Read table from DBI database
-#' cnt <- connector_dbi$new(RSQLite::SQLite())
+#' cnt <- ConnectorDBI$new(RSQLite::SQLite())
 #'
 #' cnt |>
 #'   write_cnt(iris, "iris")
@@ -17,7 +17,7 @@
 #'
 #' @rdname read_cnt
 #' @export
-read_cnt.connector_dbi <- function(connector_object, name, ...) {
+read_cnt.ConnectorDBI <- function(connector_object, name, ...) {
   connector_object$conn |>
     DBI::dbReadTable(
       name = name,
@@ -26,13 +26,13 @@ read_cnt.connector_dbi <- function(connector_object, name, ...) {
 }
 
 #' @description
-#' * [connector_dbi]: Uses [DBI::dbWriteTable()] to write the table to the DBI connection.
+#' * [ConnectorDBI]: Uses [DBI::dbWriteTable()] to write the table to the DBI connection.
 #'
 #' @param overwrite By default set to TRUE, in order to allow interchangeability between how
-#' `connector_fs` works and `connector_dbi`.
+#' `ConnectorFS` works and `ConnectorDBI`.
 #' @examples
 #' # Write table to DBI database
-#' cnt <- connector_dbi$new(RSQLite::SQLite())
+#' cnt <- ConnectorDBI$new(RSQLite::SQLite())
 #'
 #' cnt |>
 #'   list_content_cnt()
@@ -45,7 +45,7 @@ read_cnt.connector_dbi <- function(connector_object, name, ...) {
 #'
 #' @rdname write_cnt
 #' @export
-write_cnt.connector_dbi <- function(
+write_cnt.ConnectorDBI <- function(
     connector_object,
     x,
     name,
@@ -64,18 +64,18 @@ write_cnt.connector_dbi <- function(
 }
 
 #' @description
-#' * [connector_dbi]: Uses [DBI::dbListTables()] to list the tables in a DBI connection.
+#' * [ConnectorDBI]: Uses [DBI::dbListTables()] to list the tables in a DBI connection.
 #'
 #' @examples
 #' # List tables in a DBI database
-#' cnt <- connector_dbi$new(RSQLite::SQLite())
+#' cnt <- ConnectorDBI$new(RSQLite::SQLite())
 #'
 #' cnt |>
 #'   list_content_cnt()
 #'
 #' @rdname list_content_cnt
 #' @export
-list_content_cnt.connector_dbi <- function(
+list_content_cnt.ConnectorDBI <- function(
     connector_object,
     ...) {
   connector_object$conn |>
@@ -85,11 +85,11 @@ list_content_cnt.connector_dbi <- function(
 }
 
 #' @description
-#' * [connector_dbi]: Uses [DBI::dbRemoveTable()] to remove the table from a DBI connection.
+#' * [ConnectorDBI]: Uses [DBI::dbRemoveTable()] to remove the table from a DBI connection.
 #'
 #' @examples
 #' # Remove table in a DBI database
-#' cnt <- connector_dbi$new(RSQLite::SQLite())
+#' cnt <- ConnectorDBI$new(RSQLite::SQLite())
 #'
 #' cnt |>
 #'   write_cnt(iris, "iris") |>
@@ -101,7 +101,7 @@ list_content_cnt.connector_dbi <- function(
 #'
 #' @rdname remove_cnt
 #' @export
-remove_cnt.connector_dbi <- function(connector_object, name, ...) {
+remove_cnt.ConnectorDBI <- function(connector_object, name, ...) {
   connector_object$conn |>
     DBI::dbRemoveTable(
       name = name,
@@ -113,11 +113,11 @@ remove_cnt.connector_dbi <- function(connector_object, name, ...) {
 }
 
 #' @description
-#' * [connector_dbi]: Uses [dplyr::tbl()] to create a table reference to a table in a DBI connection.
+#' * [ConnectorDBI]: Uses [dplyr::tbl()] to create a table reference to a table in a DBI connection.
 #'
 #' @examples
 #' # Use dplyr verbs on a table in a DBI database
-#' cnt <- connector_dbi$new(RSQLite::SQLite())
+#' cnt <- ConnectorDBI$new(RSQLite::SQLite())
 #'
 #' iris_cnt <- cnt |>
 #'   write_cnt(iris, "iris") |>
@@ -138,7 +138,7 @@ remove_cnt.connector_dbi <- function(connector_object, name, ...) {
 #'
 #' @rdname tbl_cnt
 #' @export
-tbl_cnt.connector_dbi <- function(connector_object, name, ...) {
+tbl_cnt.ConnectorDBI <- function(connector_object, name, ...) {
   connector_object$conn |>
     dplyr::tbl(
       from = name,
@@ -147,11 +147,11 @@ tbl_cnt.connector_dbi <- function(connector_object, name, ...) {
 }
 
 #' @description
-#' * [connector_dbi]: Uses [DBI::dbDisconnect()] to create a table reference to close a DBI connection.
+#' * [ConnectorDBI]: Uses [DBI::dbDisconnect()] to create a table reference to close a DBI connection.
 #'
 #' @examples
 #' # Open and close a DBI connector
-#' cnt <- connector_dbi$new(RSQLite::SQLite())
+#' cnt <- ConnectorDBI$new(RSQLite::SQLite())
 #'
 #' cnt$conn
 #'
@@ -161,7 +161,7 @@ tbl_cnt.connector_dbi <- function(connector_object, name, ...) {
 #' cnt$conn
 #' @rdname disconnect_cnt
 #' @export
-disconnect_cnt.connector_dbi <- function(connector_object, ...) {
+disconnect_cnt.ConnectorDBI <- function(connector_object, ...) {
   connector_object$conn |>
     DBI::dbDisconnect(
       ...

@@ -1,9 +1,48 @@
+#' Create `dbi` connector
+#'
+#' @description
+#' Initializes the connector for file system type of storage.
+#' See [ConnectorFS] for details.
+#'
+#' @param path [character] Path to the file storage
+#' @param extra_class `r rd_connector_utils("extra_class")`
+#'
+#' @return A new [ConnectorFS] object
+#'
+#' @details
+#' The `extra_class` parameter allows you to create a subclass of the
+#' `ConnectorFS` object. This can be useful if you want to create
+#' a custom connection object for easier dispatch of new s3 methods, while still
+#' inheriting the methods from the `ConnectorFS` object.
+#'
+#' @examplesIf FALSE
+#'
+#' # Create FS connector
+#' cnt <- ConnectorFS(tempdir())
+#' cnt
+#'
+#' # Create subclass connection
+#' cnt_subclass <- ConnectorFS(
+#'   path = tempdir(),
+#'   extra_class = "subclass"
+#' )
+#' cnt_subclass
+#' class(cnt_subclass)
+#'
+#' @export
+connector_fs <- function(path, extra_class = NULL) {
+  ConnectorFS$new(
+    path = path,
+    extra_class = extra_class
+  )
+}
+
+
 #' Connector for file storage
 #'
 #' @description
-#' The connector_fs class is a file storage connector for accessing and manipulating files any file storage solution.
+#' The ConnectorFS class is a file storage connector for accessing and manipulating files any file storage solution.
 #' The default implementation includes methods for files stored on local or network drives.
-
 #' @param name `r rd_connector_utils("name")`
 #' @param x `r rd_connector_utils("x")`
 #' @param file `r rd_connector_utils("file")`
@@ -13,7 +52,7 @@
 #' @examples
 #' # Create file storage connector
 #'
-#' cnt <- connector_fs$new(tempdir())
+#' cnt <- ConnectorFS$new(tempdir())
 #'
 #' cnt
 #'
@@ -35,8 +74,8 @@
 #'   head()
 #'
 #' @export
-connector_fs <- R6::R6Class(
-  classname = "connector_fs",
+ConnectorFS <- R6::R6Class(
+  classname = "ConnectorFS",
   inherit = connector,
   public = list(
 
@@ -73,7 +112,7 @@ connector_fs <- R6::R6Class(
     #' Create a directory in the file storage.
     #' See also [create_directory_cnt].
     #' @param name [character] The name of the directory to create
-    #' @return [connector_fs] object of a newly created directory
+    #' @return [ConnectorFS] object of a newly created directory
     create_directory_cnt = function(name, ...) {
       self |>
         create_directory_cnt(name, ...)

@@ -2,15 +2,15 @@
 % Please edit documentation in R/cnt_generics.R, R/dbi_methods.R, R/fs_methods.R
 \name{write_cnt}
 \alias{write_cnt}
-\alias{write_cnt.connector_dbi}
-\alias{write_cnt.connector_fs}
+\alias{write_cnt.ConnectorDBI}
+\alias{write_cnt.ConnectorFS}
 \title{Write content to the connector}
 \usage{
 write_cnt(connector_object, x, name, ...)
 
-\method{write_cnt}{connector_dbi}(connector_object, x, name, overwrite = TRUE, ...)
+\method{write_cnt}{ConnectorDBI}(connector_object, x, name, overwrite = TRUE, ...)
 
-\method{write_cnt}{connector_fs}(connector_object, x, name, ...)
+\method{write_cnt}{ConnectorFS}(connector_object, x, name, ...)
 }
 \arguments{
 \item{connector_object}{\link{connector} The connector object to use.}
@@ -22,7 +22,7 @@ write_cnt(connector_object, x, name, ...)
 \item{...}{Additional arguments passed to the method for the individual connector.}
 
 \item{overwrite}{By default set to TRUE, in order to allow interchangeability between how
-\code{connector_fs} works and \code{connector_dbi}.}
+\code{ConnectorFS} works and \code{ConnectorDBI}.}
 }
 \value{
 \link{invisible} connector_object.
@@ -31,18 +31,18 @@ write_cnt(connector_object, x, name, ...)
 Generic implementing of how to write content to the different connector objects:
 
 \itemize{
-\item \link{connector_dbi}: Uses \code{\link[DBI:dbWriteTable]{DBI::dbWriteTable()}} to write the table to the DBI connection.
+\item \link{ConnectorDBI}: Uses \code{\link[DBI:dbWriteTable]{DBI::dbWriteTable()}} to write the table to the DBI connection.
 }
 
 \itemize{
-\item \link{connector_fs}: Uses \code{\link[=write_file]{write_file()}} to Write a file based on the file extension.
+\item \link{ConnectorFS}: Uses \code{\link[=write_file]{write_file()}} to Write a file based on the file extension.
 The underlying function used, and thereby also the arguments available
 through \code{...} depends on the file extension.
 }
 }
 \examples{
 # Write table to DBI database
-cnt <- connector_dbi$new(RSQLite::SQLite())
+cnt <- ConnectorDBI$new(RSQLite::SQLite())
 
 cnt |>
   list_content_cnt()
@@ -54,7 +54,7 @@ cnt |>
   list_content_cnt()
 
 # Write different file types to a file storage
-cnt <- connector_fs$new(tempdir())
+cnt <- ConnectorFS$new(tempdir())
 
 cnt |>
   list_content_cnt(pattern = "iris")

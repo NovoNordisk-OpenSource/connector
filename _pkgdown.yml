@@ -11,7 +11,9 @@ reference:
     - connectors
     - connector
     - connector_fs
+    - ConnectorFS
     - connector_dbi
+    - ConnectorDBI
     - nested_connectors
   - title: Connector functions
     contents:

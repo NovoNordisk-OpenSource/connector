@@ -6,7 +6,7 @@
   datasources:
     - name: "adam_fs"
       backend:
-          type: "connector_fs"
+          type: "ConnectorFS"
           path: "{metadata.root_path}/{metadata.trial}/adam"
 
 - name: "study2"
@@ -16,5 +16,5 @@
   datasources:
     - name: "adam_fs"
       backend:
-          type: "connector_fs"
+          type: "ConnectorFS"
           path: "{metadata.root_path}/{metadata.trial}/adam"

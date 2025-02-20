@@ -13,8 +13,8 @@ to the same data source across different scripts in your project, and
 enables you to easily switch between different data sources.
 
 The connector package comes with the possibilities of creating
-connections to file system folders using `connector_fs()` and general
-databases using `connector_dbi()`, which is built on top of the `{DBI}`
+connections to file system folders using `ConnectorFS()` and general
+databases using `ConnectorDBI()`, which is built on top of the `{DBI}`
 package.
 
 connector also has a series of expansion packages that allows you to
@@ -41,11 +41,11 @@ metadata:
 datasources:
   - name: "folder"
     backend:
-        type: "connector_fs"
+        type: "ConnectorFS"
         path: "{metadata.path}"
   - name: "database"
     backend:
-        type: "connector_dbi"
+        type: "ConnectorDBI"
         drv: "RSQLite::SQLite()"
         dbname: ":memory:"
 ```
@@ -54,9 +54,9 @@ First we specify common metadata for the connectors, which here is a
 temporary folder that we want to use. Afterwards we specify the
 datasources needed in the project, and their specifications.
 
-The first we name “folder”, specify the type to be `connector_fs()`, and
+The first we name “folder”, specify the type to be `ConnectorFS()`, and
 the path to the folder. The second is a database connector to an in
-memory SQLite database, that we specify using the `connector_dbi()`
+memory SQLite database, that we specify using the `ConnectorDBI()`
 type, which uses `DBI::dbConnect()` to initalize the connection.
 Therefor we also give the `DBI driver` to use, and arguments to it.
 
@@ -70,18 +70,18 @@ db <- connect("_connector.yml")
 #> ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → folder
-#> • connector_fs
+#> • ConnectorFS
 #> • /var/folders/kv/q2rqqp3s0s5f9rxn_854l2lm0000gp/T//RtmpSG4d1j/filec8b85d9370a6
 #> ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → database
-#> • connector_dbi
+#> • ConnectorDBI
 #> • RSQLite::SQLite() and :memory:
 
 print(db)
 #> <connectors>
-#>   $folder <connector_fs>
-#>   $database <connector_dbi>
+#>   $folder <ConnectorFS>
+#>   $database <ConnectorDBI>
 ```
 
 This creates a `connectors` objects that contains each `connector`. When
@@ -90,18 +90,18 @@ on their methods and specifications.
 
 ``` r
 print(db$database)
-#> <connector_dbi>
+#> <ConnectorDBI>
 #> Inherits from: <connector>
 #> Registered methods:
-#> • `disconnect_cnt.connector_dbi()`
-#> • `list_content_cnt.connector_dbi()`
-#> • `log_read_connector.connector_dbi()`
-#> • `log_remove_connector.connector_dbi()`
-#> • `log_write_connector.connector_dbi()`
-#> • `read_cnt.connector_dbi()`
-#> • `remove_cnt.connector_dbi()`
-#> • `tbl_cnt.connector_dbi()`
-#> • `write_cnt.connector_dbi()`
+#> • `disconnect_cnt.ConnectorDBI()`
+#> • `list_content_cnt.ConnectorDBI()`
+#> • `log_read_connector.ConnectorDBI()`
+#> • `log_remove_connector.ConnectorDBI()`
+#> • `log_write_connector.ConnectorDBI()`
+#> • `read_cnt.ConnectorDBI()`
+#> • `remove_cnt.ConnectorDBI()`
+#> • `tbl_cnt.ConnectorDBI()`
+#> • `write_cnt.ConnectorDBI()`
 #> Specifications:
 #> • conn: <SQLiteConnection>
 ```
@@ -147,7 +147,7 @@ db$folder |>
 #> # ℹ 22 more rows
 ```
 
-Here the parquet format has been used, but when using a `connector_fs()`
+Here the parquet format has been used, but when using a `ConnectorFS()`
 it is possible to read and write several different file types. See
 `read_file()` and `write_file()` for more information.
 

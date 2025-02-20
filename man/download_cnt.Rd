@@ -2,12 +2,12 @@
 % Please edit documentation in R/cnt_generics.R, R/fs_methods.R
 \name{download_cnt}
 \alias{download_cnt}
-\alias{download_cnt.connector_fs}
+\alias{download_cnt.ConnectorFS}
 \title{Download content from the connector}
 \usage{
 download_cnt(connector_object, name, file = basename(name), ...)
 
-\method{download_cnt}{connector_fs}(connector_object, name, file = basename(name), ...)
+\method{download_cnt}{ConnectorFS}(connector_object, name, file = basename(name), ...)
 }
 \arguments{
 \item{connector_object}{\link{connector} The connector object to use.}
@@ -25,12 +25,12 @@ download_cnt(connector_object, name, file = basename(name), ...)
 Generic implementing of how to download files from a connector:
 
 \itemize{
-\item \link{connector_fs}: Uses \code{\link[=file.copy]{file.copy()}} to copy a file from the file storage to the desired \code{file}.
+\item \link{ConnectorFS}: Uses \code{\link[=file.copy]{file.copy()}} to copy a file from the file storage to the desired \code{file}.
 }
 }
 \examples{
 # Download file from a file storage
-cnt <- connector_fs$new(tempdir())
+cnt <- ConnectorFS$new(tempdir())
 
 cnt |>
   write_cnt("this is an example", "example.txt")

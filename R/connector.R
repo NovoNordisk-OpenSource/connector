@@ -12,7 +12,7 @@
 #' @param extra_class `r rd_connector_utils("extra_class")`
 #'
 #' @seealso `vignette("customize")` on how to create custom connectors and methods,
-#' and concrete examples in [connector_fs] and [connector_dbi].
+#' and concrete examples in [ConnectorFS] and [ConnectorDBI].
 #'
 #' @examples
 #' # Create connector

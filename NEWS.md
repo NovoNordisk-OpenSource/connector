@@ -19,7 +19,7 @@
 * Connectors constructor now builds the datasources attribute.
 * Added ability to write datasources attribute to a configuration file.
 * Created a new class for nested connectors objects, "nested_connectors".
-* Added `tbl_cnt` to `connector_fs` for redundancy between `fs` and `dbi` types of connectors.
+* Added `tbl_cnt` to `ConnectorFS` for redundancy between `fs` and `dbi` types of connectors.
 
 ## Enhancements
 * Fixed `add_logs()` function to add logging capability to connections.
@@ -30,7 +30,7 @@
 
 ### Features:
 -   Add configuration manipulation functions for adding/removing metadata and datasources
--   `connector_dbi` now overwrites tables by default, to have mirror behaviour between `fs` and `dbi` connectors.
+-   `ConnectorDBI` now overwrites tables by default, to have mirror behaviour between `fs` and `dbi` connectors.
 
 # connector 0.0.4 (2024-12-03)
 

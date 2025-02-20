@@ -2,223 +2,41 @@
 % Please edit documentation in R/fs.R
 \name{connector_fs}
 \alias{connector_fs}
-\title{Connector for file storage}
+\title{Create \code{dbi} connector}
+\usage{
+connector_fs(path, extra_class = NULL)
+}
+\arguments{
+\item{path}{\link{character} Path to the file storage}
+
+\item{extra_class}{\link{character} Extra class to assign to the new connector.}
+}
+\value{
+A new \link{ConnectorFS} object
+}
 \description{
-The connector_fs class is a file storage connector for accessing and manipulating files any file storage solution.
-The default implementation includes methods for files stored on local or network drives.
+Initializes the connector for file system type of storage.
+See \link{ConnectorFS} for details.
+}
+\details{
+The \code{extra_class} parameter allows you to create a subclass of the
+\code{ConnectorFS} object. This can be useful if you want to create
+a custom connection object for easier dispatch of new s3 methods, while still
+inheriting the methods from the \code{ConnectorFS} object.
 }
 \examples{
-# Create file storage connector
+\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
-cnt <- connector_fs$new(tempdir())
-
+# Create FS connector
+cnt <- ConnectorFS(tempdir())
 cnt
 
-# List content
-
-cnt$list_content_cnt()
-
-# Write to the connector
-
-cnt$write_cnt(iris, "iris.rds")
-
-# Check it is there
-
-cnt$list_content_cnt()
-
-# Read the result back
-
-cnt$read_cnt("iris.rds") |>
-  head()
-
-}
-\section{Super class}{
-\code{\link[connector:connector]{connector::connector}} -> \code{connector_fs}
-}
-\section{Active bindings}{
-\if{html}{\out{<div class="r6-active-bindings">}}
-\describe{
-\item{\code{path}}{\link{character} Path to the file storage}
-}
-\if{html}{\out{</div>}}
-}
-\section{Methods}{
-\subsection{Public methods}{
-\itemize{
-\item \href{#method-connector_fs-new}{\code{connector_fs$new()}}
-\item \href{#method-connector_fs-download_cnt}{\code{connector_fs$download_cnt()}}
-\item \href{#method-connector_fs-upload_cnt}{\code{connector_fs$upload_cnt()}}
-\item \href{#method-connector_fs-create_directory_cnt}{\code{connector_fs$create_directory_cnt()}}
-\item \href{#method-connector_fs-remove_directory_cnt}{\code{connector_fs$remove_directory_cnt()}}
-\item \href{#method-connector_fs-tbl_cnt}{\code{connector_fs$tbl_cnt()}}
-\item \href{#method-connector_fs-clone}{\code{connector_fs$clone()}}
-}
-}
-\if{html}{\out{
-<details open><summary>Inherited methods</summary>
-<ul>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="list_content_cnt"><a href='../../connector/html/connector.html#method-connector-list_content_cnt'><code>connector::connector$list_content_cnt()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="print"><a href='../../connector/html/connector.html#method-connector-print'><code>connector::connector$print()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="read_cnt"><a href='../../connector/html/connector.html#method-connector-read_cnt'><code>connector::connector$read_cnt()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="remove_cnt"><a href='../../connector/html/connector.html#method-connector-remove_cnt'><code>connector::connector$remove_cnt()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="write_cnt"><a href='../../connector/html/connector.html#method-connector-write_cnt'><code>connector::connector$write_cnt()</code></a></span></li>
-</ul>
-</details>
-}}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-new"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-new}{}}}
-\subsection{Method \code{new()}}{
-Initializes the connector for file storage.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$new(path, extra_class = NULL)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{path}}{\link{character} Path to the file storage}
-
-\item{\code{extra_class}}{\link{character} Extra class to be added
-Checked using \link[checkmate:checkDirectoryExists]{checkmate::assert_directory_exists}.}
-}
-\if{html}{\out{</div>}}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-download_cnt"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-download_cnt}{}}}
-\subsection{Method \code{download_cnt()}}{
-Download content from the file storage.
-See also \link{download_cnt}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$download_cnt(name, file = basename(name), ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
-
-\item{\code{file}}{\link{character} Path to the file to download to or upload from}
-
-\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\link{invisible} \code{file}
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-upload_cnt"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-upload_cnt}{}}}
-\subsection{Method \code{upload_cnt()}}{
-Upload a file to the file storage.
-See also \link{upload_cnt}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$upload_cnt(file, name = basename(file), ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{file}}{\link{character} Path to the file to download to or upload from}
-
-\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
-
-\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\link{invisible} self.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-create_directory_cnt"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-create_directory_cnt}{}}}
-\subsection{Method \code{create_directory_cnt()}}{
-Create a directory in the file storage.
-See also \link{create_directory_cnt}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$create_directory_cnt(name, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{\link{character} The name of the directory to create}
-
-\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\link{connector_fs} object of a newly created directory
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-remove_directory_cnt"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-remove_directory_cnt}{}}}
-\subsection{Method \code{remove_directory_cnt()}}{
-Remove a directory from the file storage.
-See also \link{remove_directory_cnt}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$remove_directory_cnt(name, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{\link{character} The name of the directory to remove}
-
-\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-\link{invisible} self.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-tbl_cnt"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-tbl_cnt}{}}}
-\subsection{Method \code{tbl_cnt()}}{
-Use dplyr verbs to interact with the tibble.
-See also \link{tbl_cnt}.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$tbl_cnt(name, ...)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
-
-\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
-}
-\if{html}{\out{</div>}}
-}
-\subsection{Returns}{
-A table object.
-}
-}
-\if{html}{\out{<hr>}}
-\if{html}{\out{<a id="method-connector_fs-clone"></a>}}
-\if{latex}{\out{\hypertarget{method-connector_fs-clone}{}}}
-\subsection{Method \code{clone()}}{
-The objects of this class are cloneable with this method.
-\subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{connector_fs$clone(deep = FALSE)}\if{html}{\out{</div>}}
-}
-
-\subsection{Arguments}{
-\if{html}{\out{<div class="arguments">}}
-\describe{
-\item{\code{deep}}{Whether to make a deep clone.}
-}
-\if{html}{\out{</div>}}
-}
-}
+# Create subclass connection
+cnt_subclass <- ConnectorFS(
+  path = tempdir(),
+  extra_class = "subclass"
+)
+cnt_subclass
+class(cnt_subclass)
+\dontshow{\}) # examplesIf}
 }

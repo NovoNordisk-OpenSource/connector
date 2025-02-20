@@ -2,15 +2,15 @@
 % Please edit documentation in R/cnt_generics.R, R/dbi_methods.R, R/fs_methods.R
 \name{tbl_cnt}
 \alias{tbl_cnt}
-\alias{tbl_cnt.connector_dbi}
-\alias{tbl_cnt.connector_fs}
+\alias{tbl_cnt.ConnectorDBI}
+\alias{tbl_cnt.ConnectorFS}
 \title{Use dplyr verbs to interact with the remote database table}
 \usage{
 tbl_cnt(connector_object, name, ...)
 
-\method{tbl_cnt}{connector_dbi}(connector_object, name, ...)
+\method{tbl_cnt}{ConnectorDBI}(connector_object, name, ...)
 
-\method{tbl_cnt}{connector_fs}(connector_object, name, ...)
+\method{tbl_cnt}{ConnectorFS}(connector_object, name, ...)
 }
 \arguments{
 \item{connector_object}{\link{connector} The connector object to use.}
@@ -28,16 +28,16 @@ to use dplyr verbs to interact with the remote database table.
 Mostly relevant for DBI connectors.
 
 \itemize{
-\item \link{connector_dbi}: Uses \code{\link[dplyr:tbl]{dplyr::tbl()}} to create a table reference to a table in a DBI connection.
+\item \link{ConnectorDBI}: Uses \code{\link[dplyr:tbl]{dplyr::tbl()}} to create a table reference to a table in a DBI connection.
 }
 
 \itemize{
-\item \link{connector_fs}: Uses \code{read_cnt()} to allow redundancy between fs and dbi.
+\item \link{ConnectorFS}: Uses \code{read_cnt()} to allow redundancy between fs and dbi.
 }
 }
 \examples{
 # Use dplyr verbs on a table in a DBI database
-cnt <- connector_dbi$new(RSQLite::SQLite())
+cnt <- ConnectorDBI$new(RSQLite::SQLite())
 
 iris_cnt <- cnt |>
   write_cnt(iris, "iris") |>
@@ -57,7 +57,7 @@ iris_cnt |>
   dplyr::collect()
 
 # Use dplyr verbs on a table
-cnt <- connector_fs$new(tempdir())
+cnt <- ConnectorFS$new(tempdir())
 
 cnt |>
   write_cnt(iris, "iris.csv")

@@ -6,5 +6,5 @@ metadata:
 datasources:
   - name: "adam"
     backend:
-        type: "connector_fs"
+        type: "ConnectorFS"
         path: "{metadata.root_path}/{metadata.trial}/adam"

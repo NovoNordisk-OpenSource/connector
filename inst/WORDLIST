@@ -57,6 +57,8 @@ conenctors
 config
 Config
 congifuration
+ConnectorDBI
+ConnectorFS
 cph
 cre
 Creatine

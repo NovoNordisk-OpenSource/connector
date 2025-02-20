@@ -1,5 +1,4 @@
 # general test data for DBI connections
-
 x <- mtcars
 x$car <- rownames(x)
 rownames(x) <- NULL
@@ -22,11 +21,10 @@ specs <- list(
 )
 
 # Run same tests for both SQLite and Postgres
-
 for (i in seq_along(specs)) {
   test_that(paste("DBI generics work for", names(specs)[[i]]), {
     cnt <- tryCatch(
-      expr = do.call(what = connector_dbi$new, args = specs[[i]]),
+      expr = do.call(what = ConnectorDBI$new, args = specs[[i]]),
       error = function(e) {
         skip(paste(names(specs)[[i]], "database not available"))
       }

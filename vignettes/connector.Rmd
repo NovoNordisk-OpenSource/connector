@@ -72,7 +72,7 @@ metadata:
 datasources:
   - name: "adam"
     backend:
-        type: "connector::connector_fs"
+        type: "connector::ConnectorFS"
         path: "{metadata.root_path}/{metadata.project}/{metadata.trial}/{metadata.instance}/adam"
   - name: "tfl"
     backend:
@@ -249,11 +249,11 @@ metadata:
 datasources:
   - name: "adam"
     backend:
-      type: "connector::connector_fs"
+      type: "connector::ConnectorFS"
       path: "{metadata.adam_path}"
   - name: "tfl"
     backend:
-      type: "connector::connector_fs"
+      type: "connector::ConnectorFS"
       path: "{metadata.tfl_path}"
 
 ```
