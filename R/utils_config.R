@@ -1,6 +1,7 @@
 #' Add metadata to a YAML configuration file
 #'
-#' This function adds metadata to a YAML configuration file by modifying the provided key-value pair in the metadata section of the file.
+#' This function adds metadata to a YAML configuration file by modifying the provided
+#' key-value pair in the metadata section of the file.
 #'
 #' @param config_path The file path to the YAML configuration file
 #' @param key The key for the new metadata entry
@@ -30,7 +31,8 @@ add_metadata <- function(config_path, key, value) {
 
 #' Remove metadata from a YAML configuration file
 #'
-#' This function removes metadata from a YAML configuration file by deleting the specified key from the metadata section of the file.
+#' This function removes metadata from a YAML configuration file by deleting
+#' the specified key from the metadata section of the file.
 #'
 #' @param config_path The file path to the YAML configuration file
 #' @param key The key for the metadata entry to be removed

@@ -15,7 +15,8 @@ remove_metadata(config_path, key)
 The updated configuration after removing the specified metadata
 }
 \description{
-This function removes metadata from a YAML configuration file by deleting the specified key from the metadata section of the file.
+This function removes metadata from a YAML configuration file by deleting
+the specified key from the metadata section of the file.
 }
 \examples{
 # Read the YAML file

@@ -46,12 +46,11 @@ read_cnt.connector_dbi <- function(connector_object, name, ...) {
 #' @rdname write_cnt
 #' @export
 write_cnt.connector_dbi <- function(
-  connector_object,
-  x,
-  name,
-  overwrite = TRUE,
-  ...
-) {
+    connector_object,
+    x,
+    name,
+    overwrite = TRUE,
+    ...) {
   connector_object$conn |>
     DBI::dbWriteTable(
       name = name,
@@ -77,9 +76,8 @@ write_cnt.connector_dbi <- function(
 #' @rdname list_content_cnt
 #' @export
 list_content_cnt.connector_dbi <- function(
-  connector_object,
-  ...
-) {
+    connector_object,
+    ...) {
   connector_object$conn |>
     DBI::dbListTables(
       ...

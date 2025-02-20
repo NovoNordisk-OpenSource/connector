@@ -18,7 +18,6 @@ knitr::opts_chunk$set(
 
 tmp <- withr::local_tempdir()
 dir.create(path = file.path(tmp, "my_root_path", "my_project"), recursive = TRUE)
-# knitr::opts_knit$set(root.dir = tmp)
 
 library(connector)
 ```
@@ -91,19 +90,19 @@ We can now use this `connector` to read and write data, just as we would with `c
 
 ```{r}
 # First list current content:
-my_project |> 
+my_project |>
   list_content_cnt()
 
 # Write some content:
-my_project |> 
+my_project |>
   write_cnt("Hello world!", "my_file.txt")
 
 # List content again:
-my_project |> 
+my_project |>
   list_content_cnt()
 
 # Read the content:
-my_project |> 
+my_project |>
   read_cnt("my_file.txt")
 ```
 
@@ -116,11 +115,11 @@ instead of the one associated with the parent class.
 To illustrate this we can take a look at the `list_content_cnt()` generic:
 
 ```{r}
-# Print the generic 
+# Print the generic
 print(list_content_cnt)
 
 # List the registered s3 methods
-methods("list_content_cnt") |> 
+methods("list_content_cnt") |>
   cat(sep = "\n")
 ```
 Building further on the example below we can define a custom method for `list_content_cnt()` for the `connector_project` class,
@@ -139,7 +138,7 @@ We can now see that this method is available and that is it associated with the 
 
 ```{r}
 # List methods again
-methods("list_content_cnt") |> 
+methods("list_content_cnt") |>
   cat(sep = "\n")
 
 # Print my_project connector to see associated methods
@@ -148,7 +147,7 @@ print(my_project)
 And when we use `list_content_cnt()` on our `my_project` object, we see that the custom method is used and we get the message:
 
 ```{r}
-my_project |> 
+my_project |>
   list_content_cnt()
 ```
 
@@ -165,9 +164,9 @@ To redo the two examples above we make a new `connector_fs` with the extra class
 
 ```{r}
 my_project_extra <- connector_fs$new(
-  path = file.path(tmp, "my_root_path", "my_project"), 
+  path = file.path(tmp, "my_root_path", "my_project"),
   extra_class = "my_extra_class"
-  )
+)
 
 print(my_project_extra)
 ```
@@ -193,7 +192,7 @@ methods("list_content_cnt")
 print(my_project_extra)
 
 # List content to see the new message
-my_project_extra |> 
+my_project_extra |>
   list_content_cnt()
 ```
 
@@ -246,19 +245,18 @@ existing `my_project` connector:
 
 ```{r}
 # List already existing content:
-my_project |> 
+my_project |>
   list_content_cnt()
 
 # Write some content in myformat:
-my_project |> 
+my_project |>
   write_cnt("Hello new format!", "new_file.myformat")
 
 # List content again:
-my_project |> 
+my_project |>
   list_content_cnt()
 
 # Read the content:
-my_project |> 
+my_project |>
   read_cnt("new_file.myformat")
 ```
-
