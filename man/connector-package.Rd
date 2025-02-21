@@ -2,6 +2,7 @@
 % Please edit documentation in R/connector-package.R
 \docType{package}
 \name{connector-package}
+\alias{connector}
 \alias{connector-package}
 \title{connector: Connect to your data easily}
 \description{

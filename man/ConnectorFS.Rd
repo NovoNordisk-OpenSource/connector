@@ -33,7 +33,7 @@ cnt$read_cnt("iris.rds") |>
 
 }
 \section{Super class}{
-\code{\link[connector:connector]{connector::connector}} -> \code{ConnectorFS}
+\code{\link[connector:Connector]{connector::Connector}} -> \code{ConnectorFS}
 }
 \section{Active bindings}{
 \if{html}{\out{<div class="r6-active-bindings">}}
@@ -57,11 +57,11 @@ cnt$read_cnt("iris.rds") |>
 \if{html}{\out{
 <details open><summary>Inherited methods</summary>
 <ul>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="list_content_cnt"><a href='../../connector/html/connector.html#method-connector-list_content_cnt'><code>connector::connector$list_content_cnt()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="print"><a href='../../connector/html/connector.html#method-connector-print'><code>connector::connector$print()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="read_cnt"><a href='../../connector/html/connector.html#method-connector-read_cnt'><code>connector::connector$read_cnt()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="remove_cnt"><a href='../../connector/html/connector.html#method-connector-remove_cnt'><code>connector::connector$remove_cnt()</code></a></span></li>
-<li><span class="pkg-link" data-pkg="connector" data-topic="connector" data-id="write_cnt"><a href='../../connector/html/connector.html#method-connector-write_cnt'><code>connector::connector$write_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="Connector" data-id="list_content_cnt"><a href='../../connector/html/Connector.html#method-Connector-list_content_cnt'><code>connector::Connector$list_content_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="Connector" data-id="print"><a href='../../connector/html/Connector.html#method-Connector-print'><code>connector::Connector$print()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="Connector" data-id="read_cnt"><a href='../../connector/html/Connector.html#method-Connector-read_cnt'><code>connector::Connector$read_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="Connector" data-id="remove_cnt"><a href='../../connector/html/Connector.html#method-Connector-remove_cnt'><code>connector::Connector$remove_cnt()</code></a></span></li>
+<li><span class="pkg-link" data-pkg="connector" data-topic="Connector" data-id="write_cnt"><a href='../../connector/html/Connector.html#method-Connector-write_cnt'><code>connector::Connector$write_cnt()</code></a></span></li>
 </ul>
 </details>
 }}

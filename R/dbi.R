@@ -19,11 +19,11 @@
 #' @examplesIf FALSE
 #'
 #' # Create DBI connector
-#' cnt <- ConnectorDBI(RSQLite::SQLite(), ":memory:")
+#' cnt <- connector_dbi(RSQLite::SQLite(), ":memory:")
 #' cnt
 #'
 #' # Create subclass connection
-#' cnt_subclass <- ConnectorDBI(RSQLite::SQLite(), ":memory:",
+#' cnt_subclass <- connector_dbi(RSQLite::SQLite(), ":memory:",
 #'   extra_class = "subclass"
 #' )
 #' cnt_subclass
@@ -92,7 +92,7 @@ connector_dbi <- function(drv = DBI::dbDriver(), ..., extra_class = NULL) {
 #' @export
 ConnectorDBI <- R6::R6Class(
   classname = "ConnectorDBI",
-  inherit = connector,
+  inherit = Connector,
   public = list(
     #' @description
     #' Initialize the connection

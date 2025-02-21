@@ -16,14 +16,14 @@ log_mock_generator <- function() {
   }
 }
 
-test_that("write_cnt.connector_logger handles success and failure", {
-  logger <- connector_logger
+test_that("write_cnt.ConnectorLogger handles success and failure", {
+  logger <- ConnectorLogger
   data <- data.frame(x = 1:3)
 
   # Test success case
   log_mock <- log_mock_generator()
 
-  write_cnt.connector_logger <- function(connector_object, x, name, ...) {
+  write_cnt.ConnectorLogger <- function(connector_object, x, name, ...) {
     tryCatch(
       {
         # Simulate successful write operation
@@ -38,7 +38,7 @@ test_that("write_cnt.connector_logger handles success and failure", {
 
   with_mocked_bindings(
     {
-      result <- write_cnt.connector_logger(logger, data, "test_file")
+      result <- write_cnt.ConnectorLogger(logger, data, "test_file")
       expect_null(result)
       expect_equal(log_mock(), 1)
     },
@@ -48,26 +48,26 @@ test_that("write_cnt.connector_logger handles success and failure", {
   # Test error case
   log_mock <- log_mock_generator()
 
-  write_cnt.connector_logger <- function(connector_object, x, name, ...) {
+  write_cnt.ConnectorLogger <- function(connector_object, x, name, ...) {
     stop("error")
   }
 
   with_mocked_bindings(
     {
-      expect_error(write_cnt.connector_logger(logger, data, "test_file"), "error")
+      expect_error(write_cnt.ConnectorLogger(logger, data, "test_file"), "error")
       expect_equal(log_mock(), 0)
     },
     log_write_connector = log_mock
   )
 })
 
-test_that("read_cnt.connector_logger handles success and failure", {
-  logger <- connector_logger
+test_that("read_cnt.ConnectorLogger handles success and failure", {
+  logger <- ConnectorLogger
 
   # Test success case
   log_mock <- log_mock_generator()
 
-  read_cnt.connector_logger <- function(connector_object, name, ...) {
+  read_cnt.ConnectorLogger <- function(connector_object, name, ...) {
     tryCatch(
       {
         res <- "test_data"
@@ -82,7 +82,7 @@ test_that("read_cnt.connector_logger handles success and failure", {
 
   with_mocked_bindings(
     {
-      result <- read_cnt.connector_logger(logger, "test_file")
+      result <- read_cnt.ConnectorLogger(logger, "test_file")
       expect_equal(result, "test_data")
       expect_equal(log_mock(), 1)
     },
@@ -92,26 +92,26 @@ test_that("read_cnt.connector_logger handles success and failure", {
   # Test error case
   log_mock <- log_mock_generator()
 
-  read_cnt.connector_logger <- function(connector_object, name, ...) {
+  read_cnt.ConnectorLogger <- function(connector_object, name, ...) {
     stop("error")
   }
 
   with_mocked_bindings(
     {
-      expect_error(read_cnt.connector_logger(logger, "test_file"), "error")
+      expect_error(read_cnt.ConnectorLogger(logger, "test_file"), "error")
       expect_equal(log_mock(), 0)
     },
     log_read_connector = log_mock
   )
 })
 
-test_that("remove_cnt.connector_logger handles success and failure", {
-  logger <- connector_logger
+test_that("remove_cnt.ConnectorLogger handles success and failure", {
+  logger <- ConnectorLogger
 
   # Test success case
   log_mock <- log_mock_generator()
 
-  remove_cnt.connector_logger <- function(connector_object, name, ...) {
+  remove_cnt.ConnectorLogger <- function(connector_object, name, ...) {
     tryCatch(
       {
         log_remove_connector(connector_object, name, ...)
@@ -125,7 +125,7 @@ test_that("remove_cnt.connector_logger handles success and failure", {
 
   with_mocked_bindings(
     {
-      result <- remove_cnt.connector_logger(logger, "test_file")
+      result <- remove_cnt.ConnectorLogger(logger, "test_file")
       expect_null(result)
       expect_equal(log_mock(), 1)
     },
@@ -135,26 +135,26 @@ test_that("remove_cnt.connector_logger handles success and failure", {
   # Test error case
   log_mock <- log_mock_generator()
 
-  remove_cnt.connector_logger <- function(connector_object, name, ...) {
+  remove_cnt.ConnectorLogger <- function(connector_object, name, ...) {
     stop("error")
   }
 
   with_mocked_bindings(
     {
-      expect_error(remove_cnt.connector_logger(logger, "test_file"), "error")
+      expect_error(remove_cnt.ConnectorLogger(logger, "test_file"), "error")
       expect_equal(log_mock(), 0)
     },
     log_remove_connector = log_mock
   )
 })
 
-test_that("list_content_cnt.connector_logger handles success and failure", {
-  logger <- connector_logger
+test_that("list_content_cnt.ConnectorLogger handles success and failure", {
+  logger <- ConnectorLogger
 
   # Test success case
   log_mock <- log_mock_generator()
 
-  list_content_cnt.connector_logger <- function(connector_object, ...) { # nolint
+  list_content_cnt.ConnectorLogger <- function(connector_object, ...) { # nolint
     tryCatch(
       {
         res <- c("file1", "file2")
@@ -169,7 +169,7 @@ test_that("list_content_cnt.connector_logger handles success and failure", {
 
   with_mocked_bindings(
     {
-      result <- list_content_cnt.connector_logger(logger)
+      result <- list_content_cnt.ConnectorLogger(logger)
       expect_equal(result, c("file1", "file2"))
       expect_equal(log_mock(), 1)
     },
@@ -179,13 +179,13 @@ test_that("list_content_cnt.connector_logger handles success and failure", {
   # Test error case
   log_mock <- log_mock_generator()
 
-  list_content_cnt.connector_logger <- function(connector_object, ...) { # nolint
+  list_content_cnt.ConnectorLogger <- function(connector_object, ...) { # nolint
     stop("error")
   }
 
   with_mocked_bindings(
     {
-      expect_error(list_content_cnt.connector_logger(logger), "error") # nolint
+      expect_error(list_content_cnt.ConnectorLogger(logger), "error") # nolint
       expect_equal(log_mock(), 0)
     },
     log_read_connector = log_mock
@@ -193,7 +193,7 @@ test_that("list_content_cnt.connector_logger handles success and failure", {
 })
 
 test_that("log_read_connector works correctly", {
-  logger <- connector_logger
+  logger <- ConnectorLogger
 
   # Test default method
   expect_invisible(log_read_connector(logger, "test_file"))
@@ -207,7 +207,7 @@ test_that("log_read_connector works correctly", {
 })
 
 test_that("log_write_connector works correctly", {
-  logger <- connector_logger
+  logger <- ConnectorLogger
 
   # Test default method
   expect_invisible(log_write_connector(logger, "test_file"))
@@ -221,7 +221,7 @@ test_that("log_write_connector works correctly", {
 })
 
 test_that("log_remove_connector works correctly", {
-  logger <- connector_logger
+  logger <- ConnectorLogger
 
   # Test default method
   expect_invisible(log_remove_connector(logger, "test_file"))
@@ -234,29 +234,29 @@ test_that("log_remove_connector works correctly", {
   expect_equal(log_remove_connector(logger, "test_file"), "Custom remove: test_file")
 })
 
-test_that("print.connector_logger works correctly", {
-  logger <- connector_logger
+test_that("print.ConnectorLogger works correctly", {
+  logger <- ConnectorLogger
 
   # Capture the output of print
   output <- capture.output(print(logger))
 
   # Check that the output is as expected
-  expect_true(any(grepl("connector_logger", output)))
+  expect_true(any(grepl("ConnectorLogger", output)))
 })
 
 
 # Additional tests
 
-# Test connector_logger creation
-test_that("connector_logger is created correctly", {
-  logger <- connector_logger
-  expect_s3_class(logger, "connector_logger")
+# Test ConnectorLogger creation
+test_that("ConnectorLogger is created correctly", {
+  logger <- ConnectorLogger
+  expect_s3_class(logger, "ConnectorLogger")
   expect_equal(length(logger), 0)
 })
 
 # Test generic functions
 test_that("generic functions call the correct method", {
-  logger <- connector_logger
+  logger <- ConnectorLogger
   mock_method <- function(...) "mock called"
 
   # Use local_mocked_bindings for the generic functions
@@ -290,9 +290,9 @@ test_that("default methods call correct whirl functions", {
   expect_equal(log_remove_connector(logger, "test"), "delete called")
 })
 
-# Test list_content_cnt.connector_logger
-test_that("list_content_cnt.connector_logger works correctly", {
-  logger <- connector_logger
+# Test list_content_cnt.ConnectorLogger
+test_that("list_content_cnt.ConnectorLogger works correctly", {
+  logger <- ConnectorLogger
 
   # Create a mock NextMethod function
   mock_next_method <- function(...) c("file1", "file2")
@@ -309,7 +309,7 @@ test_that("list_content_cnt.connector_logger works correctly", {
 
   # Run the test
   tryCatch({
-    result <- list_content_cnt.connector_logger(logger)
+    result <- list_content_cnt.ConnectorLogger(logger)
     expect_equal(result, c("file1", "file2"))
   }, finally = {
     # Restore the original NextMethod function
@@ -318,10 +318,10 @@ test_that("list_content_cnt.connector_logger works correctly", {
   })
 })
 
-# Test print.connector_logger
-test_that("print.connector_logger works correctly", {
-  logger <- connector_logger
+# Test print.ConnectorLogger
+test_that("print.ConnectorLogger works correctly", {
+  logger <- ConnectorLogger
 
   output <- capture.output(print(logger))
-  expect_true(any(grepl("connector_logger", output)))
+  expect_true(any(grepl("ConnectorLogger", output)))
 })

@@ -30,11 +30,11 @@ inheriting the methods from the \code{ConnectorDBI} object.
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 # Create DBI connector
-cnt <- ConnectorDBI(RSQLite::SQLite(), ":memory:")
+cnt <- connector_dbi(RSQLite::SQLite(), ":memory:")
 cnt
 
 # Create subclass connection
-cnt_subclass <- ConnectorDBI(RSQLite::SQLite(), ":memory:",
+cnt_subclass <- connector_dbi(RSQLite::SQLite(), ":memory:",
   extra_class = "subclass"
 )
 cnt_subclass

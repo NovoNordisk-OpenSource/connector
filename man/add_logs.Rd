@@ -12,7 +12,7 @@ of connection objects to which logging capability will be added.}
 }
 \value{
 The modified \code{connections} object with logging capability added.
-Each connection in the list will have the "connector_logger" class
+Each connection in the list will have the "ConnectorLogger" class
 prepended to its existing classes.
 }
 \description{
@@ -25,7 +25,7 @@ The function performs the following steps:
 \enumerate{
 \item Checks if the input \code{connections} is of class "connectors".
 \item Registers the S3 methods for logging using \code{connector.logger::cnt_logger_S3_register()}.
-\item Iterates through each connection in the list and prepends the "connector_logger" class.
+\item Iterates through each connection in the list and prepends the "ConnectorLogger" class.
 }
 }
 \examples{

@@ -4,7 +4,7 @@
 #' Holds a special list of individual connector objects for consistent use of
 #' connections in your project.
 #'
-#' @param ... Named individual [connector] objects
+#' @param ... Named individual [Connector] objects
 #'
 #' @examples
 #' # Create connectors objects

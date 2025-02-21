@@ -59,6 +59,7 @@ Config
 congifuration
 ConnectorDBI
 ConnectorFS
+ConnectorLogger
 cph
 cre
 Creatine

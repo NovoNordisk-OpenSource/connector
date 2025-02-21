@@ -10,7 +10,7 @@ disconnect_cnt(connector_object, ...)
 \method{disconnect_cnt}{ConnectorDBI}(connector_object, ...)
 }
 \arguments{
-\item{connector_object}{\link{connector} The connector object to use.}
+\item{connector_object}{\link{Connector} The connector object to use.}
 
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }

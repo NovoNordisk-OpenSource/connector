@@ -13,7 +13,7 @@ tbl_cnt(connector_object, name, ...)
 \method{tbl_cnt}{ConnectorFS}(connector_object, name, ...)
 }
 \arguments{
-\item{connector_object}{\link{connector} The connector object to use.}
+\item{connector_object}{\link{Connector} The connector object to use.}
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 

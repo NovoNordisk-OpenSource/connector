@@ -13,7 +13,7 @@ list_content_cnt(connector_object, ...)
 \method{list_content_cnt}{ConnectorFS}(connector_object, ...)
 }
 \arguments{
-\item{connector_object}{\link{connector} The connector object to use.}
+\item{connector_object}{\link{Connector} The connector object to use.}
 
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }

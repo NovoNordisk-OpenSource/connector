@@ -13,7 +13,7 @@ write_cnt(connector_object, x, name, ...)
 \method{write_cnt}{ConnectorFS}(connector_object, x, name, ...)
 }
 \arguments{
-\item{connector_object}{\link{connector} The connector object to use.}
+\item{connector_object}{\link{Connector} The connector object to use.}
 
 \item{x}{The object to write to the connection}
 

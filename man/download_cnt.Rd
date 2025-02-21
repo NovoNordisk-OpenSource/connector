@@ -10,7 +10,7 @@ download_cnt(connector_object, name, file = basename(name), ...)
 \method{download_cnt}{ConnectorFS}(connector_object, name, file = basename(name), ...)
 }
 \arguments{
-\item{connector_object}{\link{connector} The connector object to use.}
+\item{connector_object}{\link{Connector} The connector object to use.}
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 

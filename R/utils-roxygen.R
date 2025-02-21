@@ -8,7 +8,7 @@ rd_connector_utils <- function(param) {
     "file" = "[character] Path to the file to download to or upload from",
     "..." = "Additional arguments passed to the method for the individual connector.",
     "extra_class" = "[character] Extra class to assign to the new connector.",
-    "connector_object" = "[connector] The connector object to use.",
+    "connector_object" = "[Connector] The connector object to use.",
     "inv_self" = "[invisible] self.",
     "inv_connector" = "[invisible] connector_object."
   )

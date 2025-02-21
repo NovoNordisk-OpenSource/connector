@@ -2,7 +2,7 @@
 normalized_temp_dir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
 fs_connector <- connector::ConnectorFS$new(
   path = normalized_temp_dir,
-  extra_class = "connector_logger"
+  extra_class = "ConnectorLogger"
 )
 
 test_that("log_read_connector.ConnectorFS logs correct message", {

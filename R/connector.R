@@ -1,3 +1,39 @@
+#' Create a connector
+#'
+#' @description
+#' Initializes the connector object.
+#' See [Connector] for details.
+#'
+#' @param extra_class `r rd_connector_utils("extra_class")`
+#'
+#' @return A new [Connector] object
+#'
+#' @details
+#' The `extra_class` parameter allows you to create a subclass of the
+#' `Connector` object. This can be useful if you want to create
+#' a custom connection object for easier dispatch of new s3 methods, while still
+#' inheriting the methods from the `Connector` object.
+#'
+#' @examplesIf FALSE
+#'
+#' # Create a connector object
+#' cnt <- connector()
+#' cnt
+#'
+#' # Create subclass connection
+#' cnt_subclass <- .connector(
+#'   extra_class = "subclass"
+#' )
+#' cnt_subclass
+#' class(cnt_subclass)
+#'
+#' @export
+.connector <- function(extra_class = NULL) {
+  Connector$new(
+    extra_class = extra_class
+  )
+}
+
 #' General connector object
 #'
 #' @description
@@ -16,7 +52,7 @@
 #'
 #' @examples
 #' # Create connector
-#' cnt <- connector$new()
+#' cnt <- Connector$new()
 #'
 #' cnt
 #'
@@ -26,7 +62,7 @@
 #'   try()
 #'
 #' # Connection with extra class
-#' cnt_my_class <- connector$new(extra_class = "my_class")
+#' cnt_my_class <- Connector$new(extra_class = "my_class")
 #'
 #' cnt_my_class
 #'
@@ -39,9 +75,8 @@
 #' read_cnt(cnt_my_class)
 #'
 #' @export
-
-connector <- R6::R6Class(
-  classname = "connector",
+Connector <- R6::R6Class(
+  classname = "Connector",
   public = list(
 
     #' @description
@@ -117,7 +152,7 @@ print_cnt <- function(connector_object) {
     rlang::set_names("*")
 
   classes <- class(connector_object)
-  class_connector <- grepl("^connector", classes) |>
+  class_connector <- grepl("^Connector", classes) |>
     which() |>
     utils::head(1)
 

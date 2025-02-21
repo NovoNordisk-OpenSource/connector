@@ -18,11 +18,11 @@
 #' @examplesIf FALSE
 #'
 #' # Create FS connector
-#' cnt <- ConnectorFS(tempdir())
+#' cnt <- connector_fs(tempdir())
 #' cnt
 #'
 #' # Create subclass connection
-#' cnt_subclass <- ConnectorFS(
+#' cnt_subclass <- connector_fs(
 #'   path = tempdir(),
 #'   extra_class = "subclass"
 #' )
@@ -76,7 +76,7 @@ connector_fs <- function(path, extra_class = NULL) {
 #' @export
 ConnectorFS <- R6::R6Class(
   classname = "ConnectorFS",
-  inherit = connector,
+  inherit = Connector,
   public = list(
 
     #' @description
