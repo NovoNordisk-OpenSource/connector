@@ -1,7 +1,14 @@
-# connector 0.0.7.9000
+# connector 0.0.8
 
+## Breaking Changes
+* Changed connector class names from `connector` to `Connector`, `connector_fs` to `ConnectorFS`, etc,
+* Added wrapper functions for the new class names.
+* Fixed documentation for the new class names.
+
+## Enhancements
 * Removed test dependency package {mockery} as it has been deprecated. Using recommended testthat::local_mocked_bindings() instead.
-* Add precommit to the repo and change code according to errors.g
+* Add precommit to the repo and change code according to errors.
+* Add github templates for easier development and issue handling.
 
 # connector 0.0.7
 
