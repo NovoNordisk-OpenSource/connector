@@ -123,8 +123,12 @@ ConnectorDBI <- R6::R6Class(
   ),
   active = list(
     #' @field conn The DBI connection. Inherits from [DBI::DBIConnector-class]
-    conn = function() {
-      private$.conn
+    conn = function(value) {
+      if (missing(value)) {
+        private$.conn
+      } else {
+        stop("Can't set `$conn` field", call. = FALSE)
+      }
     }
   ),
   private = list(

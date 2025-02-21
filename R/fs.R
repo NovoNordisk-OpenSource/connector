@@ -139,8 +139,12 @@ ConnectorFS <- R6::R6Class(
   ),
   active = list(
     #' @field path [character] Path to the file storage
-    path = function() {
-      private$.path
+    path = function(value) {
+      if (missing(value)) {
+        private$.path
+      } else {
+        stop("Can't set `$path` field", call. = FALSE)
+      }
     }
   ),
   private = list(
