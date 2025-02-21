@@ -17,7 +17,7 @@
 #' @examplesIf FALSE
 #'
 #' # Create a connector object
-#' cnt <- connector()
+#' cnt <- .connector()
 #' cnt
 #'
 #' # Create subclass connection

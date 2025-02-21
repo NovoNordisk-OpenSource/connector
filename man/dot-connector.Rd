@@ -26,7 +26,7 @@ inheriting the methods from the \code{Connector} object.
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 
 # Create a connector object
-cnt <- connector()
+cnt <- .connector()
 cnt
 
 # Create subclass connection
