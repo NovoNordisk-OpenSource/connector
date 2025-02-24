@@ -3,8 +3,8 @@
 
 ## Overview
 
-connector provides a seamless and consistent interface for connecting to
-different data sources, such as as simple file storage systems and
+`connector` provides a seamless and consistent interface for connecting
+to different data sources, such as as simple file storage systems and
 databases.
 
 It also gives the option to use a central configuration file to manage
@@ -41,11 +41,11 @@ metadata:
 datasources:
   - name: "folder"
     backend:
-        type: "ConnectorFS"
+        type: "connector::connector_fs"
         path: "{metadata.path}"
   - name: "database"
     backend:
-        type: "ConnectorDBI"
+        type: "connector::connector_dbi"
         drv: "RSQLite::SQLite()"
         dbname: ":memory:"
 ```
@@ -56,9 +56,9 @@ datasources needed in the project, and their specifications.
 
 The first we name “folder”, specify the type to be `ConnectorFS()`, and
 the path to the folder. The second is a database connector to an in
-memory SQLite database, that we specify using the `ConnectorDBI()`
-type, which uses `DBI::dbConnect()` to initalize the connection.
-Therefor we also give the `DBI driver` to use, and arguments to it.
+memory SQLite database, that we specify using the `ConnectorDBI()` type,
+which uses `DBI::dbConnect()` to initalize the connection. Therefor we
+also give the `DBI driver` to use, and arguments to it.
 
 To connect and create the conenctors we use `connect()` with the
 configuration file as input:
@@ -67,15 +67,15 @@ configuration file as input:
 library(connector)
 
 db <- connect("_connector.yml")
-#> ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> ────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → folder
-#> • ConnectorFS
-#> • /var/folders/kv/q2rqqp3s0s5f9rxn_854l2lm0000gp/T//RtmpSG4d1j/filec8b85d9370a6
-#> ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#> • connector::connector_fs
+#> • /var/folders/6z/vrcz11m12fz260b5_2zhbl800000gp/T//RtmpHjJIrg/filecc225a1c5bf4
+#> ────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → database
-#> • ConnectorDBI
+#> • connector::connector_dbi
 #> • RSQLite::SQLite() and :memory:
 
 print(db)
@@ -91,7 +91,7 @@ on their methods and specifications.
 ``` r
 print(db$database)
 #> <ConnectorDBI>
-#> Inherits from: <connector>
+#> Inherits from: <Connector>
 #> Registered methods:
 #> • `disconnect_cnt.ConnectorDBI()`
 #> • `list_content_cnt.ConnectorDBI()`

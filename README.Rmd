@@ -23,7 +23,7 @@ knitr::opts_knit$set(root.dir = tmp)
 
 ## Overview
 
-connector provides a seamless and consistent interface for connecting to different data sources, 
+`connector` provides a seamless and consistent interface for connecting to different data sources, 
 such as as simple file storage systems and databases.
 
 It also gives the option to use a central configuration file to manage your connections in your project,
