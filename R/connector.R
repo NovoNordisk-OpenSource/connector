@@ -1,39 +1,3 @@
-#' Create a connector
-#'
-#' @description
-#' Initializes the connector object.
-#' See [Connector] for details.
-#'
-#' @param extra_class `r rd_connector_utils("extra_class")`
-#'
-#' @return A new [Connector] object
-#'
-#' @details
-#' The `extra_class` parameter allows you to create a subclass of the
-#' `Connector` object. This can be useful if you want to create
-#' a custom connection object for easier dispatch of new s3 methods, while still
-#' inheriting the methods from the `Connector` object.
-#'
-#' @examplesIf FALSE
-#'
-#' # Create a connector object
-#' cnt <- .connector()
-#' cnt
-#'
-#' # Create subclass connection
-#' cnt_subclass <- .connector(
-#'   extra_class = "subclass"
-#' )
-#' cnt_subclass
-#' class(cnt_subclass)
-#'
-#' @export
-.connector <- function(extra_class = NULL) {
-  Connector$new(
-    extra_class = extra_class
-  )
-}
-
 #' General connector object
 #'
 #' @description
