@@ -1,4 +1,4 @@
-# connector 0.0.8
+# connector 0.0.7.9000
 
 ## Breaking Changes
 * Changed connector class names from `connector` to `Connector`, `connector_fs` to `ConnectorFS`, etc,

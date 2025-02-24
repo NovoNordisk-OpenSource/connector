@@ -9,7 +9,6 @@ reference:
   - title: Connectors
     contents:
     - connectors
-    - .connector
     - Connector
     - connector_fs
     - ConnectorFS
