@@ -5,7 +5,7 @@
 #'
 #' @examples
 #' # Write and read a CSV file using the file storage connector
-#' cnt <- ConnectorFS$new(tempdir())
+#' cnt <- connector_fs(tempdir())
 #'
 #' cnt |>
 #'   write_cnt(iris, "iris.csv")
@@ -29,7 +29,7 @@ read_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #'
 #' @examples
 #' # Write different file types to a file storage
-#' cnt <- ConnectorFS$new(tempdir())
+#' cnt <- connector_fs(tempdir())
 #'
 #' cnt |>
 #'   list_content_cnt(pattern = "iris")
@@ -64,7 +64,7 @@ write_cnt.ConnectorFS <- function(connector_object, x, name, ...) {
 #'
 #' @examples
 #' # List content in a file storage
-#' cnt <- ConnectorFS$new(tempdir())
+#' cnt <- connector_fs(tempdir())
 #'
 #' cnt |>
 #'   list_content_cnt()
@@ -86,7 +86,7 @@ list_content_cnt.ConnectorFS <- function(connector_object, ...) {
 #'
 #' @examples
 #' # Remove a file from the file storage
-#' cnt <- ConnectorFS$new(tempdir())
+#' cnt <- connector_fs(tempdir())
 #'
 #' cnt |>
 #'   write_cnt("this is an example", "example.txt")
@@ -123,7 +123,7 @@ remove_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #'
 #' @examples
 #' # Download file from a file storage
-#' cnt <- ConnectorFS$new(tempdir())
+#' cnt <- connector_fs(tempdir())
 #'
 #' cnt |>
 #'   write_cnt("this is an example", "example.txt")
@@ -162,7 +162,7 @@ download_cnt.ConnectorFS <- function(
 #'
 #' writeLines("this is an example", "example.txt")
 #'
-#' cnt <- ConnectorFS$new(tempdir())
+#' cnt <- connector_fs(tempdir())
 #'
 #' cnt |>
 #'   list_content_cnt(pattern = "example.txt")
@@ -202,7 +202,7 @@ upload_cnt.ConnectorFS <- function(
 #' @examples
 #' # Create a directory in a file storage
 #'
-#' cnt <- ConnectorFS$new(tempdir())
+#' cnt <- connector_fs(tempdir())
 #'
 #' cnt |>
 #'   list_content_cnt(pattern = "new_folder")
@@ -243,7 +243,7 @@ create_directory_cnt.ConnectorFS <- function(
 #' @examples
 #' # Remove a directory from a file storage
 #'
-#' cnt <- ConnectorFS$new(tempdir())
+#' cnt <- connector_fs(tempdir())
 #'
 #' cnt |>
 #'   create_directory_cnt("new_folder")
@@ -275,7 +275,7 @@ remove_directory_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #'
 #' @examples
 #' # Use dplyr verbs on a table
-#' cnt <- ConnectorFS$new(tempdir())
+#' cnt <- connector_fs(tempdir())
 #'
 #' cnt |>
 #'   write_cnt(iris, "iris.csv")

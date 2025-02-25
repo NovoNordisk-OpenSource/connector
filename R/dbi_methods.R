@@ -3,7 +3,7 @@
 #'
 #' @examples
 #' # Read table from DBI database
-#' cnt <- ConnectorDBI$new(RSQLite::SQLite())
+#' cnt <- connector_dbi(RSQLite::SQLite())
 #'
 #' cnt |>
 #'   write_cnt(iris, "iris")
@@ -32,7 +32,7 @@ read_cnt.ConnectorDBI <- function(connector_object, name, ...) {
 #' `ConnectorFS` works and `ConnectorDBI`.
 #' @examples
 #' # Write table to DBI database
-#' cnt <- ConnectorDBI$new(RSQLite::SQLite())
+#' cnt <- connector_dbi(RSQLite::SQLite())
 #'
 #' cnt |>
 #'   list_content_cnt()
@@ -68,7 +68,7 @@ write_cnt.ConnectorDBI <- function(
 #'
 #' @examples
 #' # List tables in a DBI database
-#' cnt <- ConnectorDBI$new(RSQLite::SQLite())
+#' cnt <- connector_dbi(RSQLite::SQLite())
 #'
 #' cnt |>
 #'   list_content_cnt()
@@ -89,7 +89,7 @@ list_content_cnt.ConnectorDBI <- function(
 #'
 #' @examples
 #' # Remove table in a DBI database
-#' cnt <- ConnectorDBI$new(RSQLite::SQLite())
+#' cnt <- connector_dbi(RSQLite::SQLite())
 #'
 #' cnt |>
 #'   write_cnt(iris, "iris") |>
@@ -117,7 +117,7 @@ remove_cnt.ConnectorDBI <- function(connector_object, name, ...) {
 #'
 #' @examples
 #' # Use dplyr verbs on a table in a DBI database
-#' cnt <- ConnectorDBI$new(RSQLite::SQLite())
+#' cnt <- connector_dbi(RSQLite::SQLite())
 #'
 #' iris_cnt <- cnt |>
 #'   write_cnt(iris, "iris") |>
@@ -151,7 +151,7 @@ tbl_cnt.ConnectorDBI <- function(connector_object, name, ...) {
 #'
 #' @examples
 #' # Open and close a DBI connector
-#' cnt <- ConnectorDBI$new(RSQLite::SQLite())
+#' cnt <- connector_dbi(RSQLite::SQLite())
 #'
 #' cnt$conn
 #'

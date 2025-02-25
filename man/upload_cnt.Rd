@@ -33,7 +33,7 @@ Generic implementing of how to upload files to a connector:
 
 writeLines("this is an example", "example.txt")
 
-cnt <- ConnectorFS$new(tempdir())
+cnt <- connector_fs(tempdir())
 
 cnt |>
   list_content_cnt(pattern = "example.txt")

@@ -37,7 +37,7 @@ through \code{...} depends on the file extension.
 }
 \examples{
 # Read table from DBI database
-cnt <- ConnectorDBI$new(RSQLite::SQLite())
+cnt <- connector_dbi(RSQLite::SQLite())
 
 cnt |>
   write_cnt(iris, "iris")
@@ -50,7 +50,7 @@ cnt |>
   head()
 
 # Write and read a CSV file using the file storage connector
-cnt <- ConnectorFS$new(tempdir())
+cnt <- connector_fs(tempdir())
 
 cnt |>
   write_cnt(iris, "iris.csv")

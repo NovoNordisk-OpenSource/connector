@@ -10,8 +10,8 @@
 #' # Create connectors objects
 #'
 #' con <- connectors(
-#'   sdtm = ConnectorFS$new(path = tempdir()),
-#'   adam = ConnectorDBI$new(drv = RSQLite::SQLite())
+#'   sdtm = connector_fs(path = tempdir()),
+#'   adam = connector_dbi(drv = RSQLite::SQLite())
 #' )
 #'
 #' # Print for overview
@@ -30,7 +30,9 @@ connectors <- function(...) {
   ds_ <- x[["datasources"]]
 
   if (!is.null(ds_) && !inherits(ds_, "cnts_datasources")) {
-    cli::cli_abort("'datasources' is a reserved name. It cannot be used as a name for a data source.")
+    cli::cli_abort(
+      "'datasources' is a reserved name. It cannot be used as a name for a data source."
+    )
   }
 
   if (is.null(ds_)) {
@@ -61,7 +63,8 @@ print_connectors <- function(x, ...) {
 
   classes <- glue::glue(
     "${{names(classes)}} {.cls {{classes}}}",
-    .open = "{{", .close = "}}"
+    .open = "{{",
+    .close = "}}"
   ) |>
     as.character() |>
     rlang::set_names(" ")

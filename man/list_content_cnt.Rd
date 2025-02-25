@@ -33,13 +33,13 @@ Generic implementing of how to list all content available for different connecto
 }
 \examples{
 # List tables in a DBI database
-cnt <- ConnectorDBI$new(RSQLite::SQLite())
+cnt <- connector_dbi(RSQLite::SQLite())
 
 cnt |>
   list_content_cnt()
 
 # List content in a file storage
-cnt <- ConnectorFS$new(tempdir())
+cnt <- connector_fs(tempdir())
 
 cnt |>
   list_content_cnt()

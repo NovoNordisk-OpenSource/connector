@@ -30,7 +30,7 @@ Generic implementing of how to download files from a connector:
 }
 \examples{
 # Download file from a file storage
-cnt <- ConnectorFS$new(tempdir())
+cnt <- connector_fs(tempdir())
 
 cnt |>
   write_cnt("this is an example", "example.txt")

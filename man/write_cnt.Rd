@@ -42,7 +42,7 @@ through \code{...} depends on the file extension.
 }
 \examples{
 # Write table to DBI database
-cnt <- ConnectorDBI$new(RSQLite::SQLite())
+cnt <- connector_dbi(RSQLite::SQLite())
 
 cnt |>
   list_content_cnt()
@@ -54,7 +54,7 @@ cnt |>
   list_content_cnt()
 
 # Write different file types to a file storage
-cnt <- ConnectorFS$new(tempdir())
+cnt <- connector_fs(tempdir())
 
 cnt |>
   list_content_cnt(pattern = "iris")

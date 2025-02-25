@@ -17,8 +17,8 @@ connections in your project.
 # Create connectors objects
 
 con <- connectors(
-  sdtm = ConnectorFS$new(path = tempdir()),
-  adam = ConnectorDBI$new(drv = RSQLite::SQLite())
+  sdtm = connector_fs(path = tempdir()),
+  adam = connector_dbi(drv = RSQLite::SQLite())
 )
 
 # Print for overview

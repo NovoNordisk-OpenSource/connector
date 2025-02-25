@@ -32,7 +32,7 @@ Mostly relevant for file storage connectors.
 \examples{
 # Create a directory in a file storage
 
-cnt <- ConnectorFS$new(tempdir())
+cnt <- connector_fs(tempdir())
 
 cnt |>
   list_content_cnt(pattern = "new_folder")

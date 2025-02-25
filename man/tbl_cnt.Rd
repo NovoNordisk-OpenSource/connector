@@ -37,7 +37,7 @@ Mostly relevant for DBI connectors.
 }
 \examples{
 # Use dplyr verbs on a table in a DBI database
-cnt <- ConnectorDBI$new(RSQLite::SQLite())
+cnt <- connector_dbi(RSQLite::SQLite())
 
 iris_cnt <- cnt |>
   write_cnt(iris, "iris") |>
@@ -57,7 +57,7 @@ iris_cnt |>
   dplyr::collect()
 
 # Use dplyr verbs on a table
-cnt <- ConnectorFS$new(tempdir())
+cnt <- connector_fs(tempdir())
 
 cnt |>
   write_cnt(iris, "iris.csv")

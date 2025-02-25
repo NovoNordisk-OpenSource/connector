@@ -27,7 +27,7 @@ Mostly relevant for DBI connectors.
 }
 \examples{
 # Open and close a DBI connector
-cnt <- ConnectorDBI$new(RSQLite::SQLite())
+cnt <- connector_dbi(RSQLite::SQLite())
 
 cnt$conn
 

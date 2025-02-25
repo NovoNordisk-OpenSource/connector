@@ -35,7 +35,7 @@ Generic implementing of how to remove content from different connectors:
 }
 \examples{
 # Remove table in a DBI database
-cnt <- ConnectorDBI$new(RSQLite::SQLite())
+cnt <- connector_dbi(RSQLite::SQLite())
 
 cnt |>
   write_cnt(iris, "iris") |>
@@ -46,7 +46,7 @@ cnt |>
   list_content_cnt()
 
 # Remove a file from the file storage
-cnt <- ConnectorFS$new(tempdir())
+cnt <- connector_fs(tempdir())
 
 cnt |>
   write_cnt("this is an example", "example.txt")
