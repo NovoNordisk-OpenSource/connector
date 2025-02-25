@@ -79,8 +79,8 @@ to customize the existing ones, and their methods.</p>
 object, with no additional functionality. It serves as the foundation
 for all other connectors, that should inherit from it in their
 <code><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6::R6Class()</a></code> definition - either directly or indirectly.
-Both <code><a href="../reference/ConnectorFS.html">ConnectorFS()</a></code> and <code><a href="../reference/ConnectorDBI.html">ConnectorDBI()</a></code> inherit
-from <code>Connector</code> in this way.</p>
+Both <code>ConnectorFS</code> and <code>ConnectorDBI</code> inherit from
+<code>Connector</code> in this way.</p>
 <div class="section level2">
 <h2 id="creating-a-new-connector">Creating a new connector<a class="anchor" aria-label="anchor" href="#creating-a-new-connector"></a>
 </h2>
@@ -102,11 +102,11 @@ meaningful errors if you have not defined the method
 (e.g. <code>write_cnt.my_class()</code>) for your new connector
 class.</p>
 <p>In most cases you want to inherit from either
-<code><a href="../reference/ConnectorFS.html">ConnectorFS()</a></code> or <code><a href="../reference/ConnectorDBI.html">ConnectorDBI()</a></code> depending on
-if your new connector is used to access files or databases
+<code>ConnectorFS</code> or <code>ConnectorDBI</code> depending on if
+your new connector is used to access files or databases
 respectively.</p>
 <p>Below we create a new <code>connector_project</code> class that
-inherits and acts exactly as the <code><a href="../reference/ConnectorFS.html">ConnectorFS()</a></code>, but instead
+inherits and acts exactly as the <code>ConnectorFS</code>, but instead
 of the user having to provide the <code>path</code> to the folder as an
 argument, they provide the <code>project</code> name, and the
 <code>path</code> is constructed from that.</p>
@@ -134,7 +134,7 @@ argument, they provide the <code>project</code> name, and the
 organisation where all projects are stored in a common folder
 structure.</p>
 <p>When we not initialize a <code>connector_project</code> you can see
-that it still has all the methods from <code><a href="../reference/ConnectorFS.html">ConnectorFS()</a></code>, and
+that it still has all the methods from <code>ConnectorFS</code>, and
 that the path has been assigned correctly based on the
 <code>project</code> argument:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
@@ -157,10 +157,10 @@ that the path has been assigned correctly based on the
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/Rtmp4IthUT/file25e0237ede0c/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/Rtmp48hWJL/file25e737e190f2/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> project: my_project</span></span></code></pre></div>
 <p>We can now use this <code>connector</code> to read and write data,
-just as we would with <code><a href="../reference/ConnectorFS.html">ConnectorFS()</a></code>:</p>
+just as we would with <code>ConnectorFS</code>:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># First list current content:</span></span>
 <span><span class="va">my_project</span> <span class="op">|&gt;</span></span>
@@ -199,7 +199,7 @@ class.</p>
 <span><span class="co">#&gt; {</span></span>
 <span><span class="co">#&gt;     UseMethod("list_content_cnt")</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x55ddb258a1e8&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x5574efd051e8&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:connector&gt;</span></span>
 <span></span>
 <span><span class="co"># List the registered s3 methods</span></span>
@@ -212,7 +212,7 @@ class.</p>
 <p>Building further on the example below we can define a custom method
 for <code><a href="../reference/list_content_cnt.html">list_content_cnt()</a></code> for the
 <code>connector_project</code> class, to be used instead of
-<code><a href="../reference/list_content_cnt.html">list_content_cnt.ConnectorFS()</a></code>:</p>
+<code>list_content_cnt.ConnectorFS</code>:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">list_content_cnt.connector_project</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu">cli</span><span class="fu">::</span><span class="fu"><a href="https://cli.r-lib.org/reference/cli_alert.html" class="external-link">cli_alert</a></span><span class="op">(</span><span class="st">"Listing content of {connector_object$project}"</span><span class="op">)</span></span>
@@ -250,7 +250,7 @@ associated with the <code>connector_project</code> class:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/Rtmp4IthUT/file25e0237ede0c/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/Rtmp48hWJL/file25e737e190f2/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> project: my_project</span></span></code></pre></div>
 <p>And when we use <code><a href="../reference/list_content_cnt.html">list_content_cnt()</a></code> on our
 <code>my_project</code> object, we see that the custom method is used
@@ -297,9 +297,9 @@ with the extra class <code>demo_extra</code>:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/Rtmp4IthUT/file25e0237ede0c/my_root_path/my_project</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/Rtmp48hWJL/file25e737e190f2/my_root_path/my_project</span></span></code></pre></div>
 <p>As you can see here we have all the methods from
-<code><a href="../reference/ConnectorFS.html">ConnectorFS()</a></code>, but the <code>demo_extra</code> is now the
+<code>ConnectorFS</code>, but the <code>demo_extra</code> is now the
 first class in the class hierarchy.</p>
 <p>To create a custom method for <code><a href="../reference/list_content_cnt.html">list_content_cnt()</a></code> for the
 <code>demo_extra</code> we do the same as for the
@@ -337,19 +337,19 @@ print the path instead, but otherwise everything is the same:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/Rtmp4IthUT/file25e0237ede0c/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/Rtmp48hWJL/file25e737e190f2/my_root_path/my_project</span></span>
 <span></span>
 <span><span class="co"># List content to see the new message</span></span>
 <span><span class="va">my_project_extra</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; → Listing content of /tmp/Rtmp4IthUT/file25e0237ede0c/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; → Listing content of /tmp/Rtmp48hWJL/file25e737e190f2/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; [1] "my_file.txt"</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="special-handling-of-files">Special handling of files<a class="anchor" aria-label="anchor" href="#special-handling-of-files"></a>
 </h2>
 <p>A special property of file storage connectors (inheriting from
-<code><a href="../reference/ConnectorFS.html">ConnectorFS()</a></code>) is that they are operating on files not on
+<code>ConnectorFS</code>) is that they are operating on files not on
 databases. This means that they can handle multiple file formats, and
 also not only file formats for reading and writing rectangular data.</p>
 <p>When handling files the user will only use the
@@ -365,9 +365,8 @@ behind the scenes the following chain of functions are called:</p>
 </ul>
 <p>Here <code><a href="../reference/read_cnt.html">read_cnt()</a></code> dispatches based on the class of the
 <code>Connector</code> object. For the file storage connectors
-(inheriting from <code><a href="../reference/ConnectorFS.html">ConnectorFS()</a></code>) the
-<code><a href="../reference/read_file.html">read_file()</a></code> method is then called on the path of the
-file.</p>
+(inheriting from <code>ConnectorFS</code>) the <code><a href="../reference/read_file.html">read_file()</a></code>
+method is then called on the path of the file.</p>
 <p><code><a href="../reference/read_file.html">read_file()</a></code> here is only a helper function, that then
 calls <code><a href="../reference/read_file.html">read_ext()</a></code> which is a generic that dispatches based
 on file extension of the file, and uses general functions from other
