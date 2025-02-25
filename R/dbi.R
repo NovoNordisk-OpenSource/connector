@@ -49,44 +49,43 @@ connector_dbi <- function(drv = DBI::dbDriver(), ..., extra_class = NULL) {
 #' @param extra_class `r rd_connector_utils("extra_class")`
 #'
 #' @details
+#' We recommend using the wrapper function [connector_dbi()] to simplify the process of
+#' creating an object of [ConnectorDBI] class. It provides a more intuitive and user-friendly
+#' approach to initialize the ConnectorFS class and its associated functionalities.
+#'
 #' Upon garbage collection, the connection will try to disconnect from the database.
 #' But it is good practice to call [disconnect_cnt] when you are done with the connection.
 #'
 #' @examples
 #' # Create DBI connector
-#'
 #' cnt <- ConnectorDBI$new(RSQLite::SQLite(), ":memory:")
-#'
 #' cnt
 #'
+#' # You can do the same thing using wrapper function connector_dbi()
+#' cnt <- connector_dbi(RSQLite::SQLite(), ":memory:")
+#' cnt
 #' # Write to the database
-#'
 #' cnt$write_cnt(iris, "iris")
 #'
 #' # Read from the database
-#'
 #' cnt$read_cnt("iris") |>
 #'   head()
 #'
 #' # List available tables
-#'
 #' cnt$list_content_cnt()
 #'
 #' # Use the connector to run a query
-#'
 #' cnt$conn
 #'
 #' cnt$conn |>
 #'   DBI::dbGetQuery("SELECT * FROM iris limit 5")
 #'
 #' # Use dplyr verbs and collect data
-#'
 #' cnt$tbl_cnt("iris") |>
 #'   dplyr::filter(Sepal.Length > 7) |>
 #'   dplyr::collect()
 #'
 #' # Disconnect from the database
-#'
 #' cnt$disconnect_cnt()
 #'
 #' @export
@@ -132,7 +131,6 @@ ConnectorDBI <- R6::R6Class(
     }
   ),
   private = list(
-
     # Store the connection object
     .conn = NULL,
 

@@ -7,27 +7,30 @@
 The ConnectorFS class is a file storage connector for accessing and manipulating files any file storage solution.
 The default implementation includes methods for files stored on local or network drives.
 }
+\details{
+We recommend using the wrapper function \code{\link[=connector_fs]{connector_fs()}} to simplify the process of
+creating an object of \link{ConnectorFS} class. It provides a more intuitive and user-friendly
+approach to initialize the ConnectorFS class and its associated functionalities.
+}
 \examples{
 # Create file storage connector
-
 cnt <- ConnectorFS$new(tempdir())
+cnt
 
+# You can do the same thing using wrapper function connector_fs()
+cnt <- connector_fs(tempdir())
 cnt
 
 # List content
-
 cnt$list_content_cnt()
 
 # Write to the connector
-
 cnt$write_cnt(iris, "iris.rds")
 
 # Check it is there
-
 cnt$list_content_cnt()
 
 # Read the result back
-
 cnt$read_cnt("iris.rds") |>
   head()
 

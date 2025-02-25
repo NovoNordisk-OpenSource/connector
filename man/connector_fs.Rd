@@ -2,7 +2,7 @@
 % Please edit documentation in R/fs.R
 \name{connector_fs}
 \alias{connector_fs}
-\title{Create \code{dbi} connector}
+\title{Create \code{fs} connector}
 \usage{
 connector_fs(path, extra_class = NULL)
 }
@@ -26,7 +26,6 @@ inheriting the methods from the \code{ConnectorFS} object.
 }
 \examples{
 \dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-
 # Create FS connector
 cnt <- connector_fs(tempdir())
 cnt

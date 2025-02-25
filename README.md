@@ -13,8 +13,8 @@ to the same data source across different scripts in your project, and
 enables you to easily switch between different data sources.
 
 The connector package comes with the possibilities of creating
-connections to file system folders using `ConnectorFS()` and general
-databases using `ConnectorDBI()`, which is built on top of the `{DBI}`
+connections to file system folders using `connector_fs` and general
+databases using `connector_dbi`, which is built on top of the `{DBI}`
 package.
 
 connector also has a series of expansion packages that allows you to
@@ -54,11 +54,11 @@ First we specify common metadata for the connectors, which here is a
 temporary folder that we want to use. Afterwards we specify the
 datasources needed in the project, and their specifications.
 
-The first we name “folder”, specify the type to be `ConnectorFS()`, and
+The first we name “folder”, specify the type to be `connector_fs()`, and
 the path to the folder. The second is a database connector to an in
-memory SQLite database, that we specify using the `ConnectorDBI()` type,
-which uses `DBI::dbConnect()` to initalize the connection. Therefor we
-also give the `DBI driver` to use, and arguments to it.
+memory SQLite database, that we specify using the `connector_dbi()`
+type, which uses `DBI::dbConnect()` to initalize the connection.
+Therefor we also give the `DBI driver` to use, and arguments to it.
 
 To connect and create the conenctors we use `connect()` with the
 configuration file as input:
@@ -71,7 +71,7 @@ db <- connect("_connector.yml")
 #> Connection to:
 #> → folder
 #> • connector::connector_fs
-#> • /var/folders/6z/vrcz11m12fz260b5_2zhbl800000gp/T//RtmpHjJIrg/filecc225a1c5bf4
+#> • /var/folders/6z/vrcz11m12fz260b5_2zhbl800000gp/T//RtmpzD2Zjl/file12e18314d1835
 #> ────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → database
@@ -85,7 +85,7 @@ print(db)
 ```
 
 This creates a `connectors` objects that contains each `connector`. When
-printing the individual `conenctor` you get the some general information
+printing the individual `connector` you get the some general information
 on their methods and specifications.
 
 ``` r
@@ -147,7 +147,7 @@ db$folder |>
 #> # ℹ 22 more rows
 ```
 
-Here the parquet format has been used, but when using a `ConnectorFS()`
+Here the parquet format has been used, but when using a `connector_fs`
 it is possible to read and write several different file types. See
 `read_file()` and `write_file()` for more information.
 
