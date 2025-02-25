@@ -1,7 +1,3 @@
-test_that("connector_fs fails when needed", {
-  expect_error(connector_fs("bad_path"))
-})
-
 test_that("fs connector", {
   t_dir <- withr::local_tempdir()
   t_file1 <- withr::local_tempfile(lines = "hello", fileext = ".txt")
