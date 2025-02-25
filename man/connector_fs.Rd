@@ -7,7 +7,7 @@
 connector_fs(path, extra_class = NULL)
 }
 \arguments{
-\item{path}{\link{character} Path to the file storage}
+\item{path}{\link{character} Path to the file storage.}
 
 \item{extra_class}{\link{character} Extra class to assign to the new connector.}
 }

@@ -97,8 +97,12 @@ repos:
         entry: Cannot commit .Rhistory, .RData, .Rds or .rds.
         language: fail
         files: '\.(Rhistory|RData|Rds|rds)$'
-        exclude: ^inst/demo_trial/
-
+        exclude: > 
+            (?x)^(
+            ^inst/demo_trial/|
+            tests/testthat/demo_trial/adam/.*|
+            tests/testthat/demo_trial/sdtm/.*
+            )$
 ci:
     autoupdate_schedule: monthly
     skip: [pkgdown]

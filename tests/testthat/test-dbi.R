@@ -20,6 +20,11 @@ specs <- list(
   )
 )
 
+test_that("DBI doesn't work when needed", {
+  # Initialization fails when wrong driver is provided
+  expect_error(connector_dbi(drv = "bad_driver"))
+})
+
 # Run same tests for both SQLite and Postgres
 for (i in seq_along(specs)) {
   test_that(paste("DBI generics work for", names(specs)[[i]]), {

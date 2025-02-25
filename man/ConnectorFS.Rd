@@ -80,10 +80,9 @@ Initializes the connector for file storage.
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{path}}{\link{character} Path to the file storage}
+\item{\code{path}}{\link{character} Path to the file storage.}
 
-\item{\code{extra_class}}{\link{character} Extra class to be added
-Checked using \link[checkmate:checkDirectoryExists]{checkmate::assert_directory_exists}.}
+\item{\code{extra_class}}{\link{character} Extra class to assign to the new connector.}
 }
 \if{html}{\out{</div>}}
 }

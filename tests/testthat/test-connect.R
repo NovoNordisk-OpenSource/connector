@@ -97,14 +97,12 @@ test_that("yaml config parsed correctly", {
 
 testthat::test_that("Using a list instead of yaml", {
   # using yaml already parsed as list
-
   connect(yaml_content_raw) |>
     expect_no_error()
 })
 
 testthat::test_that("Using a json instead of yaml", {
   # using json file
-
   connect(test_path("configs", "config_json.json")) |>
     expect_no_error()
 })

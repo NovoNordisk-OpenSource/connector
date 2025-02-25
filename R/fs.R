@@ -4,7 +4,7 @@
 #' Initializes the connector for file system type of storage.
 #' See [ConnectorFS] for details.
 #'
-#' @param path [character] Path to the file storage
+#' @param path [character] Path to the file storage.
 #' @param extra_class `r rd_connector_utils("extra_class")`
 #'
 #' @return A new [ConnectorFS] object
@@ -84,10 +84,14 @@ ConnectorFS <- R6::R6Class(
     #' @description
     #' Initializes the connector for file storage.
     #'
-    #' @param path [character] Path to the file storage
-    #' @param extra_class [character] Extra class to be added
-    #' Checked using [checkmate::assert_directory_exists].
+    #' @param path [character] Path to the file storage.
+    #' @param extra_class `r rd_connector_utils("extra_class")`
     initialize = function(path, extra_class = NULL) {
+      if (!checkmate::test_directory_exists(path)) {
+        cli::cli_abort(
+          "{.field path} parameter has to be an existing directory."
+        )
+      }
       private$.path <- path
       super$initialize(extra_class = extra_class)
     },

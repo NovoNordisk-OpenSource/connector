@@ -30,7 +30,7 @@
 #' class(cnt_subclass)
 #'
 #' @export
-connector_dbi <- function(drv = DBI::dbDriver(), ..., extra_class = NULL) {
+connector_dbi <- function(drv, ..., extra_class = NULL) {
   ConnectorDBI$new(
     drv = drv,
     ...,
@@ -97,7 +97,13 @@ ConnectorDBI <- R6::R6Class(
     #' Initialize the connection
     #' @param drv Driver object inheriting from [DBI::DBIDriver-class].
     #' @param ... Additional arguments passed to [DBI::dbConnect()].
+    #' @param extra_class `r rd_connector_utils("extra_class")`
     initialize = function(drv, ..., extra_class = NULL) {
+      if (!checkmate::check_class(drv, "DBIDriver")) {
+        cli::cli_abort(
+          "{.field drv} parameter has to be of type {.help [{.fun DBIDriver-class}](DBI::DBIDriver-class)}"
+        )
+      }
       private$.conn <- DBI::dbConnect(drv = drv, ...)
       super$initialize(extra_class = extra_class)
     },

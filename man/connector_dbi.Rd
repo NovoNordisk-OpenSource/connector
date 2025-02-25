@@ -4,7 +4,7 @@
 \alias{connector_dbi}
 \title{Create \code{dbi} connector}
 \usage{
-connector_dbi(drv = DBI::dbDriver(), ..., extra_class = NULL)
+connector_dbi(drv, ..., extra_class = NULL)
 }
 \arguments{
 \item{drv}{Driver object inheriting from \link[DBI:DBIDriver-class]{DBI::DBIDriver}.}
