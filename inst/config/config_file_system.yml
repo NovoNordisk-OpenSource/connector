@@ -5,9 +5,9 @@ metadata:
 datasources:
   - name: "adam"
     backend:
-      type: "connector_fs"
+      type: "connector::connector_fs"
       path: "{metadata.tmp_dir_path}/adam"
   - name: "tfl"
     backend:
-      type: "connector_fs"
+      type: "connector::connector_fs"
       path: "{metadata.tmp_dir_path}/tfl"

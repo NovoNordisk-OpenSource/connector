@@ -1,4 +1,4 @@
-# connector_logger integration test with whirl
+# ConnectorLogger integration test with whirl
 
     Code
       log_info

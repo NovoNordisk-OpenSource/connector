@@ -49,7 +49,7 @@ extract_datasources(yaml_content)
 ## Prepare connections for datasources
 
 
-#### First try for connector_fs
+#### First try for ConnectorFS
 
 ```{r}
 only_one <- extract_connections(yaml_content)[[1]]

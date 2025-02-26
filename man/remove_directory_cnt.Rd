@@ -2,15 +2,15 @@
 % Please edit documentation in R/cnt_generics.R, R/fs_methods.R
 \name{remove_directory_cnt}
 \alias{remove_directory_cnt}
-\alias{remove_directory_cnt.connector_fs}
+\alias{remove_directory_cnt.ConnectorFS}
 \title{Remove a directory}
 \usage{
 remove_directory_cnt(connector_object, name, ...)
 
-\method{remove_directory_cnt}{connector_fs}(connector_object, name, ...)
+\method{remove_directory_cnt}{ConnectorFS}(connector_object, name, ...)
 }
 \arguments{
-\item{connector_object}{\link{connector} The connector object to use.}
+\item{connector_object}{\link{Connector} The connector object to use.}
 
 \item{name}{\link{character} The name of the directory to remove}
 
@@ -24,13 +24,13 @@ Generic implementing of how to remove a directory for a connector.
 Mostly relevant for file storage connectors.
 
 \itemize{
-\item \link{connector_fs}: Uses \code{\link[=unlink]{unlink()}} with \code{recursive = TRUE} to remove a directory at the path of the connector.
+\item \link{ConnectorFS}: Uses \code{\link[=unlink]{unlink()}} with \code{recursive = TRUE} to remove a directory at the path of the connector.
 }
 }
 \examples{
 # Remove a directory from a file storage
 
-cnt <- connector_fs$new(tempdir())
+cnt <- connector_fs(tempdir())
 
 cnt |>
   create_directory_cnt("new_folder")

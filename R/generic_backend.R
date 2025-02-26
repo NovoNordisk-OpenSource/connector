@@ -18,7 +18,7 @@ create_backend <- function(backend) {
   connector <- get_backend_fct(backend$type)
 
   if (R6::is.R6Class(connector)) {
-    connect_fct <- connector$new
+    connect_fct <- Connector$new
   } else {
     connect_fct <- connector
   }
@@ -39,13 +39,13 @@ create_backend <- function(backend) {
 
 #' Get the backend function
 #'
-#' @param backend_type The type of the backend, by default it is connector_fs or connector_db
+#' @param backend_type The type of the backend, by default it is ConnectorFS or ConnectorDBI
 #'
 #' @return The backend function
 #' @noRd
 #'
 #' @examples
-#' get_backend_fct("connector_fs")
+#' get_backend_fct("ConnectorFS")
 get_backend_fct <- function(backend_type) {
   defaults_backends <- getNamespaceExports("connector")[
     grepl("^connector_", getNamespaceExports("connector"))

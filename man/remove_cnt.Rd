@@ -2,18 +2,18 @@
 % Please edit documentation in R/cnt_generics.R, R/dbi_methods.R, R/fs_methods.R
 \name{remove_cnt}
 \alias{remove_cnt}
-\alias{remove_cnt.connector_dbi}
-\alias{remove_cnt.connector_fs}
+\alias{remove_cnt.ConnectorDBI}
+\alias{remove_cnt.ConnectorFS}
 \title{Remove content from the connector}
 \usage{
 remove_cnt(connector_object, name, ...)
 
-\method{remove_cnt}{connector_dbi}(connector_object, name, ...)
+\method{remove_cnt}{ConnectorDBI}(connector_object, name, ...)
 
-\method{remove_cnt}{connector_fs}(connector_object, name, ...)
+\method{remove_cnt}{ConnectorFS}(connector_object, name, ...)
 }
 \arguments{
-\item{connector_object}{\link{connector} The connector object to use.}
+\item{connector_object}{\link{Connector} The connector object to use.}
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
@@ -26,16 +26,16 @@ remove_cnt(connector_object, name, ...)
 Generic implementing of how to remove content from different connectors:
 
 \itemize{
-\item \link{connector_dbi}: Uses \code{\link[DBI:dbRemoveTable]{DBI::dbRemoveTable()}} to remove the table from a DBI connection.
+\item \link{ConnectorDBI}: Uses \code{\link[DBI:dbRemoveTable]{DBI::dbRemoveTable()}} to remove the table from a DBI connection.
 }
 
 \itemize{
-\item \link{connector_fs}: Uses \code{\link[=unlink]{unlink()}} to delete the file.
+\item \link{ConnectorFS}: Uses \code{\link[=unlink]{unlink()}} to delete the file.
 }
 }
 \examples{
 # Remove table in a DBI database
-cnt <- connector_dbi$new(RSQLite::SQLite())
+cnt <- connector_dbi(RSQLite::SQLite())
 
 cnt |>
   write_cnt(iris, "iris") |>
@@ -46,7 +46,7 @@ cnt |>
   list_content_cnt()
 
 # Remove a file from the file storage
-cnt <- connector_fs$new(tempdir())
+cnt <- connector_fs(tempdir())
 
 cnt |>
   write_cnt("this is an example", "example.txt")

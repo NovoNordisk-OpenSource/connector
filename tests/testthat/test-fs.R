@@ -3,7 +3,7 @@ test_that("fs connector", {
   t_file1 <- withr::local_tempfile(lines = "hello", fileext = ".txt")
   t_file2 <- withr::local_tempfile(fileext = ".txt")
 
-  fs <- connector_fs$new(path = t_dir) |>
+  fs <- ConnectorFS$new(path = t_dir) |>
     expect_no_condition()
 
   fs$list_content_cnt() |>
@@ -32,7 +32,7 @@ test_that("fs connector", {
 
   new_directory <- fs$create_directory_cnt("new_dir")
 
-  checkmate::assert_r6(new_directory, classes = "connector_fs")
+  checkmate::assert_r6(new_directory, classes = "ConnectorFS")
   testthat::expect_true(basename(new_directory$path) == "new_dir")
 
   fs$list_content_cnt("new_dir") |>
