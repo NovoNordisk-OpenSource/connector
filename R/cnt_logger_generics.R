@@ -2,23 +2,23 @@
 #'
 #' @title Create a New Connector Logger
 #' @description Creates a new empty connector logger object of class
-#' "connector_logger".
+#' "ConnectorLogger".
 #' This is an S3 class constructor that initializes a logging structure for
 #' connector operations.
 #'
-#' @return An S3 object of class "connector_logger" containing:
+#' @return An S3 object of class "ConnectorLogger" containing:
 #'   \itemize{
 #'     \item An empty list
-#'     \item Class attribute set to "connector_logger"
+#'     \item Class attribute set to "ConnectorLogger"
 #'   }
 #'
 #' @examples
-#' logger <- connector_logger
-#' class(logger) # Returns "connector_logger"
+#' logger <- ConnectorLogger
+#' class(logger) # Returns "ConnectorLogger"
 #' str(logger) # Shows empty list with class attribute
 #'
 #' @export
-connector_logger <- structure(list(), class = "connector_logger")
+ConnectorLogger <- structure(list(), class = "ConnectorLogger")
 
 #' Log Read Connector
 #'
@@ -49,18 +49,18 @@ log_read_connector.default <- function(connector_object, name, ...) {
   whirl::log_read(name)
 }
 
-#' Log Read Operation for connector_logger class
+#' Log Read Operation for ConnectorLogger class
 #'
-#' Implementation of the log_read_connector function for the connector_logger
+#' Implementation of the log_read_connector function for the ConnectorLogger
 #'  class.
 #'
-#' @param connector_object The connector_logger object.
+#' @param connector_object The ConnectorLogger object.
 #' @param name The name of the connector.
 #' @param ... Additional parameters.
 #'
 #' @return The result of the read operation.
 #' @export
-read_cnt.connector_logger <- function(connector_object, name, ...) {
+read_cnt.ConnectorLogger <- function(connector_object, name, ...) {
   res <- tryCatch(NextMethod())
   log_read_connector(connector_object, name, ...)
   return(res)
@@ -95,19 +95,19 @@ log_write_connector.default <- function(connector_object, name, ...) {
   whirl::log_write(name)
 }
 
-#' Log Write Operation for connector_logger class
+#' Log Write Operation for ConnectorLogger class
 #'
-#' Implementation of the log_write_connector function for the connector_logger
+#' Implementation of the log_write_connector function for the ConnectorLogger
 #' class.
 #'
-#' @param connector_object The connector_logger object.
+#' @param connector_object The ConnectorLogger object.
 #' @param x The data to write.
 #' @param name The name of the connector.
 #' @param ... Additional parameters.
 #'
 #' @return Invisible result of the write operation.
 #' @export
-write_cnt.connector_logger <- function(connector_object, x, name, ...) {
+write_cnt.ConnectorLogger <- function(connector_object, x, name, ...) {
   res <- tryCatch(NextMethod())
   log_write_connector(connector_object, name, ...)
   return(invisible(res))
@@ -142,18 +142,18 @@ log_remove_connector.default <- function(connector_object, name, ...) {
   whirl::log_delete(name)
 }
 
-#' Log Remove Operation for connector_logger class
+#' Log Remove Operation for ConnectorLogger class
 #'
-#' Implementation of the log_remove_connector function for the connector_logger
+#' Implementation of the log_remove_connector function for the ConnectorLogger
 #' class.
 #'
-#' @param connector_object The connector_logger object.
+#' @param connector_object The ConnectorLogger object.
 #' @param name The name of the connector.
 #' @param ... Additional parameters.
 #'
 #' @return The result of the remove operation.
 #' @export
-remove_cnt.connector_logger <- function(connector_object, name, ...) {
+remove_cnt.ConnectorLogger <- function(connector_object, name, ...) {
   res <- tryCatch(NextMethod())
   log_remove_connector(connector_object, name, ...)
   return(invisible(res))
@@ -174,17 +174,17 @@ log_list_content_connector <- function(connector_object, ...) {
   UseMethod("log_list_content_connector")
 }
 
-#' List contents Operation for connector_logger class
+#' List contents Operation for ConnectorLogger class
 #'
-#' Implementation of the log_read_connector function for the connector_logger
+#' Implementation of the log_read_connector function for the ConnectorLogger
 #'  class.
 #'
-#' @param connector_object The connector_logger object.
+#' @param connector_object The ConnectorLogger object.
 #' @param ... Additional parameters.
 #'
 #' @return The result of the read operation.
 #' @export
-list_content_cnt.connector_logger <- function(connector_object, ...) {
+list_content_cnt.ConnectorLogger <- function(connector_object, ...) {
   res <- tryCatch(NextMethod())
   log_read_connector(connector_object, name = ".", ...)
   return(res)
@@ -200,6 +200,6 @@ list_content_cnt.connector_logger <- function(connector_object, ...) {
 #' @return The result of the print operation
 #'
 #' @export
-print.connector_logger <- function(x, ...) {
+print.ConnectorLogger <- function(x, ...) {
   NextMethod()
 }

@@ -7,7 +7,7 @@
 connectors(...)
 }
 \arguments{
-\item{...}{Named individual \link{connector} objects}
+\item{...}{Named individual \link{Connector} objects}
 }
 \description{
 Holds a special list of individual connector objects for consistent use of
@@ -17,8 +17,8 @@ connections in your project.
 # Create connectors objects
 
 con <- connectors(
-  sdtm = connector_fs$new(path = tempdir()),
-  adam = connector_dbi$new(drv = RSQLite::SQLite())
+  sdtm = connector_fs(path = tempdir()),
+  adam = connector_dbi(drv = RSQLite::SQLite())
 )
 
 # Print for overview

@@ -97,14 +97,12 @@ test_that("yaml config parsed correctly", {
 
 testthat::test_that("Using a list instead of yaml", {
   # using yaml already parsed as list
-
   connect(yaml_content_raw) |>
     expect_no_error()
 })
 
 testthat::test_that("Using a json instead of yaml", {
   # using json file
-
   connect(test_path("configs", "config_json.json")) |>
     expect_no_error()
 })
@@ -136,7 +134,7 @@ test_that("Add logs to connectors object", {
   cnts <- connect(yaml_file, logging = TRUE)
 
   lapply(cnts, function(x) {
-    expect_s3_class(x, "connector")
+    expect_s3_class(x, "Connector")
     expect_true(
       all(
         c("read_cnt", "write_cnt", "remove_cnt", "list_content_cnt") %in%
@@ -147,6 +145,6 @@ test_that("Add logs to connectors object", {
   })
 
   lapply(cnts, function(x) {
-    expect_s3_class(x, "connector_logger")
+    expect_s3_class(x, "ConnectorLogger")
   })
 })

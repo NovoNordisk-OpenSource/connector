@@ -9,9 +9,11 @@ reference:
   - title: Connectors
     contents:
     - connectors
-    - connector
+    - Connector
     - connector_fs
+    - ConnectorFS
     - connector_dbi
+    - ConnectorDBI
     - nested_connectors
   - title: Connector functions
     contents:
@@ -29,7 +31,7 @@ reference:
     contents:
     - add_logs
     - matches("log_.*")
-    - matches("logger")
+    - matches("Logger")
   - title: Utils
     contents:
     - datasources

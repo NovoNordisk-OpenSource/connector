@@ -12,11 +12,11 @@
 #' @param extra_class `r rd_connector_utils("extra_class")`
 #'
 #' @seealso `vignette("customize")` on how to create custom connectors and methods,
-#' and concrete examples in [connector_fs] and [connector_dbi].
+#' and concrete examples in [ConnectorFS] and [ConnectorDBI].
 #'
 #' @examples
 #' # Create connector
-#' cnt <- connector$new()
+#' cnt <- Connector$new()
 #'
 #' cnt
 #'
@@ -26,7 +26,7 @@
 #'   try()
 #'
 #' # Connection with extra class
-#' cnt_my_class <- connector$new(extra_class = "my_class")
+#' cnt_my_class <- Connector$new(extra_class = "my_class")
 #'
 #' cnt_my_class
 #'
@@ -39,9 +39,8 @@
 #' read_cnt(cnt_my_class)
 #'
 #' @export
-
-connector <- R6::R6Class(
-  classname = "connector",
+Connector <- R6::R6Class(
+  classname = "Connector",
   public = list(
 
     #' @description
@@ -117,7 +116,7 @@ print_cnt <- function(connector_object) {
     rlang::set_names("*")
 
   classes <- class(connector_object)
-  class_connector <- grepl("^connector", classes) |>
+  class_connector <- grepl("^Connector", classes) |>
     which() |>
     utils::head(1)
 

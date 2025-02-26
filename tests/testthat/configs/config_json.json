@@ -1,7 +1,6 @@
 {
   "metadata": {
     "trial": "demo_trial",
-    "root_path": "/Users/cgid/Documents/connector/inst",
     "extra_class": "test2"
   },
   "datasources": [
@@ -9,7 +8,7 @@
       "name": "adam",
       "backend": {
         "type": "connector_fs",
-        "path": "{metadata.root_path}/{metadata.trial}/adam",
+        "path": "{metadata.trial}/adam",
         "extra_class": "{metadata.extra_class}"
       }
     },

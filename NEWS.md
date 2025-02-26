@@ -1,7 +1,14 @@
-# connector 0.0.7.9000
+# connector 0.0.8
 
+## Breaking Changes
+* Changed connector class names from `connector` to `Connector`, `connector_fs` to `ConnectorFS`, etc,
+* Added wrapper functions for the new class names.
+* Fixed documentation for the new class names.
+
+## Enhancements
 * Removed test dependency package {mockery} as it has been deprecated. Using recommended testthat::local_mocked_bindings() instead.
-* Add precommit to the repo and change code according to errors.g
+* Add precommit to the repo and change code according to errors.
+* Add github templates for easier development and issue handling.
 
 # connector 0.0.7
 
@@ -19,7 +26,7 @@
 * Connectors constructor now builds the datasources attribute.
 * Added ability to write datasources attribute to a configuration file.
 * Created a new class for nested connectors objects, "nested_connectors".
-* Added `tbl_cnt` to `connector_fs` for redundancy between `fs` and `dbi` types of connectors.
+* Added `tbl_cnt` to `ConnectorFS` for redundancy between `fs` and `dbi` types of connectors.
 
 ## Enhancements
 * Fixed `add_logs()` function to add logging capability to connections.
@@ -30,7 +37,7 @@
 
 ### Features:
 -   Add configuration manipulation functions for adding/removing metadata and datasources
--   `connector_dbi` now overwrites tables by default, to have mirror behaviour between `fs` and `dbi` connectors.
+-   `ConnectorDBI` now overwrites tables by default, to have mirror behaviour between `fs` and `dbi` connectors.
 
 # connector 0.0.4 (2024-12-03)
 

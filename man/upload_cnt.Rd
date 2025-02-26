@@ -2,15 +2,15 @@
 % Please edit documentation in R/cnt_generics.R, R/fs_methods.R
 \name{upload_cnt}
 \alias{upload_cnt}
-\alias{upload_cnt.connector_fs}
+\alias{upload_cnt.ConnectorFS}
 \title{Upload content to the connector}
 \usage{
 upload_cnt(connector_object, file, name = basename(file), ...)
 
-\method{upload_cnt}{connector_fs}(connector_object, file, name = basename(file), ...)
+\method{upload_cnt}{ConnectorFS}(connector_object, file, name = basename(file), ...)
 }
 \arguments{
-\item{connector_object}{\link{connector} The connector object to use.}
+\item{connector_object}{\link{Connector} The connector object to use.}
 
 \item{file}{\link{character} Path to the file to download to or upload from}
 
@@ -25,7 +25,7 @@ upload_cnt(connector_object, file, name = basename(file), ...)
 Generic implementing of how to upload files to a connector:
 
 \itemize{
-\item \link{connector_fs}: Uses \code{\link[=file.copy]{file.copy()}} to copy the \code{file} to the file storage.
+\item \link{ConnectorFS}: Uses \code{\link[=file.copy]{file.copy()}} to copy the \code{file} to the file storage.
 }
 }
 \examples{
@@ -33,7 +33,7 @@ Generic implementing of how to upload files to a connector:
 
 writeLines("this is an example", "example.txt")
 
-cnt <- connector_fs$new(tempdir())
+cnt <- connector_fs(tempdir())
 
 cnt |>
   list_content_cnt(pattern = "example.txt")

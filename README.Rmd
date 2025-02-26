@@ -23,15 +23,14 @@ knitr::opts_knit$set(root.dir = tmp)
 
 ## Overview
 
-connector provides a seamless and consistent interface for connecting to different data sources, 
+`connector` provides a seamless and consistent interface for connecting to different data sources, 
 such as as simple file storage systems and databases.
 
 It also gives the option to use a central configuration file to manage your connections in your project,
 which ensures a consistent reference to the same data source across different scripts in your project,
 and enables you to easily switch between different data sources.
 
-The connector package comes with the possibilities of creating connections to file system folders using `connector_fs()` and general databases using `connector_dbi()`,
-which is built on top of the `{DBI}` package.
+The connector package comes with the possibilities of creating connections to file system folders using `connector_fs` and general databases using `connector_dbi`, which is built on top of the `{DBI}` package.
 
 connector also has a series of expansion packages that allows you to easily connect to more specific data sources:
 
@@ -67,7 +66,7 @@ db <- connect("_connector.yml")
 print(db)
 ```
 
-This creates a `connectors` objects that contains each `connector`. When printing the individual `conenctor` you
+This creates a `connectors` objects that contains each `connector`. When printing the individual `connector` you
 get the some general information on their methods and specifications.
 
 ```{r print-connector}
@@ -98,7 +97,7 @@ db$folder |>
   read_cnt(name = "cars.parquet")
 ```
 
-Here the parquet format has been used, but when using a `connector_fs()` it is possible to read and write several different file types. 
+Here the parquet format has been used, but when using a `connector_fs` it is possible to read and write several different file types. 
 See `read_file()` and `write_file()` for more information.
 
 For the `database` connector it works in the same way:

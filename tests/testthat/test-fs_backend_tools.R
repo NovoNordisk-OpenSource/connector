@@ -4,7 +4,7 @@ test_that("Create a backend for FS", {
 
   connection <- create_backend_fs(only_one)
 
-  expect_s3_class(connection, c("Connector_fs", "R6"))
+  expect_s3_class(connection, c("ConnectorFS", "R6"))
 
   ## Extra class
   expect_s3_class(connection, "test2")

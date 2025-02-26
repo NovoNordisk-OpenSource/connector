@@ -4,7 +4,7 @@ test_that("Create a backend for generic backend", {
 
   connection <- create_backend(only_one)
 
-  expect_s3_class(connection, c("Connector_fs", "R6"))
+  expect_s3_class(connection, c("ConnectorFS", "R6"))
 
   ## Error because of params
 

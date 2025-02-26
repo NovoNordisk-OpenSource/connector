@@ -8,14 +8,14 @@
 #'   of connection objects to which logging capability will be added.
 #'
 #' @return The modified `connections` object with logging capability added.
-#'   Each connection in the list will have the "connector_logger" class
+#'   Each connection in the list will have the "ConnectorLogger" class
 #'   prepended to its existing classes.
 #'
 #' @details
 #' The function performs the following steps:
 #' 1. Checks if the input `connections` is of class "connectors".
 #' 2. Registers the S3 methods for logging using `connector.logger::cnt_logger_S3_register()`.
-#' 3. Iterates through each connection in the list and prepends the "connector_logger" class.
+#' 3. Iterates through each connection in the list and prepends the "ConnectorLogger" class.
 #'
 #' @examplesIf FALSE
 #' logged_connections <- add_logs(my_connections)
@@ -25,13 +25,13 @@ add_logs <- function(connections) {
   checkmate::assert_class(connections, "connectors")
 
   for (i in seq_along(connections)) {
-    class(connections[[i]]) <- c("connector_logger", class(connections[[i]]))
+    class(connections[[i]]) <- c("ConnectorLogger", class(connections[[i]]))
   }
 
   connections
 }
 
-#' Print Method for connector_logger objects
+#' Print Method for ConnectorLogger objects
 #'
 #' @param ... Additional arguments passed to the next method.
 #'
@@ -39,14 +39,14 @@ add_logs <- function(connections) {
 #'
 #' @details
 #' This method is designed to be called automatically when `print()` is used
-#' on an object of class "connector_logger". It uses `NextMethod()` to call
+#' on an object of class "ConnectorLogger". It uses `NextMethod()` to call
 #' the next appropriate method in the method dispatch chain, allowing for
 #' the default or any other custom print behavior to be executed.
 #'
 #' @seealso \code{\link{print}}
 #'
 #' @export
-#' @method print connector_logger
-print.connector_logger <- function(...) {
+#' @method print ConnectorLogger
+print.ConnectorLogger <- function(...) {
   NextMethod(...)
 }

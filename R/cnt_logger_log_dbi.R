@@ -1,13 +1,13 @@
 #' Log Read Operation for connector dbi
 #'
-#' Implementation of the log_read_connector function for the connector_dbi class
+#' Implementation of the log_read_connector function for the ConnectorDBI class
 #'
-#' @param connector_object The connector_dbi object.
+#' @param connector_object The ConnectorDBI object.
 #' @param name The name of the connector.
 #' @param ... Additional parameters.
 #'
 #' @export
-log_read_connector.connector_dbi <- function(connector_object, name, ...) {
+log_read_connector.ConnectorDBI <- function(connector_object, name, ...) {
   msg <- paste0(
     name,
     " @ ",
@@ -21,15 +21,15 @@ log_read_connector.connector_dbi <- function(connector_object, name, ...) {
 
 #' Log Write Operation for connector dbi
 #'
-#' Implementation of the log_write_connector function for the connector_dbi
+#' Implementation of the log_write_connector function for the ConnectorDBI
 #' class.
 #'
-#' @param connector_object The connector_dbi object.
+#' @param connector_object The ConnectorDBI object.
 #' @param name The name of the connector.
 #' @param ... Additional parameters.
 #'
 #' @export
-log_write_connector.connector_dbi <- function(connector_object, name, ...) {
+log_write_connector.ConnectorDBI <- function(connector_object, name, ...) {
   msg <- paste0(
     name,
     " @ ",
@@ -44,14 +44,14 @@ log_write_connector.connector_dbi <- function(connector_object, name, ...) {
 #' Log Remove Operation for connector dbi
 #'
 #' Implementation of the log_remove_connector function for the
-#' connector_dbi class.
+#' ConnectorDBI class.
 #'
-#' @param connector_object The connector_dbi object.
+#' @param connector_object The ConnectorDBI object.
 #' @param name The name of the connector.
 #' @param ... Additional parameters.
 #'
 #' @export
-log_remove_connector.connector_dbi <- function(connector_object, name, ...) {
+log_remove_connector.ConnectorDBI <- function(connector_object, name, ...) {
   msg <- paste0(
     name,
     " @ ",

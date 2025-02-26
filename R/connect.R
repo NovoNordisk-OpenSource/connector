@@ -2,7 +2,7 @@
 #'
 #' @description
 #' Based on a configuration file or list this functions creates a [connectors()] object with
-#' a [connector] for each of the specified datasources.
+#' a [Connector] for each of the specified datasources.
 #'
 #' The configuration file can be in any format that can be read through [read_file()], and
 #' contains a list. If a yaml file is provided, expressions are evaluated when parsing it
@@ -171,10 +171,10 @@ create_connection <- function(config) {
   info_config(config)
 
   switch(config$backend$type,
-    "connector_fs" = {
+    "ConnectorFS" = {
       create_backend_fs(config$backend)
     },
-    "connector_dbi" = {
+    "ConnectorDBI" = {
       create_backend_dbi(config$backend)
     },
     {

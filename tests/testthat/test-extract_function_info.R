@@ -10,11 +10,11 @@ test_that("extract_function_info works for standard functions", {
 
 test_that("extract_function_info works for R6 class constructors", {
   # Mocking an R6 class for testing
-  call_ <- deparse(substitute(connector$new(extra_class = "test")))
+  call_ <- deparse(substitute(Connector$new(extra_class = "test")))
   result <- extract_function_info(call_)
 
   expect_s3_class(result, "clean_fct_info")
-  expect_equal(result$function_name, "connector")
+  expect_equal(result$function_name, "Connector")
   expect_true(result$is_r6)
   expect_equal(result$parameters, list(extra_class = "test"))
 })
@@ -23,8 +23,8 @@ test_that("extract_base_info correctly extracts package and function names", {
   result1 <- extract_base_info("stats::lm", FALSE)
   expect_equal(result1, list(package_name = "stats", func_name = "lm"))
 
-  result2 <- extract_base_info("connector$new", TRUE)
-  expect_equal(result2, list(package_name = c(name = "connector"), func_name = "connector"))
+  result2 <- extract_base_info("Connector$new", TRUE)
+  expect_equal(result2, list(package_name = c(name = "connector"), func_name = "Connector"))
 })
 
 test_that("get_standard_specific_info works correctly", {

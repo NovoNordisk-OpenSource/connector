@@ -57,6 +57,9 @@ conenctors
 config
 Config
 congifuration
+ConnectorDBI
+ConnectorFS
+ConnectorLogger
 cph
 cre
 Creatine
@@ -125,6 +128,7 @@ ilirubin
 Imput
 initalize
 io
+IssueNumber
 ji
 jsonlite
 JW

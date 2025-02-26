@@ -1,20 +1,20 @@
-# Helper function to create a test connector_dbi object
-create_test_connector_dbi <- function() {
+# Helper function to create a test ConnectorDBI object
+create_test_ConnectorDBI <- function() {
   conn <- DBI::dbConnect(RSQLite::SQLite(), ":memory:")
   structure(
     list(conn = conn),
-    class = c("connector_dbi", "connector")
+    class = c("ConnectorDBI", "connector")
   )
 }
 
-test_that("log_read_connector.connector_dbi logs correct message", {
+test_that("log_read_connector.ConnectorDBI logs correct message", {
   skip_if_not_installed("whirl")
 
-  connector_object <- create_test_connector_dbi()
+  connector_object <- create_test_ConnectorDBI()
 
   # Capture the log output
   log_output <- capture.output({
-    log_read_connector.connector_dbi(connector_object, "test_table")
+    log_read_connector.ConnectorDBI(connector_object, "test_table")
   })
 
   # Verify the correct message was logged
@@ -24,14 +24,14 @@ test_that("log_read_connector.connector_dbi logs correct message", {
   DBI::dbDisconnect(connector_object$conn)
 })
 
-test_that("log_write_connector.connector_dbi logs correct message", {
+test_that("log_write_connector.ConnectorDBI logs correct message", {
   skip_if_not_installed("whirl")
 
-  connector_object <- create_test_connector_dbi()
+  connector_object <- create_test_ConnectorDBI()
 
   # Capture the log output
   log_output <- capture.output({
-    log_write_connector.connector_dbi(connector_object, "test_table")
+    log_write_connector.ConnectorDBI(connector_object, "test_table")
   })
 
   # Verify the correct message was logged
@@ -41,14 +41,14 @@ test_that("log_write_connector.connector_dbi logs correct message", {
   DBI::dbDisconnect(connector_object$conn)
 })
 
-test_that("log_remove_connector.connector_dbi logs correct message", {
+test_that("log_remove_connector.ConnectorDBI logs correct message", {
   skip_if_not_installed("whirl")
 
-  connector_object <- create_test_connector_dbi()
+  connector_object <- create_test_ConnectorDBI()
 
   # Capture the log output
   log_output <- capture.output({
-    log_remove_connector.connector_dbi(connector_object, "test_table")
+    log_remove_connector.ConnectorDBI(connector_object, "test_table")
   })
 
   # Verify the correct message was logged
@@ -58,17 +58,17 @@ test_that("log_remove_connector.connector_dbi logs correct message", {
   DBI::dbDisconnect(connector_object$conn)
 })
 
-test_that("connector_dbi logging methods handle special characters in names", {
+test_that("ConnectorDBI logging methods handle special characters in names", {
   skip_if_not_installed("whirl")
 
-  connector_object <- create_test_connector_dbi()
+  connector_object <- create_test_ConnectorDBI()
 
   # Test with a table name containing special characters
   special_name <- "test-table; DROP TABLE students;--"
 
   # Capture the log output
   log_output <- capture.output({
-    log_read_connector.connector_dbi(connector_object, special_name)
+    log_read_connector.ConnectorDBI(connector_object, special_name)
   })
 
   # Verify the correct message was logged

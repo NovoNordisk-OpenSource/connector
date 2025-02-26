@@ -2,15 +2,15 @@
 % Please edit documentation in R/cnt_generics.R, R/dbi_methods.R
 \name{disconnect_cnt}
 \alias{disconnect_cnt}
-\alias{disconnect_cnt.connector_dbi}
+\alias{disconnect_cnt.ConnectorDBI}
 \title{Disconnect (close) the connection of the connector}
 \usage{
 disconnect_cnt(connector_object, ...)
 
-\method{disconnect_cnt}{connector_dbi}(connector_object, ...)
+\method{disconnect_cnt}{ConnectorDBI}(connector_object, ...)
 }
 \arguments{
-\item{connector_object}{\link{connector} The connector object to use.}
+\item{connector_object}{\link{Connector} The connector object to use.}
 
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }
@@ -22,12 +22,12 @@ Generic implementing of how to disconnect from the relevant connections.
 Mostly relevant for DBI connectors.
 
 \itemize{
-\item \link{connector_dbi}: Uses \code{\link[DBI:dbDisconnect]{DBI::dbDisconnect()}} to create a table reference to close a DBI connection.
+\item \link{ConnectorDBI}: Uses \code{\link[DBI:dbDisconnect]{DBI::dbDisconnect()}} to create a table reference to close a DBI connection.
 }
 }
 \examples{
 # Open and close a DBI connector
-cnt <- connector_dbi$new(RSQLite::SQLite())
+cnt <- connector_dbi(RSQLite::SQLite())
 
 cnt$conn
 

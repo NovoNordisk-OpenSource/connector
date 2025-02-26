@@ -30,7 +30,7 @@ with this vignette.}
 }
 \description{
 Based on a configuration file or list this functions creates a \code{\link[=connectors]{connectors()}} object with
-a \link{connector} for each of the specified datasources.
+a \link{Connector} for each of the specified datasources.
 
 The configuration file can be in any format that can be read through \code{\link[=read_file]{read_file()}}, and
 contains a list. If a yaml file is provided, expressions are evaluated when parsing it

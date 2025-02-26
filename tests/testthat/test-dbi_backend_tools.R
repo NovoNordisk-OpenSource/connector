@@ -4,5 +4,5 @@ test_that("Create a backend for DBI", {
 
   connection <- create_backend_dbi(only_one)
 
-  expect_s3_class(connection, c("Connector_dbi", "R6"))
+  expect_s3_class(connection, c("ConnectorDBI", "R6"))
 })

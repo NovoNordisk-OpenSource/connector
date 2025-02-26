@@ -2,7 +2,7 @@ test_that("add_logs functions correctly", {
   # Test 1: Check if the function throws an error when the argument is not of class "connectors"
   expect_error(add_logs(list()))
 
-  # Test 2: Verify that the function correctly adds the "connector_logger" class
+  # Test 2: Verify that the function correctly adds the "ConnectorLogger" class
   mock_connectors <- structure(list(list(name = "conn1"), list(name = "conn2")), class = "connectors")
 
   result <- add_logs(mock_connectors)
@@ -10,7 +10,7 @@ test_that("add_logs functions correctly", {
   expect_s3_class(result, "connectors")
   expect_length(result, 2)
   expect_true(all(sapply(result, function(x) {
-    "connector_logger" %in% class(x)
+    "ConnectorLogger" %in% class(x)
   })))
 
   # Test 3: Check if the function preserves existing classes

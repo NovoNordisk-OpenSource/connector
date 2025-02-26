@@ -25,37 +25,37 @@ library(connector)
 `connector` is build to be easily extensible. This vignette will show you how to create your own connector classes, 
 and how to customize the existing ones, and their methods.
 
-The basic `connector` class is a simple `{R6}` object, with no additional functionality.
+The basic `Connector` class is a simple `{R6}` object, with no additional functionality.
 It serves as the foundation for all other connectors, that should inherit from it in their `R6::R6Class()` definition -
-either directly or indirectly. Both `connector_fs()` and `connector_dbi()` inherit from `connector` in this way.
+either directly or indirectly. Both `ConnectorFS` and `ConnectorDBI` inherit from `Connector` in this way.
 
 ## Creating a new connector
 
-We can create a new connector by creating a new R6 class that inherits from `connector`:
+We can create a new connector by creating a new R6 class that inherits from `Connector`:
 
 ```{r}
 connector_myclass <- R6::R6Class(
   "connector_myclass",
-  inherit = connector
+  inherit = Connector
 )
 
 connector_myclass$new()
 ```
 
-This is the simplest type of inheritance, and you should note that the `connector` 
+This is the simplest type of inheritance, and you should note that the `Connector` 
 parent class has no methods capable of e.g. reading (`read_cnt()`) or writing (`write_cnt()`) data.  It only has default methods that throws meaningful errors if you have not defined the method (e.g. `write_cnt.my_class()`) for your new connector class.
 
-In most cases you want to inherit from either `connector_fs()` or `connector_dbi()` depending
+In most cases you want to inherit from either `ConnectorFS` or `ConnectorDBI` depending
 on if your new connector is used to access files or databases respectively.
 
-Below we create a new `connector_project` class that inherits and acts exactly as the `connector_fs()`,
+Below we create a new `connector_project` class that inherits and acts exactly as the `ConnectorFS`,
 but instead of the user having to provide the `path` to the folder as an argument, 
 they provide the `project` name, and the `path` is constructed from that.
 
 ```{r}
 connector_project <- R6::R6Class(
   "connector_project",
-  inherit = connector_fs,
+  inherit = ConnectorFS,
   public = list(
     initialize = function(project) {
       private$.project <- project
@@ -77,7 +77,7 @@ connector_project <- R6::R6Class(
 This way of extending connector could e.g. be relevant inside an organisation where 
 all projects are stored in a common folder structure.
 
-When we not initialize a `connector_project` you can see that it still has all the methods from `connector_fs()`,
+When we not initialize a `connector_project` you can see that it still has all the methods from `ConnectorFS`,
 and that the path has been assigned correctly based on the `project` argument:
 
 ```{r}
@@ -86,7 +86,7 @@ my_project <- connector_project$new(project = "my_project")
 print(my_project)
 ```
 
-We can now use this `connector` to read and write data, just as we would with `connector_fs()`:
+We can now use this `connector` to read and write data, just as we would with `ConnectorFS`:
 
 ```{r}
 # First list current content:
@@ -109,8 +109,7 @@ my_project |>
 ## Create custom generic method
 
 All `connector`generics such as `list_content_cnt()`, `read_cnt()`, and `write_cnt()` are S3 generics.
-This means that you can create custom methods for your new connector class, and they will be used when the generic is called, 
-instead of the one associated with the parent class.
+This means that you can create custom methods for your new connector class, and they will be used when the generic is called, instead of the one associated with the parent class.
 
 To illustrate this we can take a look at the `list_content_cnt()` generic:
 
@@ -123,7 +122,7 @@ methods("list_content_cnt") |>
   cat(sep = "\n")
 ```
 Building further on the example below we can define a custom method for `list_content_cnt()` for the `connector_project` class,
-to be used instead of `list_content_cnt.connector_fs()`:
+to be used instead of `list_content_cnt.ConnectorFS`:
 
 ```{r}
 list_content_cnt.connector_project <- function(connector_object, ...) {
@@ -132,7 +131,7 @@ list_content_cnt.connector_project <- function(connector_object, ...) {
 }
 ```
 
-This is of course a very simple example, that just prints a message before calling the `connector_fs` method.
+This is of course a very simple example, that just prints a message before calling the `ConnectorFS` method.
 
 We can now see that this method is available and that is it associated with the `connector_project` class:
 
@@ -160,17 +159,17 @@ This argument adds the `extra_class` as the first class of the creating the conn
 meaning that for any generic dispatch, such as of `list_content_cnt()`, a method for this class will
 be used before any of the connector classes.
 
-To redo the two examples above we make a new `connector_fs` with the extra class `demo_extra`:
+To redo the two examples above we make a new `ConnectorFS` with the extra class `demo_extra`:
 
 ```{r}
-my_project_extra <- connector_fs$new(
+my_project_extra <- ConnectorFS$new(
   path = file.path(tmp, "my_root_path", "my_project"),
   extra_class = "my_extra_class"
 )
 
 print(my_project_extra)
 ```
-As you can see here we have all the methods from `connector_fs()`, but the `demo_extra` is now the first class in the class hierarchy.
+As you can see here we have all the methods from `ConnectorFS`, but the `demo_extra` is now the first class in the class hierarchy.
 
 To create a custom method for `list_content_cnt()` for the `demo_extra` we do the same as for the `connector_project` above:
 
@@ -198,7 +197,7 @@ my_project_extra |>
 
 ## Special handling of files
 
-A special property of file storage connectors (inheriting from `connector_fs()`) is
+A special property of file storage connectors (inheriting from `ConnectorFS`) is
 that they are operating on files not on databases. This means that they can handle 
 multiple file formats, and also not only file formats for reading and writing rectangular data.
 
@@ -208,8 +207,8 @@ but behind the scenes the following chain of functions are called:
 * `read_cnt()` --> `read_file()` --> `read_ext()` --> External read function
 * `write_cnt()` --> `write_file()` --> `write_ext()` --> External write function
 
-Here `read_cnt()` dispatches based on the class of the `connector` object. 
-For the file storage connectors (inheriting from `connector_fs()`) the `read_file()` method is 
+Here `read_cnt()` dispatches based on the class of the `Connector` object. 
+For the file storage connectors (inheriting from `ConnectorFS`) the `read_file()` method is 
 then called on the path of the file. 
 
 `read_file()` here is only a helper function, that then calls `read_ext()` which is a 

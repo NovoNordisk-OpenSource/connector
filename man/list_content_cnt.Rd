@@ -2,18 +2,18 @@
 % Please edit documentation in R/cnt_generics.R, R/dbi_methods.R, R/fs_methods.R
 \name{list_content_cnt}
 \alias{list_content_cnt}
-\alias{list_content_cnt.connector_dbi}
-\alias{list_content_cnt.connector_fs}
+\alias{list_content_cnt.ConnectorDBI}
+\alias{list_content_cnt.ConnectorFS}
 \title{List available content from the connector}
 \usage{
 list_content_cnt(connector_object, ...)
 
-\method{list_content_cnt}{connector_dbi}(connector_object, ...)
+\method{list_content_cnt}{ConnectorDBI}(connector_object, ...)
 
-\method{list_content_cnt}{connector_fs}(connector_object, ...)
+\method{list_content_cnt}{ConnectorFS}(connector_object, ...)
 }
 \arguments{
-\item{connector_object}{\link{connector} The connector object to use.}
+\item{connector_object}{\link{Connector} The connector object to use.}
 
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }
@@ -24,22 +24,22 @@ A \link{character} vector of content names
 Generic implementing of how to list all content available for different connectors:
 
 \itemize{
-\item \link{connector_dbi}: Uses \code{\link[DBI:dbListTables]{DBI::dbListTables()}} to list the tables in a DBI connection.
+\item \link{ConnectorDBI}: Uses \code{\link[DBI:dbListTables]{DBI::dbListTables()}} to list the tables in a DBI connection.
 }
 
 \itemize{
-\item \link{connector_fs}: Uses \code{\link[=list.files]{list.files()}} to list all files at the path of the connector.
+\item \link{ConnectorFS}: Uses \code{\link[=list.files]{list.files()}} to list all files at the path of the connector.
 }
 }
 \examples{
 # List tables in a DBI database
-cnt <- connector_dbi$new(RSQLite::SQLite())
+cnt <- connector_dbi(RSQLite::SQLite())
 
 cnt |>
   list_content_cnt()
 
 # List content in a file storage
-cnt <- connector_fs$new(tempdir())
+cnt <- connector_fs(tempdir())
 
 cnt |>
   list_content_cnt()

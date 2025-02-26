@@ -2,18 +2,18 @@
 % Please edit documentation in R/cnt_generics.R, R/dbi_methods.R, R/fs_methods.R
 \name{read_cnt}
 \alias{read_cnt}
-\alias{read_cnt.connector_dbi}
-\alias{read_cnt.connector_fs}
+\alias{read_cnt.ConnectorDBI}
+\alias{read_cnt.ConnectorFS}
 \title{Read content from the connector}
 \usage{
 read_cnt(connector_object, name, ...)
 
-\method{read_cnt}{connector_dbi}(connector_object, name, ...)
+\method{read_cnt}{ConnectorDBI}(connector_object, name, ...)
 
-\method{read_cnt}{connector_fs}(connector_object, name, ...)
+\method{read_cnt}{ConnectorFS}(connector_object, name, ...)
 }
 \arguments{
-\item{connector_object}{\link{connector} The connector object to use.}
+\item{connector_object}{\link{Connector} The connector object to use.}
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
@@ -26,18 +26,18 @@ R object with the content. For rectangular data a \link{data.frame}.
 Generic implementing of how to read content from the different connector objects:
 
 \itemize{
-\item \link{connector_dbi}: Uses \code{\link[DBI:dbReadTable]{DBI::dbReadTable()}} to read the table from the DBI connection.
+\item \link{ConnectorDBI}: Uses \code{\link[DBI:dbReadTable]{DBI::dbReadTable()}} to read the table from the DBI connection.
 }
 
 \itemize{
-\item \link{connector_fs}: Uses \code{\link[=read_file]{read_file()}} to read a given file.
+\item \link{ConnectorFS}: Uses \code{\link[=read_file]{read_file()}} to read a given file.
 The underlying function used, and thereby also the arguments available
 through \code{...} depends on the file extension.
 }
 }
 \examples{
 # Read table from DBI database
-cnt <- connector_dbi$new(RSQLite::SQLite())
+cnt <- connector_dbi(RSQLite::SQLite())
 
 cnt |>
   write_cnt(iris, "iris")
@@ -50,7 +50,7 @@ cnt |>
   head()
 
 # Write and read a CSV file using the file storage connector
-cnt <- connector_fs$new(tempdir())
+cnt <- connector_fs(tempdir())
 
 cnt |>
   write_cnt(iris, "iris.csv")
