@@ -3,21 +3,21 @@
 to use dplyr verbs to interact with the remote database table.
 Mostly relevant for DBI connectors.
 
-connector_dbi: Uses dplyr::tbl() to create a table reference to a table in a DBI connection.
+ConnectorDBI: Uses dplyr::tbl() to create a table reference to a table in a DBI connection.
 
 
 
-connector_fs: Uses read_cnt() to allow redundancy between fs and dbi.
+ConnectorFS: Uses read_cnt() to allow redundancy between fs and dbi.
 
 "><meta property="og:description" content="Generic implementing of how to create a dplyr::tbl() connection in order
 to use dplyr verbs to interact with the remote database table.
 Mostly relevant for DBI connectors.
 
-connector_dbi: Uses dplyr::tbl() to create a table reference to a table in a DBI connection.
+ConnectorDBI: Uses dplyr::tbl() to create a table reference to a table in a DBI connection.
 
 
 
-connector_fs: Uses read_cnt() to allow redundancy between fs and dbi.
+ConnectorFS: Uses read_cnt() to allow redundancy between fs and dbi.
 
 "><meta property="og:image" content="https://novonordisk-opensource.github.io/connector/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -27,7 +27,7 @@ connector_fs: Uses read_cnt() to allow redundancy between fs and dbi.
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.7.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -62,18 +62,18 @@ connector_fs: Uses read_cnt() to allow redundancy between fs and dbi.
     <p>Generic implementing of how to create a <code><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">dplyr::tbl()</a></code> connection in order
 to use dplyr verbs to interact with the remote database table.
 Mostly relevant for DBI connectors.</p>
-<ul><li><p><a href="connector_dbi.html">connector_dbi</a>: Uses <code><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">dplyr::tbl()</a></code> to create a table reference to a table in a DBI connection.</p></li>
-</ul><ul><li><p><a href="connector_fs.html">connector_fs</a>: Uses <code><a href="read_cnt.html">read_cnt()</a></code> to allow redundancy between fs and dbi.</p></li>
+<ul><li><p><a href="ConnectorDBI.html">ConnectorDBI</a>: Uses <code><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">dplyr::tbl()</a></code> to create a table reference to a table in a DBI connection.</p></li>
+</ul><ul><li><p><a href="ConnectorFS.html">ConnectorFS</a>: Uses <code><a href="read_cnt.html">read_cnt()</a></code> to allow redundancy between fs and dbi.</p></li>
 </ul></div>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">tbl_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># S3 method for class 'connector_dbi'</span></span>
+<span><span class="co"># S3 method for class 'ConnectorDBI'</span></span>
 <span><span class="fu">tbl_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># S3 method for class 'connector_fs'</span></span>
+<span><span class="co"># S3 method for class 'ConnectorFS'</span></span>
 <span><span class="fu">tbl_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -82,7 +82,7 @@ Mostly relevant for DBI connectors.</p>
 
 
 <dl><dt id="arg-connector-object">connector_object<a class="anchor" aria-label="anchor" href="#arg-connector-object"></a></dt>
-<dd><p><a href="connector.html">connector</a> The connector object to use.</p></dd>
+<dd><p><a href="Connector.html">Connector</a> The connector object to use.</p></dd>
 
 
 <dt id="arg-name">name<a class="anchor" aria-label="anchor" href="#arg-name"></a></dt>
@@ -101,7 +101,7 @@ Mostly relevant for DBI connectors.</p>
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Use dplyr verbs on a table in a DBI database</span></span></span>
-<span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="va"><a href="connector_dbi.html">connector_dbi</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html" class="external-link">SQLite</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connector_dbi.html">connector_dbi</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html" class="external-link">SQLite</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">iris_cnt</span> <span class="op">&lt;-</span> <span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
@@ -156,7 +156,7 @@ Mostly relevant for DBI connectors.</p>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BCBCBC;">3</span> virginica     50              6.59</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Use dplyr verbs on a table</span></span></span>
-<span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="va"><a href="connector_fs.html">connector_fs</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connector_fs.html">connector_fs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.csv"</span><span class="op">)</span></span></span>

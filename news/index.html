@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.7.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -38,10 +38,20 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.0.7.9000" id="connector-0079000">connector 0.0.7.9000<a class="anchor" aria-label="anchor" href="#connector-0079000"></a></h2>
-<ul><li>Removed test dependency package {mockery} as it has been deprecated. Using recommended testthat::local_mocked_bindings() instead.</li>
-<li>Add precommit to the repo and change code according to errors.g</li>
+<h2 class="pkg-version" data-toc-text="0.0.8" id="connector-008">connector 0.0.8<a class="anchor" aria-label="anchor" href="#connector-008"></a></h2>
+<div class="section level3">
+<h3 id="breaking-changes-0-0-8">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-0-8"></a></h3>
+<ul><li>Changed connector class names from <code>connector</code> to <code>Connector</code>, <code>connector_fs</code> to <code>ConnectorFS</code>, etc,</li>
+<li>Added wrapper functions for the new class names.</li>
+<li>Fixed documentation for the new class names.</li>
 </ul></div>
+<div class="section level3">
+<h3 id="enhancements-0-0-8">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-0-8"></a></h3>
+<ul><li>Removed test dependency package {mockery} as it has been deprecated. Using recommended testthat::local_mocked_bindings() instead.</li>
+<li>Add precommit to the repo and change code according to errors.</li>
+<li>Add github templates for easier development and issue handling.</li>
+</ul></div>
+</div>
     <div class="section level2">
 <h2 class="pkg-version" data-toc-text="0.0.7" id="connector-007">connector 0.0.7<a class="anchor" aria-label="anchor" href="#connector-007"></a></h2>
 <div class="section level3">
@@ -62,7 +72,7 @@
 <li>Connectors constructor now builds the datasources attribute.</li>
 <li>Added ability to write datasources attribute to a configuration file.</li>
 <li>Created a new class for nested connectors objects, “nested_connectors”.</li>
-<li>Added <code>tbl_cnt</code> to <code>connector_fs</code> for redundancy between <code>fs</code> and <code>dbi</code> types of connectors.</li>
+<li>Added <code>tbl_cnt</code> to <code>ConnectorFS</code> for redundancy between <code>fs</code> and <code>dbi</code> types of connectors.</li>
 </ul></div>
 <div class="section level3">
 <h3 id="enhancements-0-0-6">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-0-6"></a></h3>
@@ -77,7 +87,7 @@
 <h4 id="features-0-0-5">Features:<a class="anchor" aria-label="anchor" href="#features-0-0-5"></a></h4>
 <ul><li>Add configuration manipulation functions for adding/removing metadata and datasources</li>
 <li>
-<code>connector_dbi</code> now overwrites tables by default, to have mirror behaviour between <code>fs</code> and <code>dbi</code> connectors.</li>
+<code>ConnectorDBI</code> now overwrites tables by default, to have mirror behaviour between <code>fs</code> and <code>dbi</code> connectors.</li>
 </ul></div>
 </div>
     <div class="section level2">

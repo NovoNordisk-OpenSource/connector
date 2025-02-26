@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.7.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -116,9 +116,10 @@ access and work with the data.</td>
 </tr>
 <tr class="even">
 <td><code><a href="../reference/write_cnt.html">write_cnt()</a></code></td>
-<td>Connector object</td>
-<td>Returns the connector object to allow for method chaining and to
-confirm the write operation was completed.</td>
+<td>
+<code>Connector</code> object</td>
+<td>Returns the <code>Connector</code> object to allow for method
+chaining and to confirm the write operation was completed.</td>
 </tr>
 <tr class="odd">
 <td><code><a href="../reference/list_content_cnt.html">list_content_cnt()</a></code></td>
@@ -128,34 +129,40 @@ location, allowing users to explore the content structure.</td>
 </tr>
 <tr class="even">
 <td><code><a href="../reference/remove_cnt.html">remove_cnt()</a></code></td>
-<td>Connector object</td>
-<td>Returns the connector object to allow for method chaining and to
-confirm the removal operation was completed.</td>
+<td>
+<code>Connector</code> object</td>
+<td>Returns the <code>Connector</code> object to allow for method
+chaining and to confirm the removal operation was completed.</td>
 </tr>
 <tr class="odd">
 <td><code><a href="../reference/download_cnt.html">download_cnt()</a></code></td>
-<td>Connector object</td>
-<td>Returns the connector object to allow for method chaining and to
-confirm the download operation was completed.</td>
+<td>
+<code>Connector</code> object</td>
+<td>Returns the <code>Connector</code> object to allow for method
+chaining and to confirm the download operation was completed.</td>
 </tr>
 <tr class="even">
 <td><code><a href="../reference/upload_cnt.html">upload_cnt()</a></code></td>
-<td>Connector object</td>
-<td>Returns the connector object to allow for method chaining and to
-confirm the upload operation was completed.</td>
+<td>
+<code>Connector</code> object</td>
+<td>Returns the <code>Connector</code> object to allow for method
+chaining and to confirm the upload operation was completed.</td>
 </tr>
 <tr class="odd">
 <td><code><a href="../reference/create_directory_cnt.html">create_directory_cnt()</a></code></td>
-<td>Connector object, if <code>open = TRUE</code>, then new connector
-object</td>
-<td>Returns the current connector object or a new one if the directory
-was opened, allowing for immediate use of the new directory.</td>
+<td>
+<code>Connector</code> object, if <code>open = TRUE</code>, then new
+<code>Connector</code> object</td>
+<td>Returns the current <code>Connector</code> object or a new one if
+the directory was opened, allowing for immediate use of the new
+directory.</td>
 </tr>
 <tr class="even">
 <td><code><a href="../reference/remove_directory_cnt.html">remove_directory_cnt()</a></code></td>
-<td>Connector object</td>
-<td>Returns the connector object to allow for method chaining and to
-confirm the directory removal was completed.</td>
+<td>
+<code>Connector</code> object</td>
+<td>Returns the <code>Connector</code> object to allow for method
+chaining and to confirm the directory removal was completed.</td>
 </tr>
 <tr class="odd">
 <td><code><a href="../reference/tbl_cnt.html">tbl_cnt()</a></code></td>
@@ -182,9 +189,9 @@ steps.</p>
 <h3 id="write_cnt">
 <code>write_cnt()</code><a class="anchor" aria-label="anchor" href="#write_cnt"></a>
 </h3>
-<p>After writing content, this method returns the connector object. This
-enables method chaining and provides confirmation that the write
-operation was successful.</p>
+<p>After writing content, this method returns the <code>Connector</code>
+object. This enables method chaining and provides confirmation that the
+write operation was successful.</p>
 </div>
 <div class="section level3">
 <h3 id="list_content_cnt">
@@ -197,40 +204,42 @@ exploring the structure of the connected resource.</p>
 <h3 id="remove_cnt">
 <code>remove_cnt()</code><a class="anchor" aria-label="anchor" href="#remove_cnt"></a>
 </h3>
-<p>After removing a file or item, this method returns the connector
-object, allowing for further operations and confirming the removal was
-successful.</p>
+<p>After removing a file or item, this method returns the
+<code>Connector</code> object, allowing for further operations and
+confirming the removal was successful.</p>
 </div>
 <div class="section level3">
 <h3 id="download_cnt">
 <code>download_cnt()</code><a class="anchor" aria-label="anchor" href="#download_cnt"></a>
 </h3>
-<p>This method returns the connector object after a download operation,
-enabling further actions and confirming the download was completed.</p>
+<p>This method returns the <code>Connector</code> object after a
+download operation, enabling further actions and confirming the download
+was completed.</p>
 </div>
 <div class="section level3">
 <h3 id="upload_cnt">
 <code>upload_cnt()</code><a class="anchor" aria-label="anchor" href="#upload_cnt"></a>
 </h3>
-<p>Similar to <code><a href="../reference/download_cnt.html">download_cnt()</a></code>, this returns the connector
-object after an upload, allowing for method chaining and operation
-confirmation.</p>
+<p>Similar to <code><a href="../reference/download_cnt.html">download_cnt()</a></code>, this returns the
+<code>Connector</code> object after an upload, allowing for method
+chaining and operation confirmation.</p>
 </div>
 <div class="section level3">
 <h3 id="create_directory_cnt">
 <code>create_directory_cnt()</code><a class="anchor" aria-label="anchor" href="#create_directory_cnt"></a>
 </h3>
-<p>This method returns the connector object. If the <code>open</code>
-parameter is set to <code>TRUE</code>, it returns a new connector object
-pointing to the newly created directory.</p>
+<p>This method returns the <code>Connector</code> object. If the
+<code>open</code> parameter is set to <code>TRUE</code>, it returns a
+new <code>Connector</code> object pointing to the newly created
+directory.</p>
 </div>
 <div class="section level3">
 <h3 id="remove_directory_cnt">
 <code>remove_directory_cnt()</code><a class="anchor" aria-label="anchor" href="#remove_directory_cnt"></a>
 </h3>
-<p>After removing a directory, this method returns the connector object,
-allowing for further operations and confirming the removal was
-successful.</p>
+<p>After removing a directory, this method returns the
+<code>Connector</code> object, allowing for further operations and
+confirming the removal was successful.</p>
 </div>
 <div class="section level3">
 <h3 id="tbl_cnt">
