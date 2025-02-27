@@ -105,7 +105,7 @@ connect <- function(
 
   # Replace metadata if needed
   if (!is.null(metadata)) {
-    zephyr::msg(
+    zephyr::msg_info(
       c("Replace some metadata informations...")
     )
     config[["metadata"]] <- change_to_new_metadata(
@@ -222,13 +222,13 @@ parse_config <- function(config, set_env = TRUE) {
         rlang::set_names(nm, "*"),
         "i" = "To revert back to the original values restart your R session"
       ) |>
-        zephyr::msg(msg_fun = cli::cli_bullets)
+        zephyr::msg_info()
     } else {
       c(
         "!" = "Inconsistencies between existing environment variables and env entries:",
         rlang::set_names(nm, "*")
       ) |>
-        zephyr::msg(msg_fun = cli::cli_bullets)
+        zephyr::msg_info()
     }
   }
 
