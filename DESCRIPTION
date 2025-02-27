@@ -21,7 +21,6 @@ Imports:
     glue,
     haven,
     jsonlite,
-    options,
     purrr,
     R6 (>= 2.4.0),
     readr,
@@ -30,7 +29,7 @@ Imports:
     utils,
     vroom,
     writexl,
-    zephyr (>= 0.1.1)
+    zephyr
 Suggests:
     dbplyr,
     knitr,
