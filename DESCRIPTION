@@ -18,6 +18,7 @@ Imports:
     cli,
     DBI,
     dplyr,
+    fs,
     glue,
     haven,
     jsonlite,

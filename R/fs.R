@@ -130,6 +130,17 @@ ConnectorFS <- R6::R6Class(
     },
 
     #' @description
+    #' Upload a directory to the file storage.
+    #' See also [upload_directory_cnt].
+    #' @param dir [character] The path to the directory to upload
+    #' @param name [character] The name of the directory to create
+    #' @return `r rd_connector_utils("inv_self")`
+    upload_directory_cnt = function(dir, name = basename(dir), ...) {
+      self |>
+        upload_directory_cnt(dir, name, ...)
+    },
+
+    #' @description
     #' Use dplyr verbs to interact with the tibble.
     #' See also [tbl_cnt].
     #' @return A table object.

@@ -154,6 +154,27 @@ remove_directory_cnt.default <- function(connector_object, ...) {
   method_error_msg(connector_object)
 }
 
+#' Upload a directory
+#'
+#' @description
+#' Generic implementing of how to upload a directory for a connector.
+#' Mostly relevant for file storage connectors.
+#'
+#' @param connector_object `r rd_connector_utils("connector_object")`
+#' @param dir [character] Path to the directory to upload
+#' @param name [character] The name of the new directory to place the content in
+#' @param ... `r rd_connector_utils("...")`
+#' @return `r rd_connector_utils("inv_connector")`
+#' @export
+upload_directory_cnt <- function(connector_object, dir, name, ...) {
+  UseMethod("upload_directory_cnt")
+}
+
+#' @export
+upload_directory_cnt.default <- function(connector_object, ...) {
+  method_error_msg(connector_object)
+}
+
 #' Disconnect (close) the connection of the connector
 #'
 #' @description

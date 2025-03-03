@@ -271,6 +271,21 @@ remove_directory_cnt.ConnectorFS <- function(connector_object, name, ...) {
 }
 
 #' @description
+#' * [ConnectorFS]: Uses [fs::dir_copy()].
+#'
+#' @rdname upload_directory_cnt
+#' @export
+upload_directory_cnt.ConnectorFS <- function(connector_object, dir, name, ...) {
+  name <- file.path(connector_object$path, name)
+
+  fs::dir_copy(path = dir, new_path = name, ...)
+
+  return(
+    invisible(connector_object)
+  )
+}
+
+#' @description
 #' * [ConnectorFS]: Uses `read_cnt()` to allow redundancy between fs and dbi.
 #'
 #' @examples
