@@ -74,6 +74,7 @@ Datetime
 dbi
 dbname
 dbplyr
+dev
 Dilirubin
 dir
 dL
@@ -195,6 +196,7 @@ PCHG
 phosphatase
 Phosphatase
 pI
+pkgdown
 plood
 Plood
 png
