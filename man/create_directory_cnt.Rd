@@ -26,7 +26,7 @@ Generic implementing of how to create a directory for a connector.
 Mostly relevant for file storage connectors.
 
 \itemize{
-\item \link{ConnectorFS}: Uses \code{\link[=dir.create]{dir.create()}} to create a directory at the path of the connector.
+\item \link{ConnectorFS}: Uses \code{\link[fs:create]{fs::dir_create()}} to create a directory at the path of the connector.
 }
 }
 \examples{

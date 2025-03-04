@@ -24,7 +24,6 @@ registers the necessary S3 methods for logging.
 The function performs the following steps:
 \enumerate{
 \item Checks if the input \code{connections} is of class "connectors".
-\item Registers the S3 methods for logging using \code{connector.logger::cnt_logger_S3_register()}.
 \item Iterates through each connection in the list and prepends the "ConnectorLogger" class.
 }
 }

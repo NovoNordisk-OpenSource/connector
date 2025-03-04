@@ -24,7 +24,7 @@ Generic implementing of how to remove a directory for a connector.
 Mostly relevant for file storage connectors.
 
 \itemize{
-\item \link{ConnectorFS}: Uses \code{\link[=unlink]{unlink()}} with \code{recursive = TRUE} to remove a directory at the path of the connector.
+\item \link{ConnectorFS}: Uses \code{\link[fs:delete]{fs::dir_delete()}} to remove a directory at the path of the connector.
 }
 }
 \examples{
