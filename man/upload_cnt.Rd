@@ -25,7 +25,7 @@ upload_cnt(connector_object, file, name = basename(file), ...)
 Generic implementing of how to upload files to a connector:
 
 \itemize{
-\item \link{ConnectorFS}: Uses \code{\link[=file.copy]{file.copy()}} to copy the \code{file} to the file storage.
+\item \link{ConnectorFS}: Uses \code{\link[fs:copy]{fs::file_copy()}} to copy the \code{file} to the file storage.
 }
 }
 \examples{

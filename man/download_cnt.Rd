@@ -25,7 +25,8 @@ download_cnt(connector_object, name, file = basename(name), ...)
 Generic implementing of how to download files from a connector:
 
 \itemize{
-\item \link{ConnectorFS}: Uses \code{\link[=file.copy]{file.copy()}} to copy a file from the file storage to the desired \code{file}.
+\item \link{ConnectorFS}: Uses \code{\link[fs:copy]{fs::file_copy()}} to copy a file from the file storage
+to the desired \code{file}.
 }
 }
 \examples{

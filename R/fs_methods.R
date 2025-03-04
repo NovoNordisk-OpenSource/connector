@@ -82,7 +82,7 @@ list_content_cnt.ConnectorFS <- function(connector_object, ...) {
 }
 
 #' @description
-#' * [ConnectorFS]: Uses [unlink()] to delete the file.
+#' * [ConnectorFS]: Uses [fs::file_delete()] to delete the file.
 #'
 #' @examples
 #' # Remove a file from the file storage
@@ -111,7 +111,7 @@ remove_cnt.ConnectorFS <- function(connector_object, name, ...) {
     name
   )
 
-  unlink(path, ...)
+  fs::file_delete(path = path)
 
   return(
     invisible(connector_object)
@@ -119,7 +119,8 @@ remove_cnt.ConnectorFS <- function(connector_object, name, ...) {
 }
 
 #' @description
-#' * [ConnectorFS]: Uses [file.copy()] to copy a file from the file storage to the desired `file`.
+#' * [ConnectorFS]: Uses [fs::file_copy()] to copy a file from the file storage
+#' to the desired `file`.
 #'
 #' @examples
 #' # Download file from a file storage
@@ -147,7 +148,8 @@ download_cnt.ConnectorFS <- function(
     file = basename(name),
     ...) {
   name <- file.path(connector_object$path, name)
-  file.copy(from = name, to = file, ...)
+
+  fs::file_copy(path = name, new_path = file, ...)
 
   return(
     invisible(connector_object)
@@ -155,7 +157,7 @@ download_cnt.ConnectorFS <- function(
 }
 
 #' @description
-#' * [ConnectorFS]: Uses [file.copy()] to copy the `file` to the file storage.
+#' * [ConnectorFS]: Uses [fs::file_copy()] to copy the `file` to the file storage.
 #'
 #' @examples
 #' # Upload file to a file storage
@@ -187,7 +189,7 @@ upload_cnt.ConnectorFS <- function(
     ...) {
   name <- file.path(connector_object$path, name)
 
-  file.copy(from = file, to = name, ...)
+  fs::file_copy(path = file, new_path = name, ...)
 
   return(
     invisible(connector_object)
@@ -195,7 +197,7 @@ upload_cnt.ConnectorFS <- function(
 }
 
 #' @description
-#' * [ConnectorFS]: Uses [dir.create()] to create a directory at the path of the connector.
+#' * [ConnectorFS]: Uses [fs::dir_create()] to create a directory at the path of the connector.
 #'
 #' @param open create a new connector object
 #'
@@ -225,11 +227,14 @@ create_directory_cnt.ConnectorFS <- function(
     ...,
     open = TRUE) {
   path <- file.path(connector_object$path, name)
-  dir.create(path = path, ...)
 
-  # create a new connector object from the new path
+  fs::dir_create(path = path, ...)
+
+  # create a new connector object from the new path with persistent extra class
   if (open) {
-    connector_object <- ConnectorFS$new(path)
+    extra_class <- class(connector_object)
+    extra_class <- utils::head(extra_class, which(extra_class == "ConnectorFS") - 1)
+    connector_object <- connector_fs(path, extra_class)
   }
 
   return(
@@ -238,7 +243,7 @@ create_directory_cnt.ConnectorFS <- function(
 }
 
 #' @description
-#' * [ConnectorFS]: Uses [unlink()] with `recursive = TRUE` to remove a directory at the path of the connector.
+#' * [ConnectorFS]: Uses [fs::dir_delete()] to remove a directory at the path of the connector.
 #'
 #' @examples
 #' # Remove a directory from a file storage
@@ -263,7 +268,7 @@ remove_directory_cnt.ConnectorFS <- function(connector_object, name, ...) {
     name
   )
 
-  unlink(x = path, recursive = TRUE, ...)
+  fs::dir_delete(path = path)
 
   return(
     invisible(connector_object)

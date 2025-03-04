@@ -30,7 +30,7 @@ Generic implementing of how to remove content from different connectors:
 }
 
 \itemize{
-\item \link{ConnectorFS}: Uses \code{\link[=unlink]{unlink()}} to delete the file.
+\item \link{ConnectorFS}: Uses \code{\link[fs:delete]{fs::file_delete()}} to delete the file.
 }
 }
 \examples{
