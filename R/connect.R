@@ -149,20 +149,23 @@ connect_from_config <- function(config) {
 #' @noRd
 info_config <- function(config) {
   msg_ <- c(
+    "Connection to:",
     ">" = "{.strong {config$name}}",
     "*" = "{config$backend$type}",
     "*" = "{config$backend[!names(config$backend) %in% 'type']}"
   )
 
-  cli::cat_rule()
-  zephyr::msg(
-    c(
-      "Connection to:",
-      msg_
-    ),
+  zephyr::msg_verbose(
+    message = "",
+    msg_fun = cli::cli_rule
+  )
+
+  zephyr::msg_verbose(
+    message = msg_,
     msg_fun = cli::cli_bullets
   )
 }
+
 
 #' Create a connection object depending on the backend type
 #' @param config [list] The configuration of a single connection
