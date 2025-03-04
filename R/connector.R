@@ -37,7 +37,7 @@
 #' cnt_my_class
 #'
 #' read_cnt(cnt_my_class)
-#'
+#' @aliases connector
 #' @export
 Connector <- R6::R6Class(
   classname = "Connector",

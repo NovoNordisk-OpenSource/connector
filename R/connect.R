@@ -222,13 +222,13 @@ parse_config <- function(config, set_env = TRUE) {
         rlang::set_names(nm, "*"),
         "i" = "To revert back to the original values restart your R session"
       ) |>
-        zephyr::msg_info()
+        zephyr::msg_verbose(msg_fun = cli::cli_bullets)
     } else {
       c(
         "!" = "Inconsistencies between existing environment variables and env entries:",
         rlang::set_names(nm, "*")
       ) |>
-        zephyr::msg_info()
+        zephyr::msg_verbose(msg_fun = cli::cli_bullets)
     }
   }
 

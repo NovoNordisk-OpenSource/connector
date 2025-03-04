@@ -2,6 +2,7 @@
 % Please edit documentation in R/connector.R
 \name{Connector}
 \alias{Connector}
+\alias{connector}
 \title{General connector object}
 \description{
 This R6 class is a general class for all connectors.
@@ -32,7 +33,6 @@ registerS3method("read_cnt", "my_class", "read_cnt.my_class")
 cnt_my_class
 
 read_cnt(cnt_my_class)
-
 }
 \seealso{
 \code{vignette("customize")} on how to create custom connectors and methods,
