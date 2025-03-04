@@ -1,3 +1,7 @@
+# connector dev
+
+* Added `upload_directory_cnt()` method for `ConnectorFS`.
+
 # connector 0.0.8
 
 ## Breaking Changes
