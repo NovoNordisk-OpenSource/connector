@@ -16,6 +16,8 @@
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/add_logs.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/add_metadata.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/connect.html</loc></url>
+<url><loc>https://novonordisk-opensource.github.io/connector/reference/connector-options-params.html</loc></url>
+<url><loc>https://novonordisk-opensource.github.io/connector/reference/connector-options.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/connector-package.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/connector_dbi.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/connector_fs.html</loc></url>
@@ -41,8 +43,6 @@
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/log_write_connector.default.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/log_write_connector.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/nested_connectors.html</loc></url>
-<url><loc>https://novonordisk-opensource.github.io/connector/reference/options.html</loc></url>
-<url><loc>https://novonordisk-opensource.github.io/connector/reference/options_params.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/print.ConnectorLogger.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/read_cnt.ConnectorLogger.html</loc></url>
 <url><loc>https://novonordisk-opensource.github.io/connector/reference/read_cnt.html</loc></url>
