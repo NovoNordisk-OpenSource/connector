@@ -37,16 +37,19 @@
 #' cnt_my_class
 #'
 #' read_cnt(cnt_my_class)
-#'
+#' @aliases connector
 #' @export
 Connector <- R6::R6Class(
   classname = "Connector",
   public = list(
-
     #' @description
     #' Initialize the connector with the option of adding an extra class.
     initialize = function(extra_class = NULL) {
-      checkmate::assert_character(x = extra_class, any.missing = FALSE, null.ok = TRUE)
+      checkmate::assert_character(
+        x = extra_class,
+        any.missing = FALSE,
+        null.ok = TRUE
+      )
       class(self) <- c(extra_class, class(self))
     },
 
@@ -149,7 +152,9 @@ print_cnt <- function(connector_object) {
   cli::cli_bullets(
     c(
       "{.cls {utils::head(classes, class_connector)}}",
-      if (length(classes) > class_connector) "Inherits from: {.cls {tail(classes, -class_connector)}}",
+      if (length(classes) > class_connector) {
+        "Inherits from: {.cls {tail(classes, -class_connector)}}"
+      },
       if (length(links)) {
         c(
           "Registered methods:",

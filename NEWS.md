@@ -1,3 +1,9 @@
+# connector dev
+
+## Enhancements
+* Add zephyr and remove options package.
+* Fix pkgdown problems with `Connector` class.
+
 # connector 0.0.8
 
 ## Breaking Changes

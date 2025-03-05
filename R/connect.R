@@ -105,7 +105,7 @@ connect <- function(
 
   # Replace metadata if needed
   if (!is.null(metadata)) {
-    zephyr::msg(
+    zephyr::msg_info(
       c("Replace some metadata informations...")
     )
     config[["metadata"]] <- change_to_new_metadata(
@@ -149,20 +149,23 @@ connect_from_config <- function(config) {
 #' @noRd
 info_config <- function(config) {
   msg_ <- c(
+    "Connection to:",
     ">" = "{.strong {config$name}}",
     "*" = "{config$backend$type}",
     "*" = "{config$backend[!names(config$backend) %in% 'type']}"
   )
 
-  cli::cat_rule()
-  zephyr::msg(
-    c(
-      "Connection to:",
-      msg_
-    ),
+  zephyr::msg_verbose(
+    message = "",
+    msg_fun = cli::cli_rule
+  )
+
+  zephyr::msg_verbose(
+    message = msg_,
     msg_fun = cli::cli_bullets
   )
 }
+
 
 #' Create a connection object depending on the backend type
 #' @param config [list] The configuration of a single connection
@@ -222,13 +225,13 @@ parse_config <- function(config, set_env = TRUE) {
         rlang::set_names(nm, "*"),
         "i" = "To revert back to the original values restart your R session"
       ) |>
-        zephyr::msg(msg_fun = cli::cli_bullets)
+        zephyr::msg_verbose(msg_fun = cli::cli_bullets)
     } else {
       c(
         "!" = "Inconsistencies between existing environment variables and env entries:",
         rlang::set_names(nm, "*")
       ) |>
-        zephyr::msg(msg_fun = cli::cli_bullets)
+        zephyr::msg_verbose(msg_fun = cli::cli_bullets)
     }
   }
 
