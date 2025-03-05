@@ -1,7 +1,7 @@
 #' @keywords internal
-#' @import rlang
 "_PACKAGE"
 
 ## usethis namespace: start
+#' @import rlang
 ## usethis namespace: end
 NULL
