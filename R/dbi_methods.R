@@ -27,9 +27,6 @@ read_cnt.ConnectorDBI <- function(connector_object, name, ...) {
 
 #' @description
 #' * [ConnectorDBI]: Uses [DBI::dbWriteTable()] to write the table to the DBI connection.
-#'
-#' @param overwrite By default set to TRUE, in order to allow interchangeability between how
-#' `ConnectorFS` works and `ConnectorDBI`.
 #' @examples
 #' # Write table to DBI database
 #' cnt <- connector_dbi(RSQLite::SQLite())
@@ -49,7 +46,7 @@ write_cnt.ConnectorDBI <- function(
     connector_object,
     x,
     name,
-    overwrite = TRUE,
+    overwrite = FALSE,
     ...) {
   connector_object$conn |>
     DBI::dbWriteTable(

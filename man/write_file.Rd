@@ -13,30 +13,32 @@
 \alias{write_ext.xlsx}
 \title{Write files based on the extension}
 \usage{
-write_file(x, file, ...)
+write_file(x, file, overwrite = FALSE, ...)
 
-write_ext(file, x, ...)
+write_ext(file, x, overwrite = FALSE, ...)
 
-\method{write_ext}{txt}(file, x, ...)
+\method{write_ext}{txt}(file, x, overwrite = FALSE, ...)
 
-\method{write_ext}{csv}(file, x, delim = ",", ...)
+\method{write_ext}{csv}(file, x, overwrite = FALSE, delim = ",", ...)
 
-\method{write_ext}{parquet}(file, x, ...)
+\method{write_ext}{parquet}(file, x, overwrite = FALSE, ...)
 
-\method{write_ext}{rds}(file, x, ...)
+\method{write_ext}{rds}(file, x, overwrite = FALSE, ...)
 
-\method{write_ext}{xpt}(file, x, ...)
+\method{write_ext}{xpt}(file, x, overwrite = FALSE, ...)
 
-\method{write_ext}{yml}(file, x, ...)
+\method{write_ext}{yml}(file, x, overwrite = FALSE, ...)
 
-\method{write_ext}{json}(file, x, ...)
+\method{write_ext}{json}(file, x, overwrite = FALSE, ...)
 
-\method{write_ext}{xlsx}(file, x, ...)
+\method{write_ext}{xlsx}(file, x, overwrite = FALSE, ...)
 }
 \arguments{
 \item{x}{Object to write}
 
-\item{file}{\code{\link[=character]{character()}} Path to write the file}
+\item{file}{\code{\link[=character]{character()}} Path to write the file.}
+
+\item{overwrite}{\link{logical} Overwrite existing content if it exists.}
 
 \item{...}{Other parameters passed on the functions behind the methods for each file extension.}
 

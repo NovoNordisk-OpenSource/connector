@@ -6,11 +6,11 @@
 \alias{write_cnt.ConnectorFS}
 \title{Write content to the connector}
 \usage{
-write_cnt(connector_object, x, name, ...)
+write_cnt(connector_object, x, name, overwrite = FALSE, ...)
 
-\method{write_cnt}{ConnectorDBI}(connector_object, x, name, overwrite = TRUE, ...)
+\method{write_cnt}{ConnectorDBI}(connector_object, x, name, overwrite = FALSE, ...)
 
-\method{write_cnt}{ConnectorFS}(connector_object, x, name, ...)
+\method{write_cnt}{ConnectorFS}(connector_object, x, name, overwrite = FALSE, ...)
 }
 \arguments{
 \item{connector_object}{\link{Connector} The connector object to use.}
@@ -19,10 +19,9 @@ write_cnt(connector_object, x, name, ...)
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
-\item{...}{Additional arguments passed to the method for the individual connector.}
+\item{overwrite}{\link{logical} Overwrite existing content if it exists. By default set to \code{FALSE}.}
 
-\item{overwrite}{By default set to TRUE, in order to allow interchangeability between how
-\code{ConnectorFS} works and \code{ConnectorDBI}.}
+\item{...}{Additional arguments passed to the method for the individual connector.}
 }
 \value{
 \link{invisible} connector_object.
@@ -54,7 +53,9 @@ cnt |>
   list_content_cnt()
 
 # Write different file types to a file storage
-cnt <- connector_fs(tempdir())
+
+folder <- withr::local_tempdir()
+cnt <- connector_fs(folder)
 
 cnt |>
   list_content_cnt(pattern = "iris")

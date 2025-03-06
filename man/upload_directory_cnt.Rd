@@ -5,9 +5,9 @@
 \alias{upload_directory_cnt.ConnectorFS}
 \title{Upload a directory}
 \usage{
-upload_directory_cnt(connector_object, dir, name, ...)
+upload_directory_cnt(connector_object, dir, name, overwrite = FALSE, ...)
 
-\method{upload_directory_cnt}{ConnectorFS}(connector_object, dir, name, ...)
+\method{upload_directory_cnt}{ConnectorFS}(connector_object, dir, name, overwrite = FALSE, ...)
 }
 \arguments{
 \item{connector_object}{\link{Connector} The connector object to use.}
@@ -15,6 +15,8 @@ upload_directory_cnt(connector_object, dir, name, ...)
 \item{dir}{\link{character} Path to the directory to upload}
 
 \item{name}{\link{character} The name of the new directory to place the content in}
+
+\item{overwrite}{\link{logical} Overwrite existing content if it exists. By default set to \code{FALSE}.}
 
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }

@@ -25,10 +25,11 @@ read_cnt.default <- function(connector_object, name, ...) {
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param x `r rd_connector_utils("x")`
 #' @param name `r rd_connector_utils("name")`
+#' @param overwrite `r rd_connector_utils("overwrite")`
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-write_cnt <- function(connector_object, x, name, ...) {
+write_cnt <- function(connector_object, x, name, overwrite = FALSE, ...) {
   UseMethod("write_cnt")
 }
 
@@ -102,10 +103,11 @@ download_cnt.default <- function(connector_object, ...) {
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param file `r rd_connector_utils("file")`
 #' @param name `r rd_connector_utils("name")`
+#' @param overwrite `r rd_connector_utils("overwrite")`
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-upload_cnt <- function(connector_object, file, name = basename(file), ...) {
+upload_cnt <- function(connector_object, file, name = basename(file), overwrite = FALSE, ...) {
   UseMethod("upload_cnt")
 }
 
@@ -163,10 +165,11 @@ remove_directory_cnt.default <- function(connector_object, ...) {
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param dir [character] Path to the directory to upload
 #' @param name [character] The name of the new directory to place the content in
+#' @param overwrite `r rd_connector_utils("overwrite")`
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-upload_directory_cnt <- function(connector_object, dir, name, ...) {
+upload_directory_cnt <- function(connector_object, dir, name, overwrite = FALSE, ...) {
   UseMethod("upload_directory_cnt")
 }
 

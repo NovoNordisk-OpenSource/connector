@@ -57,7 +57,9 @@ iris_cnt |>
   dplyr::collect()
 
 # Use dplyr verbs on a table
-cnt <- connector_fs(tempdir())
+
+folder <- withr::local_tempdir()
+cnt <- connector_fs(folder)
 
 cnt |>
   write_cnt(iris, "iris.csv")

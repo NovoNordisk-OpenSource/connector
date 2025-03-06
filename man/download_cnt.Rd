@@ -31,7 +31,9 @@ to the desired \code{file}.
 }
 \examples{
 # Download file from a file storage
-cnt <- connector_fs(tempdir())
+
+folder <- withr::local_tempdir()
+cnt <- connector_fs(folder)
 
 cnt |>
   write_cnt("this is an example", "example.txt")

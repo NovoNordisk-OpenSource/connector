@@ -32,7 +32,8 @@ Mostly relevant for file storage connectors.
 \examples{
 # Create a directory in a file storage
 
-cnt <- connector_fs(tempdir())
+folder <- withr::local_tempdir()
+cnt <- connector_fs(folder)
 
 cnt |>
   list_content_cnt(pattern = "new_folder")

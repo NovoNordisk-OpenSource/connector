@@ -50,7 +50,9 @@ cnt |>
   head()
 
 # Write and read a CSV file using the file storage connector
-cnt <- connector_fs(tempdir())
+
+folder <- withr::local_tempdir()
+cnt <- connector_fs(folder)
 
 cnt |>
   write_cnt(iris, "iris.csv")
