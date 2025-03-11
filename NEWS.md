@@ -1,6 +1,9 @@
 # connector dev
 
-* Added `upload_directory_cnt()` method for `ConnectorFS`.
+## Enhancements
+* Add zephyr and remove options package.
+* Fix pkgdown problems with `Connector` class.
+* Added `upload_directory_cnt()` and `download_directory_cnt()` generics relevant for `ConnectorFS`.
 
 # connector 0.0.8
 

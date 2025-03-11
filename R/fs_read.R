@@ -33,7 +33,7 @@ read_ext <- function(path, ...) {
 #' @rdname read_file
 #' @export
 read_ext.default <- function(path, ...) {
-  cli::cli_alert_info("Using vroom to read the file:")
+  zephyr::msg_info("Using vroom to read the file:")
   table <- try(
     vroom::vroom(file = path, ...),
     silent = TRUE
