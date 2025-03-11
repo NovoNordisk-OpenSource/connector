@@ -27,7 +27,7 @@ through ... depends on the file extension.
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -68,13 +68,31 @@ through <code>...</code> depends on the file extension.</p></li>
 
     <div class="section level2">
     <h2 id="ref-usage">Usage<a class="anchor" aria-label="anchor" href="#ref-usage"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">write_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">x</span>, <span class="va">name</span>, overwrite <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">write_cnt</span><span class="op">(</span></span>
+<span>  <span class="va">connector_object</span>,</span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">name</span>,</span>
+<span>  overwrite <span class="op">=</span> <span class="fu">zephyr</span><span class="fu">::</span><span class="fu"><a href="https://novonordisk-opensource.github.io/zephyr/reference/get_option.html" class="external-link">get_option</a></span><span class="op">(</span><span class="st">"overwrite"</span>, <span class="st">"connector"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'ConnectorDBI'</span></span>
-<span><span class="fu">write_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">x</span>, <span class="va">name</span>, overwrite <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span>
+<span><span class="fu">write_cnt</span><span class="op">(</span></span>
+<span>  <span class="va">connector_object</span>,</span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">name</span>,</span>
+<span>  overwrite <span class="op">=</span> <span class="fu">zephyr</span><span class="fu">::</span><span class="fu"><a href="https://novonordisk-opensource.github.io/zephyr/reference/get_option.html" class="external-link">get_option</a></span><span class="op">(</span><span class="st">"overwrite"</span>, <span class="st">"connector"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'ConnectorFS'</span></span>
-<span><span class="fu">write_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">x</span>, <span class="va">name</span>, overwrite <span class="op">=</span> <span class="cn">FALSE</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">write_cnt</span><span class="op">(</span></span>
+<span>  <span class="va">connector_object</span>,</span>
+<span>  <span class="va">x</span>,</span>
+<span>  <span class="va">name</span>,</span>
+<span>  overwrite <span class="op">=</span> <span class="fu">zephyr</span><span class="fu">::</span><span class="fu"><a href="https://novonordisk-opensource.github.io/zephyr/reference/get_option.html" class="external-link">get_option</a></span><span class="op">(</span><span class="st">"overwrite"</span>, <span class="st">"connector"</span><span class="op">)</span>,</span>
+<span>  <span class="va">...</span></span>
+<span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -94,7 +112,7 @@ through <code>...</code> depends on the file extension.</p></li>
 
 
 <dt id="arg-overwrite">overwrite<a class="anchor" aria-label="anchor" href="#arg-overwrite"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> Overwrite existing content if it exists. By default set to <code>FALSE</code>.</p></dd>
+<dd><p>Overwrite existing content if it exists in the connector?. Default: <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
@@ -134,14 +152,14 @@ through <code>...</code> depends on the file extension.</p></li>
 <span class="r-in"><span><span class="co"># rds file</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">write_cnt</span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.rds"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/tmp/RtmpG3SWq9/file1e8041e4c9ad/iris.rds': No such file or directory</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/tmp/RtmpE4X6rS/file1da9672524ac/iris.rds': No such file or directory</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in saveRDS(x, con, version = version, refhook = refhook, ascii = text):</span> cannot open the connection</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># CSV file</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">write_cnt</span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.csv"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Cannot open file for writing:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/RtmpG3SWq9/file1e8041e4c9ad/iris.csv'</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/RtmpE4X6rS/file1da9672524ac/iris.csv'</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"iris"</span><span class="op">)</span></span></span>
