@@ -300,7 +300,7 @@ upload_directory_cnt.ConnectorFS <- function(
     name,
     overwrite = zephyr::get_option("overwrite", "connector"),
     open = FALSE,
-    ß...) {
+    ...) {
   name <- file.path(connector_object$path, name)
 
   fs::dir_copy(path = dir, new_path = name, overwrite = overwrite)

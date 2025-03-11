@@ -20,7 +20,7 @@ upload_directory_cnt(
   name,
   overwrite = zephyr::get_option("overwrite", "connector"),
   open = FALSE,
-  ß...
+  ...
 )
 }
 \arguments{
