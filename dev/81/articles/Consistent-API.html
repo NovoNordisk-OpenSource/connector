@@ -136,10 +136,8 @@ chaining and to confirm the removal operation was completed.</td>
 </tr>
 <tr class="odd">
 <td><code><a href="../reference/download_cnt.html">download_cnt()</a></code></td>
-<td>
-<code>Connector</code> object</td>
-<td>Returns the <code>Connector</code> object to allow for method
-chaining and to confirm the download operation was completed.</td>
+<td><code>file</code></td>
+<td>Returns the path to the downloaded file for immediate use</td>
 </tr>
 <tr class="even">
 <td><code><a href="../reference/upload_cnt.html">upload_cnt()</a></code></td>
@@ -163,6 +161,21 @@ directory.</td>
 <code>Connector</code> object</td>
 <td>Returns the <code>Connector</code> object to allow for method
 chaining and to confirm the directory removal was completed.</td>
+</tr>
+<tr class="odd">
+<td><code><a href="../reference/upload_directory_cnt.html">upload_directory_cnt()</a></code></td>
+<td>
+<code>Connector</code> object, if <code>open = TRUE</code>, then new
+<code>Connector</code> object</td>
+<td>Returns the current <code>Connector</code> object or a new one if
+the directory was opened, allowing for immediate use of the uploaded
+directory.</td>
+</tr>
+<tr class="even">
+<td><code><a href="../reference/download_directory_cnt.html">download_directory_cnt()</a></code></td>
+<td><code>dir</code></td>
+<td>Returns the path to the downloaded directory allowing for immediate
+use</td>
 </tr>
 <tr class="odd">
 <td><code><a href="../reference/tbl_cnt.html">tbl_cnt()</a></code></td>
