@@ -56,6 +56,7 @@ cnt$read_cnt("iris.rds") |>
 \item \href{#method-ConnectorFS-create_directory_cnt}{\code{ConnectorFS$create_directory_cnt()}}
 \item \href{#method-ConnectorFS-remove_directory_cnt}{\code{ConnectorFS$remove_directory_cnt()}}
 \item \href{#method-ConnectorFS-upload_directory_cnt}{\code{ConnectorFS$upload_directory_cnt()}}
+\item \href{#method-ConnectorFS-download_directory_cnt}{\code{ConnectorFS$download_directory_cnt()}}
 \item \href{#method-ConnectorFS-tbl_cnt}{\code{ConnectorFS$tbl_cnt()}}
 \item \href{#method-ConnectorFS-clone}{\code{ConnectorFS$clone()}}
 }
@@ -209,6 +210,31 @@ See also \link{upload_directory_cnt}.
 }
 \subsection{Returns}{
 \link{invisible} self.
+}
+}
+\if{html}{\out{<hr>}}
+\if{html}{\out{<a id="method-ConnectorFS-download_directory_cnt"></a>}}
+\if{latex}{\out{\hypertarget{method-ConnectorFS-download_directory_cnt}{}}}
+\subsection{Method \code{download_directory_cnt()}}{
+Download a directory from the file storage.
+See also \link{download_directory_cnt}.
+\subsection{Usage}{
+\if{html}{\out{<div class="r">}}\preformatted{ConnectorFS$download_directory_cnt(name, dir = name, ...)}\if{html}{\out{</div>}}
+}
+
+\subsection{Arguments}{
+\if{html}{\out{<div class="arguments">}}
+\describe{
+\item{\code{name}}{\link{character} The name of the directory to download}
+
+\item{\code{dir}}{\link{character} The path to the directory to download}
+
+\item{\code{...}}{Additional arguments passed to the method for the individual connector.}
+}
+\if{html}{\out{</div>}}
+}
+\subsection{Returns}{
+\link{invisible} dir.
 }
 }
 \if{html}{\out{<hr>}}

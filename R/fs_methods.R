@@ -307,6 +307,21 @@ upload_directory_cnt.ConnectorFS <- function(connector_object, dir, name, overwr
 }
 
 #' @description
+#' * [ConnectorFS]: Uses [fs::dir_copy()].
+#'
+#' @rdname download_directory_cnt
+#' @export
+download_directory_cnt.ConnectorFS <- function(connector_object, name, dir = basename(name), ...) {
+  name <- file.path(connector_object$path, name)
+
+  fs::dir_copy(path = name, new_path = dir, ...)
+
+  return(
+    invisible(dir)
+  )
+}
+
+#' @description
 #' * [ConnectorFS]: Uses `read_cnt()` to allow redundancy between fs and dbi.
 #'
 #' @examples

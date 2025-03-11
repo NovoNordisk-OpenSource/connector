@@ -64,6 +64,16 @@ test_that("fs connector", {
     readLines() |>
     expect_equal(testtxt)
 
+  fs$download_directory_cnt("newdir", t_dir2) |>
+    expect_no_condition()
+
+  list.files(t_dir2) |>
+    expect_contains("newdir")
+
+  file.path(t_dir2, "newdir", "test.txt") |>
+    readLines() |>
+    expect_equal(testtxt)
+
   # clean up
   withr::deferred_clear()
   unlink(t_dir, recursive = TRUE)

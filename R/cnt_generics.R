@@ -180,6 +180,27 @@ upload_directory_cnt.default <- function(connector_object, ...) {
   method_error_msg(connector_object)
 }
 
+#' Download a directory
+#'
+#' @description
+#' Generic implementing of how to download a directory for a connector.
+#' Mostly relevant for file storage connectors.
+#'
+#' @param connector_object `r rd_connector_utils("connector_object")`
+#' @param name [character] The name of the directory to download
+#' @param dir [character] Path to the directory to download to
+#' @param ... `r rd_connector_utils("...")`
+#' @return [invisible] dir.
+#' @export
+download_directory_cnt <- function(connector_object, name, dir = name, ...) {
+  UseMethod("download_directory_cnt")
+}
+
+#' @export
+download_directory_cnt.default <- function(connector_object, ...) {
+  method_error_msg(connector_object)
+}
+
 #' Disconnect (close) the connection of the connector
 #'
 #' @description

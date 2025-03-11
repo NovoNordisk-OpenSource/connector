@@ -143,6 +143,17 @@ ConnectorFS <- R6::R6Class(
     },
 
     #' @description
+    #' Download a directory from the file storage.
+    #' See also [download_directory_cnt].
+    #' @param name [character] The name of the directory to download
+    #' @param dir [character] The path to the directory to download
+    #' @return [invisible] dir.
+    download_directory_cnt = function(name, dir = name, ...) {
+      self |>
+        download_directory_cnt(name, dir, ...)
+    },
+
+    #' @description
     #' Use dplyr verbs to interact with the tibble.
     #' See also [tbl_cnt].
     #' @return A table object.
