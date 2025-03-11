@@ -51,7 +51,12 @@ read_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #'
 #' @rdname write_cnt
 #' @export
-write_cnt.ConnectorFS <- function(connector_object, x, name, overwrite = FALSE, ...) {
+write_cnt.ConnectorFS <- function(
+    connector_object,
+    x,
+    name,
+    overwrite = zephyr::get_option("overwrite", "connector"),
+    ...) {
   file <- file.path(connector_object$path, name)
   write_file(
     x,
@@ -195,7 +200,7 @@ upload_cnt.ConnectorFS <- function(
     connector_object,
     file,
     name = basename(file),
-    overwrite = FALSE,
+    overwrite = zephyr::get_option("overwrite", "connector"),
     ...) {
   name <- file.path(connector_object$path, name)
 
@@ -289,7 +294,13 @@ remove_directory_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #'
 #' @rdname upload_directory_cnt
 #' @export
-upload_directory_cnt.ConnectorFS <- function(connector_object, dir, name, overwrite = FALSE, open = FALSE, ...) {
+upload_directory_cnt.ConnectorFS <- function(
+    connector_object,
+    dir,
+    name,
+    overwrite = zephyr::get_option("overwrite", "connector"),
+    open = FALSE,
+    ß...) {
   name <- file.path(connector_object$path, name)
 
   fs::dir_copy(path = dir, new_path = name, overwrite = overwrite)

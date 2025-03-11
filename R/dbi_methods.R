@@ -46,7 +46,7 @@ write_cnt.ConnectorDBI <- function(
     connector_object,
     x,
     name,
-    overwrite = FALSE,
+    overwrite = zephyr::get_option("overwrite", "connector"),
     ...) {
   connector_object$conn |>
     DBI::dbWriteTable(

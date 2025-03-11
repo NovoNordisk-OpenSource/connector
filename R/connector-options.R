@@ -19,11 +19,8 @@ zephyr::create_option(
   See [zephyr::verbosity_level] for details."
 )
 
-# nolint start
-# To add more descriptions:
-# zephyr::create_option(
-#   name = "demo",
-#   default = "default",
-#   desc = "my description"
-# )
-# nolint end
+zephyr::create_option(
+  name = "overwrite",
+  default = FALSE,
+  desc = "Overwrite existing content if it exists in the connector?"
+)

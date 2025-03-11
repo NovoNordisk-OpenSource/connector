@@ -6,11 +6,29 @@
 \alias{write_cnt.ConnectorFS}
 \title{Write content to the connector}
 \usage{
-write_cnt(connector_object, x, name, overwrite = FALSE, ...)
+write_cnt(
+  connector_object,
+  x,
+  name,
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+)
 
-\method{write_cnt}{ConnectorDBI}(connector_object, x, name, overwrite = FALSE, ...)
+\method{write_cnt}{ConnectorDBI}(
+  connector_object,
+  x,
+  name,
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+)
 
-\method{write_cnt}{ConnectorFS}(connector_object, x, name, overwrite = FALSE, ...)
+\method{write_cnt}{ConnectorFS}(
+  connector_object,
+  x,
+  name,
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+)
 }
 \arguments{
 \item{connector_object}{\link{Connector} The connector object to use.}
@@ -19,7 +37,7 @@ write_cnt(connector_object, x, name, overwrite = FALSE, ...)
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
-\item{overwrite}{\link{logical} Overwrite existing content if it exists. By default set to \code{FALSE}.}
+\item{overwrite}{Overwrite existing content if it exists in the connector?. Default: \code{FALSE}.}
 
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }

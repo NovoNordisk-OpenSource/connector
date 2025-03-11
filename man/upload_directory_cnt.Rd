@@ -9,7 +9,7 @@ upload_directory_cnt(
   connector_object,
   dir,
   name,
-  overwrite = FALSE,
+  overwrite = zephyr::get_option("overwrite", "connector"),
   open = FALSE,
   ...
 )
@@ -18,9 +18,9 @@ upload_directory_cnt(
   connector_object,
   dir,
   name,
-  overwrite = FALSE,
+  overwrite = zephyr::get_option("overwrite", "connector"),
   open = FALSE,
-  ...
+  ß...
 )
 }
 \arguments{
@@ -30,7 +30,7 @@ upload_directory_cnt(
 
 \item{name}{\link{character} The name of the new directory to place the content in}
 
-\item{overwrite}{\link{logical} Overwrite existing content if it exists. By default set to \code{FALSE}.}
+\item{overwrite}{Overwrite existing content if it exists in the connector?. Default: \code{FALSE}.}
 
 \item{open}{\link{logical} Open the directory as a new connector object.}
 

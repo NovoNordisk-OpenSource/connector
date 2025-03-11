@@ -25,11 +25,11 @@ read_cnt.default <- function(connector_object, name, ...) {
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param x `r rd_connector_utils("x")`
 #' @param name `r rd_connector_utils("name")`
-#' @param overwrite `r rd_connector_utils("overwrite")`
 #' @param ... `r rd_connector_utils("...")`
+#' @inheritParams connector-options-params
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-write_cnt <- function(connector_object, x, name, overwrite = FALSE, ...) {
+write_cnt <- function(connector_object, x, name, overwrite = zephyr::get_option("overwrite", "connector"), ...) {
   UseMethod("write_cnt")
 }
 
@@ -103,11 +103,16 @@ download_cnt.default <- function(connector_object, ...) {
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param file `r rd_connector_utils("file")`
 #' @param name `r rd_connector_utils("name")`
-#' @param overwrite `r rd_connector_utils("overwrite")`
 #' @param ... `r rd_connector_utils("...")`
+#' @inheritParams connector-options-params
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-upload_cnt <- function(connector_object, file, name = basename(file), overwrite = FALSE, ...) {
+upload_cnt <- function(
+    connector_object,
+    file,
+    name = basename(file),
+    overwrite = zephyr::get_option("overwrite", "connector"),
+    ...) {
   UseMethod("upload_cnt")
 }
 
@@ -166,12 +171,18 @@ remove_directory_cnt.default <- function(connector_object, ...) {
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param dir [character] Path to the directory to upload
 #' @param name [character] The name of the new directory to place the content in
-#' @param overwrite `r rd_connector_utils("overwrite")`
 #' @param open `r rd_connector_utils("open")`
 #' @param ... `r rd_connector_utils("...")`
+#' @inheritParams connector-options-params
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-upload_directory_cnt <- function(connector_object, dir, name, overwrite = FALSE, open = FALSE, ...) {
+upload_directory_cnt <- function(
+    connector_object,
+    dir,
+    name,
+    overwrite = zephyr::get_option("overwrite", "connector"),
+    open = FALSE,
+    ...) {
   UseMethod("upload_directory_cnt")
 }
 
