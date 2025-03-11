@@ -160,7 +160,7 @@ download_cnt.ConnectorFS <- function(
   fs::file_copy(path = name, new_path = file, ...)
 
   return(
-    invisible(connector_object)
+    invisible(file)
   )
 }
 
