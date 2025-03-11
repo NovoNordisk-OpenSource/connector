@@ -125,9 +125,10 @@ upload_cnt.default <- function(connector_object, ...) {
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param name [character] The name of the directory to create
 #' @param ... `r rd_connector_utils("...")`
+#' @param open `r rd_connector_utils("open")`
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-create_directory_cnt <- function(connector_object, name, ...) {
+create_directory_cnt <- function(connector_object, name, open = TRUE, ...) {
   UseMethod("create_directory_cnt")
 }
 
@@ -166,10 +167,11 @@ remove_directory_cnt.default <- function(connector_object, ...) {
 #' @param dir [character] Path to the directory to upload
 #' @param name [character] The name of the new directory to place the content in
 #' @param overwrite `r rd_connector_utils("overwrite")`
+#' @param open `r rd_connector_utils("open")`
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-upload_directory_cnt <- function(connector_object, dir, name, overwrite = FALSE, ...) {
+upload_directory_cnt <- function(connector_object, dir, name, overwrite = FALSE, open = FALSE, ...) {
   UseMethod("upload_directory_cnt")
 }
 

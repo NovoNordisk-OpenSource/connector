@@ -5,18 +5,18 @@
 \alias{create_directory_cnt.ConnectorFS}
 \title{Create a directory}
 \usage{
-create_directory_cnt(connector_object, name, ...)
+create_directory_cnt(connector_object, name, open = TRUE, ...)
 
-\method{create_directory_cnt}{ConnectorFS}(connector_object, name, ..., open = TRUE)
+\method{create_directory_cnt}{ConnectorFS}(connector_object, name, open = TRUE, ...)
 }
 \arguments{
 \item{connector_object}{\link{Connector} The connector object to use.}
 
 \item{name}{\link{character} The name of the directory to create}
 
-\item{...}{Additional arguments passed to the method for the individual connector.}
+\item{open}{\link{logical} Open the directory as a new connector object.}
 
-\item{open}{create a new connector object}
+\item{...}{Additional arguments passed to the method for the individual connector.}
 }
 \value{
 \link{invisible} connector_object.

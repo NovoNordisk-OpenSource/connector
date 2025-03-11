@@ -208,9 +208,6 @@ upload_cnt.ConnectorFS <- function(
 
 #' @description
 #' * [ConnectorFS]: Uses [fs::dir_create()] to create a directory at the path of the connector.
-#'
-#' @param open create a new connector object
-#'
 #' @examples
 #' # Create a directory in a file storage
 #'
@@ -235,8 +232,8 @@ upload_cnt.ConnectorFS <- function(
 create_directory_cnt.ConnectorFS <- function(
     connector_object,
     name,
-    ...,
-    open = TRUE) {
+    open = TRUE,
+    ...) {
   path <- file.path(connector_object$path, name)
 
   fs::dir_create(path = path, ...)
@@ -292,10 +289,17 @@ remove_directory_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #'
 #' @rdname upload_directory_cnt
 #' @export
-upload_directory_cnt.ConnectorFS <- function(connector_object, dir, name, overwrite = FALSE, ...) {
+upload_directory_cnt.ConnectorFS <- function(connector_object, dir, name, overwrite = FALSE, open = FALSE, ...) {
   name <- file.path(connector_object$path, name)
 
   fs::dir_copy(path = dir, new_path = name, overwrite = overwrite)
+
+  # create a new connector object from the new path with persistent extra class
+  if (open) {
+    extra_class <- class(connector_object)
+    extra_class <- utils::head(extra_class, which(extra_class == "ConnectorFS") - 1)
+    connector_object <- connector_fs(name, extra_class)
+  }
 
   return(
     invisible(connector_object)
