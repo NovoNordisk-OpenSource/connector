@@ -38,7 +38,7 @@ Below is a table summarizing the methods, their return values, and explanations 
 | `remove_directory_cnt()` | `Connector` object | Returns the `Connector` object to allow for method chaining and to confirm the directory removal was completed. |
 | `upload_directory_cnt()` | `Connector` object, if `open = TRUE`, then new `Connector` object | Returns the current `Connector` object or a new one if the directory was opened, allowing for immediate use of the uploaded directory. |
 | `download_directory_cnt()` | `Connector` object | Returns the `Connector` object to allow for method chaining. |
-| `tbl_cnt()` | Content of the file (`read_cnt()` or tibble for DBI) | Returns the content in a tabular format, either as read by `read_cnt()` or as a tibble (view) for database connections. |
+| `tbl_cnt()` | Content of the table | Returns the content in a tabular format. Either as read by `read_cnt()` or as `dplyr::tbl()` for database connections. |
 
 ## Detailed Explanations
 
@@ -67,7 +67,7 @@ This method returns the `Connector` object. If the `open` parameter is set to `T
 After removing a directory, this method returns the `Connector` object, allowing for further operations and confirming the removal was successful.
 
 ### `tbl_cnt()`
-This method returns the content of a file in a tabular format. For file-based connectors, it typically uses `read_cnt()` to get the content. For database connections (DBI), it returns a tibble representation of the data.
+This method returns the content of a file in a tabular format. For file-based connectors, it typically uses `read_cnt()` to get the content. For database connections (`DBI`), it returns a `dplyr::tbl()` representation of the data.
 
 ## Conclusion
 
