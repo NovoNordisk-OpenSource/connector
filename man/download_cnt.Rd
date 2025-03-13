@@ -19,7 +19,7 @@ download_cnt(connector_object, name, file = basename(name), ...)
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }
 \value{
-\link{invisible} file.
+\link{invisible} connector_object.
 }
 \description{
 Generic implementing of how to download files from a connector:

@@ -113,7 +113,7 @@ See also \link{download_cnt}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\link{invisible} \code{file}
+\link{invisible} connector_object.
 }
 }
 \if{html}{\out{<hr>}}
@@ -234,7 +234,7 @@ See also \link{download_directory_cnt}.
 \if{html}{\out{</div>}}
 }
 \subsection{Returns}{
-\link{invisible} dir.
+\link{invisible} connector_object.
 }
 }
 \if{html}{\out{<hr>}}

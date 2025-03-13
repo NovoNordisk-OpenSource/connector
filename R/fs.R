@@ -96,7 +96,7 @@ ConnectorFS <- R6::R6Class(
     #' @description
     #' Download content from the file storage.
     #' See also [download_cnt].
-    #' @return [invisible] `file`
+    #' @return `r rd_connector_utils("inv_connector")`
     download_cnt = function(name, file = basename(name), ...) {
       self |>
         download_cnt(name, file, ...)
@@ -147,7 +147,7 @@ ConnectorFS <- R6::R6Class(
     #' See also [download_directory_cnt].
     #' @param name [character] The name of the directory to download
     #' @param dir [character] The path to the directory to download
-    #' @return [invisible] dir.
+    #' @return `r rd_connector_utils("inv_connector")`
     download_directory_cnt = function(name, dir = name, ...) {
       self |>
         download_directory_cnt(name, dir, ...)

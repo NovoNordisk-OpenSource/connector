@@ -84,7 +84,7 @@ list_content_cnt.default <- function(connector_object, ...) {
 #' @param name `r rd_connector_utils("name")`
 #' @param file `r rd_connector_utils("file")`
 #' @param ... `r rd_connector_utils("...")`
-#' @return [invisible] file.
+#' @return `r rd_connector_utils("inv_connector")`
 #' @export
 download_cnt <- function(connector_object, name, file = basename(name), ...) {
   UseMethod("download_cnt")
@@ -201,7 +201,7 @@ upload_directory_cnt.default <- function(connector_object, ...) {
 #' @param name [character] The name of the directory to download
 #' @param dir [character] Path to the directory to download to
 #' @param ... `r rd_connector_utils("...")`
-#' @return [invisible] dir.
+#' @return `r rd_connector_utils("inv_connector")`
 #' @export
 download_directory_cnt <- function(connector_object, name, dir = name, ...) {
   UseMethod("download_directory_cnt")

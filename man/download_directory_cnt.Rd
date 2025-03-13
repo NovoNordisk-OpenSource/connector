@@ -19,7 +19,7 @@ download_directory_cnt(connector_object, name, dir = name, ...)
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }
 \value{
-\link{invisible} dir.
+\link{invisible} connector_object.
 }
 \description{
 Generic implementing of how to download a directory for a connector.
