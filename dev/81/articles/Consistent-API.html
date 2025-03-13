@@ -94,95 +94,72 @@ interoperability between different connector packages.</p>
 <div class="section level2">
 <h2 id="methods-and-return-values">Methods and Return Values<a class="anchor" aria-label="anchor" href="#methods-and-return-values"></a>
 </h2>
-<p>Below is a table summarizing the methods, their return values, and
-explanations for each:</p>
+<p>Below is a table summarizing the methods and their return values:</p>
 <table class="table">
 <colgroup>
-<col width="22%">
-<col width="40%">
-<col width="37%">
+<col width="28%">
+<col width="71%">
 </colgroup>
 <thead><tr class="header">
 <th>Method</th>
 <th>Return Value</th>
-<th>Explanation</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
 <td><code><a href="../reference/read_cnt.html">read_cnt()</a></code></td>
 <td>Content of the file</td>
-<td>Returns the actual content of the file, allowing users to directly
-access and work with the data.</td>
 </tr>
 <tr class="even">
 <td><code><a href="../reference/write_cnt.html">write_cnt()</a></code></td>
 <td>
 <code>Connector</code> object</td>
-<td>Returns the <code>Connector</code> object to allow for method
-chaining and to confirm the write operation was completed.</td>
 </tr>
 <tr class="odd">
 <td><code><a href="../reference/list_content_cnt.html">list_content_cnt()</a></code></td>
 <td>Vector of items</td>
-<td>Provides a list of items (files/directories) in the current
-location, allowing users to explore the content structure.</td>
 </tr>
 <tr class="even">
 <td><code><a href="../reference/remove_cnt.html">remove_cnt()</a></code></td>
 <td>
 <code>Connector</code> object</td>
-<td>Returns the <code>Connector</code> object to allow for method
-chaining and to confirm the removal operation was completed.</td>
 </tr>
 <tr class="odd">
 <td><code><a href="../reference/download_cnt.html">download_cnt()</a></code></td>
-<td><code>file</code></td>
-<td>Returns the path to the downloaded file for immediate use</td>
+<td>
+<code>Connector</code> object</td>
 </tr>
 <tr class="even">
 <td><code><a href="../reference/upload_cnt.html">upload_cnt()</a></code></td>
 <td>
 <code>Connector</code> object</td>
-<td>Returns the <code>Connector</code> object to allow for method
-chaining and to confirm the upload operation was completed.</td>
 </tr>
 <tr class="odd">
 <td><code><a href="../reference/create_directory_cnt.html">create_directory_cnt()</a></code></td>
 <td>
 <code>Connector</code> object, if <code>open = TRUE</code>, then new
 <code>Connector</code> object</td>
-<td>Returns the current <code>Connector</code> object or a new one if
-the directory was opened, allowing for immediate use of the new
-directory.</td>
 </tr>
 <tr class="even">
 <td><code><a href="../reference/remove_directory_cnt.html">remove_directory_cnt()</a></code></td>
 <td>
 <code>Connector</code> object</td>
-<td>Returns the <code>Connector</code> object to allow for method
-chaining and to confirm the directory removal was completed.</td>
 </tr>
 <tr class="odd">
 <td><code><a href="../reference/upload_directory_cnt.html">upload_directory_cnt()</a></code></td>
 <td>
 <code>Connector</code> object, if <code>open = TRUE</code>, then new
 <code>Connector</code> object</td>
-<td>Returns the current <code>Connector</code> object or a new one if
-the directory was opened, allowing for immediate use of the uploaded
-directory.</td>
 </tr>
 <tr class="even">
 <td><code><a href="../reference/download_directory_cnt.html">download_directory_cnt()</a></code></td>
-<td><code>dir</code></td>
-<td>Returns the path to the downloaded directory allowing for immediate
-use</td>
+<td>
+<code>Connector</code> object</td>
 </tr>
 <tr class="odd">
 <td><code><a href="../reference/tbl_cnt.html">tbl_cnt()</a></code></td>
-<td>Content of the file (<code><a href="../reference/read_cnt.html">read_cnt()</a></code> or tibble for DBI)</td>
-<td>Returns the content in a tabular format, either as read by
-<code><a href="../reference/read_cnt.html">read_cnt()</a></code> or as a tibble (view) for database
-connections.</td>
+<td>Content of the table. Either <code><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">dplyr::tbl()</a></code> or from
+<code><a href="../reference/read_cnt.html">read_cnt()</a></code>
+</td>
 </tr>
 </tbody>
 </table>
@@ -194,24 +171,24 @@ connections.</td>
 <h3 id="read_cnt">
 <code>read_cnt()</code><a class="anchor" aria-label="anchor" href="#read_cnt"></a>
 </h3>
-<p>This method reads the content of a file and returns it directly. This
-allows users to immediately work with the data without additional
-steps.</p>
+<p>Reads the content of a file and returns it directly. This allows
+users to immediately work with the data without additional steps.</p>
 </div>
 <div class="section level3">
 <h3 id="write_cnt">
 <code>write_cnt()</code><a class="anchor" aria-label="anchor" href="#write_cnt"></a>
 </h3>
-<p>After writing content, this method returns the <code>Connector</code>
-object. This enables method chaining and provides confirmation that the
-write operation was successful.</p>
+<p>After writing content to the <code>Connector</code>, this method
+returns the <code>Connector</code> object. This enables method chaining
+and provides confirmation that the write operation was successful.</p>
 </div>
 <div class="section level3">
 <h3 id="list_content_cnt">
 <code>list_content_cnt()</code><a class="anchor" aria-label="anchor" href="#list_content_cnt"></a>
 </h3>
-<p>Returns a vector of items in the current location. This is useful for
-exploring the structure of the connected resource.</p>
+<p>Returns a <code>character</code> vector of items (files/directories)
+in the current <code>Connector</code> allowing users to explore the
+content structure.</p>
 </div>
 <div class="section level3">
 <h3 id="remove_cnt">
@@ -226,8 +203,7 @@ confirming the removal was successful.</p>
 <code>download_cnt()</code><a class="anchor" aria-label="anchor" href="#download_cnt"></a>
 </h3>
 <p>This method returns the <code>Connector</code> object after a
-download operation, enabling further actions and confirming the download
-was completed.</p>
+download operation to allow for method chaining.</p>
 </div>
 <div class="section level3">
 <h3 id="upload_cnt">
@@ -235,7 +211,7 @@ was completed.</p>
 </h3>
 <p>Similar to <code><a href="../reference/download_cnt.html">download_cnt()</a></code>, this returns the
 <code>Connector</code> object after an upload, allowing for method
-chaining and operation confirmation.</p>
+chaining.</p>
 </div>
 <div class="section level3">
 <h3 id="create_directory_cnt">
@@ -254,14 +230,29 @@ directory.</p>
 <code>Connector</code> object, allowing for further operations and
 confirming the removal was successful.</p>
 </div>
+</div>
+<div class="section level2">
+<h2 id="upload_directory_cnt">
+<code>upload_directory_cnt()</code><a class="anchor" aria-label="anchor" href="#upload_directory_cnt"></a>
+</h2>
+<p>Returns the current <code>Connector</code> object or a new one if the
+directory was opened (<code>open = TRUE</code>), allowing for immediate
+use of the uploaded directory.</p>
+</div>
+<div class="section level2">
+<h2 id="download_directory_cnt">
+<code>download_directory_cnt()</code><a class="anchor" aria-label="anchor" href="#download_directory_cnt"></a>
+</h2>
+<p>Returns the <code>Connector</code> object to allow for method
+chaining.</p>
 <div class="section level3">
 <h3 id="tbl_cnt">
 <code>tbl_cnt()</code><a class="anchor" aria-label="anchor" href="#tbl_cnt"></a>
 </h3>
 <p>This method returns the content of a file in a tabular format. For
 file-based connectors, it typically uses <code><a href="../reference/read_cnt.html">read_cnt()</a></code> to get
-the content. For database connections (DBI), it returns a tibble
-representation of the data.</p>
+the content. For database connections (<code>DBI</code>), it returns a
+<code><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">dplyr::tbl()</a></code> representation of the data.</p>
 </div>
 </div>
 <div class="section level2">
