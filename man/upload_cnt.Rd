@@ -5,9 +5,21 @@
 \alias{upload_cnt.ConnectorFS}
 \title{Upload content to the connector}
 \usage{
-upload_cnt(connector_object, file, name = basename(file), ...)
+upload_cnt(
+  connector_object,
+  file,
+  name = basename(file),
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+)
 
-\method{upload_cnt}{ConnectorFS}(connector_object, file, name = basename(file), ...)
+\method{upload_cnt}{ConnectorFS}(
+  connector_object,
+  file,
+  name = basename(file),
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+)
 }
 \arguments{
 \item{connector_object}{\link{Connector} The connector object to use.}
@@ -15,6 +27,8 @@ upload_cnt(connector_object, file, name = basename(file), ...)
 \item{file}{\link{character} Path to the file to download to or upload from}
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
+
+\item{overwrite}{Overwrite existing content if it exists in the connector?. Default: \code{FALSE}.}
 
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }
@@ -25,7 +39,7 @@ upload_cnt(connector_object, file, name = basename(file), ...)
 Generic implementing of how to upload files to a connector:
 
 \itemize{
-\item \link{ConnectorFS}: Uses \code{\link[=file.copy]{file.copy()}} to copy the \code{file} to the file storage.
+\item \link{ConnectorFS}: Uses \code{\link[fs:copy]{fs::file_copy()}} to copy the \code{file} to the file storage.
 }
 }
 \examples{
@@ -33,7 +47,8 @@ Generic implementing of how to upload files to a connector:
 
 writeLines("this is an example", "example.txt")
 
-cnt <- connector_fs(tempdir())
+folder <- withr::local_tempdir()
+cnt <- connector_fs(folder)
 
 cnt |>
   list_content_cnt(pattern = "example.txt")

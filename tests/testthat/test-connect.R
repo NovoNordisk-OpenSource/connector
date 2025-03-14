@@ -75,6 +75,10 @@ test_that("yaml config parsed correctly", {
       code = {
         Sys.unsetenv(c("RSQLite_db", "system_path"))
 
+        withr::local_options(
+          list(zephyr.verbosity_level = "verbose")
+        )
+
         yaml_file_env |>
           read_file(eval.expr = TRUE) |>
           assert_config() |>
@@ -126,11 +130,10 @@ testthat::test_that("Using and uptade metadata", {
 })
 
 test_that("Add logs to connectors object", {
-  # connector.logger needs to be installed to pass this test - if not available
+  # whirl needs to be installed to pass this test - if not available
   # then skip the test
   testthat::skip_if_not_installed("whirl")
 
-  # Don't test the logic of connector.logger because it is not the purpose of connector
   cnts <- connect(yaml_file, logging = TRUE)
 
   lapply(cnts, function(x) {

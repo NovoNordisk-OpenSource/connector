@@ -5,18 +5,18 @@
 \alias{create_directory_cnt.ConnectorFS}
 \title{Create a directory}
 \usage{
-create_directory_cnt(connector_object, name, ...)
+create_directory_cnt(connector_object, name, open = TRUE, ...)
 
-\method{create_directory_cnt}{ConnectorFS}(connector_object, name, ..., open = TRUE)
+\method{create_directory_cnt}{ConnectorFS}(connector_object, name, open = TRUE, ...)
 }
 \arguments{
 \item{connector_object}{\link{Connector} The connector object to use.}
 
 \item{name}{\link{character} The name of the directory to create}
 
-\item{...}{Additional arguments passed to the method for the individual connector.}
+\item{open}{\link{logical} Open the directory as a new connector object.}
 
-\item{open}{create a new connector object}
+\item{...}{Additional arguments passed to the method for the individual connector.}
 }
 \value{
 \link{invisible} connector_object.
@@ -26,13 +26,14 @@ Generic implementing of how to create a directory for a connector.
 Mostly relevant for file storage connectors.
 
 \itemize{
-\item \link{ConnectorFS}: Uses \code{\link[=dir.create]{dir.create()}} to create a directory at the path of the connector.
+\item \link{ConnectorFS}: Uses \code{\link[fs:create]{fs::dir_create()}} to create a directory at the path of the connector.
 }
 }
 \examples{
 # Create a directory in a file storage
 
-cnt <- connector_fs(tempdir())
+folder <- withr::local_tempdir()
+cnt <- connector_fs(folder)
 
 cnt |>
   list_content_cnt(pattern = "new_folder")

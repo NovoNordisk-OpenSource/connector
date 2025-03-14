@@ -129,7 +129,12 @@ R object with the content. For rectangular data a \link{data.frame}.
 \subsection{Method \code{write_cnt()}}{
 Write content to the connector.See also \link{write_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{Connector$write_cnt(x, name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{Connector$write_cnt(
+  x,
+  name,
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
@@ -138,6 +143,8 @@ Write content to the connector.See also \link{write_cnt}.
 \item{\code{x}}{The object to write to the connection}
 
 \item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
+
+\item{\code{overwrite}}{\link{logical} Overwrite existing content if it exists.}
 
 \item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }

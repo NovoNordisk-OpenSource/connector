@@ -5,12 +5,19 @@
 #' to a connector. The function is a wrapper around `write_ext()` where the appropriate
 #' function to write the file is chosen depending on the file extension.
 #'
+#' @details
+#' Note that `write_file()` will not overwrite existing files unless `overwrite = TRUE`,
+#' while all methods for `write_ext()` will overwrite existing files by default.
+#'
 #' @param x Object to write
-#' @param file [character()] Path to write the file
+#' @param file [character()] Path to write the file.
+#' @param overwrite [logical] Overwrite existing content if it exists.
 #' @param ... Other parameters passed on the functions behind the methods for each file extension.
 #' @return `write_file()`: [invisible()] file.
 #' @export
-write_file <- function(x, file, ...) {
+write_file <- function(x, file, overwrite = FALSE, ...) {
+  check_file_exists(file, overwrite, ...)
+
   find_ext <- tools::file_ext(file) |>
     assert_ext("write_ext")
 
@@ -19,6 +26,18 @@ write_file <- function(x, file, ...) {
   write_ext(file, x, ...)
 
   return(invisible(file))
+}
+
+#' Checks if a file already exists.
+#' Some readr functions allows append, which is why it is included in the check as well
+#' @noRd
+check_file_exists <- function(file, overwrite, ..., .envir = parent.frame()) {
+  if (fs::file_exists(file) && !overwrite && !isTRUE(rlang::list2(...)[["append"]])) {
+    cli::cli_abort(
+      "File {.file {file}} already exists. Use {.code overwrite = TRUE} to overwrite.",
+      .envir = .envir
+    )
+  }
 }
 
 #' @description
