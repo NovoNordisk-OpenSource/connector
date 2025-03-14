@@ -25,7 +25,7 @@ add_metadata <- function(config_path, key, value) {
 
   config <- read_file(config_path, eval.expr = TRUE)
   config$metadata[[key]] <- value
-  write_file(config, config_path)
+  write_file(x = config, file = config_path, overwrite = TRUE)
   return(config)
 }
 
@@ -57,7 +57,7 @@ remove_metadata <- function(config_path, key) {
 
   config <- read_file(config_path, eval.expr = TRUE)
   config$metadata[[key]] <- NULL
-  write_file(config, config_path)
+  write_file(x = config, file = config_path, overwrite = TRUE)
   return(config)
 }
 
@@ -103,7 +103,7 @@ add_datasource <- function(config_path, name, backend) {
     backend = backend
   )
   config$datasources <- c(config$datasources, list(new_datasource))
-  write_file(config, config_path)
+  write_file(x = config, file = config_path, overwrite = TRUE)
   return(config)
 }
 
@@ -146,6 +146,6 @@ remove_datasource <- function(config_path, name) {
 
   config <- read_file(config_path, eval.expr = TRUE)
   config$datasources <- config$datasources[!(sapply(config$datasources, function(x) x$name) == name)]
-  write_file(config, config_path)
+  write_file(x = config, file = config_path, overwrite = TRUE)
   return(config)
 }

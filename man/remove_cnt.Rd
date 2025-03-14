@@ -30,7 +30,7 @@ Generic implementing of how to remove content from different connectors:
 }
 
 \itemize{
-\item \link{ConnectorFS}: Uses \code{\link[=unlink]{unlink()}} to delete the file.
+\item \link{ConnectorFS}: Uses \code{\link[fs:delete]{fs::file_delete()}} to delete the file.
 }
 }
 \examples{
@@ -46,7 +46,9 @@ cnt |>
   list_content_cnt()
 
 # Remove a file from the file storage
-cnt <- connector_fs(tempdir())
+
+folder <- withr::local_tempdir()
+cnt <- connector_fs(folder)
 
 cnt |>
   write_cnt("this is an example", "example.txt")

@@ -24,39 +24,43 @@ We realized it might be confusing for users to understand which method returns w
 
 ## Methods and Return Values
 
-Below is a table summarizing the methods, their return values, and explanations for each:
+Below is a table summarizing the methods and their return values:
 
-| Method | Return Value | Explanation |
-|--------|--------------|-------------|
-| `read_cnt()` | Content of the file | Returns the actual content of the file, allowing users to directly access and work with the data. |
-| `write_cnt()` | `Connector` object | Returns the `Connector` object to allow for method chaining and to confirm the write operation was completed. |
-| `list_content_cnt()` | Vector of items | Provides a list of items (files/directories) in the current location, allowing users to explore the content structure. |
-| `remove_cnt()` | `Connector` object | Returns the `Connector` object to allow for method chaining and to confirm the removal operation was completed. |
-| `download_cnt()` | `Connector` object | Returns the `Connector` object to allow for method chaining and to confirm the download operation was completed. |
-| `upload_cnt()` | `Connector` object | Returns the `Connector` object to allow for method chaining and to confirm the upload operation was completed. |
-| `create_directory_cnt()` | `Connector` object, if `open = TRUE`, then new `Connector` object | Returns the current `Connector` object or a new one if the directory was opened, allowing for immediate use of the new directory. |
-| `remove_directory_cnt()` | `Connector` object | Returns the `Connector` object to allow for method chaining and to confirm the directory removal was completed. |
-| `tbl_cnt()` | Content of the file (`read_cnt()` or tibble for DBI) | Returns the content in a tabular format, either as read by `read_cnt()` or as a tibble (view) for database connections. |
+| Method                    | Return Value                                                      |
+|---------------------------|-------------------------------------------------------------------|
+| `read_cnt()`              | Content of the file                                               | 
+| `write_cnt()`             | `Connector` object                                                |
+| `list_content_cnt()`      | Vector of items                                                   |
+| `remove_cnt()`            | `Connector` object                                                |
+| `download_cnt()`          | `Connector` object                                                |
+| `upload_cnt()`            | `Connector` object                                                |
+| `create_directory_cnt()`  | `Connector` object, if `open = TRUE`, then new `Connector` object |
+| `remove_directory_cnt()`  | `Connector` object                                                |
+| `upload_directory_cnt()`  | `Connector` object, if `open = TRUE`, then new `Connector` object |
+| `download_directory_cnt()`| `Connector` object                                                |
+| `tbl_cnt()`               | Content of the table. Either `dplyr::tbl()` or from `read_cnt()`  |
 
 ## Detailed Explanations
 
 ### `read_cnt()`
-This method reads the content of a file and returns it directly. This allows users to immediately work with the data without additional steps.
+Reads the content of a file and returns it directly. 
+This allows users to immediately work with the data without additional steps.
 
 ### `write_cnt()`
-After writing content, this method returns the `Connector` object. This enables method chaining and provides confirmation that the write operation was successful.
+After writing content to the `Connector`, this method returns the `Connector` object. 
+This enables method chaining and provides confirmation that the write operation was successful.
 
 ### `list_content_cnt()`
-Returns a vector of items in the current location. This is useful for exploring the structure of the connected resource.
-
+Returns a `character` vector of items (files/directories) in the current `Connector` allowing users to explore the content structure.
+ 
 ### `remove_cnt()`
 After removing a file or item, this method returns the `Connector` object, allowing for further operations and confirming the removal was successful.
 
 ### `download_cnt()`
-This method returns the `Connector` object after a download operation, enabling further actions and confirming the download was completed.
+This method returns the `Connector` object after a download operation to allow for method chaining.
 
 ### `upload_cnt()`
-Similar to `download_cnt()`, this returns the `Connector` object after an upload, allowing for method chaining and operation confirmation.
+Similar to `download_cnt()`, this returns the `Connector` object after an upload, allowing for method chaining.
 
 ### `create_directory_cnt()`
 This method returns the `Connector` object. If the `open` parameter is set to `TRUE`, it returns a new `Connector` object pointing to the newly created directory.
@@ -64,8 +68,16 @@ This method returns the `Connector` object. If the `open` parameter is set to `T
 ### `remove_directory_cnt()`
 After removing a directory, this method returns the `Connector` object, allowing for further operations and confirming the removal was successful.
 
+## `upload_directory_cnt()` 
+Returns the current `Connector` object or a new one if the directory was opened (`open = TRUE`), allowing for immediate use of the uploaded directory.
+
+## `download_directory_cnt()`
+Returns the `Connector` object to allow for method chaining.
+
 ### `tbl_cnt()`
-This method returns the content of a file in a tabular format. For file-based connectors, it typically uses `read_cnt()` to get the content. For database connections (DBI), it returns a tibble representation of the data.
+This method returns the content of a file in a tabular format. 
+For file-based connectors, it typically uses `read_cnt()` to get the content. 
+For database connections (`DBI`), it returns a `dplyr::tbl()` representation of the data.
 
 ## Conclusion
 

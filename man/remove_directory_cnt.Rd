@@ -24,13 +24,14 @@ Generic implementing of how to remove a directory for a connector.
 Mostly relevant for file storage connectors.
 
 \itemize{
-\item \link{ConnectorFS}: Uses \code{\link[=unlink]{unlink()}} with \code{recursive = TRUE} to remove a directory at the path of the connector.
+\item \link{ConnectorFS}: Uses \code{\link[fs:delete]{fs::dir_delete()}} to remove a directory at the path of the connector.
 }
 }
 \examples{
 # Remove a directory from a file storage
 
-cnt <- connector_fs(tempdir())
+folder <- withr::local_tempdir()
+cnt <- connector_fs(folder)
 
 cnt |>
   create_directory_cnt("new_folder")

@@ -10,7 +10,9 @@ rd_connector_utils <- function(param) {
     "extra_class" = "[character] Extra class to assign to the new connector.",
     "connector_object" = "[Connector] The connector object to use.",
     "inv_self" = "[invisible] self.",
-    "inv_connector" = "[invisible] connector_object."
+    "inv_connector" = "[invisible] connector_object.",
+    "overwrite" = "[logical] Overwrite existing content if it exists.",
+    "open" = "[logical] Open the directory as a new connector object."
   )
   x[[param]]
 }

@@ -41,17 +41,14 @@ for (i in seq_along(specs)) {
     cnt$write_cnt(x, "mtcars") |>
       expect_no_condition()
 
-    cnt$write_cnt(x, "mtcars") |>
-      expect_no_condition()
+    cnt$write_cnt(x, "mtcars", overwrite = FALSE) |>
+      expect_error()
 
     cnt$list_content_cnt() |>
       expect_equal("mtcars")
 
     cnt$read_cnt("mtcars") |>
       expect_equal(x)
-
-    cnt$write_cnt(x, "mtcars", overwrite = FALSE) |>
-      expect_error()
 
     cnt$tbl_cnt("mtcars") |>
       dplyr::filter(car == "Mazda RX4") |>

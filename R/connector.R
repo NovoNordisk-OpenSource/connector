@@ -10,6 +10,7 @@
 #' @param x `r rd_connector_utils("x")`
 #' @param ... `r rd_connector_utils("...")`
 #' @param extra_class `r rd_connector_utils("extra_class")`
+#' @param overwrite `r rd_connector_utils("overwrite")`
 #'
 #' @seealso `vignette("customize")` on how to create custom connectors and methods,
 #' and concrete examples in [ConnectorFS] and [ConnectorDBI].
@@ -82,7 +83,7 @@ Connector <- R6::R6Class(
     #' @description
     #' Write content to the connector.See also [write_cnt].
     #' @return `r rd_connector_utils("inv_self")`
-    write_cnt = function(x, name, ...) {
+    write_cnt = function(x, name, overwrite = zephyr::get_option("overwrite", "connector"), ...) {
       self |>
         write_cnt(x, name, ...)
     },

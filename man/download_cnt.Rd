@@ -19,18 +19,21 @@ download_cnt(connector_object, name, file = basename(name), ...)
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }
 \value{
-\link{invisible} file.
+\link{invisible} connector_object.
 }
 \description{
 Generic implementing of how to download files from a connector:
 
 \itemize{
-\item \link{ConnectorFS}: Uses \code{\link[=file.copy]{file.copy()}} to copy a file from the file storage to the desired \code{file}.
+\item \link{ConnectorFS}: Uses \code{\link[fs:copy]{fs::file_copy()}} to copy a file from the file storage
+to the desired \code{file}.
 }
 }
 \examples{
 # Download file from a file storage
-cnt <- connector_fs(tempdir())
+
+folder <- withr::local_tempdir()
+cnt <- connector_fs(folder)
 
 cnt |>
   write_cnt("this is an example", "example.txt")

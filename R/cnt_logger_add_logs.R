@@ -14,8 +14,7 @@
 #' @details
 #' The function performs the following steps:
 #' 1. Checks if the input `connections` is of class "connectors".
-#' 2. Registers the S3 methods for logging using `connector.logger::cnt_logger_S3_register()`.
-#' 3. Iterates through each connection in the list and prepends the "ConnectorLogger" class.
+#' 1. Iterates through each connection in the list and prepends the "ConnectorLogger" class.
 #'
 #' @examplesIf FALSE
 #' logged_connections <- add_logs(my_connections)

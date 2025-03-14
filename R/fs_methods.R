@@ -5,7 +5,9 @@
 #'
 #' @examples
 #' # Write and read a CSV file using the file storage connector
-#' cnt <- connector_fs(tempdir())
+#'
+#' folder <- withr::local_tempdir()
+#' cnt <- connector_fs(folder)
 #'
 #' cnt |>
 #'   write_cnt(iris, "iris.csv")
@@ -29,7 +31,9 @@ read_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #'
 #' @examples
 #' # Write different file types to a file storage
-#' cnt <- connector_fs(tempdir())
+#'
+#' folder <- withr::local_tempdir()
+#' cnt <- connector_fs(folder)
 #'
 #' cnt |>
 #'   list_content_cnt(pattern = "iris")
@@ -47,7 +51,12 @@ read_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #'
 #' @rdname write_cnt
 #' @export
-write_cnt.ConnectorFS <- function(connector_object, x, name, ...) {
+write_cnt.ConnectorFS <- function(
+    connector_object,
+    x,
+    name,
+    overwrite = zephyr::get_option("overwrite", "connector"),
+    ...) {
   file <- file.path(connector_object$path, name)
   write_file(
     x,
@@ -82,11 +91,13 @@ list_content_cnt.ConnectorFS <- function(connector_object, ...) {
 }
 
 #' @description
-#' * [ConnectorFS]: Uses [unlink()] to delete the file.
+#' * [ConnectorFS]: Uses [fs::file_delete()] to delete the file.
 #'
 #' @examples
 #' # Remove a file from the file storage
-#' cnt <- connector_fs(tempdir())
+#'
+#' folder <- withr::local_tempdir()
+#' cnt <- connector_fs(folder)
 #'
 #' cnt |>
 #'   write_cnt("this is an example", "example.txt")
@@ -111,7 +122,7 @@ remove_cnt.ConnectorFS <- function(connector_object, name, ...) {
     name
   )
 
-  unlink(path, ...)
+  fs::file_delete(path = path)
 
   return(
     invisible(connector_object)
@@ -119,11 +130,14 @@ remove_cnt.ConnectorFS <- function(connector_object, name, ...) {
 }
 
 #' @description
-#' * [ConnectorFS]: Uses [file.copy()] to copy a file from the file storage to the desired `file`.
+#' * [ConnectorFS]: Uses [fs::file_copy()] to copy a file from the file storage
+#' to the desired `file`.
 #'
 #' @examples
 #' # Download file from a file storage
-#' cnt <- connector_fs(tempdir())
+#'
+#' folder <- withr::local_tempdir()
+#' cnt <- connector_fs(folder)
 #'
 #' cnt |>
 #'   write_cnt("this is an example", "example.txt")
@@ -147,7 +161,8 @@ download_cnt.ConnectorFS <- function(
     file = basename(name),
     ...) {
   name <- file.path(connector_object$path, name)
-  file.copy(from = name, to = file, ...)
+
+  fs::file_copy(path = name, new_path = file, ...)
 
   return(
     invisible(connector_object)
@@ -155,14 +170,15 @@ download_cnt.ConnectorFS <- function(
 }
 
 #' @description
-#' * [ConnectorFS]: Uses [file.copy()] to copy the `file` to the file storage.
+#' * [ConnectorFS]: Uses [fs::file_copy()] to copy the `file` to the file storage.
 #'
 #' @examples
 #' # Upload file to a file storage
 #'
 #' writeLines("this is an example", "example.txt")
 #'
-#' cnt <- connector_fs(tempdir())
+#' folder <- withr::local_tempdir()
+#' cnt <- connector_fs(folder)
 #'
 #' cnt |>
 #'   list_content_cnt(pattern = "example.txt")
@@ -184,10 +200,11 @@ upload_cnt.ConnectorFS <- function(
     connector_object,
     file,
     name = basename(file),
+    overwrite = zephyr::get_option("overwrite", "connector"),
     ...) {
   name <- file.path(connector_object$path, name)
 
-  file.copy(from = file, to = name, ...)
+  fs::file_copy(path = file, new_path = name, overwrite = overwrite)
 
   return(
     invisible(connector_object)
@@ -195,14 +212,12 @@ upload_cnt.ConnectorFS <- function(
 }
 
 #' @description
-#' * [ConnectorFS]: Uses [dir.create()] to create a directory at the path of the connector.
-#'
-#' @param open create a new connector object
-#'
+#' * [ConnectorFS]: Uses [fs::dir_create()] to create a directory at the path of the connector.
 #' @examples
 #' # Create a directory in a file storage
 #'
-#' cnt <- connector_fs(tempdir())
+#' folder <- withr::local_tempdir()
+#' cnt <- connector_fs(folder)
 #'
 #' cnt |>
 #'   list_content_cnt(pattern = "new_folder")
@@ -222,14 +237,17 @@ upload_cnt.ConnectorFS <- function(
 create_directory_cnt.ConnectorFS <- function(
     connector_object,
     name,
-    ...,
-    open = TRUE) {
+    open = TRUE,
+    ...) {
   path <- file.path(connector_object$path, name)
-  dir.create(path = path, ...)
 
-  # create a new connector object from the new path
+  fs::dir_create(path = path, ...)
+
+  # create a new connector object from the new path with persistent extra class
   if (open) {
-    connector_object <- ConnectorFS$new(path)
+    extra_class <- class(connector_object)
+    extra_class <- utils::head(extra_class, which(extra_class == "ConnectorFS") - 1)
+    connector_object <- connector_fs(path, extra_class)
   }
 
   return(
@@ -238,12 +256,13 @@ create_directory_cnt.ConnectorFS <- function(
 }
 
 #' @description
-#' * [ConnectorFS]: Uses [unlink()] with `recursive = TRUE` to remove a directory at the path of the connector.
+#' * [ConnectorFS]: Uses [fs::dir_delete()] to remove a directory at the path of the connector.
 #'
 #' @examples
 #' # Remove a directory from a file storage
 #'
-#' cnt <- connector_fs(tempdir())
+#' folder <- withr::local_tempdir()
+#' cnt <- connector_fs(folder)
 #'
 #' cnt |>
 #'   create_directory_cnt("new_folder")
@@ -263,7 +282,50 @@ remove_directory_cnt.ConnectorFS <- function(connector_object, name, ...) {
     name
   )
 
-  unlink(x = path, recursive = TRUE, ...)
+  fs::dir_delete(path = path)
+
+  return(
+    invisible(connector_object)
+  )
+}
+
+#' @description
+#' * [ConnectorFS]: Uses [fs::dir_copy()].
+#'
+#' @rdname upload_directory_cnt
+#' @export
+upload_directory_cnt.ConnectorFS <- function(
+    connector_object,
+    dir,
+    name,
+    overwrite = zephyr::get_option("overwrite", "connector"),
+    open = FALSE,
+    ...) {
+  name <- file.path(connector_object$path, name)
+
+  fs::dir_copy(path = dir, new_path = name, overwrite = overwrite)
+
+  # create a new connector object from the new path with persistent extra class
+  if (open) {
+    extra_class <- class(connector_object)
+    extra_class <- utils::head(extra_class, which(extra_class == "ConnectorFS") - 1)
+    connector_object <- connector_fs(name, extra_class)
+  }
+
+  return(
+    invisible(connector_object)
+  )
+}
+
+#' @description
+#' * [ConnectorFS]: Uses [fs::dir_copy()].
+#'
+#' @rdname download_directory_cnt
+#' @export
+download_directory_cnt.ConnectorFS <- function(connector_object, name, dir = basename(name), ...) {
+  name <- file.path(connector_object$path, name)
+
+  fs::dir_copy(path = name, new_path = dir, ...)
 
   return(
     invisible(connector_object)
@@ -275,7 +337,9 @@ remove_directory_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #'
 #' @examples
 #' # Use dplyr verbs on a table
-#' cnt <- connector_fs(tempdir())
+#'
+#' folder <- withr::local_tempdir()
+#' cnt <- connector_fs(folder)
 #'
 #' cnt |>
 #'   write_cnt(iris, "iris.csv")

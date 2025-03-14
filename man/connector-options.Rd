@@ -14,4 +14,14 @@ See \link[zephyr:verbosity_level]{zephyr::verbosity_level} for details.
 \item Environment: \code{R_CONNECTOR_VERBOSITY_LEVEL}
 }
 }
+
+\subsection{overwrite}{
+
+Overwrite existing content if it exists in the connector?
+\itemize{
+\item Default: \code{FALSE}
+\item Option: \code{connector.overwrite}
+\item Environment: \code{R_CONNECTOR_OVERWRITE}
+}
+}
 }

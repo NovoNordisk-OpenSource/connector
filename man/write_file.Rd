@@ -13,7 +13,7 @@
 \alias{write_ext.xlsx}
 \title{Write files based on the extension}
 \usage{
-write_file(x, file, ...)
+write_file(x, file, overwrite = FALSE, ...)
 
 write_ext(file, x, ...)
 
@@ -36,7 +36,9 @@ write_ext(file, x, ...)
 \arguments{
 \item{x}{Object to write}
 
-\item{file}{\code{\link[=character]{character()}} Path to write the file}
+\item{file}{\code{\link[=character]{character()}} Path to write the file.}
+
+\item{overwrite}{\link{logical} Overwrite existing content if it exists.}
 
 \item{...}{Other parameters passed on the functions behind the methods for each file extension.}
 
@@ -85,6 +87,10 @@ function to write the file is chosen depending on the file extension.
 \itemize{
 \item \code{excel}: \code{\link[writexl:write_xlsx]{writexl::write_xlsx()}}
 }
+}
+\details{
+Note that \code{write_file()} will not overwrite existing files unless \code{overwrite = TRUE},
+while all methods for \code{write_ext()} will overwrite existing files by default.
 }
 \examples{
 # Write CSV file

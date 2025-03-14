@@ -56,11 +56,13 @@ connector_fs <- function(path, extra_class = NULL) {
 #'
 #' @examples
 #' # Create file storage connector
-#' cnt <- ConnectorFS$new(tempdir())
+#'
+#' folder <- withr::local_tempdir()
+#' cnt <- ConnectorFS$new(folder)
 #' cnt
 #'
 #' # You can do the same thing using wrapper function connector_fs()
-#' cnt <- connector_fs(tempdir())
+#' cnt <- connector_fs(folder)
 #' cnt
 #'
 #' # List content
@@ -94,7 +96,7 @@ ConnectorFS <- R6::R6Class(
     #' @description
     #' Download content from the file storage.
     #' See also [download_cnt].
-    #' @return [invisible] `file`
+    #' @return `r rd_connector_utils("inv_connector")`
     download_cnt = function(name, file = basename(name), ...) {
       self |>
         download_cnt(name, file, ...)
@@ -127,6 +129,28 @@ ConnectorFS <- R6::R6Class(
     remove_directory_cnt = function(name, ...) {
       self |>
         remove_directory_cnt(name, ...)
+    },
+
+    #' @description
+    #' Upload a directory to the file storage.
+    #' See also [upload_directory_cnt].
+    #' @param dir [character] The path to the directory to upload
+    #' @param name [character] The name of the directory to create
+    #' @return `r rd_connector_utils("inv_self")`
+    upload_directory_cnt = function(dir, name = basename(dir), ...) {
+      self |>
+        upload_directory_cnt(dir, name, ...)
+    },
+
+    #' @description
+    #' Download a directory from the file storage.
+    #' See also [download_directory_cnt].
+    #' @param name [character] The name of the directory to download
+    #' @param dir [character] The path to the directory to download
+    #' @return `r rd_connector_utils("inv_connector")`
+    download_directory_cnt = function(name, dir = name, ...) {
+      self |>
+        download_directory_cnt(name, dir, ...)
     },
 
     #' @description
