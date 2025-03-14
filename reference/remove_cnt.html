@@ -5,7 +5,7 @@ ConnectorDBI: Uses DBI::dbRemoveTable() to remove the table from a DBI connectio
 
 
 
-ConnectorFS: Uses unlink() to delete the file.
+ConnectorFS: Uses fs::file_delete() to delete the file.
 
 "><meta property="og:description" content="Generic implementing of how to remove content from different connectors:
 
@@ -13,7 +13,7 @@ ConnectorDBI: Uses DBI::dbRemoveTable() to remove the table from a DBI connectio
 
 
 
-ConnectorFS: Uses unlink() to delete the file.
+ConnectorFS: Uses fs::file_delete() to delete the file.
 
 "><meta property="og:image" content="https://novonordisk-opensource.github.io/connector/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -23,7 +23,7 @@ ConnectorFS: Uses unlink() to delete the file.
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,7 +57,7 @@ ConnectorFS: Uses unlink() to delete the file.
     <div class="ref-description section level2">
     <p>Generic implementing of how to remove content from different connectors:</p>
 <ul><li><p><a href="ConnectorDBI.html">ConnectorDBI</a>: Uses <code><a href="https://dbi.r-dbi.org/reference/dbRemoveTable.html" class="external-link">DBI::dbRemoveTable()</a></code> to remove the table from a DBI connection.</p></li>
-</ul><ul><li><p><a href="ConnectorFS.html">ConnectorFS</a>: Uses <code><a href="https://rdrr.io/r/base/unlink.html" class="external-link">unlink()</a></code> to delete the file.</p></li>
+</ul><ul><li><p><a href="ConnectorFS.html">ConnectorFS</a>: Uses <code><a href="https://fs.r-lib.org/reference/delete.html" class="external-link">fs::file_delete()</a></code> to delete the file.</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -108,20 +108,25 @@ ConnectorFS: Uses unlink() to delete the file.
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Remove a file from the file storage</span></span></span>
-<span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connector_fs.html">connector_fs</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connector_fs.html">connector_fs</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="st">"this is an example"</span>, <span class="st">"example.txt"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Cannot open file for writing:</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/RtmpjTY5Lr/file1e2913788bf2/example.txt'</span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"example.txt"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "example.txt"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"example.txt"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "this is an example"</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in find_file(name, root = connector_object$path):</span> No file found or multiple files found with the same name</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">remove_cnt</span><span class="op">(</span><span class="st">"example.txt"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to remove '/tmp/RtmpjTY5Lr/file1e2913788bf2/example.txt': no such file or directory</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"example.txt"</span><span class="op">)</span></span></span>

@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.8.9001</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -146,6 +146,7 @@ that the path has been assigned correctly based on the
 <span><span class="co">#&gt; Registered methods:</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `create_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `download_cnt.ConnectorFS()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `download_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `list_content_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_read_connector.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_remove_connector.ConnectorFS()`</span></span>
@@ -155,9 +156,10 @@ that the path has been assigned correctly based on the
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `remove_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `tbl_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.ConnectorFS()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpWdhCC8/file26891405b367/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpzEr7lc/file23082d29c24e/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> project: my_project</span></span></code></pre></div>
 <p>We can now use this <code>connector</code> to read and write data,
 just as we would with <code>ConnectorFS</code>:</p>
@@ -199,7 +201,7 @@ class.</p>
 <span><span class="co">#&gt; {</span></span>
 <span><span class="co">#&gt;     UseMethod("list_content_cnt")</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x5578d9047c30&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x555cc4eb7d18&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:connector&gt;</span></span>
 <span></span>
 <span><span class="co"># List the registered s3 methods</span></span>
@@ -240,6 +242,7 @@ associated with the <code>connector_project</code> class:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `list_content_cnt.connector_project()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `create_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `download_cnt.ConnectorFS()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `download_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_read_connector.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_remove_connector.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_write_connector.ConnectorFS()`</span></span>
@@ -248,9 +251,10 @@ associated with the <code>connector_project</code> class:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `remove_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `tbl_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.ConnectorFS()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpWdhCC8/file26891405b367/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpzEr7lc/file23082d29c24e/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> project: my_project</span></span></code></pre></div>
 <p>And when we use <code><a href="../reference/list_content_cnt.html">list_content_cnt()</a></code> on our
 <code>my_project</code> object, we see that the custom method is used
@@ -286,6 +290,7 @@ with the extra class <code>demo_extra</code>:</p>
 <span><span class="co">#&gt; Registered methods:</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `create_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `download_cnt.ConnectorFS()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `download_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `list_content_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_read_connector.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_remove_connector.ConnectorFS()`</span></span>
@@ -295,9 +300,10 @@ with the extra class <code>demo_extra</code>:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `remove_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `tbl_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.ConnectorFS()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpWdhCC8/file26891405b367/my_root_path/my_project</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpzEr7lc/file23082d29c24e/my_root_path/my_project</span></span></code></pre></div>
 <p>As you can see here we have all the methods from
 <code>ConnectorFS</code>, but the <code>demo_extra</code> is now the
 first class in the class hierarchy.</p>
@@ -327,6 +333,7 @@ print the path instead, but otherwise everything is the same:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `list_content_cnt.my_extra_class()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `create_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `download_cnt.ConnectorFS()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `download_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_read_connector.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_remove_connector.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `log_write_connector.ConnectorFS()`</span></span>
@@ -335,14 +342,15 @@ print the path instead, but otherwise everything is the same:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `remove_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `tbl_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_cnt.ConnectorFS()`</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpWdhCC8/file26891405b367/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpzEr7lc/file23082d29c24e/my_root_path/my_project</span></span>
 <span></span>
 <span><span class="co"># List content to see the new message</span></span>
 <span><span class="va">my_project_extra</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; → Listing content of /tmp/RtmpWdhCC8/file26891405b367/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; → Listing content of /tmp/RtmpzEr7lc/file23082d29c24e/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; [1] "my_file.txt"</span></span></code></pre></div>
 </div>
 <div class="section level2">
