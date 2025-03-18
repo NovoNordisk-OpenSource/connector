@@ -115,7 +115,7 @@ ConnectorFS: Uses fs::file_copy() to copy the file to the file storage.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">upload_cnt</span><span class="op">(</span><span class="st">"example.txt"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to copy 'example.txt' to '/tmp/Rtmp4xTXal/file1e212a7c3371/example.txt': no such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to copy 'example.txt' to '/tmp/RtmpbIqPzO/file1ddc3238736/example.txt': no such file or directory</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"example.txt"</span><span class="op">)</span></span></span>
@@ -123,7 +123,7 @@ ConnectorFS: Uses fs::file_copy() to copy the file to the file storage.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="remove_cnt.html">remove_cnt</a></span><span class="op">(</span><span class="st">"example.txt"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to remove '/tmp/Rtmp4xTXal/file1e212a7c3371/example.txt': no such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to remove '/tmp/RtmpbIqPzO/file1ddc3238736/example.txt': no such file or directory</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="st">"example.txt"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [1] TRUE</span>
