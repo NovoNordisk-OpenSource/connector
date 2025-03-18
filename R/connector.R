@@ -83,7 +83,7 @@ Connector <- R6::R6Class(
     #' @description
     #' Write content to the connector.See also [write_cnt].
     #' @return `r rd_connector_utils("inv_self")`
-    write_cnt = function(x, name, overwrite = zephyr::get_option("overwrite", "connector"), ...) {
+    write_cnt = function(x, name, ...) {
       self |>
         write_cnt(x, name, ...)
     },
