@@ -4,6 +4,7 @@
 * Add zephyr and remove options package.
 * Fix pkgdown problems with `Connector` class.
 * Added `upload_directory_cnt()` and `download_directory_cnt()` generics relevant for `ConnectorFS`.
+* Remove `overwrite` option from `Connector` `write_cnt()` class method.
 
 # connector 0.0.8
 
