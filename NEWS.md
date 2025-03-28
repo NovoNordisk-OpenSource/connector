@@ -1,6 +1,9 @@
 # connector dev
 
+# connector 0.0.9
+
 ## Enhancements
+* Fix yaml dependency and xlsm extension
 * Add zephyr and remove options package.
 * Fix pkgdown problems with `Connector` class.
 * Added `upload_directory_cnt()` and `download_directory_cnt()` generics relevant for `ConnectorFS`.

@@ -1,6 +1,6 @@
 Package: connector
 Title: Connect to your data easily
-Version: 0.0.8.9002
+Version: 0.0.9
 Authors@R: c(
     person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
     person("Aksel", "Thomsen", , "oath@novonordisk.com", role = "aut"),
@@ -30,6 +30,7 @@ Imports:
     utils,
     vroom,
     writexl,
+    yaml,
     zephyr (>= 0.1.1)
 Suggests:
     dbplyr,
@@ -39,7 +40,6 @@ Suggests:
     RSQLite,
     testthat (>= 3.0.0),
     withr,
-    yaml,
     ggplot2,
     whirl (>= 0.1.8.9000),
     tibble
