@@ -142,3 +142,6 @@ read_ext.xlsx <- function(path, ...) {
 
 #' @export
 read_ext.xls <- read_ext.xlsx
+
+#' @export
+read_ext.xlsm <- read_ext.xlsx
