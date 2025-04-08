@@ -79,11 +79,8 @@ remove_metadata <- function(config_path, key) {
 #' # Add a new datasource
 #' # Define the backend as a named list
 #' new_backend <- list(
-#'   type = "connector_jdbc",
-#'   driver = "org.postgresql.Driver",
-#'   url = "jdbc:postgresql://localhost:5432/mydatabase",
-#'   user = "username",
-#'   password = "password"
+#'   type = "connector_fs",
+#'   path = "test"
 #' )
 #'
 #' # Add a new datasource with the defined backend
@@ -124,11 +121,8 @@ add_datasource <- function(config_path, name, backend) {
 #' # Add a new datasource
 #' # Define the backend as a named list
 #' new_backend <- list(
-#'   type = "connector_jdbc",
-#'   driver = "org.postgresql.Driver",
-#'   url = "jdbc:postgresql://localhost:5432/mydatabase",
-#'   user = "username",
-#'   password = "password"
+#'   type = "connector_fs",
+#'   path = "test"
 #' )
 #'
 #' # Add a new datasource with the defined backend
@@ -145,7 +139,9 @@ remove_datasource <- function(config_path, name) {
   checkmate::assert_string(name)
 
   config <- read_file(config_path, eval.expr = TRUE)
-  config$datasources <- config$datasources[!(sapply(config$datasources, function(x) x$name) == name)]
+  config$datasources <- config$datasources[
+    !(sapply(config$datasources, function(x) x$name) == name)
+  ]
   write_file(x = config, file = config_path, overwrite = TRUE)
   return(config)
 }

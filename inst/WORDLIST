@@ -208,6 +208,7 @@ purrr
 Qbt
 RACEGR
 RANDDT
+rdname
 README
 readr
 readxl
@@ -243,6 +244,7 @@ STUDYID
 SUBJID
 sublicense
 suffixe
+summarise
 Sys
 tB
 tempdir

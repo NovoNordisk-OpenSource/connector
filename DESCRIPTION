@@ -33,6 +33,7 @@ Imports:
     yaml,
     zephyr (>= 0.1.1)
 Suggests:
+    spelling,
     dbplyr,
     knitr,
     rmarkdown,
@@ -51,3 +52,4 @@ Roxygen: list(markdown = TRUE, r6 = TRUE)
 RoxygenNote: 7.3.2
 Remotes: 
     novonordisk-opensource/whirl
+Language: en-US

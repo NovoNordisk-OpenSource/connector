@@ -29,7 +29,9 @@ add_datasource <- function(config_path, name, backend) {
 # Function to remove a datasource
 remove_datasource <- function(config_path, name) {
   config <- read_file(config_path, eval.expr = TRUE)
-  config$datasources <- config$datasources[!(sapply(config$datasources, function(x) x$name) == name)]
+  config$datasources <- config$datasources[
+    !(sapply(config$datasources, function(x) x$name) == name)
+  ]
   write_file(config, config_path)
   return(config)
 }
@@ -37,7 +39,11 @@ remove_datasource <- function(config_path, name) {
 # Example usage:
 
 # Read the YAML file
-test_config <- system.file("config", "default_config.yml", package = "connector")
+test_config <- system.file(
+  "config",
+  "default_config.yml",
+  package = "connector"
+)
 file.copy(test_config, "test_config.yaml")
 
 # Add metadata
@@ -49,11 +55,8 @@ config <- remove_metadata("test_config.yaml", "new_metadata")
 # Add a new datasource
 # Define the backend as a named list
 new_backend <- list(
-  type = "connector_jdbc",
-  driver = "org.postgresql.Driver",
-  url = "jdbc:postgresql://localhost:5432/mydatabase",
-  user = "username",
-  password = "password"
+  type = "connector_fs",
+  path = "test"
 )
 
 # Add a new datasource with the defined backend
