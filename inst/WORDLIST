@@ -172,6 +172,7 @@ mEq
 MERCHANTABILITY
 mmol
 Moz
+mtcars
 nisocytes
 nn
 NN
@@ -227,6 +228,7 @@ rmarkdown
 rmd
 roche
 rochemethod
+rownames
 Roxygen
 RoxygenNote
 RPostgres
