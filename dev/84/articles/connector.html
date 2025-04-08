@@ -26,7 +26,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -50,7 +50,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/novonordisk-opensource/connector/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/NovoNordisk-OpenSource/connector/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -66,7 +66,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>connector</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/novonordisk-opensource/connector/blob/feat/cran/vignettes/connector.Rmd" class="external-link"><code>vignettes/connector.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/feat/cran/vignettes/connector.Rmd" class="external-link"><code>vignettes/connector.Rmd</code></a></small>
       <div class="d-none name"><code>connector.Rmd</code></div>
     </div>
 
@@ -87,7 +87,7 @@ package to connect to either a <strong>file system</strong> or a
 <p>First let’s load all the packages we’re going to use in this
 vignette:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector">connector</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/novonordisk-opensource/connector/" class="external-link">connector</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">connector.databricks</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">connector.sharepoint</span><span class="op">)</span></span></code></pre></div>
 <p>You may notice we’re not loading only connector package, but
@@ -320,7 +320,7 @@ datasources:
 </code></pre>
 <p>Now, let’s run the example:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector">connector</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/novonordisk-opensource/connector/" class="external-link">connector</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
@@ -345,12 +345,12 @@ datasources:
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → <span style="font-weight: bold;">adam</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> connector::connector_fs</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/Rtmp6RWGmd/adam</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/Rtmp38UJSN/adam</span></span>
 <span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → <span style="font-weight: bold;">tfl</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> connector::connector_fs</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/Rtmp6RWGmd/tfl</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/Rtmp38UJSN/tfl</span></span>
 <span></span>
 <span><span class="co">## Iris data</span></span>
 <span><span class="va">setosa</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
