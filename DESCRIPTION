@@ -1,6 +1,6 @@
 Package: connector
-Title: Connect to your data easily
-Version: 0.0.9
+Title: Streamlining Data Access in Clinical Research
+Version: 0.0.9.9000
 Authors@R: c(
     person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
     person("Aksel", "Thomsen", , "oath@novonordisk.com", role = "aut"),
@@ -11,7 +11,7 @@ Description: The connector package helps connecting R to databases that contains
     ADAM, STDM and so on. The package defines an interface that can be
     reused for any databases.
 License: Apache License (>= 2)
-URL: https://novonordisk-opensource.github.io/connector, https://github.com/novonordisk-opensource/connector
+URL: https://github.com/novonordisk-opensource/connector/, https://github.com/NovoNordisk-OpenSource/connector
 Imports: 
     arrow,
     checkmate,
@@ -53,3 +53,4 @@ RoxygenNote: 7.3.2
 Remotes: 
     novonordisk-opensource/whirl
 Language: en-US
+BugReports: https://github.com/NovoNordisk-OpenSource/connector/issues

@@ -19,7 +19,16 @@ system.file("examples/readme.yml", package = "connector") |>
 knitr::opts_knit$set(root.dir = tmp)
 ```
 
-# connector <a href="https://fantastic-adventure-gqozn9k.pages.github.io/"><img src="man/figures/logo.png" align="right" height="138" alt="connector website" /></a>
+# connector <a href="https://novonordisk-opensource.github.io/connector/"><img src="man/figures/logo.png" align="right" height="138" alt="connector website" /></a>
+
+## Installation
+
+```{r, eval=FALSE}
+# Install the released version from CRAN:
+install.packages("connector")
+# Install the development version from GitHub:
+pak::pak("NovoNordisk-OpenSource/connector")
+```
 
 ## Overview
 
