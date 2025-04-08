@@ -115,7 +115,7 @@ ConnectorFS: Uses fs::file_delete() to delete the file.
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="st">"this is an example"</span>, <span class="st">"example.txt"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Cannot open file for writing:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/RtmpYFPlgF/file2172229d17cf/example.txt'</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/RtmpnO4i8W/file20b36913dbf0/example.txt'</span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"example.txt"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
@@ -126,7 +126,7 @@ ConnectorFS: Uses fs::file_delete() to delete the file.
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">remove_cnt</span><span class="op">(</span><span class="st">"example.txt"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to remove '/tmp/RtmpYFPlgF/file2172229d17cf/example.txt': no such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to remove '/tmp/RtmpnO4i8W/file20b36913dbf0/example.txt': no such file or directory</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"example.txt"</span><span class="op">)</span></span></span>
