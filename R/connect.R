@@ -33,8 +33,8 @@
 #' @param datasource [character] Name(s) of the datasource(s) to connect to.
 #' If `NULL` (the default) all datasources are connected.
 #' @param set_env [logical] Should environment variables from the yaml file be set? Default is TRUE.
-#' @param logging [logical] Add logs to the console as well as to the whirl log html files. See details
-#' with this vignette.
+#' @inheritParams connector-options-params
+#'
 #' @return [connectors]
 #'
 #' @examples
@@ -78,11 +78,12 @@
 #' @export
 
 connect <- function(
-    config = "_connector.yml",
-    metadata = NULL,
-    datasource = NULL,
-    set_env = TRUE,
-    logging = FALSE) {
+  config = "_connector.yml",
+  metadata = NULL,
+  datasource = NULL,
+  set_env = TRUE,
+  logging = FALSE
+) {
   ## Check params
   checkmate::assert_list(metadata, names = "unique", null.ok = TRUE)
   checkmate::assert_logical(logging)
@@ -173,7 +174,8 @@ info_config <- function(config) {
 create_connection <- function(config) {
   info_config(config)
 
-  switch(config$backend$type,
+  switch(
+    config$backend$type,
     "ConnectorFS" = {
       create_backend_fs(config$backend)
     },

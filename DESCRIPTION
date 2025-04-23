@@ -7,11 +7,13 @@ Authors@R: c(
     person("Vladimir", "Obucina", , "vlob@novonordisk.com", role = "aut"),
     person("Novo Nordisk A/S", role = "cph")
   )
-Description: The connector package helps connecting R to databases that contains
-    ADAM, STDM and so on. The package defines an interface that can be
-    reused for any databases.
+Description: The connector package helps connecting R to databases that
+    contains ADAM, STDM and so on. The package defines an interface that
+    can be reused for any databases.
 License: Apache License (>= 2)
-URL: https://github.com/novonordisk-opensource/connector/, https://github.com/NovoNordisk-OpenSource/connector
+URL: https://github.com/novonordisk-opensource/connector/,
+    https://github.com/NovoNordisk-OpenSource/connector
+BugReports: https://github.com/NovoNordisk-OpenSource/connector/issues
 Imports: 
     arrow,
     checkmate,
@@ -33,24 +35,21 @@ Imports:
     yaml,
     zephyr (>= 0.1.1)
 Suggests:
-    spelling,
     dbplyr,
+    ggplot2,
     knitr,
     rmarkdown,
     RPostgres,
     RSQLite,
+    spelling,
     testthat (>= 3.0.0),
-    withr,
-    ggplot2,
-    whirl (>= 0.1.8.9000),
-    tibble
+    tibble,
+    whirl (>= 0.2.0),
+    withr
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
+Language: en-US
 Roxygen: list(markdown = TRUE, r6 = TRUE)
 RoxygenNote: 7.3.2
-Remotes: 
-    novonordisk-opensource/whirl
-Language: en-US
-BugReports: https://github.com/NovoNordisk-OpenSource/connector/issues

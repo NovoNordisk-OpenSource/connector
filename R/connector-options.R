@@ -24,3 +24,9 @@ zephyr::create_option(
   default = FALSE,
   desc = "Overwrite existing content if it exists in the connector?"
 )
+
+zephyr::create_option(
+  name = "logging",
+  default = FALSE,
+  desc = "Add logs to the console as well as to the whirl log html files"
+)
