@@ -5,7 +5,7 @@ articles:
   connector: connector.html
   articles/Consistent-API: Consistent-API.html
   customize: customize.html
-last_built: 2025-04-23T08:17Z
+last_built: 2025-04-23T09:04Z
 urls:
   reference: https://novonordisk-opensource.github.io/connector/reference
   article: https://novonordisk-opensource.github.io/connector/articles
