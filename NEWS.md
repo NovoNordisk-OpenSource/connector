@@ -1,5 +1,8 @@
 # connector dev
 
+* Fix overwrite issue for writing files
+* Prepare for Cran release
+
 # connector 0.0.9
 
 ## Enhancements

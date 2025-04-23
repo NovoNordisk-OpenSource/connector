@@ -26,11 +26,8 @@ file.copy(test_config, "test_config.yaml")
 # Add a new datasource
 # Define the backend as a named list
 new_backend <- list(
-  type = "connector_jdbc",
-  driver = "org.postgresql.Driver",
-  url = "jdbc:postgresql://localhost:5432/mydatabase",
-  user = "username",
-  password = "password"
+  type = "connector_fs",
+  path = "test"
 )
 
 # Add a new datasource with the defined backend

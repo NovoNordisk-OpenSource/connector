@@ -61,6 +61,7 @@ ConnectorDBI
 ConnectorFS
 ConnectorLogger
 cph
+cran
 cre
 Creatine
 Cy
@@ -171,6 +172,7 @@ mEq
 MERCHANTABILITY
 mmol
 Moz
+mtcars
 nisocytes
 nn
 NN
@@ -208,6 +210,7 @@ purrr
 Qbt
 RACEGR
 RANDDT
+rdname
 README
 readr
 readxl
@@ -225,6 +228,7 @@ rmarkdown
 rmd
 roche
 rochemethod
+rownames
 Roxygen
 RoxygenNote
 RPostgres
@@ -243,6 +247,7 @@ STUDYID
 SUBJID
 sublicense
 suffixe
+summarise
 Sys
 tB
 tempdir

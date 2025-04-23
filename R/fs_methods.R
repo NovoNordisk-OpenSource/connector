@@ -52,16 +52,18 @@ read_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #' @rdname write_cnt
 #' @export
 write_cnt.ConnectorFS <- function(
-    connector_object,
-    x,
-    name,
-    overwrite = zephyr::get_option("overwrite", "connector"),
-    ...) {
+  connector_object,
+  x,
+  name,
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+) {
   file <- file.path(connector_object$path, name)
   write_file(
     x,
     file,
-    ...
+    ...,
+    overwrite = overwrite
   )
   return(
     invisible(connector_object)
@@ -156,10 +158,11 @@ remove_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #' @rdname download_cnt
 #' @export
 download_cnt.ConnectorFS <- function(
-    connector_object,
-    name,
-    file = basename(name),
-    ...) {
+  connector_object,
+  name,
+  file = basename(name),
+  ...
+) {
   name <- file.path(connector_object$path, name)
 
   fs::file_copy(path = name, new_path = file, ...)
@@ -197,11 +200,12 @@ download_cnt.ConnectorFS <- function(
 #' @rdname upload_cnt
 #' @export
 upload_cnt.ConnectorFS <- function(
-    connector_object,
-    file,
-    name = basename(file),
-    overwrite = zephyr::get_option("overwrite", "connector"),
-    ...) {
+  connector_object,
+  file,
+  name = basename(file),
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+) {
   name <- file.path(connector_object$path, name)
 
   fs::file_copy(path = file, new_path = name, overwrite = overwrite)
@@ -235,10 +239,11 @@ upload_cnt.ConnectorFS <- function(
 #' @rdname create_directory_cnt
 #' @export
 create_directory_cnt.ConnectorFS <- function(
-    connector_object,
-    name,
-    open = TRUE,
-    ...) {
+  connector_object,
+  name,
+  open = TRUE,
+  ...
+) {
   path <- file.path(connector_object$path, name)
 
   fs::dir_create(path = path, ...)
@@ -246,7 +251,10 @@ create_directory_cnt.ConnectorFS <- function(
   # create a new connector object from the new path with persistent extra class
   if (open) {
     extra_class <- class(connector_object)
-    extra_class <- utils::head(extra_class, which(extra_class == "ConnectorFS") - 1)
+    extra_class <- utils::head(
+      extra_class,
+      which(extra_class == "ConnectorFS") - 1
+    )
     connector_object <- connector_fs(path, extra_class)
   }
 
@@ -295,12 +303,13 @@ remove_directory_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #' @rdname upload_directory_cnt
 #' @export
 upload_directory_cnt.ConnectorFS <- function(
-    connector_object,
-    dir,
-    name,
-    overwrite = zephyr::get_option("overwrite", "connector"),
-    open = FALSE,
-    ...) {
+  connector_object,
+  dir,
+  name,
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  open = FALSE,
+  ...
+) {
   name <- file.path(connector_object$path, name)
 
   fs::dir_copy(path = dir, new_path = name, overwrite = overwrite)
@@ -308,7 +317,10 @@ upload_directory_cnt.ConnectorFS <- function(
   # create a new connector object from the new path with persistent extra class
   if (open) {
     extra_class <- class(connector_object)
-    extra_class <- utils::head(extra_class, which(extra_class == "ConnectorFS") - 1)
+    extra_class <- utils::head(
+      extra_class,
+      which(extra_class == "ConnectorFS") - 1
+    )
     connector_object <- connector_fs(name, extra_class)
   }
 
@@ -322,7 +334,12 @@ upload_directory_cnt.ConnectorFS <- function(
 #'
 #' @rdname download_directory_cnt
 #' @export
-download_directory_cnt.ConnectorFS <- function(connector_object, name, dir = basename(name), ...) {
+download_directory_cnt.ConnectorFS <- function(
+  connector_object,
+  name,
+  dir = basename(name),
+  ...
+) {
   name <- file.path(connector_object$path, name)
 
   fs::dir_copy(path = name, new_path = dir, ...)
