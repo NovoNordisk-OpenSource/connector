@@ -53,6 +53,7 @@ CHOL
 cli
 cloneable
 cnt
+cnts
 conenctors
 config
 Config
@@ -99,6 +100,7 @@ DTYPE
 dw
 eD
 env
+envir
 EOSDT
 EOSSTT
 expr
@@ -128,6 +130,7 @@ iiiiii
 ILI
 ilirubin
 Imput
+informations
 initalize
 io
 IssueNumber
