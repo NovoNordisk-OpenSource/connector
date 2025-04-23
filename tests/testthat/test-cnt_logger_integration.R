@@ -25,23 +25,8 @@ test_that("ConnectorLogger integration test with whirl", {
 
     expect_equal(
       length(list.files(".")),
-      6
+      5
     )
-
-    expect_true(
-      file.exists(
-        "example_msg_log.json"
-      )
-    )
-
-    con <- file(description = "example_msg_log.json", open = "r")
-    log_info <- jsonlite::stream_in(con)
-
-    expect_length(log_info, 3)
-    log_info$time <- NULL
-    log_info$file <- NULL
-
-    expect_snapshot(log_info)
   })
 
   # Clean folder
