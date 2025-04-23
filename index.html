@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Connect to your data easily • connector</title>
+<title>Streamlining Data Access in Clinical Research • connector</title>
 <!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
 <link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
@@ -16,7 +16,7 @@
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Connect to your data easily">
+<script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Streamlining Data Access in Clinical Research">
 <meta name="description" content="The connector package helps connecting R to databases that contains ADAM, STDM and so on. The package defines an interface that can be reused for any databases.">
 <meta property="og:description" content="The connector package helps connecting R to databases that contains ADAM, STDM and so on. The package defines an interface that can be reused for any databases.">
 <meta property="og:image" content="https://novonordisk-opensource.github.io/connector/logo.png">
@@ -29,7 +29,7 @@
 
     <a class="navbar-brand me-2" href="index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9.9000</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -53,7 +53,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/novonordisk-opensource/connector/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/NovoNordisk-OpenSource/connector/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -66,6 +66,15 @@
 <img src="logo.png" class="logo" alt=""><h1 id="connector-">connector 
 <a class="anchor" aria-label="anchor" href="#connector-"></a>
 </h1>
+</div>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Install the released version from CRAN:</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"connector"</span><span class="op">)</span></span>
+<span><span class="co"># Install the development version from GitHub:</span></span>
+<span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"NovoNordisk-OpenSource/connector"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
@@ -87,31 +96,31 @@
 <p>The recommended way of using connector is to specify a common yaml configuration file in your project that contains the connection details to all your data sources.</p>
 <p>A simple example creating connectors to both a folder and a database is shown below:</p>
 <p><code>_connector.yml:</code></p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">path</span><span class="kw">:</span><span class="at"> !expr withr::local_tempdir()</span></span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="fu">datasources</span><span class="kw">:</span></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"folder"</span></span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector::connector_fs"</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.path}"</span></span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"database"</span></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector::connector_dbi"</span></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="at">        </span><span class="fu">drv</span><span class="kw">:</span><span class="at"> </span><span class="st">"RSQLite::SQLite()"</span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="at">        </span><span class="fu">dbname</span><span class="kw">:</span><span class="at"> </span><span class="st">":memory:"</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a><span class="at">  </span><span class="fu">path</span><span class="kw">:</span><span class="at"> !expr withr::local_tempdir()</span></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a><span class="fu">datasources</span><span class="kw">:</span></span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"folder"</span></span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector::connector_fs"</span></span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a><span class="at">        </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.path}"</span></span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"database"</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector::connector_dbi"</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="at">        </span><span class="fu">drv</span><span class="kw">:</span><span class="at"> </span><span class="st">"RSQLite::SQLite()"</span></span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">        </span><span class="fu">dbname</span><span class="kw">:</span><span class="at"> </span><span class="st">":memory:"</span></span></code></pre></div>
 <p>First we specify common metadata for the connectors, which here is a temporary folder that we want to use. Afterwards we specify the datasources needed in the project, and their specifications.</p>
 <p>The first we name “folder”, specify the type to be <code><a href="reference/connector_fs.html">connector_fs()</a></code>, and the path to the folder. The second is a database connector to an in memory SQLite database, that we specify using the <code><a href="reference/connector_dbi.html">connector_dbi()</a></code> type, which uses <code><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">DBI::dbConnect()</a></code> to initalize the connection. Therefor we also give the <code>DBI driver</code> to use, and arguments to it.</p>
 <p>To connect and create the conenctors we use <code><a href="reference/connect.html">connect()</a></code> with the configuration file as input:</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector">connector</a></span><span class="op">)</span></span>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/novonordisk-opensource/connector/" class="external-link">connector</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span><span class="op">(</span><span class="st">"_connector.yml"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → folder</span></span>
 <span><span class="co">#&gt; • connector::connector_fs</span></span>
-<span><span class="co">#&gt; • /var/folders/6z/vrcz11m12fz260b5_2zhbl800000gp/T//RtmpzD2Zjl/file12e18314d1835</span></span>
+<span><span class="co">#&gt; • /var/folders/kv/q2rqqp3s0s5f9rxn_854l2lm0000gp/T//RtmpZiN7sz/fileca9a2181569c</span></span>
 <span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → database</span></span>
@@ -123,7 +132,7 @@
 <span><span class="co">#&gt;   $folder &lt;ConnectorFS&gt;</span></span>
 <span><span class="co">#&gt;   $database &lt;ConnectorDBI&gt;</span></span></code></pre></div>
 <p>This creates a <code>connectors</code> objects that contains each <code>connector</code>. When printing the individual <code>connector</code> you get the some general information on their methods and specifications.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">db</span><span class="op">$</span><span class="va">database</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;ConnectorDBI&gt;</span></span>
 <span><span class="co">#&gt; Inherits from: &lt;Connector&gt;</span></span>
@@ -140,7 +149,7 @@
 <span><span class="co">#&gt; Specifications:</span></span>
 <span><span class="co">#&gt; • conn: &lt;SQLiteConnection&gt;</span></span></code></pre></div>
 <p>We are now ready to use the <code>connectors</code>, so we can start by writing some data to the <code>folder</code> one:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Initially it is empty</span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">folder</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -178,7 +187,7 @@
 <span><span class="co">#&gt; # ℹ 22 more rows</span></span></code></pre></div>
 <p>Here the parquet format has been used, but when using a <code>connector_fs</code> it is possible to read and write several different file types. See <code><a href="reference/read_file.html">read_file()</a></code> and <code><a href="reference/write_file.html">write_file()</a></code> for more information.</p>
 <p>For the <code>database</code> connector it works in the same way:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Initially no tables exists</span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">database</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -231,7 +240,8 @@
   </main><aside class="col-md-3"><div class="links">
 <h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/novonordisk-opensource/connector/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/NovoNordisk-OpenSource/connector/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/NovoNordisk-OpenSource/connector/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
 
