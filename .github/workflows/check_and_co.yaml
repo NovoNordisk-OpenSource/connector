@@ -7,6 +7,9 @@ on:
     branches:
       - main
       - master
+permissions:
+  contents: write
+  pull-requests: write
 name: All actions
 env:
   R_KEEP_PKG_SOURCE: true

@@ -1,5 +1,14 @@
 
-# connector <a href="https://fantastic-adventure-gqozn9k.pages.github.io/"><img src="man/figures/logo.png" align="right" height="138" alt="connector website" /></a>
+# connector <a href="https://novonordisk-opensource.github.io/connector/"><img src="man/figures/logo.png" align="right" height="138" alt="connector website" /></a>
+
+## Installation
+
+``` r
+# Install the released version from CRAN:
+install.packages("connector")
+# Install the development version from GitHub:
+pak::pak("NovoNordisk-OpenSource/connector")
+```
 
 ## Overview
 
@@ -71,7 +80,7 @@ db <- connect("_connector.yml")
 #> Connection to:
 #> → folder
 #> • connector::connector_fs
-#> • /var/folders/6z/vrcz11m12fz260b5_2zhbl800000gp/T//RtmpzD2Zjl/file12e18314d1835
+#> • /var/folders/kv/q2rqqp3s0s5f9rxn_854l2lm0000gp/T//RtmpZiN7sz/fileca9a2181569c
 #> ────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → database

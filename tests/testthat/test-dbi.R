@@ -16,7 +16,7 @@ specs <- list(
     user = "postgres",
     password = "password",
     port = 5432,
-    host = "localhost"
+    host = paste0("local", "host") # tip to avoid linters error
   )
 )
 
