@@ -82,7 +82,7 @@ connect <- function(
   metadata = NULL,
   datasource = NULL,
   set_env = TRUE,
-  logging = FALSE
+  logging = zephyr::get_option("logging", "connector")
 ) {
   ## Check params
   checkmate::assert_list(metadata, names = "unique", null.ok = TRUE)

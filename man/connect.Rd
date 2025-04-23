@@ -9,7 +9,7 @@ connect(
   metadata = NULL,
   datasource = NULL,
   set_env = TRUE,
-  logging = FALSE
+  logging = zephyr::get_option("logging", "connector")
 )
 }
 \arguments{
