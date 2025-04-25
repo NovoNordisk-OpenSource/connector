@@ -152,14 +152,14 @@ through <code>...</code> depends on the file extension.</p></li>
 <span class="r-in"><span><span class="co"># rds file</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">write_cnt</span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.rds"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/tmp/RtmpNYYZBq/file1de3de21888/iris.rds': No such file or directory</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/tmp/RtmpkCB1Vs/file1d8c14a305ad/iris.rds': No such file or directory</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in saveRDS(x, con, version = version, refhook = refhook, ascii = text):</span> cannot open the connection</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># CSV file</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">write_cnt</span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.csv"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Cannot open file for writing:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/RtmpNYYZBq/file1de3de21888/iris.csv'</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/RtmpkCB1Vs/file1d8c14a305ad/iris.csv'</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"iris"</span><span class="op">)</span></span></span>
