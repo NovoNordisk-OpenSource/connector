@@ -15,7 +15,7 @@
 #' a custom connection object for easier dispatch of new s3 methods, while still
 #' inheriting the methods from the `ConnectorFS` object.
 #'
-#' @examplesIf FALSE
+#' @examples
 #' # Create FS connector
 #' cnt <- connector_fs(tempdir())
 #' cnt

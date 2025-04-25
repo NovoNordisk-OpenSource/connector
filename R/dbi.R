@@ -16,7 +16,7 @@
 #' a custom connection object for easier dispatch of new s3 methods, while still
 #' inheriting the methods from the `ConnectorDBI` object.
 #'
-#' @examplesIf FALSE
+#' @examples
 #'
 #' # Create DBI connector
 #' cnt <- connector_dbi(RSQLite::SQLite(), ":memory:")

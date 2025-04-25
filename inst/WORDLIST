@@ -52,6 +52,7 @@ cgid
 CHOL
 cli
 cloneable
+CMD
 cnt
 cnts
 conenctors
@@ -191,6 +192,7 @@ organisation
 os
 overwritable
 oX
+param
 PARAM
 PARAMCD
 PARAMN
@@ -289,6 +291,7 @@ Xan
 Xanomeline
 xD
 XFh
+xlsm
 xxxxxx
 yaml
 YAML

@@ -28,7 +28,10 @@ The function performs the following steps:
 }
 }
 \examples{
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
-logged_connections <- add_logs(my_connections)
-\dontshow{\}) # examplesIf}
+con <- connectors(
+  sdtm = connector_fs(path = tempdir())
+ )
+
+logged_connections <- add_logs(con)
+
 }
