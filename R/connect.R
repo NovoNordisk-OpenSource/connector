@@ -192,16 +192,6 @@ create_connection <- function(config) {
 #' @param config [list] Of unparsed configurations
 #' @param set_env [logical] Should environment variables from the yaml file be set. Default is TRUE.
 #' @return Configuration [list] with all content evaluated
-#' @examples
-#' config <- system.file("config", "test_env_config.yml", package = "connector") |>
-#'   read_file()
-#'
-#' str(config)
-#'
-#' config |>
-#'   parse_config() |>
-#'   str()
-#'
 #' @noRd
 parse_config <- function(config, set_env = TRUE) {
   # Parse env variables
