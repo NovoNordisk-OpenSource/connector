@@ -2,7 +2,7 @@
 - name: "study1"
   metadata:
     trial: "demo_trial"
-    root_path: !expr system.file(package = "connector")
+    root_path: !expr temp_dir
   datasources:
     - name: "adam_fs"
       backend:
@@ -12,7 +12,7 @@
 - name: "study2"
   metadata:
     trial: "demo_trial"
-    root_path: !expr system.file(package = "connector")
+    root_path: !expr temp_dir
   datasources:
     - name: "adam_fs"
       backend:
