@@ -24,4 +24,14 @@ Overwrite existing content if it exists in the connector?
 \item Environment: \code{R_CONNECTOR_OVERWRITE}
 }
 }
+
+\subsection{logging}{
+
+Add logs to the console as well as to the whirl log html files
+\itemize{
+\item Default: \code{FALSE}
+\item Option: \code{connector.logging}
+\item Environment: \code{R_CONNECTOR_LOGGING}
+}
+}
 }
