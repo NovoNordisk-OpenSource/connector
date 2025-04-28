@@ -19,7 +19,7 @@ details below for the required structure of the configuration.'><meta property="
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,7 +67,7 @@ details below for the required structure of the configuration.</p>
 <span>  metadata <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  datasource <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  set_env <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  logging <span class="op">=</span> <span class="cn">FALSE</span></span>
+<span>  logging <span class="op">=</span> <span class="fu">zephyr</span><span class="fu">::</span><span class="fu"><a href="https://novonordisk-opensource.github.io/zephyr/reference/get_option.html" class="external-link">get_option</a></span><span class="op">(</span><span class="st">"logging"</span>, <span class="st">"connector"</span><span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -93,8 +93,7 @@ If <code>NULL</code> (the default) all datasources are connected.</p></dd>
 
 
 <dt id="arg-logging">logging<a class="anchor" aria-label="anchor" href="#arg-logging"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> Add logs to the console as well as to the whirl log html files. See details
-with this vignette.</p></dd>
+<dd><p>Add logs to the console as well as to the whirl log html files. Default: <code>FALSE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

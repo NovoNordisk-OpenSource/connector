@@ -9,7 +9,7 @@ See ConnectorDBI for details."><meta property="og:image" content="https://novono
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.9.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -80,19 +80,47 @@ inheriting the methods from the <code>ConnectorDBI</code> object.</p>
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="kw">if</span> <span class="op">(</span><span class="cn">FALSE</span><span class="op">)</span> <span class="op">{</span></span></span>
-<span class="r-in"><span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create DBI connector</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu">connector_dbi</span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html" class="external-link">SQLite</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;ConnectorDBI&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Inherits from: <span style="color: #0000BB;">&lt;Connector&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Registered methods:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `disconnect_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `list_content_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `log_read_connector.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `log_remove_connector.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `log_write_connector.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `read_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `remove_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `tbl_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Specifications:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> conn: <span style="color: #0000BB;">&lt;SQLiteConnection&gt;</span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create subclass connection</span></span></span>
 <span class="r-in"><span><span class="va">cnt_subclass</span> <span class="op">&lt;-</span> <span class="fu">connector_dbi</span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html" class="external-link">SQLite</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">":memory:"</span>,</span></span>
 <span class="r-in"><span>  extra_class <span class="op">=</span> <span class="st">"subclass"</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cnt_subclass</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;subclass/ConnectorDBI&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Inherits from: <span style="color: #0000BB;">&lt;Connector&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Registered methods:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `disconnect_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `list_content_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `log_read_connector.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `log_remove_connector.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `log_write_connector.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `read_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `remove_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `tbl_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Specifications:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> conn: <span style="color: #0000BB;">&lt;SQLiteConnection&gt;</span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html" class="external-link">class</a></span><span class="op">(</span><span class="va">cnt_subclass</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="op">}</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "subclass"     "ConnectorDBI" "Connector"    "R6"          </span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
