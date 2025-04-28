@@ -25,7 +25,6 @@ a custom connection object for easier dispatch of new s3 methods, while still
 inheriting the methods from the \code{ConnectorFS} object.
 }
 \examples{
-\dontshow{if (FALSE) (if (getRversion() >= "3.4") withAutoprint else force)(\{ # examplesIf}
 # Create FS connector
 cnt <- connector_fs(tempdir())
 cnt
@@ -37,5 +36,5 @@ cnt_subclass <- connector_fs(
 )
 cnt_subclass
 class(cnt_subclass)
-\dontshow{\}) # examplesIf}
+
 }

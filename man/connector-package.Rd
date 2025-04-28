@@ -7,7 +7,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-The connector package helps connecting R to databases that contains ADAM, STDM and so on. The package defines an interface that can be reused for any databases.
+Provides a consistent interface for connecting R to various data sources including file systems and databases. Designed for clinical research, 'connector' streamlines access to 'ADAM', 'SDTM' for example. It helps to deal with multiple data formats through a standardized API and centralized configuration.
 }
 \seealso{
 Useful links:

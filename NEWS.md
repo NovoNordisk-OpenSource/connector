@@ -1,11 +1,16 @@
-# connector dev
+# connector 0.1.0
 
-* Fix overwrite issue for writing files
+## Enhancements
 * Prepare for Cran release
+* Use option for logging param
+* Adapt UT for whirl 0.2.0
+
+## Bugs
+* Fix overwrite issue for writing files
 
 # connector 0.0.9
 
-## Enhancements
+Enhancements
 * Fix yaml dependency and xlsm extension
 * Add zephyr and remove options package.
 * Fix pkgdown problems with `Connector` class.

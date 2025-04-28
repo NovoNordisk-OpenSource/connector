@@ -16,8 +16,12 @@
 #' 1. Checks if the input `connections` is of class "connectors".
 #' 1. Iterates through each connection in the list and prepends the "ConnectorLogger" class.
 #'
-#' @examplesIf FALSE
-#' logged_connections <- add_logs(my_connections)
+#' @examples
+#' con <- connectors(
+#'   sdtm = connector_fs(path = tempdir())
+#'  )
+#'
+#' logged_connections <- add_logs(con)
 #'
 #' @export
 add_logs <- function(connections) {

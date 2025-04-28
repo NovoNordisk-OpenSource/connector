@@ -9,7 +9,7 @@ connect(
   metadata = NULL,
   datasource = NULL,
   set_env = TRUE,
-  logging = FALSE
+  logging = zephyr::get_option("logging", "connector")
 )
 }
 \arguments{
@@ -22,8 +22,7 @@ If \code{NULL} (the default) all datasources are connected.}
 
 \item{set_env}{\link{logical} Should environment variables from the yaml file be set? Default is TRUE.}
 
-\item{logging}{\link{logical} Add logs to the console as well as to the whirl log html files. See details
-with this vignette.}
+\item{logging}{Add logs to the console as well as to the whirl log html files. Default: \code{FALSE}.}
 }
 \value{
 \link{connectors}
