@@ -196,7 +196,9 @@ test_that("log_read_connector works correctly", {
   logger <- ConnectorLogger
 
   # Test default method
-  expect_invisible(log_read_connector(logger, "test_file"))
+  log_read_connector(logger, "test_file") |> 
+    expect_output() |> 
+    expect_invisible()
 
   # Test custom method
   log_read_connector.custom <- function(connector_object, name, ...) {
@@ -210,7 +212,9 @@ test_that("log_write_connector works correctly", {
   logger <- ConnectorLogger
 
   # Test default method
-  expect_invisible(log_write_connector(logger, "test_file"))
+  log_write_connector(logger, "test_file") |> 
+    expect_output() |> 
+    expect_invisible()
 
   # Test custom method
   log_write_connector.custom <- function(connector_object, name, ...) {
@@ -224,7 +228,9 @@ test_that("log_remove_connector works correctly", {
   logger <- ConnectorLogger
 
   # Test default method
-  expect_invisible(log_remove_connector(logger, "test_file"))
+  log_remove_connector(logger, "test_file") |> 
+    expect_output() |> 
+    expect_invisible()
 
   # Test custom method
   log_remove_connector.custom <- function(connector_object, name, ...) {

@@ -76,7 +76,7 @@ test_that("yaml config parsed correctly", {
         Sys.unsetenv(c("RSQLite_db", "system_path"))
 
         withr::local_options(
-          list(zephyr.verbosity_level = "verbose")
+          list(connector.verbosity_level = "verbose")
         )
 
         yaml_file_env |>
