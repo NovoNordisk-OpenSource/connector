@@ -59,7 +59,7 @@ Each specification of a single \link{connectors}  have to have the following str
 }
 }
 \examples{
-config <- system.file("config", "default_config.yml", package = "connector")
+config <- system.file("config", "_connector.yml", package = "connector")
 
 config
 

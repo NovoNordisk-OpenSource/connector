@@ -34,7 +34,7 @@ connectors_to_datasources <- function(data) {
 #' @examples
 #'
 #' # Connect to the datasources specified in it
-#' config <- system.file("config", "default_config.yml", package = "connector")
+#' config <- system.file("config", "_connector.yml", package = "connector")
 #' cnts <- connect(config)
 #'
 #' # Extract the datasources to a config file

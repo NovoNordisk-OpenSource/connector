@@ -38,7 +38,7 @@
 #' @return [connectors]
 #'
 #' @examples
-#' config <- system.file("config", "default_config.yml", package = "connector")
+#' config <- system.file("config", "_connector.yml", package = "connector")
 #'
 #' config
 #'
@@ -76,7 +76,6 @@
 #'
 #' cnts_nested$study1
 #' @export
-
 connect <- function(
   config = "_connector.yml",
   metadata = NULL,
