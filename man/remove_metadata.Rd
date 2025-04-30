@@ -12,23 +12,25 @@ remove_metadata(config_path, key)
 \item{key}{The key for the metadata entry to be removed}
 }
 \value{
-The updated configuration after removing the specified metadata
+(invisble) \code{config_path} where the configuration have been updated
 }
 \description{
 This function removes metadata from a YAML configuration file by deleting
 the specified key from the metadata section of the file.
 }
 \examples{
-# Read the YAML file
-test_config <- system.file("config", "default_config.yml", package = "connector")
-file.copy(test_config, "test_config.yaml")
+config <- tempfile(fileext = ".yml")
 
-# Add metadata
-config <- add_metadata("test_config.yaml", "new_metadata", "new_value")
+file.copy(
+  from = system.file("config", "_connector.yml", package = "connector"),
+  to = config
+)
 
-# Remove metadata
-config <- remove_metadata("test_config.yaml", "new_metadata")
-
-unlink("test_config.yaml")
+config |>
+  add_metadata(
+    key = "new_metadata",
+    value = "new_value"
+  ) |>
+  remove_metadata("new_metadata")
 
 }

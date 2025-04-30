@@ -14,28 +14,23 @@ add_datasource(config_path, name, backend)
 \item{backend}{A named list representing the backend configuration for the new datasource}
 }
 \value{
-The updated configuration after adding the new datasource
+(invisble) \code{config_path} where the configuration have been updated
 }
 \description{
 This function adds a new datasource to a YAML configuration file by appending the
 provided datasource information to the existing datasources.
 }
 \examples{
+config <- tempfile(fileext = ".yml")
 
-# Read the YAML file
-test_config <- system.file("config", "default_config.yml", package = "connector")
-file.copy(test_config, "test_config.yaml")
-
-# Add a new datasource
-# Define the backend as a named list
-new_backend <- list(
-  type = "connector_fs",
-  path = "test"
+file.copy(
+  from = system.file("config", "_connector.yml", package = "connector"),
+  to = config
 )
 
-# Add a new datasource with the defined backend
-config <- add_datasource("test_config.yaml", "new_datasource", new_backend)
-
-unlink("test_config.yaml")
-
+config |>
+  add_datasource(
+    name = "new_datasource",
+    backend = list(type = "connector_fs", path = "new_path")
+  )
 }
