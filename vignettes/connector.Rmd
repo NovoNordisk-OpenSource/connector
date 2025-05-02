@@ -62,8 +62,8 @@ Here is an example of a configuration file with different types of connections:
 
 ```
 metadata:
-  trial: "yyyy"
-  project: "nnxxxx"
+  trial: "my_trial"
+  project: "my_project"
   instance: "current"
   http_path:  !!expr Sys.getenv("DATABRICKS_HTTP_PATH")
   catalog:  !!expr Sys.getenv("DATABRICKS_CATALOG_NAME")
