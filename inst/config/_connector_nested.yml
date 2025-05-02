@@ -2,7 +2,7 @@
 - name: "study1"
   metadata:
     trial: "demo_trial"
-    root_path: !expr temp_dir
+    root_path: !expr list.files(tempdir(), pattern = "connector", full.names = TRUE)
   datasources:
     - name: "adam_fs"
       backend:
@@ -12,7 +12,7 @@
 - name: "study2"
   metadata:
     trial: "demo_trial"
-    root_path: !expr temp_dir
+    root_path: !expr list.files(tempdir(), pattern = "connector", full.names = TRUE)
   datasources:
     - name: "adam_fs"
       backend:

@@ -86,7 +86,7 @@ connect(config, datasource = "adam")
 
 # Connect to several projects in a nested structure
 
-config_nested <- system.file("config", "_connector_nested.yml", package = "connector")
+config_nested <- system.file("config", "_nested_connector.yml", package = "connector")
 
 readLines(config_nested) |>
   cat(sep = "\n")

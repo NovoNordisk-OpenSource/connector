@@ -1,7 +1,7 @@
 # A example of the configuration file for FS and Database
 metadata:
   trial: "demo_trial"
-  root_path: !expr temp_dir
+  root_path: !expr list.files(tempdir(), pattern = "connector", full.names = TRUE)
   extra_class: "{env.hello}"
   R: "{env.R_HOME}"
 
