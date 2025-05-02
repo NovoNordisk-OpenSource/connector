@@ -23,6 +23,7 @@ knitr::opts_knit$set(root.dir = tmp)
 
 <!-- badges: start -->
 [![Checks](https://github.com/NovoNordisk-OpenSource/connector/actions/workflows/check_and_co.yaml/badge.svg)](https://github.com/NovoNordisk-OpenSource/connector/actions/workflows/check_and_co.yaml)
+[![Codecov test coverage](https://codecov.io/gh/NovoNordisk-OpenSource/connector/graph/badge.svg)](https://app.codecov.io/gh/NovoNordisk-OpenSource/connector)
 [![CRAN status](https://www.r-pkg.org/badges/version/connector)](https://CRAN.R-project.org/package=connector)
 <!-- badges: end -->
 

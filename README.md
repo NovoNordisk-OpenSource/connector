@@ -4,6 +4,8 @@
 <!-- badges: start -->
 
 [![Checks](https://github.com/NovoNordisk-OpenSource/connector/actions/workflows/check_and_co.yaml/badge.svg)](https://github.com/NovoNordisk-OpenSource/connector/actions/workflows/check_and_co.yaml)
+[![Codecov test
+coverage](https://codecov.io/gh/NovoNordisk-OpenSource/connector/graph/badge.svg)](https://app.codecov.io/gh/NovoNordisk-OpenSource/connector)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/connector)](https://CRAN.R-project.org/package=connector)
 <!-- badges: end -->
@@ -87,7 +89,7 @@ db <- connect("_connector.yml")
 #> Connection to:
 #> → folder
 #> • connector::connector_fs
-#> • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpYpGBoY/file49e7314de81d
+#> • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpmRH6I7/file7113746ced8a
 #> ────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → database

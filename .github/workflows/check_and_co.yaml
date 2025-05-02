@@ -29,8 +29,10 @@ jobs:
   coverage:
     name: Coverage report
     uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/coverage.yaml@main
+    secrets: inherit
     with:
       use_local_setup_action: true
+      use_codecov: true
   megalinter:
     name: Megalinter
     uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/megalinter.yaml@main
