@@ -1,11 +1,10 @@
-  
 temp_dir <- tempfile("connector")
 dir.create(temp_dir)
 
-system.file(package = "connector") |> 
-  list.files(full.names = TRUE) |> 
+system.file(package = "connector") |>
+  list.files(full.names = TRUE) |>
   file.copy(
-    to = temp_dir, 
+    to = temp_dir,
     recursive = TRUE
   )
 
