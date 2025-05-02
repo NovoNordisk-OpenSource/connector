@@ -6,7 +6,7 @@
 #' @param config_path The file path to the YAML configuration file
 #' @param key The key for the new metadata entry
 #' @param value The value for the new metadata entry
-#' @return (invisble) `config_path` where the configuration have been updated
+#' @return (invisible) `config_path` where the configuration have been updated
 #' @examples
 #' config <- tempfile(fileext = ".yml")
 #'
@@ -40,7 +40,7 @@ add_metadata <- function(config_path, key, value) {
 #'
 #' @param config_path The file path to the YAML configuration file
 #' @param key The key for the metadata entry to be removed
-#' @return (invisble) `config_path` where the configuration have been updated
+#' @return (invisible) `config_path` where the configuration have been updated
 #' @examples
 #' config <- tempfile(fileext = ".yml")
 #'
@@ -75,7 +75,7 @@ remove_metadata <- function(config_path, key) {
 #' @param config_path The file path to the YAML configuration file
 #' @param name The name of the new datasource
 #' @param backend A named list representing the backend configuration for the new datasource
-#' @return (invisble) `config_path` where the configuration have been updated
+#' @return (invisible) `config_path` where the configuration have been updated
 #' @examples
 #' config <- tempfile(fileext = ".yml")
 #'
@@ -112,7 +112,7 @@ add_datasource <- function(config_path, name, backend) {
 #'
 #' @param config_path The file path to the YAML configuration file
 #' @param name The name of the datasource to be removed
-#' @return (invisble) `config_path` where the configuration have been updated
+#' @return (invisible) `config_path` where the configuration have been updated
 #'
 #' @examples
 #' config <- tempfile(fileext = ".yml")

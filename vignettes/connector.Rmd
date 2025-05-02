@@ -222,7 +222,7 @@ fsetosa <- ggplot(setosa) +
   geom_point()
 
 ## Using Databricks Volumes
-## Store Tfls
+## Store TFLs
 db$tfl$write_cnt(fsetosa$data, "fsetosa.csv")
 db$tfl$write_cnt(fsetosa, "fsetosa.rds")
 
@@ -311,7 +311,7 @@ fsetosa <- ggplot(setosa) +
   aes(x = Sepal.Length, y = Sepal.Width) +
   geom_point()
 
-## Store Tfls
+## Store TFLs
 db$tfl$write_cnt(fsetosa$data, "fsetosa.csv")
 db$tfl$write_cnt(fsetosa, "fsetosa.rds")
 
