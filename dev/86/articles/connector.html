@@ -131,8 +131,8 @@ must be provided</li>
 <p>Here is an example of a configuration file with different types of
 connections:</p>
 <pre><code>metadata:
-  trial: "yyyy"
-  project: "nnxxxx"
+  trial: "my_trial"
+  project: "my_project"
   instance: "current"
   http_path:  !!expr Sys.getenv("DATABRICKS_HTTP_PATH")
   catalog:  !!expr Sys.getenv("DATABRICKS_CATALOG_NAME")
@@ -329,12 +329,12 @@ for ADaM and TFL data.</p>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → <span style="font-weight: bold;">adam</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> connector::connector_fs</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/Rtmp3UaKSO/file223e569bab15/adam</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpJPUT09/file221e1d3722ae/adam</span></span>
 <span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → <span style="font-weight: bold;">tfl</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> connector::connector_fs</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/Rtmp3UaKSO/file223e569bab15/tfl</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpJPUT09/file221e1d3722ae/tfl</span></span>
 <span></span>
 <span><span class="co">## Iris data</span></span>
 <span><span class="va">setosa</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
