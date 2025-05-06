@@ -38,7 +38,7 @@
 #' @return [connectors]
 #'
 #' @examples
-#' config <- system.file("config", "default_config.yml", package = "connector")
+#' config <- system.file("config", "_connector.yml", package = "connector")
 #'
 #' config
 #'
@@ -65,7 +65,7 @@
 #'
 #' # Connect to several projects in a nested structure
 #'
-#' config_nested <- system.file("config", "_connector_nested.yml", package = "connector")
+#' config_nested <- system.file("config", "_nested_connector.yml", package = "connector")
 #'
 #' readLines(config_nested) |>
 #'   cat(sep = "\n")
@@ -76,7 +76,6 @@
 #'
 #' cnts_nested$study1
 #' @export
-
 connect <- function(
   config = "_connector.yml",
   metadata = NULL,
@@ -192,16 +191,6 @@ create_connection <- function(config) {
 #' @param config [list] Of unparsed configurations
 #' @param set_env [logical] Should environment variables from the yaml file be set. Default is TRUE.
 #' @return Configuration [list] with all content evaluated
-#' @examples
-#' config <- system.file("config", "test_env_config.yml", package = "connector") |>
-#'   read_file()
-#'
-#' str(config)
-#'
-#' config |>
-#'   parse_config() |>
-#'   str()
-#'
 #' @noRd
 parse_config <- function(config, set_env = TRUE) {
   # Parse env variables

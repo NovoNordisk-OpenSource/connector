@@ -12,7 +12,7 @@ Provides a consistent interface for connecting R to various data sources includi
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://github.com/novonordisk-opensource/connector/}
+  \item \url{https://novonordisk-opensource.github.io/connector}
   \item \url{https://github.com/NovoNordisk-OpenSource/connector}
   \item Report bugs at \url{https://github.com/NovoNordisk-OpenSource/connector/issues}
 }

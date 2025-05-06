@@ -6,16 +6,20 @@
 #' @param config_path The file path to the YAML configuration file
 #' @param key The key for the new metadata entry
 #' @param value The value for the new metadata entry
-#' @return The updated configuration after adding the new metadata
+#' @return (invisible) `config_path` where the configuration have been updated
 #' @examples
-#' # Read the YAML file
-#' test_config <- system.file("config", "default_config.yml", package = "connector")
-#' file.copy(test_config, "test_config.yaml")
+#' config <- tempfile(fileext = ".yml")
 #'
-#' # Add metadata
-#' config <- add_metadata("test_config.yaml", "new_metadata", "new_value")
+#' file.copy(
+#'   from = system.file("config", "_connector.yml", package = "connector"),
+#'   to = config
+#' )
 #'
-#' unlink("test_config.yaml")
+#' config |>
+#'   add_metadata(
+#'     key = "new_metadata",
+#'     value = "new_value"
+#'   )
 #'
 #' @export
 add_metadata <- function(config_path, key, value) {
@@ -26,7 +30,7 @@ add_metadata <- function(config_path, key, value) {
   config <- read_file(config_path, eval.expr = TRUE)
   config$metadata[[key]] <- value
   write_file(x = config, file = config_path, overwrite = TRUE)
-  return(config)
+  return(invisible(config_path))
 }
 
 #' Remove metadata from a YAML configuration file
@@ -36,19 +40,21 @@ add_metadata <- function(config_path, key, value) {
 #'
 #' @param config_path The file path to the YAML configuration file
 #' @param key The key for the metadata entry to be removed
-#' @return The updated configuration after removing the specified metadata
+#' @return (invisible) `config_path` where the configuration have been updated
 #' @examples
-#' # Read the YAML file
-#' test_config <- system.file("config", "default_config.yml", package = "connector")
-#' file.copy(test_config, "test_config.yaml")
+#' config <- tempfile(fileext = ".yml")
 #'
-#' # Add metadata
-#' config <- add_metadata("test_config.yaml", "new_metadata", "new_value")
+#' file.copy(
+#'   from = system.file("config", "_connector.yml", package = "connector"),
+#'   to = config
+#' )
 #'
-#' # Remove metadata
-#' config <- remove_metadata("test_config.yaml", "new_metadata")
-#'
-#' unlink("test_config.yaml")
+#' config |>
+#'   add_metadata(
+#'     key = "new_metadata",
+#'     value = "new_value"
+#'   ) |>
+#'   remove_metadata("new_metadata")
 #'
 #' @export
 remove_metadata <- function(config_path, key) {
@@ -58,7 +64,7 @@ remove_metadata <- function(config_path, key) {
   config <- read_file(config_path, eval.expr = TRUE)
   config$metadata[[key]] <- NULL
   write_file(x = config, file = config_path, overwrite = TRUE)
-  return(config)
+  return(invisible(config_path))
 }
 
 #' Add a new datasource to a YAML configuration file
@@ -69,25 +75,20 @@ remove_metadata <- function(config_path, key) {
 #' @param config_path The file path to the YAML configuration file
 #' @param name The name of the new datasource
 #' @param backend A named list representing the backend configuration for the new datasource
-#' @return The updated configuration after adding the new datasource
+#' @return (invisible) `config_path` where the configuration have been updated
 #' @examples
+#' config <- tempfile(fileext = ".yml")
 #'
-#' # Read the YAML file
-#' test_config <- system.file("config", "default_config.yml", package = "connector")
-#' file.copy(test_config, "test_config.yaml")
-#'
-#' # Add a new datasource
-#' # Define the backend as a named list
-#' new_backend <- list(
-#'   type = "connector_fs",
-#'   path = "test"
+#' file.copy(
+#'   from = system.file("config", "_connector.yml", package = "connector"),
+#'   to = config
 #' )
 #'
-#' # Add a new datasource with the defined backend
-#' config <- add_datasource("test_config.yaml", "new_datasource", new_backend)
-#'
-#' unlink("test_config.yaml")
-#'
+#' config |>
+#'   add_datasource(
+#'     name = "new_datasource",
+#'     backend = list(type = "connector_fs", path = "new_path")
+#'   )
 #' @export
 add_datasource <- function(config_path, name, backend) {
   checkmate::assert_file_exists(config_path)
@@ -101,7 +102,7 @@ add_datasource <- function(config_path, name, backend) {
   )
   config$datasources <- c(config$datasources, list(new_datasource))
   write_file(x = config, file = config_path, overwrite = TRUE)
-  return(config)
+  return(invisible(config_path))
 }
 
 #' Remove a datasource from a YAML configuration file
@@ -111,28 +112,22 @@ add_datasource <- function(config_path, name, backend) {
 #'
 #' @param config_path The file path to the YAML configuration file
 #' @param name The name of the datasource to be removed
-#' @return The updated configuration after removing the specified datasource
+#' @return (invisible) `config_path` where the configuration have been updated
 #'
 #' @examples
-#' # Read the YAML file
-#' test_config <- system.file("config", "default_config.yml", package = "connector")
-#' file.copy(test_config, "test_config.yaml")
+#' config <- tempfile(fileext = ".yml")
 #'
-#' # Add a new datasource
-#' # Define the backend as a named list
-#' new_backend <- list(
-#'   type = "connector_fs",
-#'   path = "test"
+#' file.copy(
+#'   from = system.file("config", "_connector.yml", package = "connector"),
+#'   to = config
 #' )
 #'
-#' # Add a new datasource with the defined backend
-#' config <- add_datasource("test_config.yaml", "new_datasource", new_backend)
-#'
-#' # Remove a datasource
-#' config <- remove_datasource("test_config.yaml", "new_datasource")
-#'
-#' unlink("test_config.yaml")
-#'
+#' config |>
+#'   add_datasource(
+#'     name = "new_datasource",
+#'     backend = list(type = "connector_fs", path = "new_path")
+#'   ) |>
+#'   remove_datasource("new_datasource")
 #' @export
 remove_datasource <- function(config_path, name) {
   checkmate::assert_file_exists(config_path)
@@ -143,5 +138,5 @@ remove_datasource <- function(config_path, name) {
     !(sapply(config$datasources, function(x) x$name) == name)
   ]
   write_file(x = config, file = config_path, overwrite = TRUE)
-  return(config)
+  return(invisible(config_path))
 }

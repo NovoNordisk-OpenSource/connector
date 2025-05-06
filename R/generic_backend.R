@@ -4,14 +4,6 @@
 #'
 #' @return A new backend based on R6 class
 #' @noRd
-#' @examples
-#' yaml_file <- system.file("config", "example_for_generic.yml", package = "connector")
-#' yaml_content <- yaml::read_yaml(yaml_file, eval.expr = TRUE)
-#'
-#' only_one <- yaml_content[["datasources"]][[1]][["backend"]]
-#'
-#' test <- create_backend(only_one)
-#'
 create_backend <- function(backend) {
   params_from_user <- backend[!names(backend) %in% c("type", "extra_class")]
 
