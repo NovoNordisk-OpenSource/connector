@@ -34,7 +34,7 @@ test_that("Connect datasources to the connections for a yaml file", {
   expect_snapshot(dplyr::collect(iris_f))
 })
 
-test_that("Tools for yaml parsinbg", {
+test_that("Tools for yaml parsing", {
   glue_if_character("var {var}", var = "a") |>
     expect_equal("var a")
 
@@ -76,7 +76,7 @@ test_that("yaml config parsed correctly", {
         Sys.unsetenv(c("RSQLite_db", "system_path"))
 
         withr::local_options(
-          list(zephyr.verbosity_level = "verbose")
+          list(connector.verbosity_level = "verbose")
         )
 
         yaml_file_env |>
@@ -111,7 +111,7 @@ testthat::test_that("Using a json instead of yaml", {
     expect_no_error()
 })
 
-testthat::test_that("Using and uptade metadata", {
+testthat::test_that("Using and update metadata", {
   test_list <- connect(
     yaml_content_raw,
     metadata = list(extra_class = "test_from_metadata")

@@ -1,7 +1,6 @@
 test_that("write_datasources works correctly", {
   # Create test connector object
-  config <- system.file("config", "default_config.yml", package = "connector")
-  test_connectors <- connect(config)
+  test_connectors <- connect(yaml_file)
 
   # Setup
   valid_extensions <- c("yml", "yaml", "json", "rds")
