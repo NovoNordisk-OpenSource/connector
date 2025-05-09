@@ -86,7 +86,7 @@ package to connect to either a <strong>file system</strong> or a
 <p>First let’s load all the packages we’re going to use in this
 vignette:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector">connector</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector/">connector</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">connector.databricks</span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">connector.sharepoint</span><span class="op">)</span></span></code></pre></div>
 <p>You may notice we’re not loading only connector package, but
@@ -307,7 +307,7 @@ for ADaM and TFL data.</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="at">metadata</span><span class="fu">:,   adam_path</span><span class="kw">:</span><span class="at"> !expr file.path(getwd(), "adam"),   tfl_path: !expr file.path(getwd(), "tfl"), , datasources:,   - name: "adam",     backend:,       type: "connector::connector_fs",       path: "{metadata.adam_path}",   - name: "tfl",     backend:,       type: "connector::connector_fs",       path: "{metadata.tfl_path}", </span></span></code></pre></div>
 <p>Now, let’s run the example:</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector">connector</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector/">connector</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
@@ -329,12 +329,12 @@ for ADaM and TFL data.</p>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → <span style="font-weight: bold;">adam</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> connector::connector_fs</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpZt70DQ/file21e21884e351/adam</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpbewxyL/file21d82573f0a4/adam</span></span>
 <span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → <span style="font-weight: bold;">tfl</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> connector::connector_fs</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpZt70DQ/file21e21884e351/tfl</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpbewxyL/file21d82573f0a4/tfl</span></span>
 <span></span>
 <span><span class="co">## Iris data</span></span>
 <span><span class="va">setosa</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
