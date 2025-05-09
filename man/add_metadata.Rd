@@ -14,7 +14,7 @@ add_metadata(config_path, key, value)
 \item{value}{The value for the new metadata entry}
 }
 \value{
-(invisble) \code{config_path} where the configuration have been updated
+(invisible) \code{config_path} where the configuration have been updated
 }
 \description{
 This function adds metadata to a YAML configuration file by modifying the provided

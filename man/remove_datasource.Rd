@@ -12,7 +12,7 @@ remove_datasource(config_path, name)
 \item{name}{The name of the datasource to be removed}
 }
 \value{
-(invisble) \code{config_path} where the configuration have been updated
+(invisible) \code{config_path} where the configuration have been updated
 }
 \description{
 This function removes a datasource from a YAML configuration file based on the

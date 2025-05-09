@@ -12,7 +12,7 @@ remove_metadata(config_path, key)
 \item{key}{The key for the metadata entry to be removed}
 }
 \value{
-(invisble) \code{config_path} where the configuration have been updated
+(invisible) \code{config_path} where the configuration have been updated
 }
 \description{
 This function removes metadata from a YAML configuration file by deleting
