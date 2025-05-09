@@ -1,4 +1,6 @@
 test_that("ConnectorLogger integration test with whirl", {
+  testthat::skip_on_cran()
+
   dir_tmp <- tempdir()
   dir.create(path = file.path(dir_tmp, "connector_whirl"))
   dir_ <- file.path(dir_tmp, "connector_whirl")
