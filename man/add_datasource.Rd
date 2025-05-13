@@ -14,7 +14,7 @@ add_datasource(config_path, name, backend)
 \item{backend}{A named list representing the backend configuration for the new datasource}
 }
 \value{
-(invisble) \code{config_path} where the configuration have been updated
+(invisible) \code{config_path} where the configuration have been updated
 }
 \description{
 This function adds a new datasource to a YAML configuration file by appending the

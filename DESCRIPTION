@@ -1,6 +1,6 @@
 Package: connector
 Title: Streamlining Data Access in Clinical Research
-Version: 0.1.9000
+Version: 0.1.1
 Authors@R: c(
     person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
     person("Aksel", "Thomsen", , "oath@novonordisk.com", role = "aut"),
@@ -13,8 +13,8 @@ Description: Provides a consistent interface for connecting R to various
     'SDTM' for example. It helps to deal with multiple data formats through a standardized API and centralized 
     configuration.
 License: Apache License (>= 2)
-URL: https://novonordisk-opensource.github.io/connector,
-    https://github.com/NovoNordisk-OpenSource/connector
+URL: https://novonordisk-opensource.github.io/connector/,
+    https://github.com/NovoNordisk-OpenSource/connector/
 BugReports: https://github.com/NovoNordisk-OpenSource/connector/issues
 Depends: 
     R (>= 4.1)

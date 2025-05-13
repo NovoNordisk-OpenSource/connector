@@ -1,3 +1,20 @@
+# connector 0.1.1
+
+## Enhancements
+* Added pkgdown url to Description
+* Added codecov in the workflow and badge 
+* Used an invisible return of the path for yaml manipulation functions
+
+## Other
+* Resolve the comments from our initial CRAN release
+    * Always using tempdir() in our examples and tests
+    * Never write to user library
+    * Remove examples using system.file() from non exported functions (to save time on rewriting them)
+    * Silenced messages in tests for an easier overview
+
+## Bugs
+* Fixed url for GitHub Actions badge
+
 # connector 0.1.0
 
 ## Enhancements
