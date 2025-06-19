@@ -190,6 +190,43 @@ list_content_cnt.ConnectorLogger <- function(connector_object, ...) {
   return(res)
 }
 
+#' Upload Operation for ConnectorLogger class
+#'
+#' Implementation of the upload_cnt function for the ConnectorLogger
+#' class.
+#'
+#' @param connector_object The ConnectorLogger object.
+#' @param file The file to upload.
+#' @param name The name of the file in the connector.
+#' @param overwrite Whether to overwrite existing files.
+#' @param ... Additional parameters.
+#'
+#' @return Invisible result of the upload operation.
+#' @export
+upload_cnt.ConnectorLogger <- function(connector_object, file, name = basename(file), overwrite = zephyr::get_option("overwrite", "connector"), ...) {
+  res <- tryCatch(NextMethod())
+  log_write_connector(connector_object, name, ...)
+  return(invisible(res))
+}
+
+#' Download Operation for ConnectorLogger class
+#'
+#' Implementation of the download_cnt function for the ConnectorLogger
+#' class.
+#'
+#' @param connector_object The ConnectorLogger object.
+#' @param name The name of the file in the connector.
+#' @param file The local file path to download to.
+#' @param ... Additional parameters.
+#'
+#' @return The result of the download operation.
+#' @export
+download_cnt.ConnectorLogger <- function(connector_object, name, file = basename(name), ...) {
+  res <- tryCatch(NextMethod())
+  log_read_connector(connector_object, name, ...)
+  return(res)
+}
+
 #' Print Connector Logger
 #'
 #' This function prints the connector logger.
