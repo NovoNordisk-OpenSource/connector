@@ -4,24 +4,18 @@
 \alias{upload_cnt.ConnectorLogger}
 \title{Upload Operation for ConnectorLogger class}
 \usage{
-\method{upload_cnt}{ConnectorLogger}(
-  connector_object,
-  file,
-  name = basename(file),
-  overwrite = zephyr::get_option("overwrite", "connector"),
-  ...
-)
+\method{upload_cnt}{ConnectorLogger}(connector_object, ...)
 }
 \arguments{
 \item{connector_object}{The ConnectorLogger object.}
+
+\item{...}{Additional parameters.}
 
 \item{file}{The file to upload.}
 
 \item{name}{The name of the file in the connector.}
 
 \item{overwrite}{Whether to overwrite existing files.}
-
-\item{...}{Additional parameters.}
 }
 \value{
 Invisible result of the upload operation.

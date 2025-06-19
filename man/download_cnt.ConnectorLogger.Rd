@@ -4,16 +4,16 @@
 \alias{download_cnt.ConnectorLogger}
 \title{Download Operation for ConnectorLogger class}
 \usage{
-\method{download_cnt}{ConnectorLogger}(connector_object, name, file = basename(name), ...)
+\method{download_cnt}{ConnectorLogger}(connector_object, name, ...)
 }
 \arguments{
 \item{connector_object}{The ConnectorLogger object.}
 
 \item{name}{The name of the file in the connector.}
 
-\item{file}{The local file path to download to.}
-
 \item{...}{Additional parameters.}
+
+\item{file}{The local file path to download to.}
 }
 \value{
 The result of the download operation.
