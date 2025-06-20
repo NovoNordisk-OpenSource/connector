@@ -380,6 +380,7 @@ readLines
 registerS
 sapply
 sas
+sas7bdat
 seealso
 sep
 setenv
