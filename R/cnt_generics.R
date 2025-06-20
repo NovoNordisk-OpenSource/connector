@@ -25,11 +25,8 @@ read_cnt.default <- function(connector_object, name, ...) {
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param x `r rd_connector_utils("x")`
 #' @param name `r rd_connector_utils("name")`
-#' @param overwrite Overwrite existing content if it exists in the connector.
-#'   See [connector-options] for details. Default can be set globally with
-#'   `options(connector.overwrite = TRUE/FALSE)` or environment variable
-#'   `R_CONNECTOR_OVERWRITE`.
 #' @param ... `r rd_connector_utils("...")`
+#' @inheritParams connector-options-params
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
 write_cnt <- function(
@@ -112,11 +109,8 @@ download_cnt.default <- function(connector_object, ...) {
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param file `r rd_connector_utils("file")`
 #' @param name `r rd_connector_utils("name")`
-#' @param overwrite Overwrite existing content if it exists in the connector.
-#'   See [connector-options] for details. Default can be set globally with
-#'   `options(connector.overwrite = TRUE/FALSE)` or environment variable
-#'   `R_CONNECTOR_OVERWRITE`.
 #' @param ... `r rd_connector_utils("...")`
+#' @inheritParams connector-options-params
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
 upload_cnt <- function(
@@ -184,12 +178,9 @@ remove_directory_cnt.default <- function(connector_object, ...) {
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param dir [character] Path to the directory to upload
 #' @param name [character] The name of the new directory to place the content in
-#' @param overwrite Overwrite existing content if it exists in the connector.
-#'   See [connector-options] for details. Default can be set globally with
-#'   `options(connector.overwrite = TRUE/FALSE)` or environment variable
-#'   `R_CONNECTOR_OVERWRITE`.
 #' @param open `r rd_connector_utils("open")`
 #' @param ... `r rd_connector_utils("...")`
+#' @inheritParams connector-options-params
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
 upload_directory_cnt <- function(
