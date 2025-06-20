@@ -17,7 +17,7 @@ See \link[zephyr:verbosity_level]{zephyr::verbosity_level} for details.
 
 \subsection{overwrite}{
 
-Overwrite existing content if it exists in the connector?
+Overwrite existing content if it exists in the connector.
 \itemize{
 \item Default: \code{FALSE}
 \item Option: \code{connector.overwrite}

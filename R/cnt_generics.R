@@ -25,14 +25,20 @@ read_cnt.default <- function(connector_object, name, ...) {
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param x `r rd_connector_utils("x")`
 #' @param name `r rd_connector_utils("name")`
-#' @param overwrite Overwrite existing content if it exists in the connector?
+#' @param overwrite Overwrite existing content if it exists in the connector.
 #'   See [connector-options] for details. Default can be set globally with
 #'   `options(connector.overwrite = TRUE/FALSE)` or environment variable
 #'   `R_CONNECTOR_OVERWRITE`.
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-write_cnt <- function(connector_object, x, name, overwrite = zephyr::get_option("overwrite", "connector"), ...) {
+write_cnt <- function(
+  connector_object,
+  x,
+  name,
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+) {
   UseMethod("write_cnt")
 }
 
@@ -106,7 +112,7 @@ download_cnt.default <- function(connector_object, ...) {
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param file `r rd_connector_utils("file")`
 #' @param name `r rd_connector_utils("name")`
-#' @param overwrite Overwrite existing content if it exists in the connector?
+#' @param overwrite Overwrite existing content if it exists in the connector.
 #'   See [connector-options] for details. Default can be set globally with
 #'   `options(connector.overwrite = TRUE/FALSE)` or environment variable
 #'   `R_CONNECTOR_OVERWRITE`.
@@ -114,11 +120,12 @@ download_cnt.default <- function(connector_object, ...) {
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
 upload_cnt <- function(
-    connector_object,
-    file,
-    name = basename(file),
-    overwrite = zephyr::get_option("overwrite", "connector"),
-    ...) {
+  connector_object,
+  file,
+  name = basename(file),
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+) {
   UseMethod("upload_cnt")
 }
 
@@ -177,7 +184,7 @@ remove_directory_cnt.default <- function(connector_object, ...) {
 #' @param connector_object `r rd_connector_utils("connector_object")`
 #' @param dir [character] Path to the directory to upload
 #' @param name [character] The name of the new directory to place the content in
-#' @param overwrite Overwrite existing content if it exists in the connector?
+#' @param overwrite Overwrite existing content if it exists in the connector.
 #'   See [connector-options] for details. Default can be set globally with
 #'   `options(connector.overwrite = TRUE/FALSE)` or environment variable
 #'   `R_CONNECTOR_OVERWRITE`.
@@ -186,12 +193,13 @@ remove_directory_cnt.default <- function(connector_object, ...) {
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
 upload_directory_cnt <- function(
-    connector_object,
-    dir,
-    name,
-    overwrite = zephyr::get_option("overwrite", "connector"),
-    open = FALSE,
-    ...) {
+  connector_object,
+  dir,
+  name,
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  open = FALSE,
+  ...
+) {
   UseMethod("upload_directory_cnt")
 }
 

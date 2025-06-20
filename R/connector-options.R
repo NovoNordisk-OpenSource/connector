@@ -22,7 +22,7 @@ zephyr::create_option(
 zephyr::create_option(
   name = "overwrite",
   default = FALSE,
-  desc = "Overwrite existing content if it exists in the connector?"
+  desc = "Overwrite existing content if it exists in the connector."
 )
 
 zephyr::create_option(
