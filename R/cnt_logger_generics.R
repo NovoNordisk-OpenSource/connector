@@ -198,7 +198,7 @@ list_content_cnt.ConnectorLogger <- function(connector_object, ...) {
 #' @param connector_object The ConnectorLogger object.
 #' @param file The file to upload.
 #' @param name The name of the file in the connector.
-#' @param overwrite Whether to overwrite existing files.
+#' @inheritParams connector-options-params
 #' @param ... Additional parameters.
 #'
 #' @return Invisible result of the upload operation.
