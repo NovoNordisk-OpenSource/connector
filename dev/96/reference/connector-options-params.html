@@ -53,7 +53,10 @@ See <a href="https://novonordisk-opensource.github.io/zephyr/reference/verbosity
 
 
 <dt id="arg-overwrite">overwrite<a class="anchor" aria-label="anchor" href="#arg-overwrite"></a></dt>
-<dd><p>Overwrite existing content if it exists in the connector.. Default: <code>FALSE</code>.</p></dd>
+<dd><p>Overwrite existing content if it exists in the connector?
+See <a href="connector-options.html">connector-options</a> for details. Default can be set globally with
+<code>options(connector.overwrite = TRUE/FALSE)</code> or environment variable
+<code>R_CONNECTOR_OVERWRITE</code>.. Default: <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-logging">logging<a class="anchor" aria-label="anchor" href="#arg-logging"></a></dt>
