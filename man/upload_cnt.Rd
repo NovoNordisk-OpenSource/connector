@@ -28,10 +28,10 @@ upload_cnt(
 
 \item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
-\item{overwrite}{Overwrite existing content if it exists in the connector.
+\item{overwrite}{Overwrite existing content if it exists in the connector?
 See \link{connector-options} for details. Default can be set globally with
 \code{options(connector.overwrite = TRUE/FALSE)} or environment variable
-\code{R_CONNECTOR_OVERWRITE}.}
+\code{R_CONNECTOR_OVERWRITE}.. Default: \code{FALSE}.}
 
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }

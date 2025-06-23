@@ -58,6 +58,8 @@ log_read_connector.default <- function(connector_object, name, ...) {
 #' @param name The name of the connector.
 #' @param ... Additional parameters.
 #'
+#' @name read_connectorlogger
+#'
 #' @return The result of the read operation.
 #' @export
 read_cnt.ConnectorLogger <- function(connector_object, name, ...) {
@@ -65,6 +67,13 @@ read_cnt.ConnectorLogger <- function(connector_object, name, ...) {
   log_read_connector(connector_object, name, ...)
   return(res)
 }
+
+
+#' Log read operation for tbl method
+#'
+#' @rdname read_connectorlogger
+#' @export
+tbl_cnt.ConnectorLogger <- read_cnt.ConnectorLogger
 
 #' Log Write Connector
 #'

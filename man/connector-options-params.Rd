@@ -7,7 +7,10 @@
 \item{verbosity_level}{Verbosity level for functions in connector.
 See \link[zephyr:verbosity_level]{zephyr::verbosity_level} for details.. Default: \code{"verbose"}.}
 
-\item{overwrite}{Overwrite existing content if it exists in the connector.. Default: \code{FALSE}.}
+\item{overwrite}{Overwrite existing content if it exists in the connector?
+See \link{connector-options} for details. Default can be set globally with
+\code{options(connector.overwrite = TRUE/FALSE)} or environment variable
+\code{R_CONNECTOR_OVERWRITE}.. Default: \code{FALSE}.}
 
 \item{logging}{Add logs to the console as well as to the whirl log html files. Default: \code{FALSE}.}
 }

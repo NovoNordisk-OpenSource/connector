@@ -17,7 +17,10 @@ See \link[zephyr:verbosity_level]{zephyr::verbosity_level} for details.
 
 \subsection{overwrite}{
 
-Overwrite existing content if it exists in the connector.
+Overwrite existing content if it exists in the connector?
+See \link{connector-options} for details. Default can be set globally with
+\code{options(connector.overwrite = TRUE/FALSE)} or environment variable
+\code{R_CONNECTOR_OVERWRITE}.
 \itemize{
 \item Default: \code{FALSE}
 \item Option: \code{connector.overwrite}

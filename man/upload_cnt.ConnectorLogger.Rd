@@ -19,7 +19,10 @@
 
 \item{name}{The name of the file in the connector.}
 
-\item{overwrite}{Whether to overwrite existing files.}
+\item{overwrite}{Overwrite existing content if it exists in the connector?
+See \link{connector-options} for details. Default can be set globally with
+\code{options(connector.overwrite = TRUE/FALSE)} or environment variable
+\code{R_CONNECTOR_OVERWRITE}.. Default: \code{FALSE}.}
 
 \item{...}{Additional parameters.}
 }
