@@ -1,3 +1,51 @@
+# test [plain]
+
+    Code
+      example_read_ext()
+    Message
+      Here an example for CSV files:
+      > Your own method by creating a new function with the name `read_ext.<extension>`
+      read_ext.csv <- function(path, ...) {
+        readr::read_csv(path, ...)
+      }
+      
+
+# test [ansi]
+
+    Code
+      example_read_ext()
+    Message
+      [1m[22mHere an example for CSV files:
+      > Your own method by creating a new function with the name `read_ext.<extension>`
+      read_ext.csv [33m<-[39m [33mfunction[39m[33m([39mpath, ...[33m)[39m [33m{[39m
+        readr::[1mread_csv[22m[33m([39mpath, ...[33m)[39m
+      [33m}[39m
+      
+
+# test [unicode]
+
+    Code
+      example_read_ext()
+    Message
+      Here an example for CSV files:
+      → Your own method by creating a new function with the name `read_ext.<extension>`
+      read_ext.csv <- function(path, ...) {
+        readr::read_csv(path, ...)
+      }
+      
+
+# test [fancy]
+
+    Code
+      example_read_ext()
+    Message
+      [1m[22mHere an example for CSV files:
+      → Your own method by creating a new function with the name `read_ext.<extension>`
+      read_ext.csv [33m<-[39m [33mfunction[39m[33m([39mpath, ...[33m)[39m [33m{[39m
+        readr::[1mread_csv[22m[33m([39mpath, ...[33m)[39m
+      [33m}[39m
+      
+
 # Test utils for file
 
     Code
