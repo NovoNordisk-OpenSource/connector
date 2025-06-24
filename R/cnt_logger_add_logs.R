@@ -23,6 +23,8 @@
 #'
 #' logged_connections <- add_logs(con)
 #'
+#' @name log-utilities
+#' @rdname log-utilities
 #' @export
 add_logs <- function(connections) {
   checkmate::assert_class(connections, "connectors")
@@ -48,6 +50,7 @@ add_logs <- function(connections) {
 #'
 #' @seealso \code{\link{print}}
 #'
+#' @rdname log-utilities
 #' @export
 #' @method print ConnectorLogger
 print.ConnectorLogger <- function(...) {
