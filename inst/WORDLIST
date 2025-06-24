@@ -367,6 +367,7 @@ lapply
 len
 makeAssertCollection
 msg
+mydb
 na
 NextMethod
 nm
@@ -378,6 +379,7 @@ rdname
 rds
 readLines
 registerS
+Rtmp
 sapply
 sas
 sas7bdat
