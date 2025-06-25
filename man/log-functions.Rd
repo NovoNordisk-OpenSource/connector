@@ -112,14 +112,6 @@ Example log: \code{"dataset.csv @ /path/to/data"}
 Database connectors log driver information and database name.
 Example log: \code{"table_name @ driver: SQLiteDriver, dbname: mydb.sqlite"}
 }
-\item{\strong{ConnectorLogger}}{
-Logger wrapper that adds logging to any existing connector while
-preserving original functionality through method inheritance.
-}
-\item{\strong{Default}}{
-Fallback implementation that logs basic resource names for unknown
-connector types.
-}
 }
 }
 

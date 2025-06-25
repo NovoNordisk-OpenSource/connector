@@ -22,3 +22,11 @@ test_that("can create Connector object", {
 
   expect_error(datasources(NULL))
 })
+
+
+cli::test_that_cli("Test connector creation", {
+  connector_obj <- connectors(
+    test = ConnectorFS$new(path = tempdir())
+  )
+  expect_snapshot_out(print(connector_obj$test))
+})
