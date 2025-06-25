@@ -72,7 +72,10 @@ test_that("ConnectorDBI logging methods handle special characters in names", {
   })
 
   # Verify the correct message was logged
-  expected_msg <- paste0(special_name, " @ driver: SQLiteConnection, dbname: :memory:")
+  expected_msg <- paste0(
+    special_name,
+    " @ driver: SQLiteConnection, dbname: :memory:"
+  )
   expect_true(any(grepl(expected_msg, log_output, fixed = TRUE)))
 
   DBI::dbDisconnect(connector_object$conn)

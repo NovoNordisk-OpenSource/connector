@@ -1,5 +1,9 @@
 # Create a ConnectorFS object with a temporary folder path
-normalized_temp_dir <- normalizePath(tempdir(), winslash = "/", mustWork = FALSE)
+normalized_temp_dir <- normalizePath(
+  tempdir(),
+  winslash = "/",
+  mustWork = FALSE
+)
 fs_connector <- connector::ConnectorFS$new(
   path = normalized_temp_dir,
   extra_class = "ConnectorLogger"
@@ -79,7 +83,11 @@ test_that("ConnectorFS logging methods handle edge cases", {
 
   # Verify the correct message was logged
   expected_msg_empty_path <- "test.csv @ "
-  expect_true(any(grepl(expected_msg_empty_path, log_output_empty_path, fixed = TRUE)))
+  expect_true(any(grepl(
+    expected_msg_empty_path,
+    log_output_empty_path,
+    fixed = TRUE
+  )))
 
   # Test with empty name
   log_output_empty_name <- capture.output({
@@ -88,5 +96,9 @@ test_that("ConnectorFS logging methods handle edge cases", {
 
   # Verify the correct message was logged
   expected_msg_empty_name <- glue::glue(" @ {normalized_temp_dir}")
-  expect_true(any(grepl(expected_msg_empty_name, log_output_empty_name, fixed = TRUE)))
+  expect_true(any(grepl(
+    expected_msg_empty_name,
+    log_output_empty_name,
+    fixed = TRUE
+  )))
 })
