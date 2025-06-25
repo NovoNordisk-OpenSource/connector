@@ -30,7 +30,10 @@ upload_directory_cnt(
 
 \item{name}{\link{character} The name of the new directory to place the content in}
 
-\item{overwrite}{Overwrite existing content if it exists in the connector?. Default: \code{FALSE}.}
+\item{overwrite}{Overwrite existing content if it exists in the connector?
+See \link{connector-options} for details. Default can be set globally with
+\code{options(connector.overwrite = TRUE/FALSE)} or environment variable
+\code{R_CONNECTOR_OVERWRITE}.. Default: \code{FALSE}.}
 
 \item{open}{\link{logical} Open the directory as a new connector object.}
 

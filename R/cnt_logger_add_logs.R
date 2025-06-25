@@ -33,23 +33,3 @@ add_logs <- function(connections) {
 
   connections
 }
-
-#' Print Method for ConnectorLogger objects
-#'
-#' @param ... Additional arguments passed to the next method.
-#'
-#' @return The result of the next method in the dispatch chain.
-#'
-#' @details
-#' This method is designed to be called automatically when `print()` is used
-#' on an object of class "ConnectorLogger". It uses `NextMethod()` to call
-#' the next appropriate method in the method dispatch chain, allowing for
-#' the default or any other custom print behavior to be executed.
-#'
-#' @seealso \code{\link{print}}
-#'
-#' @export
-#' @method print ConnectorLogger
-print.ConnectorLogger <- function(...) {
-  NextMethod(...)
-}

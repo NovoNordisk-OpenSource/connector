@@ -1,3 +1,8 @@
+# connector 0.1.1.9000 (development version)
+
+## Enhancements
+* Added upload_cnt and download_cnt methods for ConnectorLogger
+
 # connector 0.1.1
 
 ## Enhancements

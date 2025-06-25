@@ -20,30 +20,111 @@
 #' @export
 ConnectorLogger <- structure(list(), class = "ConnectorLogger")
 
-#' Log Read Connector
+#' Connector Logging Functions
 #'
-#' This function is a generic for logging the reading of a connector object. The
-#' actual implementation of the logging is determined by the specific method for
-#' the connector object's class.
+#' @title Connector Logging Functions
+#' @description
+#' A comprehensive set of generic functions and methods for logging connector
+#' operations. These functions provide automatic logging capabilities for read,
+#' write, remove, and list operations across different connector types, enabling
+#' transparent audit trails and operation tracking.
 #'
-#' @param connector_object The connector object to log the reading of.
-#' @param name The name of the connector.
-#' @param ... Additional parameters passed to the specific method implementation
+#' @details
+#' The logging system is built around S3 generic functions that dispatch to
+#' specific implementations based on the connector class. Each operation is
+#' logged with contextual information including connector details, operation
+#' type, and resource names.
 #'
-#' @return The result of the specific method implementation.
+#' @section Available Operations:
+#' \describe{
+#'   \item{\code{log_read_connector(connector_object, name, ...)}}{
+#'     Logs read operations when data is retrieved from a connector.
+#'     Automatically called by \code{read_cnt()} and \code{tbl_cnt()} methods.
+#'   }
+#'   \item{\code{log_write_connector(connector_object, name, ...)}}{
+#'     Logs write operations when data is stored to a connector.
+#'     Automatically called by \code{write_cnt()} and \code{upload_cnt()} methods.
+#'   }
+#'   \item{\code{log_remove_connector(connector_object, name, ...)}}{
+#'     Logs removal operations when resources are deleted from a connector.
+#'     Automatically called by \code{remove_cnt()} methods.
+#'   }
+#'   \item{\code{log_list_content_connector(connector_object, ...)}}{
+#'     Logs listing operations when connector contents are queried.
+#'     Automatically called by \code{list_content_cnt()} methods.
+#'   }
+#' }
+#'
+#' @section Supported Connector Types:
+#' Each connector type has specialized logging implementations:
+#' \describe{
+#'   \item{\strong{ConnectorFS}}{
+#'     File system connectors log the full file path and operation type.
+#'     Example log: \code{"dataset.csv @ /path/to/data"}
+#'   }
+#'   \item{\strong{ConnectorDBI}}{
+#'     Database connectors log driver information and database name.
+#'     Example log: \code{"table_name @ driver: SQLiteDriver, dbname: mydb.sqlite"}
+#'   }
+#' }
+#'
+#' @section Integration with whirl Package:
+#' All logging operations use the \pkg{whirl} package for consistent log output:
+#' \itemize{
+#'   \item \code{whirl::log_read()} - For read operations
+#'   \item \code{whirl::log_write()} - For write operations
+#'   \item \code{whirl::log_delete()} - For remove operations
+#' }
+#'
+#' @param connector_object The connector object to log operations for. Can be
+#'   any connector class (ConnectorFS, ConnectorDBI, ConnectorLogger, etc.)
+#' @param name Character string specifying the name or identifier of the
+#'   resource being operated on (e.g., file name, table name)
+#' @param ... Additional parameters passed to specific method implementations.
+#'   May include connector-specific options or metadata.
+#'
+#' @return
+#' These are primarily side-effect functions that perform logging. The actual
+#' return value depends on the specific method implementation, typically:
+#' \itemize{
+#'   \item \code{log_read_connector}: Result of the read operation
+#'   \item \code{log_write_connector}: Invisible result of write operation
+#'   \item \code{log_remove_connector}: Invisible result of remove operation
+#'   \item \code{log_list_content_connector}: List of connector contents
+#' }
+#'
+#' @examples
+#' # Basic usage with file system connector
+#' logged_fs <- add_logs(connectors(data = connector_fs(path = tempdir())))
+#'
+#' # Write operation (automatically logged)
+#' write_cnt(logged_fs$data, mtcars, "cars.csv")
+#' # Output: "cars.csv @ /tmp/RtmpXXX"
+#'
+#' #' # Read operation (automatically logged)
+#' data <- read_cnt(logged_fs$data, "cars.csv")
+#' # Output: "dataset.csv @ /tmp/RtmpXXX"
+#'
+#' # Database connector example
+#' logged_db <- add_logs(connectors(db = connector_dbi(RSQLite::SQLite(), ":memory:")))
+#'
+#' # Operations are logged with database context
+#' write_cnt(logged_db$db, iris, "iris_table")
+#' # Output: "iris_table @ driver: SQLiteDriver, dbname: :memory:"
+#'
+#' @seealso
+#' \code{\link{add_logs}} for adding logging capability to connectors,
+#' \code{\link{ConnectorLogger}} for the logger class,
+#' \pkg{whirl} package for underlying logging implementation
+#'
+#' @name log-functions
+#' @rdname log-functions
 #' @export
 log_read_connector <- function(connector_object, name, ...) {
   UseMethod("log_read_connector")
 }
 
-#' Default Log Read Operation
-#'
-#' Default implementation of the log_read_connector function.
-#'
-#' @param connector_object The connector object.
-#' @param name The name of the connector.
-#' @param ... Additional parameters.
-#'
+#' @rdname log-functions
 #' @export
 log_read_connector.default <- function(connector_object, name, ...) {
   whirl::log_read(name)
@@ -58,6 +139,8 @@ log_read_connector.default <- function(connector_object, name, ...) {
 #' @param name The name of the connector.
 #' @param ... Additional parameters.
 #'
+#' @rdname connector-logger-methods
+#'
 #' @return The result of the read operation.
 #' @export
 read_cnt.ConnectorLogger <- function(connector_object, name, ...) {
@@ -66,30 +149,20 @@ read_cnt.ConnectorLogger <- function(connector_object, name, ...) {
   return(res)
 }
 
-#' Log Write Connector
+
+#' Log read operation for tbl method
 #'
-#' This function is a generic for logging the writing of a connector object. The
-#' actual implementation of the logging is determined by the specific method for
-#' the connector object's class.
-#'
-#' @param connector_object The connector object to log the writing of.
-#' @param name The name of the connector.
-#' @param ... Additional parameters passed to the specific method implementation
-#'
-#' @return The result of the specific method implementation.
+#' @rdname connector-logger-methods
+#' @export
+tbl_cnt.ConnectorLogger <- read_cnt.ConnectorLogger
+
+#' @rdname log-functions
 #' @export
 log_write_connector <- function(connector_object, name, ...) {
   UseMethod("log_write_connector")
 }
 
-#' Default Log Write Operation
-#'
-#' Default implementation of the log_write_connector function.
-#'
-#' @param connector_object The connector object.
-#' @param name The name of the connector.
-#' @param ... Additional parameters.
-#'
+#' @rdname log-functions
 #' @export
 log_write_connector.default <- function(connector_object, name, ...) {
   whirl::log_write(name)
@@ -105,6 +178,8 @@ log_write_connector.default <- function(connector_object, name, ...) {
 #' @param name The name of the connector.
 #' @param ... Additional parameters.
 #'
+#' @name connector-logger-methods
+#' @rdname connector-logger-methods
 #' @return Invisible result of the write operation.
 #' @export
 write_cnt.ConnectorLogger <- function(connector_object, x, name, ...) {
@@ -113,30 +188,13 @@ write_cnt.ConnectorLogger <- function(connector_object, x, name, ...) {
   return(invisible(res))
 }
 
-#' Log Remove Connector
-#'
-#' This function is a generic for logging the removal of a connector object. The
-#' actual implementation of the logging is determined by the specific method for
-#' the connector object's class.
-#'
-#' @param connector_object The connector object to log the removal of.
-#' @param name The name of the connector.
-#' @param ... Additional parameters passed to the specific method implementation
-#'
-#' @return The result of the specific method implementation.
+#' @rdname log-functions
 #' @export
 log_remove_connector <- function(connector_object, name, ...) {
   UseMethod("log_remove_connector")
 }
 
-#' Default Log Remove Operation
-#'
-#' Default implementation of the log_remove_connector function.
-#'
-#' @param connector_object The connector object.
-#' @param name The name of the connector.
-#' @param ... Additional parameters.
-#'
+#' @rdname log-functions
 #' @export
 log_remove_connector.default <- function(connector_object, name, ...) {
   whirl::log_delete(name)
@@ -151,6 +209,7 @@ log_remove_connector.default <- function(connector_object, name, ...) {
 #' @param name The name of the connector.
 #' @param ... Additional parameters.
 #'
+#' @rdname connector-logger-methods
 #' @return The result of the remove operation.
 #' @export
 remove_cnt.ConnectorLogger <- function(connector_object, name, ...) {
@@ -159,16 +218,7 @@ remove_cnt.ConnectorLogger <- function(connector_object, name, ...) {
   return(invisible(res))
 }
 
-#' List contents
-#'
-#' This function is a generic for logging the List contents of a
-#' connector object. The actual implementation of the logging is determined by
-#' the specific method for the connector object's class.
-#'
-#' @param connector_object The connector object to log the List contents of.
-#' @param ... Additional parameters passed to the specific method implementation
-#'
-#' @return The result of the specific method implementation.
+#' @rdname log-functions
 #' @export
 log_list_content_connector <- function(connector_object, ...) {
   UseMethod("log_list_content_connector")
@@ -182,11 +232,62 @@ log_list_content_connector <- function(connector_object, ...) {
 #' @param connector_object The ConnectorLogger object.
 #' @param ... Additional parameters.
 #'
+#' @rdname connector-logger-methods
 #' @return The result of the read operation.
 #' @export
 list_content_cnt.ConnectorLogger <- function(connector_object, ...) {
   res <- tryCatch(NextMethod())
   log_read_connector(connector_object, name = ".", ...)
+  return(res)
+}
+
+#' Upload Operation for ConnectorLogger class
+#'
+#' Implementation of the upload_cnt function for the ConnectorLogger
+#' class.
+#'
+#' @param connector_object The ConnectorLogger object.
+#' @param file The file to upload.
+#' @param name The name of the file in the connector.
+#' @inheritParams connector-options-params
+#' @param ... Additional parameters.
+#'
+#' @rdname connector-logger-methods
+#' @return Invisible result of the upload operation.
+#' @export
+upload_cnt.ConnectorLogger <- function(
+  connector_object,
+  file,
+  name = basename(file),
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+) {
+  res <- tryCatch(NextMethod())
+  log_write_connector(connector_object, name, ...)
+  return(invisible(res))
+}
+
+#' Download Operation for ConnectorLogger class
+#'
+#' Implementation of the download_cnt function for the ConnectorLogger
+#' class.
+#'
+#' @param connector_object The ConnectorLogger object.
+#' @param name The name of the file in the connector.
+#' @param file The local file path to download to.
+#' @param ... Additional parameters.
+#'
+#' @rdname connector-logger-methods
+#' @return The result of the download operation.
+#' @export
+download_cnt.ConnectorLogger <- function(
+  connector_object,
+  name,
+  file = basename(name),
+  ...
+) {
+  res <- tryCatch(NextMethod())
+  log_read_connector(connector_object, name, ...)
   return(res)
 }
 
@@ -197,6 +298,7 @@ list_content_cnt.ConnectorLogger <- function(connector_object, ...) {
 #' @param x The connector logger object
 #' @param ... Additional arguments
 #'
+#' @rdname connector-logger-methods
 #' @return The result of the print operation
 #'
 #' @export

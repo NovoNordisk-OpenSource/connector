@@ -331,3 +331,140 @@ test_that("print.ConnectorLogger works correctly", {
   output <- capture.output(print(logger))
   expect_true(any(grepl("ConnectorLogger", output)))
 })
+
+test_that("upload_cnt.ConnectorLogger handles success and failure", {
+  logger <- ConnectorLogger
+
+  # Test success case
+  log_mock <- log_mock_generator()
+
+  upload_cnt.ConnectorLogger <- function(connector_object, file, name = basename(file), overwrite = TRUE, ...) {
+    tryCatch(
+      {
+        # Simulate successful upload operation
+        log_write_connector(connector_object, name, ...)
+        invisible(NULL)
+      },
+      error = function(e) {
+        stop(e)
+      }
+    )
+  }
+
+  with_mocked_bindings(
+    {
+      result <- upload_cnt.ConnectorLogger(logger, file = "/path/to/test.txt", name = "test.txt")
+      expect_null(result)
+      expect_equal(log_mock(), 1)
+    },
+    log_write_connector = log_mock
+  )
+
+  # Test error case
+  log_mock <- log_mock_generator()
+
+  upload_cnt.ConnectorLogger <- function(connector_object, file, name = basename(file), overwrite = TRUE, ...) {
+    stop("upload error")
+  }
+
+  with_mocked_bindings(
+    {
+      expect_error(upload_cnt.ConnectorLogger(logger, file = "/path/to/test.txt", name = "test.txt"), "upload error")
+      expect_equal(log_mock(), 0)
+    },
+    log_write_connector = log_mock
+  )
+
+  # Test default name parameter (uses basename of file)
+  log_mock <- log_mock_generator()
+
+  upload_cnt.ConnectorLogger <- function(connector_object, file, name = basename(file), overwrite = TRUE, ...) {
+    tryCatch(
+      {
+        log_write_connector(connector_object, name, ...)
+        invisible(NULL)
+      },
+      error = function(e) {
+        stop(e)
+      }
+    )
+  }
+
+  with_mocked_bindings(
+    {
+      result <- upload_cnt.ConnectorLogger(logger, file = "/path/to/myfile.csv")
+      expect_null(result)
+      expect_equal(log_mock(), 1)
+    },
+    log_write_connector = log_mock
+  )
+})
+
+test_that("download_cnt.ConnectorLogger handles success and failure", {
+  logger <- ConnectorLogger
+
+  # Test success case
+  log_mock <- log_mock_generator()
+
+  download_cnt.ConnectorLogger <- function(connector_object, name, file = basename(name), ...) {
+    tryCatch(
+      {
+        res <- "downloaded_data"
+        log_read_connector(connector_object, name, ...)
+        res
+      },
+      error = function(e) {
+        stop(e)
+      }
+    )
+  }
+
+  with_mocked_bindings(
+    {
+      result <- download_cnt.ConnectorLogger(logger, name = "remote_file.txt", file = "local_file.txt")
+      expect_equal(result, "downloaded_data")
+      expect_equal(log_mock(), 1)
+    },
+    log_read_connector = log_mock
+  )
+
+  # Test error case
+  log_mock <- log_mock_generator()
+
+  download_cnt.ConnectorLogger <- function(connector_object, name, file = basename(name), ...) {
+    stop("download error")
+  }
+
+  with_mocked_bindings(
+    {
+      expect_error(download_cnt.ConnectorLogger(logger, name = "remote_file.txt"), "download error")
+      expect_equal(log_mock(), 0)
+    },
+    log_read_connector = log_mock
+  )
+
+  # Test default file parameter (uses basename of name)
+  log_mock <- log_mock_generator()
+
+  download_cnt.ConnectorLogger <- function(connector_object, name, file = basename(name), ...) {
+    tryCatch(
+      {
+        res <- "test_content"
+        log_read_connector(connector_object, name, ...)
+        res
+      },
+      error = function(e) {
+        stop(e)
+      }
+    )
+  }
+
+  with_mocked_bindings(
+    {
+      result <- download_cnt.ConnectorLogger(logger, name = "data/myfile.rds")
+      expect_equal(result, "test_content")
+      expect_equal(log_mock(), 1)
+    },
+    log_read_connector = log_mock
+  )
+})

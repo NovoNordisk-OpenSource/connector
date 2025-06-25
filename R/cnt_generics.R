@@ -29,7 +29,13 @@ read_cnt.default <- function(connector_object, name, ...) {
 #' @inheritParams connector-options-params
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-write_cnt <- function(connector_object, x, name, overwrite = zephyr::get_option("overwrite", "connector"), ...) {
+write_cnt <- function(
+  connector_object,
+  x,
+  name,
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+) {
   UseMethod("write_cnt")
 }
 
@@ -108,11 +114,12 @@ download_cnt.default <- function(connector_object, ...) {
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
 upload_cnt <- function(
-    connector_object,
-    file,
-    name = basename(file),
-    overwrite = zephyr::get_option("overwrite", "connector"),
-    ...) {
+  connector_object,
+  file,
+  name = basename(file),
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+) {
   UseMethod("upload_cnt")
 }
 
@@ -177,12 +184,13 @@ remove_directory_cnt.default <- function(connector_object, ...) {
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
 upload_directory_cnt <- function(
-    connector_object,
-    dir,
-    name,
-    overwrite = zephyr::get_option("overwrite", "connector"),
-    open = FALSE,
-    ...) {
+  connector_object,
+  dir,
+  name,
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  open = FALSE,
+  ...
+) {
   UseMethod("upload_directory_cnt")
 }
 
