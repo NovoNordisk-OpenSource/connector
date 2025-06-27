@@ -9,6 +9,10 @@ ConnectorFS: Uses write_file() to Write a file based on the file extension.
 The underlying function used, and thereby also the arguments available
 through ... depends on the file extension.
 
+
+
+ConnectorLogger: Logs the write operation and calls the underlying connector method.
+
 "><meta property="og:description" content="Generic implementing of how to write content to the different connector objects:
 
 ConnectorDBI: Uses DBI::dbWriteTable() to write the table to the DBI connection.
@@ -18,6 +22,10 @@ ConnectorDBI: Uses DBI::dbWriteTable() to write the table to the DBI connection.
 ConnectorFS: Uses write_file() to Write a file based on the file extension.
 The underlying function used, and thereby also the arguments available
 through ... depends on the file extension.
+
+
+
+ConnectorLogger: Logs the write operation and calls the underlying connector method.
 
 "><meta property="og:image" content="https://novonordisk-opensource.github.io/connector/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -54,7 +62,7 @@ through ... depends on the file extension.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Write content to the connector</h1>
-      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/cnt_generics.R" class="external-link"><code>R/cnt_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/dbi_methods.R" class="external-link"><code>R/dbi_methods.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/fs_methods.R" class="external-link"><code>R/fs_methods.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/cnt_generics.R" class="external-link"><code>R/cnt_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/dbi_methods.R" class="external-link"><code>R/dbi_methods.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/fs_methods.R" class="external-link"><code>R/fs_methods.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>write_cnt.Rd</code></div>
     </div>
 
@@ -64,6 +72,7 @@ through ... depends on the file extension.
 </ul><ul><li><p><a href="ConnectorFS.html">ConnectorFS</a>: Uses <code><a href="write_file.html">write_file()</a></code> to Write a file based on the file extension.
 The underlying function used, and thereby also the arguments available
 through <code>...</code> depends on the file extension.</p></li>
+</ul><ul><li><p><a href="ConnectorLogger.html">ConnectorLogger</a>: Logs the write operation and calls the underlying connector method.</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -92,7 +101,10 @@ through <code>...</code> depends on the file extension.</p></li>
 <span>  <span class="va">name</span>,</span>
 <span>  overwrite <span class="op">=</span> <span class="fu">zephyr</span><span class="fu">::</span><span class="fu"><a href="https://novonordisk-opensource.github.io/zephyr/reference/get_option.html" class="external-link">get_option</a></span><span class="op">(</span><span class="st">"overwrite"</span>, <span class="st">"connector"</span><span class="op">)</span>,</span>
 <span>  <span class="va">...</span></span>
-<span><span class="op">)</span></span></code></pre></div>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'ConnectorLogger'</span></span>
+<span><span class="fu">write_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">x</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div class="section level2">
@@ -155,18 +167,25 @@ See <a href="connector-options.html">connector-options</a> for details. Default 
 <span class="r-in"><span><span class="co"># rds file</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">write_cnt</span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.rds"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/tmp/RtmpsRRRRH/file1e7e788adf7d/iris.rds': No such file or directory</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file '/tmp/RtmprvPwvF/file1e5a4df2f1f/iris.rds': No such file or directory</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in saveRDS(x, con, version = version, refhook = refhook, ascii = text):</span> cannot open the connection</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># CSV file</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">write_cnt</span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.csv"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Cannot open file for writing:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/RtmpsRRRRH/file1e7e788adf7d/iris.csv'</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/RtmprvPwvF/file1e5a4df2f1f/iris.csv'</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"iris"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Add logging to a database connector</span></span></span>
+<span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connectors.html">connectors</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="connector_dbi.html">connector_dbi</a></span><span class="op">(</span><span class="fu">RSQLite</span><span class="fu">::</span><span class="fu"><a href="https://rsqlite.r-dbi.org/reference/SQLite.html" class="external-link">SQLite</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="add_logs.html">add_logs</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cnt</span><span class="op">$</span><span class="va">data</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">write_cnt</span><span class="op">(</span><span class="va">mtcars</span>, <span class="st">"cars"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-06-27 13:29:38","type":"write","file":"cars @ driver: SQLiteConnection, dbname: "}</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

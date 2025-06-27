@@ -7,6 +7,10 @@ ConnectorDBI: Uses DBI::dbListTables() to list the tables in a DBI connection.
 
 ConnectorFS: Uses list.files() to list all files at the path of the connector.
 
+
+
+ConnectorLogger: Logs the list operation and calls the underlying connector method.
+
 "><meta property="og:description" content="Generic implementing of how to list all content available for different connectors:
 
 ConnectorDBI: Uses DBI::dbListTables() to list the tables in a DBI connection.
@@ -14,6 +18,10 @@ ConnectorDBI: Uses DBI::dbListTables() to list the tables in a DBI connection.
 
 
 ConnectorFS: Uses list.files() to list all files at the path of the connector.
+
+
+
+ConnectorLogger: Logs the list operation and calls the underlying connector method.
 
 "><meta property="og:image" content="https://novonordisk-opensource.github.io/connector/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -50,7 +58,7 @@ ConnectorFS: Uses list.files() to list all files at the path of the connector.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>List available content from the connector</h1>
-      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/cnt_generics.R" class="external-link"><code>R/cnt_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/dbi_methods.R" class="external-link"><code>R/dbi_methods.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/fs_methods.R" class="external-link"><code>R/fs_methods.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/cnt_generics.R" class="external-link"><code>R/cnt_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/dbi_methods.R" class="external-link"><code>R/dbi_methods.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/fs_methods.R" class="external-link"><code>R/fs_methods.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>list_content_cnt.Rd</code></div>
     </div>
 
@@ -58,6 +66,7 @@ ConnectorFS: Uses list.files() to list all files at the path of the connector.
     <p>Generic implementing of how to list all content available for different connectors:</p>
 <ul><li><p><a href="ConnectorDBI.html">ConnectorDBI</a>: Uses <code><a href="https://dbi.r-dbi.org/reference/dbListTables.html" class="external-link">DBI::dbListTables()</a></code> to list the tables in a DBI connection.</p></li>
 </ul><ul><li><p><a href="ConnectorFS.html">ConnectorFS</a>: Uses <code><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files()</a></code> to list all files at the path of the connector.</p></li>
+</ul><ul><li><p><a href="ConnectorLogger.html">ConnectorLogger</a>: Logs the list operation and calls the underlying connector method.</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -68,6 +77,9 @@ ConnectorFS: Uses list.files() to list all files at the path of the connector.
 <span><span class="fu">list_content_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'ConnectorFS'</span></span>
+<span><span class="fu">list_content_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'ConnectorLogger'</span></span>
 <span><span class="fu">list_content_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -104,23 +116,37 @@ ConnectorFS: Uses list.files() to list all files at the path of the connector.
 <span class="r-in"><span>  <span class="fu">list_content_cnt</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "bslib-2ce9eb5d8d7866b4f2d82a9ef19eb08f"                                                             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "downlit"                                                                                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "file1e7e2765d005"                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "file1e7e2ac839bc"                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "file1e7e341c4299"                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "file1e7e36836a3a.yml"                                                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "file1e7e47272ca3"                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "file1e7e4d70a2c1"                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "file1e7e53ff9069"                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "file1e7e64e32276"                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "file1e7e65c9ba9b"                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "file1e7e65d0936e.yml"                                                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "file1e7eabdae3c"                                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "file1e5a17bd37ed"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "file1e5a2936cef2"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "file1e5a2df0e49d.yml"                                                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "file1e5a397d4657"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "file1e5a3f91c80c"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "file1e5a43ac73c2"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "file1e5a557b579f"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "file1e5a7b43d302"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "file1e5a7c646bec"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "file1e5a7cdb7b67"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "file1e5a7f3b397.yml"                                                                                </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [14] "repos_https%3A%2F%2Fpackagemanager.posit.co%2Fcran%2F__linux__%2Fnoble%2Flatest%2Fsrc%2Fcontrib.rds"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Only list CSV files using the pattern argument of list.files</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">list_content_cnt</span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"\\.csv$"</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Add logging to a connector and list contents</span></span></span>
+<span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connectors.html">connectors</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="connector_fs.html">connector_fs</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="add_logs.html">add_logs</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cnt</span><span class="op">$</span><span class="va">data</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.csv"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Cannot open file for writing:</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/RtmprvPwvF/file1e5a84b2a75/iris.csv'</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cnt</span><span class="op">$</span><span class="va">data</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">list_content_cnt</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-06-27 13:29:31","type":"read","file":". @ /tmp/RtmprvPwvF/file1e5a84b2a75"}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>

@@ -40,7 +40,7 @@ transparent audit trails and operation tracking."><meta property="og:image" cont
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Connector Logging Functions</h1>
-      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/cnt_logger_generics.R" class="external-link"><code>R/cnt_logger_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/cnt_logger_log_dbi.R" class="external-link"><code>R/cnt_logger_log_dbi.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/cnt_logger_log_fs.R" class="external-link"><code>R/cnt_logger_log_fs.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/logger_generics.R" class="external-link"><code>R/logger_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/logger_log_dbi.R" class="external-link"><code>R/logger_log_dbi.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/new-release/R/logger_log_fs.R" class="external-link"><code>R/logger_log_fs.R</code></a></small>
       <div class="d-none name"><code>log-functions.Rd</code></div>
     </div>
 
@@ -182,7 +182,7 @@ Example log: <code>"table_name @ driver: SQLiteDriver, dbname: mydb.sqlite"</cod
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Write operation (automatically logged)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">logged_fs</span><span class="op">$</span><span class="va">data</span>, <span class="va">mtcars</span>, <span class="st">"cars.csv"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-06-27 11:28:53","type":"write","file":"cars.csv @ /tmp/RtmpsRRRRH"}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-06-27 13:29:32","type":"write","file":"cars.csv @ /tmp/RtmprvPwvF"}</span>
 <span class="r-in"><span><span class="co"># Output: "cars.csv @ /tmp/RtmpXXX"</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#' # Read operation (automatically logged)</span></span></span>
@@ -194,7 +194,7 @@ Example log: <code>"table_name @ driver: SQLiteDriver, dbname: mydb.sqlite"</cod
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-06-27 11:28:53","type":"read","file":"cars.csv @ /tmp/RtmpsRRRRH"}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-06-27 13:29:32","type":"read","file":"cars.csv @ /tmp/RtmprvPwvF"}</span>
 <span class="r-in"><span><span class="co"># Output: "dataset.csv @ /tmp/RtmpXXX"</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Database connector example</span></span></span>
@@ -202,7 +202,7 @@ Example log: <code>"table_name @ driver: SQLiteDriver, dbname: mydb.sqlite"</cod
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Operations are logged with database context</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">logged_db</span><span class="op">$</span><span class="va">db</span>, <span class="va">iris</span>, <span class="st">"iris_table"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-06-27 11:28:53","type":"write","file":"iris_table @ driver: SQLiteConnection, dbname: :memory:"}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-06-27 13:29:32","type":"write","file":"iris_table @ driver: SQLiteConnection, dbname: :memory:"}</span>
 <span class="r-in"><span><span class="co"># Output: "iris_table @ driver: SQLiteDriver, dbname: :memory:"</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
