@@ -3,7 +3,10 @@ test_that("add_logs functions correctly", {
   expect_error(add_logs(list()))
 
   # Test 2: Verify that the function correctly adds the "ConnectorLogger" class
-  mock_connectors <- structure(list(list(name = "conn1"), list(name = "conn2")), class = "connectors")
+  mock_connectors <- structure(
+    list(list(name = "conn1"), list(name = "conn2")),
+    class = "connectors"
+  )
 
   result <- add_logs(mock_connectors)
 
@@ -14,13 +17,16 @@ test_that("add_logs functions correctly", {
   })))
 
   # Test 3: Check if the function preserves existing classes
-  mock_connectors_with_class <- structure(list(
-    structure(list(name = "conn1"), class = "existing_class"),
-    structure(
-      list(name = "conn2"),
-      class = c("another_class", "yet_another_class")
-    )
-  ), class = "connectors")
+  mock_connectors_with_class <- structure(
+    list(
+      structure(list(name = "conn1"), class = "existing_class"),
+      structure(
+        list(name = "conn2"),
+        class = c("another_class", "yet_another_class")
+      )
+    ),
+    class = "connectors"
+  )
 
   result_with_class <- add_logs(mock_connectors_with_class)
 

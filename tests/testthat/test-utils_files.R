@@ -1,14 +1,17 @@
+cli::test_that_cli("test example_read", {
+  expect_snapshot_out(example_read_ext())
+})
+
+cli::test_that_cli("test example_read", {
+  expect_snapshot_error(error_extension())
+})
+
 test_that("Test utils for file", {
   ## Supported Fs
   expect_snapshot(supported_fs())
 
   # test error for extension
   expect_error(error_extension())
-
-  expect_snapshot_error(error_extension())
-
-  # Example for extension
-  expect_snapshot_out(example_read_ext())
 
   ## find file
   temp_dir <- tempdir()

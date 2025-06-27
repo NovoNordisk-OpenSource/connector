@@ -3,6 +3,11 @@
 ## Enhancements
 * Added upload_cnt and download_cnt methods for ConnectorLogger
 
+## Other
+* Reformat code with air
+* Update unit tests
+* Rearrange documentation
+
 # connector 0.1.1
 
 ## Enhancements

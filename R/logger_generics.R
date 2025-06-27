@@ -6,6 +6,9 @@
 #' This is an S3 class constructor that initializes a logging structure for
 #' connector operations.
 #'
+#' @param x object to print
+#' @param ... parameters passed to the print method
+#'
 #' @return An S3 object of class "ConnectorLogger" containing:
 #'   \itemize{
 #'     \item An empty list
@@ -18,6 +21,7 @@
 #' str(logger) # Shows empty list with class attribute
 #'
 #' @export
+#' @name ConnectorLogger
 ConnectorLogger <- structure(list(), class = "ConnectorLogger")
 
 #' Connector Logging Functions
@@ -130,18 +134,22 @@ log_read_connector.default <- function(connector_object, name, ...) {
   whirl::log_read(name)
 }
 
-#' Log Read Operation for ConnectorLogger class
+#' @description
+#' * [ConnectorLogger]: Logs the read operation and calls the underlying connector method.
 #'
-#' Implementation of the log_read_connector function for the ConnectorLogger
-#'  class.
+#' @examples
+#' # Add logging to a file system connector
+#' folder <- withr::local_tempdir()
+#' cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 #'
-#' @param connector_object The ConnectorLogger object.
-#' @param name The name of the connector.
-#' @param ... Additional parameters.
+#' cnt$data |>
+#'   write_cnt(iris, "iris.csv")
 #'
-#' @rdname connector-logger-methods
+#' cnt$data |>
+#'   read_cnt("iris.csv") |>
+#'   head()
 #'
-#' @return The result of the read operation.
+#' @rdname read_cnt
 #' @export
 read_cnt.ConnectorLogger <- function(connector_object, name, ...) {
   res <- tryCatch(NextMethod())
@@ -150,9 +158,7 @@ read_cnt.ConnectorLogger <- function(connector_object, name, ...) {
 }
 
 
-#' Log read operation for tbl method
-#'
-#' @rdname connector-logger-methods
+#' @rdname tbl_cnt
 #' @export
 tbl_cnt.ConnectorLogger <- read_cnt.ConnectorLogger
 
@@ -168,19 +174,17 @@ log_write_connector.default <- function(connector_object, name, ...) {
   whirl::log_write(name)
 }
 
-#' Log Write Operation for ConnectorLogger class
+#' @description
+#' * [ConnectorLogger]: Logs the write operation and calls the underlying connector method.
 #'
-#' Implementation of the log_write_connector function for the ConnectorLogger
-#' class.
+#' @examples
+#' # Add logging to a database connector
+#' cnt <- connectors(data = connector_dbi(RSQLite::SQLite())) |> add_logs()
 #'
-#' @param connector_object The ConnectorLogger object.
-#' @param x The data to write.
-#' @param name The name of the connector.
-#' @param ... Additional parameters.
+#' cnt$data |>
+#'   write_cnt(mtcars, "cars")
 #'
-#' @name connector-logger-methods
-#' @rdname connector-logger-methods
-#' @return Invisible result of the write operation.
+#' @rdname write_cnt
 #' @export
 write_cnt.ConnectorLogger <- function(connector_object, x, name, ...) {
   res <- tryCatch(NextMethod())
@@ -200,17 +204,21 @@ log_remove_connector.default <- function(connector_object, name, ...) {
   whirl::log_delete(name)
 }
 
-#' Log Remove Operation for ConnectorLogger class
+#' @description
+#' * [ConnectorLogger]: Logs the remove operation and calls the underlying connector method.
 #'
-#' Implementation of the log_remove_connector function for the ConnectorLogger
-#' class.
+#' @examples
+#' # Add logging to a connector and remove content
+#' folder <- withr::local_tempdir()
+#' cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 #'
-#' @param connector_object The ConnectorLogger object.
-#' @param name The name of the connector.
-#' @param ... Additional parameters.
+#' cnt$data |>
+#'   write_cnt(iris, "iris.csv")
 #'
-#' @rdname connector-logger-methods
-#' @return The result of the remove operation.
+#' cnt$data |>
+#'   remove_cnt("iris.csv")
+#'
+#' @rdname remove_cnt
 #' @export
 remove_cnt.ConnectorLogger <- function(connector_object, name, ...) {
   res <- tryCatch(NextMethod())
@@ -224,16 +232,21 @@ log_list_content_connector <- function(connector_object, ...) {
   UseMethod("log_list_content_connector")
 }
 
-#' List contents Operation for ConnectorLogger class
+#' @description
+#' * [ConnectorLogger]: Logs the list operation and calls the underlying connector method.
 #'
-#' Implementation of the log_read_connector function for the ConnectorLogger
-#'  class.
+#' @examples
+#' # Add logging to a connector and list contents
+#' folder <- withr::local_tempdir()
+#' cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 #'
-#' @param connector_object The ConnectorLogger object.
-#' @param ... Additional parameters.
+#' cnt$data |>
+#'   write_cnt(iris, "iris.csv")
 #'
-#' @rdname connector-logger-methods
-#' @return The result of the read operation.
+#' cnt$data |>
+#'   list_content_cnt()
+#'
+#' @rdname list_content_cnt
 #' @export
 list_content_cnt.ConnectorLogger <- function(connector_object, ...) {
   res <- tryCatch(NextMethod())
@@ -241,19 +254,22 @@ list_content_cnt.ConnectorLogger <- function(connector_object, ...) {
   return(res)
 }
 
-#' Upload Operation for ConnectorLogger class
+#' @description
+#' * [ConnectorLogger]: Logs the upload operation and calls the underlying connector method.
 #'
-#' Implementation of the upload_cnt function for the ConnectorLogger
-#' class.
+#' @examples
+#' # Add logging to a file system connector for uploads
+#' folder <- withr::local_tempdir()
+#' cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 #'
-#' @param connector_object The ConnectorLogger object.
-#' @param file The file to upload.
-#' @param name The name of the file in the connector.
-#' @inheritParams connector-options-params
-#' @param ... Additional parameters.
+#' # Create a temporary file
+#' temp_file <- tempfile(fileext = ".csv")
+#' write.csv(iris, temp_file, row.names = FALSE)
 #'
-#' @rdname connector-logger-methods
-#' @return Invisible result of the upload operation.
+#' cnt$data |>
+#'   upload_cnt(temp_file, "uploaded_iris.csv")
+#'
+#' @rdname upload_cnt
 #' @export
 upload_cnt.ConnectorLogger <- function(
   connector_object,
@@ -267,18 +283,21 @@ upload_cnt.ConnectorLogger <- function(
   return(invisible(res))
 }
 
-#' Download Operation for ConnectorLogger class
+#' @description
+#' * [ConnectorLogger]: Logs the download operation and calls the underlying connector method.
 #'
-#' Implementation of the download_cnt function for the ConnectorLogger
-#' class.
+#' @examples
+#' # Add logging to a file system connector for downloads
+#' folder <- withr::local_tempdir()
+#' cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 #'
-#' @param connector_object The ConnectorLogger object.
-#' @param name The name of the file in the connector.
-#' @param file The local file path to download to.
-#' @param ... Additional parameters.
+#' cnt$data |>
+#'   write_cnt(iris, "iris.csv")
 #'
-#' @rdname connector-logger-methods
-#' @return The result of the download operation.
+#' cnt$data |>
+#'   download_cnt("iris.csv", tempfile(fileext = ".csv"))
+#'
+#' @rdname download_cnt
 #' @export
 download_cnt.ConnectorLogger <- function(
   connector_object,
@@ -291,16 +310,7 @@ download_cnt.ConnectorLogger <- function(
   return(res)
 }
 
-#' Print Connector Logger
-#'
-#' This function prints the connector logger.
-#'
-#' @param x The connector logger object
-#' @param ... Additional arguments
-#'
-#' @rdname connector-logger-methods
-#' @return The result of the print operation
-#'
+#' @rdname ConnectorLogger
 #' @export
 print.ConnectorLogger <- function(x, ...) {
   NextMethod()

@@ -10,7 +10,6 @@ change_to_new_metadata <- function(old_metadata, new_metadata) {
   checkmate::assert_list(old_metadata, names = "unique", null.ok = TRUE)
   checkmate::assert_list(new_metadata, names = "unique")
 
-
   field_to_replace <- names(new_metadata)
 
   # for loop to change in place

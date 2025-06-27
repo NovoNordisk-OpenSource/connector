@@ -10,11 +10,13 @@
 connectors_to_datasources <- function(data) {
   data[-1] |>
     as.list() |>
-    purrr::imap(~ {
-      deparse(.x) |>
-        extract_function_info() |>
-        transform_as_backend(.y)
-    }) |>
+    purrr::imap(
+      ~ {
+        deparse(.x) |>
+          extract_function_info() |>
+          transform_as_backend(.y)
+      }
+    ) |>
     unname() |>
     transform_as_datasources()
 }
@@ -81,7 +83,9 @@ write_datasources <- function(connectors, file) {
 #' @noRd
 transform_as_backend <- function(infos, name) {
   if (!inherits(infos, "clean_fct_info")) {
-    cli::cli_abort("You should use the extract_function_info function before calling this function")
+    cli::cli_abort(
+      "You should use the extract_function_info function before calling this function"
+    )
   }
 
   bk <- list(
@@ -250,15 +254,18 @@ extract_and_process_params <- function(expr, formal_args) {
   params <- call_args(expr)
 
   # Convert symbols to strings and evaluate expressions
-  params <- purrr::map(params, ~ {
-    if (is_symbol(.x)) {
-      as.character(.x)
-    } else if (is_call(.x)) {
-      as.character(deparse(.x))
-    } else {
-      as.character(.x)
+  params <- purrr::map(
+    params,
+    ~ {
+      if (is_symbol(.x)) {
+        as.character(.x)
+      } else if (is_call(.x)) {
+        as.character(deparse(.x))
+      } else {
+        as.character(.x)
+      }
     }
-  })
+  )
 
   # Process parameters based on whether the function uses ... or not
   if (formal_args[1] == "...") {

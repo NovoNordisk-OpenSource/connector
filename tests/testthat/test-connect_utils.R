@@ -40,10 +40,22 @@ test_that("change_to_new_metadata works correctly", {
   expect_equal(result, list(a = 1, b = list(x = 100, z = 300)))
 
   # Test case 8: Error handling - invalid input types
-  expect_error(change_to_new_metadata("not a list", new_meta), "Assertion on 'old_metadata' failed")
-  expect_error(change_to_new_metadata(old_meta, "not a list"), "Assertion on 'new_metadata' failed")
+  expect_error(
+    change_to_new_metadata("not a list", new_meta),
+    "Assertion on 'old_metadata' failed"
+  )
+  expect_error(
+    change_to_new_metadata(old_meta, "not a list"),
+    "Assertion on 'new_metadata' failed"
+  )
 
   # Test case 9: Error handling - non-unique names
-  expect_error(change_to_new_metadata(list(a = 1, a = 2), new_meta), "Assertion on 'old_metadata' failed")
-  expect_error(change_to_new_metadata(old_meta, list(b = 20, b = 30)), "Assertion on 'new_metadata' failed")
+  expect_error(
+    change_to_new_metadata(list(a = 1, a = 2), new_meta),
+    "Assertion on 'old_metadata' failed"
+  )
+  expect_error(
+    change_to_new_metadata(old_meta, list(b = 20, b = 30)),
+    "Assertion on 'new_metadata' failed"
+  )
 })
