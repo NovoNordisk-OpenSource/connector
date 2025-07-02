@@ -4,10 +4,18 @@
 ConnectorFS: Uses fs::file_copy() to copy a file from the file storage
 to the desired file.
 
+
+
+ConnectorLogger: Logs the download operation and calls the underlying connector method.
+
 "><meta property="og:description" content="Generic implementing of how to download files from a connector:
 
 ConnectorFS: Uses fs::file_copy() to copy a file from the file storage
 to the desired file.
+
+
+
+ConnectorLogger: Logs the download operation and calls the underlying connector method.
 
 "><meta property="og:image" content="https://novonordisk-opensource.github.io/connector/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -44,7 +52,7 @@ to the desired file.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Download content from the connector</h1>
-      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/cnt_generics.R" class="external-link"><code>R/cnt_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/fs_methods.R" class="external-link"><code>R/fs_methods.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/cnt_generics.R" class="external-link"><code>R/cnt_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/fs_methods.R" class="external-link"><code>R/fs_methods.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/logger_generics.R" class="external-link"><code>R/logger_generics.R</code></a></small>
       <div class="d-none name"><code>download_cnt.Rd</code></div>
     </div>
 
@@ -52,6 +60,7 @@ to the desired file.
     <p>Generic implementing of how to download files from a connector:</p>
 <ul><li><p><a href="ConnectorFS.html">ConnectorFS</a>: Uses <code><a href="https://fs.r-lib.org/reference/copy.html" class="external-link">fs::file_copy()</a></code> to copy a file from the file storage
 to the desired <code>file</code>.</p></li>
+</ul><ul><li><p><a href="ConnectorLogger.html">ConnectorLogger</a>: Logs the download operation and calls the underlying connector method.</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -59,6 +68,9 @@ to the desired <code>file</code>.</p></li>
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">download_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">name</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'ConnectorFS'</span></span>
+<span><span class="fu">download_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">name</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'ConnectorLogger'</span></span>
 <span><span class="fu">download_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">name</span>, file <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/basename.html" class="external-link">basename</a></span><span class="op">(</span><span class="va">name</span><span class="op">)</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -97,14 +109,14 @@ to the desired <code>file</code>.</p></li>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="st">"this is an example"</span>, <span class="st">"example.txt"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Cannot open file for writing:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/RtmpskirDW/file1fbe5f4e6516/example.txt'</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/Rtmpul6OCo/file1e4547d13c2e/example.txt'</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"example.txt"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">download_cnt</span><span class="op">(</span><span class="st">"example.txt"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to copy '/tmp/RtmpskirDW/file1fbe5f4e6516/example.txt' to 'example.txt': no such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to copy '/tmp/Rtmpul6OCo/file1e4547d13c2e/example.txt' to 'example.txt': no such file or directory</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/list.files.html" class="external-link">list.files</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"example.txt"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
@@ -114,7 +126,20 @@ to the desired <code>file</code>.</p></li>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="remove_cnt.html">remove_cnt</a></span><span class="op">(</span><span class="st">"example.txt"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to remove '/tmp/RtmpskirDW/file1fbe5f4e6516/example.txt': no such file or directory</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to remove '/tmp/Rtmpul6OCo/file1e4547d13c2e/example.txt': no such file or directory</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Add logging to a file system connector for downloads</span></span></span>
+<span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connectors.html">connectors</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="connector_fs.html">connector_fs</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="add_logs.html">add_logs</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cnt</span><span class="op">$</span><span class="va">data</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.csv"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Cannot open file for writing:</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/Rtmpul6OCo/file1e4567049fdd/iris.csv'</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cnt</span><span class="op">$</span><span class="va">data</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">download_cnt</span><span class="op">(</span><span class="st">"iris.csv"</span>, <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".csv"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> [ENOENT] Failed to copy '/tmp/Rtmpul6OCo/file1e4567049fdd/iris.csv' to '/tmp/Rtmpul6OCo/file1e4547413d97.csv': no such file or directory</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

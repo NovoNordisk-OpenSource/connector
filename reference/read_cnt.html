@@ -9,6 +9,10 @@ ConnectorFS: Uses read_file() to read a given file.
 The underlying function used, and thereby also the arguments available
 through ... depends on the file extension.
 
+
+
+ConnectorLogger: Logs the read operation and calls the underlying connector method.
+
 "><meta property="og:description" content="Generic implementing of how to read content from the different connector objects:
 
 ConnectorDBI: Uses DBI::dbReadTable() to read the table from the DBI connection.
@@ -18,6 +22,10 @@ ConnectorDBI: Uses DBI::dbReadTable() to read the table from the DBI connection.
 ConnectorFS: Uses read_file() to read a given file.
 The underlying function used, and thereby also the arguments available
 through ... depends on the file extension.
+
+
+
+ConnectorLogger: Logs the read operation and calls the underlying connector method.
 
 "><meta property="og:image" content="https://novonordisk-opensource.github.io/connector/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -54,7 +62,7 @@ through ... depends on the file extension.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Read content from the connector</h1>
-      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/cnt_generics.R" class="external-link"><code>R/cnt_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/dbi_methods.R" class="external-link"><code>R/dbi_methods.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/fs_methods.R" class="external-link"><code>R/fs_methods.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/cnt_generics.R" class="external-link"><code>R/cnt_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/dbi_methods.R" class="external-link"><code>R/dbi_methods.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/fs_methods.R" class="external-link"><code>R/fs_methods.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>read_cnt.Rd</code></div>
     </div>
 
@@ -64,6 +72,7 @@ through ... depends on the file extension.
 </ul><ul><li><p><a href="ConnectorFS.html">ConnectorFS</a>: Uses <code><a href="read_file.html">read_file()</a></code> to read a given file.
 The underlying function used, and thereby also the arguments available
 through <code>...</code> depends on the file extension.</p></li>
+</ul><ul><li><p><a href="ConnectorLogger.html">ConnectorLogger</a>: Logs the read operation and calls the underlying connector method.</p></li>
 </ul></div>
 
     <div class="section level2">
@@ -74,6 +83,9 @@ through <code>...</code> depends on the file extension.</p></li>
 <span><span class="fu">read_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'ConnectorFS'</span></span>
+<span><span class="fu">read_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'ConnectorLogger'</span></span>
 <span><span class="fu">read_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -129,9 +141,23 @@ through <code>...</code> depends on the file extension.</p></li>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.csv"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Cannot open file for writing:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/RtmpskirDW/file1fbe30f1178d/iris.csv'</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/Rtmpul6OCo/file1e454aeea3bf/iris.csv'</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">read_cnt</span><span class="op">(</span><span class="st">"iris.csv"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in find_file(name, root = connector_object$path):</span> No file found or multiple files found with the same name</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Add logging to a file system connector</span></span></span>
+<span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connectors.html">connectors</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="connector_fs.html">connector_fs</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="add_logs.html">add_logs</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cnt</span><span class="op">$</span><span class="va">data</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.csv"</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Cannot open file for writing:</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/Rtmpul6OCo/file1e4563638d8c/iris.csv'</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cnt</span><span class="op">$</span><span class="va">data</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">read_cnt</span><span class="op">(</span><span class="st">"iris.csv"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in find_file(name, root = connector_object$path):</span> No file found or multiple files found with the same name</span>

@@ -54,7 +54,7 @@ ConnectorFS: Uses read_cnt() to allow redundancy between fs and dbi.
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Use dplyr verbs to interact with the remote database table</h1>
-      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/cnt_generics.R" class="external-link"><code>R/cnt_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/dbi_methods.R" class="external-link"><code>R/dbi_methods.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/fs_methods.R" class="external-link"><code>R/fs_methods.R</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/cnt_generics.R" class="external-link"><code>R/cnt_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/dbi_methods.R" class="external-link"><code>R/dbi_methods.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/main/R/fs_methods.R" class="external-link"><code>R/fs_methods.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>tbl_cnt.Rd</code></div>
     </div>
 
@@ -74,6 +74,9 @@ Mostly relevant for DBI connectors.</p>
 <span><span class="fu">tbl_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span>
 <span></span>
 <span><span class="co"># S3 method for class 'ConnectorFS'</span></span>
+<span><span class="fu">tbl_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># S3 method for class 'ConnectorLogger'</span></span>
 <span><span class="fu">tbl_cnt</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">name</span>, <span class="va">...</span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -163,7 +166,7 @@ Mostly relevant for DBI connectors.</p>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.csv"</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Cannot open file for writing:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/RtmpskirDW/file1fbe42d398f7/iris.csv'</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/Rtmpul6OCo/file1e4514ecddaf/iris.csv'</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">iris_cnt</span> <span class="op">&lt;-</span> <span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">tbl_cnt</span><span class="op">(</span><span class="st">"iris.csv"</span><span class="op">)</span></span></span>
