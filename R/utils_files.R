@@ -71,7 +71,11 @@ error_extension <- function() {
 #' example_read_ext()
 example_read_ext <- function() {
   cli::cli_inform("Here an example for CSV files:")
-  cli::cli_alert("Your own method by creating a new function with the name `read_ext.<extension>`")
-  cli::cli_code("read_ext.csv <- function(path, ...) {\n  readr::read_csv(path, ...)\n}")
+  cli::cli_alert(
+    "Your own method by creating a new function with the name `read_ext.<extension>`"
+  )
+  cli::cli_code(
+    "read_ext.csv <- function(path, ...) {\n  readr::read_csv(path, ...)\n}"
+  )
   cli::cli_text("")
 }

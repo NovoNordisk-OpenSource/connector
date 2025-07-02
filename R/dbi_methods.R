@@ -43,11 +43,12 @@ read_cnt.ConnectorDBI <- function(connector_object, name, ...) {
 #' @rdname write_cnt
 #' @export
 write_cnt.ConnectorDBI <- function(
-    connector_object,
-    x,
-    name,
-    overwrite = zephyr::get_option("overwrite", "connector"),
-    ...) {
+  connector_object,
+  x,
+  name,
+  overwrite = zephyr::get_option("overwrite", "connector"),
+  ...
+) {
   connector_object$conn |>
     DBI::dbWriteTable(
       name = name,
@@ -73,8 +74,9 @@ write_cnt.ConnectorDBI <- function(
 #' @rdname list_content_cnt
 #' @export
 list_content_cnt.ConnectorDBI <- function(
-    connector_object,
-    ...) {
+  connector_object,
+  ...
+) {
   connector_object$conn |>
     DBI::dbListTables(
       ...
