@@ -1,0 +1,189 @@
+---
+title: "Using connector without YAML files"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using connector without YAML files}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(connector)
+library(dplyr)
+```
+
+```{r, include = FALSE}
+# Use a temporary directory for examples
+tmp_dir <- withr::local_tempdir()
+knitr::opts_knit$set(root.dir = tmp_dir)
+```
+
+```{r}
+# Create directories for examples
+dir.create("data", showWarnings = FALSE)
+dir.create("raw", showWarnings = FALSE)
+dir.create("processed", showWarnings = FALSE)
+dir.create("output", showWarnings = FALSE)
+```
+
+
+This vignette shows how to create and use connector objects directly in R code without YAML configuration files.
+
+## Creating Individual Connectors
+
+You can create connector objects directly using the specific connector functions:
+
+### File System Connector
+
+```{r}
+# Create a file system connector
+fs_conn <- connector_fs(path = "data")
+fs_conn
+```
+
+### Database Connector
+
+```{r}
+# Create a database connector (using SQLite)
+if (requireNamespace("RSQLite", quietly = TRUE)) {
+  db_conn <- connector_dbi(
+    drv = RSQLite::SQLite(),
+    dbname = ":memory:"
+  )
+  db_conn
+}
+```
+
+## Using Individual Connectors
+
+```{r}
+# Write and read data
+sample_data <- mtcars[1:5, 1:3]
+
+fs_conn |> write_cnt(sample_data, "cars.csv")
+fs_conn |> list_content_cnt()
+
+retrieved_data <- fs_conn |> read_cnt("cars.csv")
+head(retrieved_data)
+```
+
+## Creating Multiple Connectors with `connectors()`
+
+The `connectors()` function lets you group multiple connector objects together:
+
+```{r}
+# Create a collection of connectors
+my_connectors <- connectors(
+  raw = connector_fs(path = "raw"),
+  processed = connector_fs(path = "processed")
+)
+
+my_connectors
+```
+
+## Working with Multiple Connectors
+
+```{r}
+# Use different connectors for different purposes
+iris_sample <- iris[1:10, ]
+
+# Store raw data
+my_connectors$raw |> write_cnt(iris_sample, "iris_raw.rds")
+
+# Process data
+processed <- iris_sample |>
+  group_by(Species) |>
+  summarise(mean_length = mean(Sepal.Length))
+
+# Store processed data
+my_connectors$processed |> write_cnt(processed, "iris_summary.csv")
+
+# Check contents of each connector
+my_connectors$raw |> list_content_cnt()
+my_connectors$processed |> list_content_cnt()
+```
+
+## Mixed Storage Types
+
+You can combine different types of connectors:
+
+```{r}
+if (requireNamespace("RSQLite", quietly = TRUE)) {
+  # Mix file system and database connectors
+  mixed_connectors <- connectors(
+    files = connector_fs(path = "output"),
+    database = connector_dbi(RSQLite::SQLite(), dbname = ":memory:")
+  )
+
+  # Same data, different storage
+  test_data <- data.frame(x = 1:3, y = letters[1:3])
+
+  mixed_connectors$files |> write_cnt(test_data, "test.csv")
+  mixed_connectors$database |> write_cnt(test_data, "test_table")
+
+  # List contents
+  mixed_connectors$files |> list_content_cnt()
+  mixed_connectors$database |> list_content_cnt()
+}
+```
+
+## Nested Connectors with `nested_connectors()`
+
+You can group multiple `connectors()` objects together using `nested_connectors()`:
+
+```{r}
+# Create connectors for different projects
+project_a <- connectors(
+  raw = connector_fs(path = "raw"),
+  processed = connector_fs(path = "processed")
+)
+
+project_b <- connectors(
+  data = connector_fs(path = "data"),
+  output = connector_fs(path = "output")
+)
+
+# Group them in a nested structure
+all_projects <- nested_connectors(
+  project_a = project_a,
+  project_b = project_b
+)
+
+all_projects
+```
+
+Now you can access connectors through the nested structure:
+
+```{r}
+# Access connectors through nested structure
+sample_data <- data.frame(x = 1:3, y = letters[1:3])
+
+# Project A operations
+all_projects$project_a$raw |> write_cnt(sample_data, "sample.rds")
+all_projects$project_a$raw |> list_content_cnt()
+
+# Project B operations
+all_projects$project_b$data |> write_cnt(sample_data, "input.csv")
+all_projects$project_b$data |> list_content_cnt()
+```
+
+## Benefits of Using `connectors()`
+
+- **Organization**: Group related storage locations together
+- **Flexibility**: Mix different storage types (files, databases)
+- **Consistency**: Same interface for all storage types
+- **Clarity**: Named connectors make code more readable
+
+## Summary
+
+- Use `connector_fs()` and `connector_dbi()` to create individual connectors
+- Use `connectors()` to group multiple connectors together
+- Access individual connectors by name: `my_connectors$name`
+- All connectors use the same functions: `write_cnt()`, `read_cnt()`, `list_content_cnt()`, `remove_cnt()`
