@@ -12,14 +12,14 @@ connectors_to_datasources <- function(data) {
     as.list() |>
     purrr::imap(
       ~ {
-        if(is_symbol(.x)){
+        if (is_symbol(.x)) {
           list(
             name = as.character(.x),
             backend = list(
-              type= "NA; R object instead of a call."
+              type = "NA; R object instead of a call."
             )
           )
-        }else{
+        } else {
           deparse(.x) |>
             extract_function_info() |>
             transform_as_backend(.y)
