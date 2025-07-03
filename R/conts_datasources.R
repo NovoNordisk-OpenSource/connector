@@ -12,9 +12,18 @@ connectors_to_datasources <- function(data) {
     as.list() |>
     purrr::imap(
       ~ {
-        deparse(.x) |>
-          extract_function_info() |>
-          transform_as_backend(.y)
+        if (is_symbol(.x)) {
+          list(
+            name = as.character(.x),
+            backend = list(
+              type = "NA; R object instead of a call."
+            )
+          )
+        } else {
+          deparse(.x) |>
+            extract_function_info() |>
+            transform_as_backend(.y)
+        }
       }
     ) |>
     unname() |>
@@ -138,8 +147,8 @@ transform_as_datasources <- function(bks) {
 extract_function_info <- function(func_string) {
   # Parse the function string into an expression
 
-  expr <- parse_expr(func_string)
-  full_func_name <- expr_text(expr[[1]])
+  expr <- rlang::parse_expr(func_string)
+  full_func_name <- rlang::expr_text(expr[[1]])
 
   # Check if it's an R6 class constructor
   is_r6 <- endsWith(full_func_name, "$new")
@@ -251,7 +260,7 @@ get_r6_specific_info <- function(package_name, func_name) {
 #'
 extract_and_process_params <- function(expr, formal_args) {
   # Extract parameters from the function call
-  params <- call_args(expr)
+  params <- rlang::call_args(expr)
 
   # Convert symbols to strings and evaluate expressions
   params <- purrr::map(
