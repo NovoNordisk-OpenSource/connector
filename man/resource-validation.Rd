@@ -3,18 +3,18 @@
 \name{resource-validation}
 \alias{resource-validation}
 \alias{validate_resource}
-\alias{check_ressource}
-\alias{check_ressource.Connector}
-\alias{check_ressource.ConnectorFS}
+\alias{check_resource}
+\alias{check_resource.Connector}
+\alias{check_resource.ConnectorFS}
 \title{Resource Validation System for Connector Objects}
 \usage{
 validate_resource(x)
 
-check_ressource(self)
+check_resource(self)
 
-\method{check_ressource}{Connector}(self)
+\method{check_resource}{Connector}(self)
 
-\method{check_ressource}{ConnectorFS}(self)
+\method{check_resource}{ConnectorFS}(self)
 }
 \arguments{
 \item{x}{Connector object to validate.}
@@ -33,7 +33,7 @@ The system is built around two main components:
 \itemize{
 \item \code{validate_resource()}: A dispatcher function that finds and
 executes the appropriate S3 method based on the connector's class
-\item \code{check_ressource()}: A generic S3 method that defines the
+\item \code{check_resource()}: A generic S3 method that defines the
 validation interface for all connector types
 }
 }
@@ -42,8 +42,8 @@ validation interface for all connector types
 
 The validation process follows this hierarchy:
 \enumerate{
-\item Attempt to find a class-specific method (e.g., \code{check_ressource.ConnectorFS})
-\item If no specific method exists, fall back to the default \code{check_ressource.Connector}
+\item Attempt to find a class-specific method (e.g., \code{check_resource.ConnectorFS})
+\item If no specific method exists, fall back to the default \code{check_resource.Connector}
 \item Execute the resolved method with appropriate error handling
 }
 }
@@ -51,9 +51,9 @@ The validation process follows this hierarchy:
 \section{Available S3 Methods}{
 
 \describe{
-\item{\code{check_ressource.Connector}}{Default method that performs no validation.
+\item{\code{check_resource.Connector}}{Default method that performs no validation.
 Serves as a safe fallback for connector classes without specific validation needs.}
-\item{\code{check_ressource.ConnectorFS}}{Validates file system resources by checking
+\item{\code{check_resource.ConnectorFS}}{Validates file system resources by checking
 directory existence using \code{fs::dir_exists()}. Throws informative errors
 for missing directories.}
 }
@@ -63,7 +63,7 @@ for missing directories.}
 
 When implementing new connector classes with resource validation:
 \itemize{
-\item Define a method following the pattern \code{check_ressource.<YourClass>}
+\item Define a method following the pattern \code{check_resource.<YourClass>}
 \item Return \code{NULL} on successful validation
 \item Use \code{cli::cli_abort()} for validation failures to provide consistent error formatting
 \item Include \code{call = rlang::caller_env()} in error calls for proper error context

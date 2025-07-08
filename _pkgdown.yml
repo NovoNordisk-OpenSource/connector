@@ -35,3 +35,4 @@ reference:
   - title: Utils
     contents:
     - datasources
+    - resource-validation
