@@ -21,6 +21,9 @@ Reproduce your workflow by creating a config file based on a connectors
 object and the associated datasource attributes.
 }
 \examples{
+withr::with_tempdir({
+# Create dir for the example in tmpdir
+dir.create("example/demo_trial/adam", recursive = TRUE)
 
 # Connect to the datasources specified in it
 config <- system.file("config", "_connector.yml", package = "connector")
@@ -33,5 +36,5 @@ write_datasources(cnts, yml_file)
 # Reconnect using the new config file
 re_connect <- connect(yml_file)
 re_connect
-
+})
 }

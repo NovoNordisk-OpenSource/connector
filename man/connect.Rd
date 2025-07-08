@@ -59,6 +59,10 @@ Each specification of a single \link{connectors}  have to have the following str
 }
 }
 \examples{
+withr::with_tempdir({
+# Create dir for the example in tmpdir
+dir.create("example/demo_trial/adam", recursive = TRUE)
+
 config <- system.file("config", "_connector.yml", package = "connector")
 
 config
@@ -96,4 +100,6 @@ cnts_nested <- connect(config_nested)
 cnts_nested
 
 cnts_nested$study1
+
+})
 }

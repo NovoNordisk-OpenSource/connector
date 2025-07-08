@@ -38,6 +38,10 @@
 #' @return [connectors]
 #'
 #' @examples
+#' withr::with_tempdir({
+#' # Create dir for the example in tmpdir
+#' dir.create("example/demo_trial/adam", recursive = TRUE)
+#'
 #' config <- system.file("config", "_connector.yml", package = "connector")
 #'
 #' config
@@ -75,6 +79,8 @@
 #' cnts_nested
 #'
 #' cnts_nested$study1
+#'
+#' })
 #' @export
 connect <- function(
   config = "_connector.yml",

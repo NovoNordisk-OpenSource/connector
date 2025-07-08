@@ -38,3 +38,18 @@ cli::test_that_cli("Test connector creation", {
     expect_snapshot_out(print(connector_obj$test))
   })
 })
+
+test_that("validate_resource works correctly", {
+  temp_dir <- withr::local_tempdir("validate_test")
+
+  withr::with_tempdir(tmpdir = temp_dir, {
+    # Test with valid directory
+    expect_no_error(ConnectorFS$new(path = "."))
+
+    # Test with invalid directory
+    expect_error(
+      ConnectorFS$new(path = "nonexistent_dir"),
+      "does not exist"
+    )
+  })
+})

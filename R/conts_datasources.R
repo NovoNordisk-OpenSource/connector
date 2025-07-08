@@ -34,6 +34,9 @@ connectors_to_datasources <- function(data) {
 #'   connect function
 #'
 #' @examples
+#' withr::with_tempdir({
+#' # Create dir for the example in tmpdir
+#' dir.create("example/demo_trial/adam", recursive = TRUE)
 #'
 #' # Connect to the datasources specified in it
 #' config <- system.file("config", "_connector.yml", package = "connector")
@@ -46,7 +49,7 @@ connectors_to_datasources <- function(data) {
 #' # Reconnect using the new config file
 #' re_connect <- connect(yml_file)
 #' re_connect
-#'
+#' })
 #' @export
 write_datasources <- function(connectors, file) {
   checkmate::assert_character(file, null.ok = FALSE, any.missing = FALSE)

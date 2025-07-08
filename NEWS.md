@@ -1,12 +1,14 @@
-# connector 0.1.1.9000 (development version)
+# connector 0.1.1.9002 (development version)
 
 ## Enhancements
 * Added upload_cnt and download_cnt methods for ConnectorLogger
+* Added resource validation system with `validate_resource()` function and `check_ressource()` S3 methods
 
 ## Other
 * Reformat code with air
 * Update unit tests
 * Rearrange documentation
+* Added unit tests for resource validation
 
 # connector 0.1.1
 

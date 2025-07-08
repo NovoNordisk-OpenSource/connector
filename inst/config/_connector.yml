@@ -1,7 +1,7 @@
 # A example of the configuration file for FS and Database
 metadata:
   trial: "demo_trial"
-  root_path: !expr tempdir()
+  root_path: "example"
   extra_class: "test2"
 
 datasources:
