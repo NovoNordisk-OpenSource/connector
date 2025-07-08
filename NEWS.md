@@ -2,7 +2,7 @@
 
 ## Enhancements
 * Added upload_cnt and download_cnt methods for ConnectorLogger
-* Added resource validation system with `validate_resource()` function and `check_ressource()` S3 methods
+* Added resource validation system with `validate_resource()` function and `check_resource()` S3 methods
 
 ## Other
 * Reformat code with air
