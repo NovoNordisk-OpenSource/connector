@@ -1,7 +1,11 @@
-# connector 0.1.1.9000 (development version)
+# connector 0.1.1.9002 (development version)
 
 ## Enhancements
 * Added upload_cnt and download_cnt methods for ConnectorLogger
+
+## Bugs
+
+* Fixed bug in connectors function. You can now pass a R Object.
 
 ## Other
 * Reformat code with air
