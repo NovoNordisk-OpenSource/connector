@@ -175,3 +175,8 @@ print_cnt <- function(connector_object) {
 
   return(invisible(connector_object))
 }
+
+#' @noRd
+is_connector <- function(connector) {
+  inherits(connector, "Connector")
+}

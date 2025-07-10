@@ -4,6 +4,10 @@
 * Added upload_cnt and download_cnt methods for ConnectorLogger
 * Added resource validation system with `validate_resource()` function and `check_resource()` S3 methods
 
+## Bugs
+
+* Fixed bug in connectors function. You can now pass a R Object.
+
 ## Other
 * Reformat code with air
 * Update unit tests
