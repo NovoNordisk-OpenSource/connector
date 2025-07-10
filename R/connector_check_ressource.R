@@ -88,7 +88,9 @@ check_resource <- function(self) {
 #' @export
 #' @rdname resource-validation
 check_resource.Connector <- function(self) {
-  return(NULL)
+  return(
+    invisible(NA)
+  )
 }
 
 #' @export
@@ -102,5 +104,7 @@ check_resource.ConnectorFS <- function(self) {
       call = rlang::caller_env()
     )
   }
-  return(NULL)
+  return(
+    invisible(TRUE)
+  )
 }
