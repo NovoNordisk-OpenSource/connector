@@ -1,5 +1,4 @@
-temp_dir <- tempfile("connector")
-dir.create(temp_dir)
+temp_dir <- withr::local_tempdir("connector_tests", clean = FALSE)
 
 system.file(package = "connector") |>
   list.files(full.names = TRUE) |>

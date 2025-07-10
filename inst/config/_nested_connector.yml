@@ -2,7 +2,7 @@
 - name: "study1"
   metadata:
     trial: "demo_trial"
-    root_path: !expr tempdir()
+    root_path: "example"
   datasources:
     - name: "adam_fs"
       backend:
@@ -12,7 +12,7 @@
 - name: "study2"
   metadata:
     trial: "demo_trial"
-    root_path: !expr tempdir()
+    root_path: "example"
   datasources:
     - name: "adam_fs"
       backend:
