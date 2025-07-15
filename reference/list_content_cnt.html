@@ -117,17 +117,17 @@ ConnectorLogger: Logs the list operation and calls the underlying connector meth
 <span class="r-in"><span>  <span class="fu">list_content_cnt</span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [1] "bslib-2ce9eb5d8d7866b4f2d82a9ef19eb08f"                                                             </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>  [2] "downlit"                                                                                            </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "file210613f94605"                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "file2106224505ca.yml"                                                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "file21062807d17b"                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "file21062e39d71e.yml"                                                                               </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "file21063df4df3"                                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "file210645295f1"                                                                                    </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "file21064c2260f0"                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "file21064d0ddaef"                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "file21064fbb4209"                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "file210669c86c07"                                                                                   </span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "file21067b779134"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [3] "file1e83123eae80"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [4] "file1e8319da5b06"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [5] "file1e83290ad49d"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [6] "file1e832f70d79a"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [7] "file1e8342dd6d5c.yml"                                                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [8] "file1e834d160de8.yml"                                                                               </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  [9] "file1e8355a1731c"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [10] "file1e8376fb9fee"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [11] "file1e837e031aaf"                                                                                   </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [12] "file1e83c2da8a7"                                                                                    </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [13] "file1e83e703b94"                                                                                    </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> [14] "repos_https%3A%2F%2Fpackagemanager.posit.co%2Fcran%2F__linux__%2Fnoble%2Flatest%2Fsrc%2Fcontrib.rds"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Only list CSV files using the pattern argument of list.files</span></span></span>
@@ -139,16 +139,20 @@ ConnectorLogger: Logs the list operation and calls the underlying connector meth
 <span class="r-in"><span><span class="co"># Add logging to a connector and list contents</span></span></span>
 <span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connectors.html">connectors</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="connector_fs.html">connector_fs</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="add_logs.html">add_logs</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in validate_resource(self):</span> Invalid file system connector: <span style="color: #0000BB;">/tmp/RtmpFcSKBy/file1e83ebeb484</span> does not</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> exist.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span><span class="op">$</span><span class="va">data</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.csv"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> Cannot open file for writing:</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> * '/tmp/RtmpnpFke0/file21062e37206f/iris.csv'</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in method_error_msg(connector_object):</span> Method not implemented for class <span style="color: #0000BB;">&lt;NULL&gt;</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> See the customize (`vignette(connector::customize)`) vignette on how to</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span>   create custom connectors and methods</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span><span class="op">$</span><span class="va">data</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">list_content_cnt</span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-07-09 11:17:04","type":"read","file":". @ /tmp/RtmpnpFke0/file21062e37206f"}</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in method_error_msg(connector_object):</span> Method not implemented for class <span style="color: #0000BB;">&lt;NULL&gt;</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> See the customize (`vignette(connector::customize)`) vignette on how to</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span>   create custom connectors and methods</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
