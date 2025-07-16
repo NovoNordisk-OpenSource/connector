@@ -42,6 +42,7 @@
 #' # Create dir for the example in tmpdir
 #' dir.create("example/demo_trial/adam", recursive = TRUE)
 #'
+#'
 #' config <- system.file("config", "_connector.yml", package = "connector")
 #'
 #' config
@@ -63,6 +64,13 @@
 #'
 #' connect(config, metadata = list(extra_class = "my_class"))
 #'
+#' # Override metadata using R options and using environment variables
+#' withr::with_options(
+#'  list(connector.metadata.root_path = "custom_path"),
+#'    code = {
+#'         dir.create("custom_path/demo_trial/adam", recursive = TRUE)
+#'         connect(config)
+#' })
 #' # Connect only to the adam datasource
 #'
 #' connect(config, datasource = "adam")
@@ -110,10 +118,17 @@ connect <- function(
   }
 
   # Replace metadata if needed
+
+  config[["metadata"]] <- apply_metadata_overrides(config[["metadata"]])
+
   if (!is.null(metadata)) {
-    zephyr::msg_info(
-      c("Replace some metadata informations...")
-    )
+    c(
+      "i" = "Replace metadata informations:",
+      rlang::set_names(names(metadata), "*"),
+      "+" = "Based on the call to {.fn connect}."
+    ) |>
+      zephyr::msg_verbose(msg_fun = cli::cli_bullets)
+
     config[["metadata"]] <- change_to_new_metadata(
       old_metadata = config[["metadata"]],
       new_metadata = metadata
@@ -191,6 +206,84 @@ create_connection <- function(config) {
       create_backend(config$backend)
     }
   )
+}
+
+#' Apply metadata overrides from environment variables and R options
+#'
+#' @details
+#' ## Metadata Overrides
+#'
+#' Metadata values can be overridden at runtime using environment variables or R options,
+#' following a precedence order: Environment variables → R options → YAML defaults.
+#'
+#' * **Environment variables**: Use the pattern `CONNECTOR_METADATA_<KEY>` (uppercase)
+#' * **R options**: Use the pattern `connector.metadata.<key>` (lowercase)
+#'
+#' Examples:
+#' ```
+#' # Set environment variable
+#' Sys.setenv(CONNECTOR_METADATA_TRIAL = "prod_trial")
+#'
+#' # Set R option
+#' options(connector.metadata.root_path = "/prod/data")
+#'
+#' # Both will override corresponding YAML metadata values
+#' db <- connect("_connector.yml")
+#' ```
+#' @param metadata [list] Base metadata from YAML configuration
+#' @return Modified metadata [list] with overrides applied
+#' @noRd
+#'
+apply_metadata_overrides <- function(metadata) {
+  if (is.null(metadata)) {
+    metadata <- list()
+  }
+
+  all_keys <- names(metadata)
+
+  env_vars <- Sys.getenv(names = TRUE)
+  metadata_env_vars <- env_vars[grepl("^CONNECTOR_METADATA_", names(env_vars))]
+  names_replaced <- NULL
+
+  if (length(metadata_env_vars) > 0) {
+    env_keys <- gsub("^CONNECTOR_METADATA_", "", names(metadata_env_vars))
+    env_keys <- tolower(env_keys)
+    names_replaced <- env_keys
+
+    for (i in seq_along(env_keys)) {
+      key <- env_keys[i]
+      value <- as.character(metadata_env_vars[i])
+      metadata[[key]] <- value
+      all_keys <- unique(c(all_keys, key))
+    }
+  }
+
+  all_options <- options()
+  metadata_options <- all_options[grepl(
+    "^connector\\.metadata\\.",
+    names(all_options)
+  )]
+
+  if (length(metadata_options) > 0) {
+    option_keys <- gsub("^connector\\.metadata\\.", "", names(metadata_options))
+    names_replaced <- c(names_replaced, option_keys)
+    for (i in seq_along(option_keys)) {
+      key <- option_keys[i]
+      value <- metadata_options[[i]]
+      metadata[[key]] <- as.character(value)
+    }
+  }
+
+  if (length(names_replaced) > 0) {
+    c(
+      "i" = "Replace metadata informations:",
+      rlang::set_names(names_replaced, "*"),
+      "->" = "Based on options/env var."
+    ) |>
+      zephyr::msg_verbose(msg_fun = cli::cli_bullets)
+  }
+
+  return(metadata)
 }
 
 #' Parse a configuration list and set environment variables if needed
