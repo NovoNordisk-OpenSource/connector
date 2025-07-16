@@ -206,6 +206,52 @@ db$database |>
 #> # ℹ 22 more rows
 ```
 
+## Metadata
+
+The `metadata` section in your configuration file defines common variables that can be reused across datasources. This promotes consistency and makes configuration management easier.
+
+### Basic Usage
+
+In your `_connector.yml` file, define metadata variables:
+
+```yaml
+metadata:
+  trial: "demo_trial"
+  root_path: "/data/studies"
+  database_host: "localhost"
+  
+datasources:
+  - name: "adam"
+    backend:
+      type: "connector_fs"
+      path: "{metadata.root_path}/{metadata.trial}/adam"
+```
+
+### Override Methods
+
+You can override metadata values using four methods, in order of precedence:
+
+1. **`connect()` function parameter**: Direct override in R code
+2. **Environment variables**: `CONNECTOR_METADATA_<KEY>` (uppercase)
+3. **R options**: `connector.metadata.<key>` (lowercase)  
+4. **YAML configuration**: Default values in the config file
+
+```r
+# Override using connect() function parameter
+db <- connect("_connector.yml", metadata = list(trial = "prod_trial", root_path = "/prod/data"))
+
+# Override using environment variables
+Sys.setenv(CONNECTOR_METADATA_TRIAL = "prod_trial")
+
+# Override using R options
+options(connector.metadata.root_path = "/prod/data")
+
+# Connect with overridden values
+db <- connect("_connector.yml")
+```
+
+This approach keeps sensitive or environment-specific values out of your configuration files.
+
 ## Useful links
 
 For more information on how to use the package, see the following links:

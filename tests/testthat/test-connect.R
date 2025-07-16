@@ -129,6 +129,118 @@ testthat::test_that("Using and update metadata", {
   expect_s3_class(test_yaml$adam, "test_from_metadata")
 })
 
+test_that("Metadata overrides work with environment variables", {
+  # Test that environment variables override YAML metadata
+
+  # Set environment variables
+  withr::with_envvar(
+    new = c(
+      CONNECTOR_METADATA_TRIAL = "env_trial",
+      CONNECTOR_METADATA_ROOT_PATH = "env_path",
+      CONNECTOR_METADATA_NEW_KEY = "env_new_value"
+    ),
+    code = {
+      # Create a simple config with metadata
+      config <- list(
+        metadata = list(
+          trial = "yaml_trial",
+          root_path = "yaml_path",
+          existing_key = "yaml_existing"
+        )
+      )
+
+      # Apply overrides
+      result <- apply_metadata_overrides(config$metadata)
+
+      # Check that environment variables override YAML values
+      expect_equal(result$trial, "env_trial")
+      expect_equal(result$root_path, "env_path")
+      expect_equal(result$new_key, "env_new_value")
+      expect_equal(result$existing_key, "yaml_existing")
+    }
+  )
+})
+
+test_that("Metadata overrides work with R options", {
+  # Test that R options override both YAML and environment variables
+
+  withr::with_options(
+    list(
+      connector.metadata.trial = "option_trial",
+      connector.metadata.root_path = "option_path",
+      connector.metadata.option_only = "option_value"
+    ),
+    code = {
+      withr::with_envvar(
+        new = c(
+          CONNECTOR_METADATA_TRIAL = "env_trial",
+          CONNECTOR_METADATA_ROOT_PATH = "env_path"
+        ),
+        code = {
+          # Create a simple config with metadata
+          config <- list(
+            metadata = list(
+              trial = "yaml_trial",
+              root_path = "yaml_path"
+            )
+          )
+
+          # Apply overrides
+          result <- apply_metadata_overrides(config$metadata)
+
+          # Check that R options override both YAML and environment variables
+          expect_equal(result$trial, "option_trial")
+          expect_equal(result$root_path, "option_path")
+          expect_equal(result$option_only, "option_value")
+        }
+      )
+    }
+  )
+})
+
+test_that("Environment variable case handling", {
+  # Test that environment variables are converted to lowercase properly
+
+  withr::with_envvar(
+    new = c(
+      CONNECTOR_METADATA_TRIAL = "env_trial",
+      CONNECTOR_METADATA_ROOT_PATH = "env_root",
+      CONNECTOR_METADATA_EXTRA_CLASS = "env_class"
+    ),
+    code = {
+      config <- list(
+        metadata = list(
+          trial = "yaml_trial",
+          root_path = "yaml_root",
+          extra_class = "yaml_class"
+        )
+      )
+
+      result <- apply_metadata_overrides(config$metadata)
+
+      expect_equal(result$trial, "env_trial")
+      expect_equal(result$root_path, "env_root")
+      expect_equal(result$extra_class, "env_class")
+    }
+  )
+})
+
+test_that("Metadata in the call compare to options/env var and connect", {
+  withr::with_options(
+    list(
+      connector.metadata.extra_class = "option_extra_class"
+    ),
+    code = {
+      test_yaml <- connect(
+        yaml_content_raw,
+        metadata = list(extra_class = "test_from_metadata")
+      )
+
+      expect_s3_class(test_yaml$adam, "test_from_metadata")
+    }
+  )
+})
+
 test_that("Add logs to connectors object", {
   # whirl needs to be installed to pass this test - if not available
   # then skip the test

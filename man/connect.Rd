@@ -63,6 +63,7 @@ withr::with_tempdir({
 # Create dir for the example in tmpdir
 dir.create("example/demo_trial/adam", recursive = TRUE)
 
+
 config <- system.file("config", "_connector.yml", package = "connector")
 
 config
@@ -84,6 +85,13 @@ cnts$sdtm
 
 connect(config, metadata = list(extra_class = "my_class"))
 
+# Override metadata using R options and using environment variables
+withr::with_options(
+ list(connector.metadata.root_path = "custom_path"),
+   code = {
+        dir.create("custom_path/demo_trial/adam", recursive = TRUE)
+        connect(config)
+})
 # Connect only to the adam datasource
 
 connect(config, datasource = "adam")
