@@ -1,11 +1,16 @@
-# connector 0.1.1.9002 (development version)
+# connector 0.1.1.9003 (development version)
 
 ## Enhancements
+* Added metadata override functionality with environment variables and R options
+* Environment variables follow pattern `CONNECTOR_METADATA_<KEY>` (uppercase)
+* R options follow pattern `connector.metadata.<key>` (lowercase)
+* Metadata override precedence: `connect()` parameter > environment variables > R options > YAML configuration
+* Enhanced logging with verbose messages for metadata overrides
+* Updated README with comprehensive metadata documentation and examples
 * Added upload_cnt and download_cnt methods for ConnectorLogger
 * Added resource validation system with `validate_resource()` function and `check_resource()` S3 methods
 
 ## Bugs
-
 * Fixed bug in connectors function. You can now pass a R Object.
 
 ## Other
@@ -13,6 +18,7 @@
 * Update unit tests
 * Rearrange documentation
 * Added unit tests for resource validation
+* Added comprehensive test suite for metadata override functionality
 
 # connector 0.1.1
 
