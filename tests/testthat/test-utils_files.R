@@ -26,4 +26,12 @@ test_that("Test utils for file", {
   expect_error(
     find_file("test", temp_dir)
   )
+
+  withr::with_options(
+    new = list(connector.default_ext = "txt"),
+    code = find_file("test", temp_dir)
+  ) |>
+    expect_no_error() |>
+    basename() |>
+    expect_equal("test.txt")
 })
