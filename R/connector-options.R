@@ -33,3 +33,9 @@ zephyr::create_option(
   default = FALSE,
   desc = "Add logs to the console as well as to the whirl log html files"
 )
+
+zephyr::create_option(
+  name = "default_ext",
+  default = "rds",
+  desc = "Default extension to use when writing and reading files"
+)

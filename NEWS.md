@@ -3,6 +3,7 @@
 ## Enhancements
 * Added upload_cnt and download_cnt methods for ConnectorLogger
 * Added resource validation system with `validate_resource()` function and `check_resource()` S3 methods
+* Added `default_ext` option to set a default extension to use when reading and writing files
 
 ## Bugs
 

@@ -59,6 +59,15 @@ write_cnt.ConnectorFS <- function(
   ...
 ) {
   file <- file.path(connector_object$path, name)
+
+  if (tools::file_ext(file) == "") {
+    file <- paste(
+      file,
+      zephyr::get_option("default_ext", "connector"),
+      sep = "."
+    )
+  }
+
   write_file(
     x,
     file,
