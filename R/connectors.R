@@ -29,6 +29,8 @@ connectors <- function(...) {
   x <- rlang::list2(...)
   ds_ <- x[["datasources"]]
 
+  md_ <- if (is.null(x[[".md"]])) list() else x[[".md"]]
+
   if (!is.null(ds_) && !inherits(ds_, "cnts_datasources")) {
     cli::cli_abort(
       "'datasources' is a reserved name. It cannot be used as a name for a data source."
@@ -43,10 +45,12 @@ connectors <- function(...) {
   }
 
   checkmate::assert_list(x = x, names = "named")
+
   structure(
-    x[names(x) != "datasources"],
+    x[!(names(x) %in% c("datasources", ".md"))],
     class = c("connectors"),
-    datasources = datasources
+    datasources = datasources,
+    metadata = md_
   )
 }
 
@@ -134,6 +138,46 @@ datasources <- function(connectors) {
 
   ds <- attr(connectors, "datasources")
   ds
+}
+
+#' Extract metadata from connectors
+#'
+#' This function extracts the "metadata" attribute from a connectors object,
+#' with optional filtering to return only a specific metadata field.
+#'
+#' @param connectors An object containing connectors with a "metadata" attribute.
+#' @param attr A character string specifying which metadata attribute to extract.
+#'   If `NULL` (default), returns all metadata.
+#'
+#' @return A list containing the metadata extracted from the "metadata" attribute,
+#'   or the specific attribute value if `attr` is specified.
+#'
+#' @examples
+#' # Assume we have a 'mock_connectors' object with a 'metadata' attribute
+#' mock_connectors <- structure(list(), class = "connectors")
+#' attr(mock_connectors, "metadata") <- list(study = "demo", version = "1.0")
+#'
+#' # Extract all metadata
+#' result <- extract_metadata(mock_connectors)
+#' print(result)
+#'
+#' # Extract specific metadata field
+#' study_name <- extract_metadata(mock_connectors, attr = "study")
+#' print(study_name)
+#'
+#' @export
+extract_metadata <- function(connectors, attr = NULL) {
+  if (!is_connectors(connectors)) {
+    cli::cli_abort("param connectors should be a connectors object.")
+  }
+
+  metadata <- attr(connectors, "metadata")
+  
+  if (!is.null(attr)) {
+    metadata <- metadata[[attr]]
+  }
+  
+  metadata
 }
 
 #' Create a nested connectors object

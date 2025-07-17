@@ -151,3 +151,8 @@ test_that("Add logs to connectors object", {
     expect_s3_class(x, "ConnectorLogger")
   })
 })
+
+test_that("Metadata works correctly", {
+  # Create connectors with metadata
+  cnts <- connect(yaml_file)
+})

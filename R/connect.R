@@ -149,6 +149,12 @@ connect_from_config <- function(config) {
 
   connections$datasources <- as_datasources(config["datasources"])
 
+  # Add metadata to the connections object
+  if (!is.null(config$metadata)) {
+    # placeholder to be transformed as attribute in connectors
+    connections$.md <- config[["metadata"]]
+  }
+
   do.call(what = connectors, args = connections)
 }
 
