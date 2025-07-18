@@ -172,11 +172,11 @@ extract_metadata <- function(connectors, attr = NULL) {
   }
 
   metadata <- attr(connectors, "metadata")
-  
+
   if (!is.null(attr)) {
     metadata <- metadata[[attr]]
   }
-  
+
   metadata
 }
 
