@@ -38,11 +38,11 @@ metadata:
 datasources:
   - name: "files"
     backend:
-      type: "connector::connector_fs"
+      type: "connector_fs"
       path: "{metadata.data_path}"
   - name: "db"
     backend:
-      type: "connector::connector_dbi"
+      type: "connector_dbi"
       drv: "RSQLite::SQLite()"
       dbname: ":memory:"
 '
@@ -76,7 +76,6 @@ read_cnt(db$db, "test_table")
 # In appropriate R/ file
 validate_name <- function(name) {
   checkmate::assert_string(name, min.chars = 1)
-  checkmate::assert_names(name, type = "unique")
   name
 }
 ```
@@ -103,12 +102,13 @@ fs_cnt <- connector_fs(temp_dir)
 # Test different formats
 write_cnt(fs_cnt, iris, "test.csv")
 write_cnt(fs_cnt, iris, "test.rds")
-write_cnt(fs_cnt, iris, "test.parquet")
+if (requireNamespace("arrow", quietly = TRUE)) {
+  write_cnt(fs_cnt, iris, "test.parquet")
+}
 
 # Read back
 csv_data <- read_cnt(fs_cnt, "test.csv")
 rds_data <- read_cnt(fs_cnt, "test.rds")
-parquet_data <- read_cnt(fs_cnt, "test.parquet")
 
 # List files
 list_content_cnt(fs_cnt)
@@ -128,6 +128,11 @@ iris_data <- read_cnt(db_cnt, "flowers")
 
 # List tables
 list_content_cnt(db_cnt)
+
+# Use dplyr verbs
+tbl_cnt(db_cnt, "cars") |>
+  dplyr::filter(mpg > 20) |>
+  dplyr::collect()
 ```
 
 ## Debugging Common Issues
@@ -157,7 +162,7 @@ test_that("debug test", {
 config_path <- "your_config.yml"
 config <- yaml::read_yaml(config_path, eval.expr = TRUE)
 
-# Test parsing
+# Test parsing step by step
 parsed <- parse_config(config)
 ```
 
@@ -169,6 +174,7 @@ connect()              # Parse config, create connectors
 read_cnt()             # Read from any backend
 write_cnt()            # Write to any backend  
 list_content_cnt()     # List available resources
+tbl_cnt()              # Get dplyr table (databases)
 
 # Backend constructors
 connector_fs()         # File system backend

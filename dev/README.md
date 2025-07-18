@@ -9,15 +9,15 @@ The connector package provides a unified interface for accessing different data 
 ```
 connector/
 ├── R/
-│   ├── connector.R             # Main package file, package documentation
+│   ├── connector.R             # Connector R6 base class definition
 │   ├── connect.R               # connect() function, YAML config parsing
 │   ├── connectors.R            # connectors class, collection management
 │   ├── cnt_generics.R          # S3 generics: read_cnt(), write_cnt(), list_content_cnt()
-│   ├── generic_backend.R       # Connector R6 base class
-│   ├── fs.R                    # File system backend implementation
-│   ├── fs_*.R                  # File system utilities (read, write, methods)
-│   ├── dbi.R                   # Database backend implementation
+│   ├── fs.R                    # ConnectorFS R6 class, connector_fs() constructor
+│   ├── fs_*.R                  # File system utilities (read, write, methods, tools)
+│   ├── dbi.R                   # ConnectorDBI R6 class, connector_dbi() constructor
 │   ├── dbi_*.R                 # Database utilities (methods, tools)
+│   ├── generic_backend.R       # Backend creation utilities
 │   ├── logger_*.R              # Logging system for audit trails
 │   ├── utils_*.R               # Config validation, file handling
 │   └── conts_datasources.R     # Data source management
@@ -31,102 +31,98 @@ connector/
 ### Core Entry Points
 
 **`R/connector.R`**
-- Package documentation and main exports
-- Defines what users see when they load the package
+- `Connector` R6 base class that all backends inherit from
+- Defines abstract methods: `read_cnt()`, `write_cnt()`, `list_content_cnt()`
+- Provides `print_cnt()` method for displaying connector info
 
 **`R/connect.R`**
-- `connect()` function - the main entry point for users
-- YAML configuration parsing with `yaml::read_yaml()`
-- Template interpolation (`{metadata.key}` resolution)
-- Backend instantiation and validation
+- `connect()` function - main entry point that parses YAML config
+- `parse_config()` - handles template interpolation and validation
+- `create_connection()` - instantiates appropriate backend objects
 - Returns a `connectors` object containing all configured backends
 
 **`R/connectors.R`**
-- `connectors` class definition and methods
-- Collection management for multiple connector instances
-- Print methods and object inspection utilities
+- `connectors()` function creates collection of connector objects
+- `nested_connectors()` for hierarchical configurations
+- Print methods for displaying connector collections
 
 ### Generic System
 
 **`R/cnt_generics.R`**
-- Defines all S3 generics: `read_cnt()`, `write_cnt()`, `list_content_cnt()`
-- Provides the consistent API that works across all backends
-- Method dispatch to backend-specific implementations
+- Defines S3 generics: `read_cnt()`, `write_cnt()`, `list_content_cnt()`
+- Also includes: `remove_cnt()`, `upload_cnt()`, `download_cnt()`, `tbl_cnt()`
+- Provides consistent API across all backend implementations
 
 **`R/generic_backend.R`**
-- `Connector` R6 base class that all backends inherit from
-- Defines the interface contract for new backends
-- Shared functionality like validation and logging hooks
+- `create_backend()` - creates backend objects from config
+- `get_backend_fct()` - resolves backend type strings to functions
+- `try_connect()` - handles connection attempts with error handling
 
 ### Backend Implementations
 
 **`R/fs.R`**
-- File system backend: `ConnectorFS` R6 class
+- `ConnectorFS` R6 class for file system operations
 - `connector_fs()` constructor function
-- File format detection and delegation to appropriate readers
-- Cross-platform path handling
+- Inherits from `Connector` base class
 
 **`R/fs_*.R`**
-- `fs_read.R`: File reading logic with format detection
+- `fs_read.R`: File reading with format detection
 - `fs_write.R`: File writing with format selection
 - `fs_methods.R`: S3 method implementations
-- `fs_backend_tools.R`: Utility functions for file operations
+- `fs_backend_tools.R`: File system utilities
 
 **`R/dbi.R`**
-- Database backend: `ConnectorDBI` R6 class
+- `ConnectorDBI` R6 class for database operations
 - `connector_dbi()` constructor function
-- DBI connection management and SQL operations
+- Manages DBI connections and SQL operations
 
 **`R/dbi_*.R`**
-- `dbi_methods.R`: S3 method implementations for database operations
-- `dbi_backend_tools.R`: Utility functions for database operations
+- `dbi_methods.R`: S3 method implementations
+- `dbi_backend_tools.R`: Database utilities
 
 ### Configuration and Utilities
 
 **`R/utils_config.R`**
-- YAML configuration validation and parsing
-- Schema enforcement for configuration files
-- Template interpolation engine
-- Error handling for malformed configurations
+- `add_metadata()`, `remove_metadata()` - modify config files
+- `add_datasource()`, `remove_datasource()` - manage datasources
+- Configuration manipulation utilities
 
 **`R/utils_files.R`**
-- File handling utilities
-- Path validation and normalization
-- File format detection helpers
+- File handling utilities used by file system backend
 
 ## How connector Works
 
 ### 1. Configuration Loading
 ```
-YAML file → yaml::read_yaml() → parse_config() → validate schema → interpolate templates
+YAML file → connect() → parse_config() → create_connection() → backend objects
 ```
 
 ### 2. Backend Creation
 ```
-config → iterate datasources → create R6 backend objects → wrap in connectors object
+config → create_backend() → get_backend_fct() → connector_fs() or connector_dbi()
 ```
 
 ### 3. Method Dispatch
 ```
-read_cnt(connector, "data") → UseMethod("read_cnt") → read_cnt.ConnectorFS → connector$read_cnt()
+read_cnt(connector, "data") → UseMethod("read_cnt") → read_cnt.ConnectorFS → fs methods
 ```
 
 ## Architecture Decisions
 
-### S3 + R6 Combination
-- **S3 generics** provide familiar R interface and easy extensibility
-- **R6 classes** manage backend state and enable clean inheritance
-- **S3 methods** delegate to R6 methods for actual implementation
+### R6 Base Class with S3 Generics
+- **R6 `Connector` class** provides shared interface and state management
+- **S3 generics** in `cnt_generics.R` provide familiar R method dispatch
+- **Backend-specific methods** in `*_methods.R` files implement the generics
 
-### Configuration-Driven Design
-- All connection details specified in YAML files
-- Template system allows reusable configurations
-- Strict validation prevents runtime errors
+### Configuration System
+- YAML files with `metadata`, `env`, and `datasources` sections
+- Template interpolation using `{metadata.key}` syntax
+- Strict validation in `connect.R` with helpful error messages
 
-### Backend Abstraction
-- Common interface across all data sources
-- Backend-specific optimizations hidden from users
-- Easy to add new backends without breaking existing code
+### Backend Type Resolution
+- Backend types specified as strings: `"connector::connector_fs"`
+- `get_backend_fct()` resolves to actual constructor functions
+- Supports external packages: `"connector.databricks::connector_databricks"`
 
 ## Testing Structure
 
@@ -139,36 +135,46 @@ read_cnt(connector, "data") → UseMethod("read_cnt") → read_cnt.ConnectorFS �
 - `test-integration.R`: End-to-end workflows
 
 ### Test Patterns
-- Each backend follows same testing template
-- Heavy use of `withr` for resource management
+- Each backend follows consistent testing structure
+- Use `withr::local_tempdir()` for file system tests
+- Use `RSQLite::SQLite()` with `:memory:` for database tests
 - Mock external dependencies for reliable tests
-- Performance benchmarks for critical paths
 
 ## Extension Points
 
 ### Adding New Backends
 1. Create R6 class inheriting from `Connector`
-2. Implement required methods: `read_cnt`, `write_cnt`, `list_content_cnt`
-3. Add constructor function following naming convention
-4. Register S3 methods for method dispatch
+2. Implement required methods in the class
+3. Create constructor function following `connector_*` naming
+4. Add S3 methods in separate `*_methods.R` file
 5. Add comprehensive tests following existing patterns
 
 ### Backend Packages
-- `connector.databricks`: Databricks integration
-- `connector.sharepoint`: SharePoint/Office 365 integration
-- Extension packages register their own backends
+- Extension packages can add new backend types
+- Use naming convention: `connector.{service}`
+- Examples: `connector.databricks`, `connector.sharepoint`
 
 ## File Format Support
 
 ### File System Backend
-- **Parquet**: Via `arrow` package for analytical workloads
-- **CSV**: Via `readr` and `vroom` for large files
-- **Excel**: Via `readxl` and `writexl`
-- **SAS**: Via `haven` for clinical data
-- **RDS**: Native R serialization
+- **Format detection**: Automatic based on file extension
+- **Parquet**: Via `arrow` package (preferred for analytics)
+- **CSV**: Via `readr` and `vroom` packages
+- **Excel**: Via `readxl` and `writexl` packages
+- **SAS**: Via `haven` package for `.sas7bdat` files
+- **RDS**: Native R serialization format
 
 ### Database Backend
-- **SQLite**: Via `RSQLite` for local databases
-- **PostgreSQL**: Via `RPostgres` for production databases
-- **SQL Server**: Via `odbc` for enterprise environments
-- Extensible through DBI-compatible drivers
+- **DBI compliance**: Works with any DBI-compatible driver
+- **SQLite**: Via `RSQLite` package
+- **PostgreSQL**: Via `RPostgres` package
+- **SQL Server**: Via `odbc` package
+- **Lazy evaluation**: Uses `dplyr::tbl()` for query building
+
+## Logging System
+
+### Audit Trail
+- Optional logging via `logger_*.R` files
+- Integrates with `whirl` package for structured logging
+- Tracks read/write operations with timestamps
+- Configurable through `logging` option
