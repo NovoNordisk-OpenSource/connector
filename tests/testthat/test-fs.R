@@ -31,6 +31,18 @@ test_that("fs connector", {
   fs$list_content_cnt() |>
     expect_vector(ptype = character(), size = 0)
 
+  fs$write_cnt(mtcars, "mtcars") |>
+    expect_no_condition()
+
+  withr::with_options(
+    new = list("connector.default_ext" = "parquet"),
+    code = fs$write_cnt(mtcars, "mtcars")
+  ) |>
+    expect_no_condition()
+
+  fs$list_content_cnt() |>
+    expect_equal(c("mtcars.parquet", "mtcars.rds"))
+
   new_directory <- fs$create_directory_cnt("new_dir")
 
   checkmate::assert_r6(new_directory, classes = "ConnectorFS")
