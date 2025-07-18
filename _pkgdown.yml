@@ -35,4 +35,5 @@ reference:
   - title: Utils
     contents:
     - datasources
+    - extract_metadata
     - resource-validation
