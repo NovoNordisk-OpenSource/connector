@@ -73,7 +73,7 @@ function to write the file is chosen depending on the file extension.
 }
 
 \itemize{
-\item \code{sas7bdat}: \code{\link[haven:write_sas]{haven::write_sas()}}
+\item \code{xpt}: \code{\link[haven:read_xpt]{haven::write_xpt()}}
 }
 
 \itemize{
