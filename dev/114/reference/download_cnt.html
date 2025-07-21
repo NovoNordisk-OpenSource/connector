@@ -106,7 +106,7 @@ to the desired <code>file</code>.</p></li>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connector_fs.html">connector_fs</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in validate_resource(self):</span> Invalid file system connector: <span style="color: #0000BB;">/tmp/Rtmpqzf5tM/file1ea34f3b168c</span> does not</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in validate_resource(self):</span> Invalid file system connector: <span style="color: #0000BB;">/tmp/RtmpjaZ4bP/file1e666782a7a3</span> does not</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> exist.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
@@ -133,7 +133,7 @@ to the desired <code>file</code>.</p></li>
 <span class="r-in"><span><span class="co"># Add logging to a file system connector for downloads</span></span></span>
 <span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connectors.html">connectors</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="connector_fs.html">connector_fs</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="add_logs.html">add_logs</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in validate_resource(self):</span> Invalid file system connector: <span style="color: #0000BB;">/tmp/Rtmpqzf5tM/file1ea33b8df38c</span> does not</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in validate_resource(self):</span> Invalid file system connector: <span style="color: #0000BB;">/tmp/RtmpjaZ4bP/file1e666d9f369f</span> does not</span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> exist.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span><span class="op">$</span><span class="va">data</span> <span class="op">|&gt;</span></span></span>
