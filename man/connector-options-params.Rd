@@ -14,7 +14,7 @@ See \link{connector-options} for details. Default can be set globally with
 
 \item{logging}{Add logs to the console as well as to the whirl log html files. Default: \code{FALSE}.}
 
-\item{default_ext}{Default extension to use when writing and reading files. Default: \code{"rds"}.}
+\item{default_ext}{Default extension to use when writing and reading files. Default: \code{"csv"}.}
 }
 \description{
 Internal parameters for reuse in functions

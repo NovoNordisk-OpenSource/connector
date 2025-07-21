@@ -36,6 +36,6 @@ zephyr::create_option(
 
 zephyr::create_option(
   name = "default_ext",
-  default = "rds",
+  default = "csv",
   desc = "Default extension to use when writing and reading files"
 )

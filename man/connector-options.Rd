@@ -42,7 +42,7 @@ Add logs to the console as well as to the whirl log html files
 
 Default extension to use when writing and reading files
 \itemize{
-\item Default: \code{"rds"}
+\item Default: \code{"csv"}
 \item Option: \code{connector.default_ext}
 \item Environment: \code{R_CONNECTOR_DEFAULT_EXT}
 }
