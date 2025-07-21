@@ -41,7 +41,8 @@ test_that("fs connector", {
     expect_no_condition()
 
   fs$list_content_cnt() |>
-    expect_equal(c("mtcars.parquet", "mtcars.rds"))
+    sort() |>
+    expect_equal(sort(c("mtcars.parquet", "mtcars.csv")))
 
   new_directory <- fs$create_directory_cnt("new_dir")
 
