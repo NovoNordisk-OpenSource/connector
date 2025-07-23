@@ -101,15 +101,15 @@ Initializes the connector for file storage.
 Download content from the file storage.
 See also \link{download_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConnectorFS$download_cnt(name, file = basename(name), ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ConnectorFS$download_cnt(src, dest = basename(src), ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
+\item{\code{src}}{\link{character} The name of the file to download from the connector}
 
-\item{\code{file}}{\link{character} Path to the file to download to or upload from}
+\item{\code{dest}}{\link{character} Path to the file to download to}
 
 \item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
@@ -126,15 +126,15 @@ See also \link{download_cnt}.
 Upload a file to the file storage.
 See also \link{upload_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConnectorFS$upload_cnt(file, name = basename(file), ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ConnectorFS$upload_cnt(src, dest = basename(src), ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{file}}{\link{character} Path to the file to download to or upload from}
+\item{\code{src}}{\link{character} Path to the file to upload}
 
-\item{\code{name}}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
+\item{\code{dest}}{\link{character} The name of the file to create}
 
 \item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
@@ -197,15 +197,15 @@ See also \link{remove_directory_cnt}.
 Upload a directory to the file storage.
 See also \link{upload_directory_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConnectorFS$upload_directory_cnt(dir, name = basename(dir), ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ConnectorFS$upload_directory_cnt(src, dest = basename(src), ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{dir}}{\link{character} The path to the directory to upload}
+\item{\code{src}}{\link{character} The path to the directory to upload}
 
-\item{\code{name}}{\link{character} The name of the directory to create}
+\item{\code{dest}}{\link{character} The name of the directory to create}
 
 \item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }
@@ -222,15 +222,15 @@ See also \link{upload_directory_cnt}.
 Download a directory from the file storage.
 See also \link{download_directory_cnt}.
 \subsection{Usage}{
-\if{html}{\out{<div class="r">}}\preformatted{ConnectorFS$download_directory_cnt(name, dir = name, ...)}\if{html}{\out{</div>}}
+\if{html}{\out{<div class="r">}}\preformatted{ConnectorFS$download_directory_cnt(src, dest = basename(src), ...)}\if{html}{\out{</div>}}
 }
 
 \subsection{Arguments}{
 \if{html}{\out{<div class="arguments">}}
 \describe{
-\item{\code{name}}{\link{character} The name of the directory to download}
+\item{\code{src}}{\link{character} The name of the directory to download from the connector}
 
-\item{\code{dir}}{\link{character} The path to the directory to download}
+\item{\code{dest}}{\link{character} The path to the directory to download to}
 
 \item{\code{...}}{Additional arguments passed to the method for the individual connector.}
 }

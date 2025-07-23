@@ -99,19 +99,23 @@ ConnectorFS <- R6::R6Class(
     #' @description
     #' Download content from the file storage.
     #' See also [download_cnt].
+    #' @param src [character] The name of the file to download from the connector
+    #' @param dest [character] Path to the file to download to
     #' @return `r rd_connector_utils("inv_connector")`
-    download_cnt = function(name, file = basename(name), ...) {
+    download_cnt = function(src, dest = basename(src), ...) {
       self |>
-        download_cnt(name, file, ...)
+        download_cnt(src, dest, ...)
     },
 
     #' @description
     #' Upload a file to the file storage.
     #' See also [upload_cnt].
+    #' @param src [character] Path to the file to upload
+    #' @param dest [character] The name of the file to create
     #' @return `r rd_connector_utils("inv_self")`
-    upload_cnt = function(file, name = basename(file), ...) {
+    upload_cnt = function(src, dest = basename(src), ...) {
       self |>
-        upload_cnt(file, name, ...)
+        upload_cnt(src, dest, ...)
     },
 
     #' @description
@@ -137,23 +141,23 @@ ConnectorFS <- R6::R6Class(
     #' @description
     #' Upload a directory to the file storage.
     #' See also [upload_directory_cnt].
-    #' @param dir [character] The path to the directory to upload
-    #' @param name [character] The name of the directory to create
+    #' @param src [character] The path to the directory to upload
+    #' @param dest [character] The name of the directory to create
     #' @return `r rd_connector_utils("inv_self")`
-    upload_directory_cnt = function(dir, name = basename(dir), ...) {
+    upload_directory_cnt = function(src, dest = basename(src), ...) {
       self |>
-        upload_directory_cnt(dir, name, ...)
+        upload_directory_cnt(src, dest, ...)
     },
 
     #' @description
     #' Download a directory from the file storage.
     #' See also [download_directory_cnt].
-    #' @param name [character] The name of the directory to download
-    #' @param dir [character] The path to the directory to download
+    #' @param src [character] The name of the directory to download from the connector
+    #' @param dest [character] The path to the directory to download to
     #' @return `r rd_connector_utils("inv_connector")`
-    download_directory_cnt = function(name, dir = name, ...) {
+    download_directory_cnt = function(src, dest = basename(src), ...) {
       self |>
-        download_directory_cnt(name, dir, ...)
+        download_directory_cnt(src, dest, ...)
     },
 
     #' @description

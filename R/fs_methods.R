@@ -159,13 +159,13 @@ remove_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #' @export
 download_cnt.ConnectorFS <- function(
   connector_object,
-  name,
-  file = basename(name),
+  src,
+  dest = basename(src),
   ...
 ) {
-  name <- file.path(connector_object$path, name)
+  src_path <- file.path(connector_object$path, src)
 
-  fs::file_copy(path = name, new_path = file, ...)
+  fs::file_copy(path = src_path, new_path = dest, ...)
 
   return(
     invisible(connector_object)
@@ -201,14 +201,14 @@ download_cnt.ConnectorFS <- function(
 #' @export
 upload_cnt.ConnectorFS <- function(
   connector_object,
-  file,
-  name = basename(file),
+  src,
+  dest = basename(src),
   overwrite = zephyr::get_option("overwrite", "connector"),
   ...
 ) {
-  name <- file.path(connector_object$path, name)
+  dest_path <- file.path(connector_object$path, dest)
 
-  fs::file_copy(path = file, new_path = name, overwrite = overwrite)
+  fs::file_copy(path = src, new_path = dest_path, overwrite = overwrite)
 
   return(
     invisible(connector_object)
@@ -304,15 +304,15 @@ remove_directory_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #' @export
 upload_directory_cnt.ConnectorFS <- function(
   connector_object,
-  dir,
-  name,
+  src,
+  dest,
   overwrite = zephyr::get_option("overwrite", "connector"),
   open = FALSE,
   ...
 ) {
-  name <- file.path(connector_object$path, name)
+  dest_path <- file.path(connector_object$path, dest)
 
-  fs::dir_copy(path = dir, new_path = name, overwrite = overwrite)
+  fs::dir_copy(path = src, new_path = dest_path, overwrite = overwrite)
 
   # create a new connector object from the new path with persistent extra class
   if (open) {
@@ -321,7 +321,7 @@ upload_directory_cnt.ConnectorFS <- function(
       extra_class,
       which(extra_class == "ConnectorFS") - 1
     )
-    connector_object <- connector_fs(name, extra_class)
+    connector_object <- connector_fs(dest_path, extra_class)
   }
 
   return(
@@ -336,13 +336,13 @@ upload_directory_cnt.ConnectorFS <- function(
 #' @export
 download_directory_cnt.ConnectorFS <- function(
   connector_object,
-  name,
-  dir = basename(name),
+  src,
+  dest = basename(src),
   ...
 ) {
-  name <- file.path(connector_object$path, name)
+  src_path <- file.path(connector_object$path, src)
 
-  fs::dir_copy(path = name, new_path = dir, ...)
+  fs::dir_copy(path = src_path, new_path = dest, ...)
 
   return(
     invisible(connector_object)

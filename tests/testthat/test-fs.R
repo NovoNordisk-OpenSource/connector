@@ -44,19 +44,19 @@ test_that("fs connector", {
   fs$list_content_cnt("new_dir") |>
     expect_vector(ptype = character(), size = 0)
 
-  fs$upload_cnt(file = t_file1, name = "t_file.txt")
+  fs$upload_cnt(src = t_file1, dest = "t_file.txt")
   fs$list_content_cnt("t_file.txt") |>
     expect_vector(ptype = character(), size = 1)
   fs$read_cnt("t_file.txt") |>
     expect_equal("hello")
 
-  fs$download_cnt("t_file.txt", file = t_file2)
+  fs$download_cnt("t_file.txt", dest = t_file2)
   readr::read_lines(t_file2) |>
     expect_equal("hello")
 
   testtxt <- "this is a test"
   writeLines(testtxt, file.path(t_dir2, "test.txt"))
-  fs$upload_directory_cnt(t_dir2, name = "newdir")
+  fs$upload_directory_cnt(t_dir2, dest = "newdir")
   fs$list_content_cnt("newdir") |>
     expect_vector(ptype = character(), size = 1)
   fs$path |>
@@ -64,7 +64,7 @@ test_that("fs connector", {
     readLines() |>
     expect_equal(testtxt)
 
-  fs$download_directory_cnt("newdir", t_dir2) |>
+  fs$download_directory_cnt("newdir", dest = t_dir2) |>
     expect_no_condition()
 
   list.files(t_dir2) |>
