@@ -39,18 +39,36 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.1.9002" id="connector-0119002-development-version">connector 0.1.1.9002 (development version)<a class="anchor" aria-label="anchor" href="#connector-0119002-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="0.1.1.9004" id="connector-0119004-development-version">connector 0.1.1.9004 (development version)<a class="anchor" aria-label="anchor" href="#connector-0119004-development-version"></a></h2>
 <div class="section level3">
-<h3 id="enhancements-0-1-1-9002">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-1-1-9002"></a></h3>
+<h3 id="breaking-changes-0-1-1-9004">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-1-1-9004"></a></h3>
+<ul><li>
+<strong>Parameter name changes</strong>: The <code><a href="../reference/upload_cnt.html">upload_cnt()</a></code>, <code><a href="../reference/download_cnt.html">download_cnt()</a></code>, <code><a href="../reference/upload_directory_cnt.html">upload_directory_cnt()</a></code>, and <code><a href="../reference/download_directory_cnt.html">download_directory_cnt()</a></code> functions now use <code>src</code> and <code>dest</code> parameters instead of <code>name</code>/<code>file</code> and <code>dir</code>/<code>name</code> for consistency across the API. Update your code accordingly:
+<ul><li>
+<code>upload_cnt(file = "path", name = "target")</code> → <code>upload_cnt(src = "path", dest = "target")</code>
+</li>
+<li>
+<code>download_cnt(name = "source", file = "path")</code> → <code>download_cnt(src = "source", dest = "path")</code>
+</li>
+<li>
+<code>upload_directory_cnt(dir = "path", name = "target")</code> → <code>upload_directory_cnt(src = "path", dest = "target")</code>
+</li>
+<li>
+<code>download_directory_cnt(name = "source", dir = "path")</code> → <code>download_directory_cnt(src = "source", dest = "path")</code>
+</li>
+</ul></li>
+</ul></div>
+<div class="section level3">
+<h3 id="enhancements-0-1-1-9004">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-1-1-9004"></a></h3>
 <ul><li>Added upload_cnt and download_cnt methods for ConnectorLogger</li>
 <li>Added resource validation system with <code><a href="../reference/resource-validation.html">validate_resource()</a></code> function and <code><a href="../reference/resource-validation.html">check_resource()</a></code> S3 methods</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bugs-0-1-1-9002">Bugs<a class="anchor" aria-label="anchor" href="#bugs-0-1-1-9002"></a></h3>
+<h3 id="bugs-0-1-1-9004">Bugs<a class="anchor" aria-label="anchor" href="#bugs-0-1-1-9004"></a></h3>
 <ul><li>Fixed bug in connectors function. You can now pass a R Object.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="other-0-1-1-9002">Other<a class="anchor" aria-label="anchor" href="#other-0-1-1-9002"></a></h3>
+<h3 id="other-0-1-1-9004">Other<a class="anchor" aria-label="anchor" href="#other-0-1-1-9004"></a></h3>
 <ul><li>Reformat code with air</li>
 <li>Update unit tests</li>
 <li>Rearrange documentation</li>
