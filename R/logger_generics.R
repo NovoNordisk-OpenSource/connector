@@ -273,13 +273,13 @@ list_content_cnt.ConnectorLogger <- function(connector_object, ...) {
 #' @export
 upload_cnt.ConnectorLogger <- function(
   connector_object,
-  file,
-  name = basename(file),
+  src,
+  dest = basename(src),
   overwrite = zephyr::get_option("overwrite", "connector"),
   ...
 ) {
   res <- tryCatch(NextMethod())
-  log_write_connector(connector_object, name, ...)
+  log_write_connector(connector_object, dest, ...)
   return(invisible(res))
 }
 
@@ -301,12 +301,12 @@ upload_cnt.ConnectorLogger <- function(
 #' @export
 download_cnt.ConnectorLogger <- function(
   connector_object,
-  name,
-  file = basename(name),
+  src,
+  dest = basename(src),
   ...
 ) {
   res <- tryCatch(NextMethod())
-  log_read_connector(connector_object, name, ...)
+  log_read_connector(connector_object, src, ...)
   return(res)
 }
 

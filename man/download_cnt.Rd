@@ -7,18 +7,18 @@
 \alias{download_cnt.ConnectorLogger}
 \title{Download content from the connector}
 \usage{
-download_cnt(connector_object, name, file = basename(name), ...)
+download_cnt(connector_object, src, dest = basename(src), ...)
 
-\method{download_cnt}{ConnectorFS}(connector_object, name, file = basename(name), ...)
+\method{download_cnt}{ConnectorFS}(connector_object, src, dest = basename(src), ...)
 
-\method{download_cnt}{ConnectorLogger}(connector_object, name, file = basename(name), ...)
+\method{download_cnt}{ConnectorLogger}(connector_object, src, dest = basename(src), ...)
 }
 \arguments{
 \item{connector_object}{\link{Connector} The connector object to use.}
 
-\item{name}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
+\item{src}{\link{character} Name of the content to read, write, or remove. Typically the table name.}
 
-\item{file}{\link{character} Path to the file to download to or upload from}
+\item{dest}{\link{character} Path to the file to download to or upload from}
 
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }

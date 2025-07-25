@@ -98,7 +98,7 @@ write_ext.rds <- function(file, x, ...) {
 }
 
 #' @description
-#' * `sas7bdat`: [haven::write_sas()]
+#' * `xpt`: [haven::write_xpt()]
 #'
 #' @rdname write_file
 #' @export

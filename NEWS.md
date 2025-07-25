@@ -1,4 +1,12 @@
+
 # connector 0.1.1.9*** (development version)
+
+## Breaking Changes
+* **Parameter name changes**: The `upload_cnt()`, `download_cnt()`, `upload_directory_cnt()`, and `download_directory_cnt()` functions now use `src` and `dest` parameters instead of `name`/`file` and `dir`/`name` for consistency across the API. Update your code accordingly:
+  - `upload_cnt(file = "path", name = "target")` → `upload_cnt(src = "path", dest = "target")`
+  - `download_cnt(name = "source", file = "path")` → `download_cnt(src = "source", dest = "path")`
+  - `upload_directory_cnt(dir = "path", name = "target")` → `upload_directory_cnt(src = "path", dest = "target")`
+  - `download_directory_cnt(name = "source", dir = "path")` → `download_directory_cnt(src = "source", dest = "path")`
 
 ## Enhancements
 * Added upload_cnt and download_cnt methods for ConnectorLogger

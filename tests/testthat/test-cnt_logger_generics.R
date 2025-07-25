@@ -108,14 +108,14 @@ test_that("ConnectorLogger upload and download methods work with real FS connect
 
   # Test upload_cnt.ConnectorLogger
   test_method_with_logging(
-    upload_cnt(setup$connector, test_file, "uploaded_file.txt"),
+    upload_cnt(setup$connector, test_file, dest = "uploaded_file.txt"),
     "uploaded_file.txt"
   )
   expect_true(file.exists(uploaded_file))
 
   # Test download_cnt.ConnectorLogger
   result <- test_method_with_logging(
-    download_cnt(setup$connector, "uploaded_file.txt", download_path),
+    download_cnt(setup$connector, "uploaded_file.txt", dest = download_path),
     "uploaded_file.txt"
   )
   expect_true(file.exists(download_path))
