@@ -14,7 +14,7 @@ test_that("Test utils for file", {
   expect_error(error_extension())
 
   ## find file
-  temp_dir <- tempdir()
+  temp_dir <- withr::local_tempdir()
   expect_error(
     find_file("test", temp_dir)
   )
@@ -23,7 +23,17 @@ test_that("Test utils for file", {
     c(file.path(temp_dir, "test.txt"), file.path(temp_dir, "test.csv"))
   )
 
-  expect_error(
-    find_file("test", temp_dir)
-  )
+  withr::with_options(
+    new = list(connector.default_ext = ""),
+    code = find_file("test", temp_dir)
+  ) |>
+    expect_error()
+
+  withr::with_options(
+    new = list(connector.default_ext = "txt"),
+    code = find_file("test", temp_dir)
+  ) |>
+    expect_no_error() |>
+    basename() |>
+    expect_equal("test.txt")
 })

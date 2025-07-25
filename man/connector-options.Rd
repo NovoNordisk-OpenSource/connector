@@ -37,4 +37,14 @@ Add logs to the console as well as to the whirl log html files
 \item Environment: \code{R_CONNECTOR_LOGGING}
 }
 }
+
+\subsection{default_ext}{
+
+Default extension to use when writing and reading files
+\itemize{
+\item Default: \code{"csv"}
+\item Option: \code{connector.default_ext}
+\item Environment: \code{R_CONNECTOR_DEFAULT_EXT}
+}
+}
 }

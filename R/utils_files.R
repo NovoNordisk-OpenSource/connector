@@ -14,9 +14,16 @@ find_file <- function(name, root) {
 
   if (length(files) == 1) {
     return(files)
-  } else {
-    stop("No file found or multiple files found with the same name")
   }
+
+  files <- files[
+    tools::file_ext(files) == zephyr::get_option("default_ext", "connector")
+  ]
+  if (length(files) == 1) {
+    return(files)
+  }
+
+  stop("No file found or multiple files found with the same name")
 }
 
 #' List of supported files
