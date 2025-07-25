@@ -5,16 +5,16 @@
 \alias{download_directory_cnt.ConnectorFS}
 \title{Download a directory}
 \usage{
-download_directory_cnt(connector_object, name, dir = name, ...)
+download_directory_cnt(connector_object, src, dest = basename(src), ...)
 
-\method{download_directory_cnt}{ConnectorFS}(connector_object, name, dir = basename(name), ...)
+\method{download_directory_cnt}{ConnectorFS}(connector_object, src, dest = basename(src), ...)
 }
 \arguments{
 \item{connector_object}{\link{Connector} The connector object to use.}
 
-\item{name}{\link{character} The name of the directory to download}
+\item{src}{\link{character} The name of the directory to download from the connector}
 
-\item{dir}{\link{character} Path to the directory to download to}
+\item{dest}{\link{character} Path to the directory to download to}
 
 \item{...}{Additional arguments passed to the method for the individual connector.}
 }
