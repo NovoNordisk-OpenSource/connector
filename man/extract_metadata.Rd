@@ -4,17 +4,17 @@
 \alias{extract_metadata}
 \title{Extract metadata from connectors}
 \usage{
-extract_metadata(connectors, attr = NULL)
+extract_metadata(connectors, name = NULL)
 }
 \arguments{
 \item{connectors}{An object containing connectors with a "metadata" attribute.}
 
-\item{attr}{A character string specifying which metadata attribute to extract.
+\item{name}{A character string specifying which metadata attribute to extract.
 If \code{NULL} (default), returns all metadata.}
 }
 \value{
 A list containing the metadata extracted from the "metadata" attribute,
-or the specific attribute value if \code{attr} is specified.
+or the specific attribute value if \code{name} is specified.
 }
 \description{
 This function extracts the "metadata" attribute from a connectors object,
@@ -30,7 +30,7 @@ result <- extract_metadata(mock_connectors)
 print(result)
 
 # Extract specific metadata field
-study_name <- extract_metadata(mock_connectors, attr = "study")
+study_name <- extract_metadata(mock_connectors, name = "study")
 print(study_name)
 
 }

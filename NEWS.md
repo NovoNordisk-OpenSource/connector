@@ -3,7 +3,7 @@
 ## Enhancements
 * Added upload_cnt and download_cnt methods for ConnectorLogger
 * Added resource validation system with `validate_resource()` function and `check_resource()` S3 methods
-* Added "metadata" attribute to connectors object
+* Added "metadata" attribute to connectors object and extract_metadata() to extract metadata from connectors
 
 ## Bugs
 

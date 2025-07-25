@@ -146,11 +146,11 @@ datasources <- function(connectors) {
 #' with optional filtering to return only a specific metadata field.
 #'
 #' @param connectors An object containing connectors with a "metadata" attribute.
-#' @param attr A character string specifying which metadata attribute to extract.
+#' @param name A character string specifying which metadata attribute to extract.
 #'   If `NULL` (default), returns all metadata.
 #'
 #' @return A list containing the metadata extracted from the "metadata" attribute,
-#'   or the specific attribute value if `attr` is specified.
+#'   or the specific attribute value if `name` is specified.
 #'
 #' @examples
 #' # Assume we have a 'mock_connectors' object with a 'metadata' attribute
@@ -162,19 +162,21 @@ datasources <- function(connectors) {
 #' print(result)
 #'
 #' # Extract specific metadata field
-#' study_name <- extract_metadata(mock_connectors, attr = "study")
+#' study_name <- extract_metadata(mock_connectors, name = "study")
 #' print(study_name)
 #'
 #' @export
-extract_metadata <- function(connectors, attr = NULL) {
+extract_metadata <- function(connectors, name = NULL) {
   if (!is_connectors(connectors)) {
     cli::cli_abort("param connectors should be a connectors object.")
   }
 
+  checkmate::assert_character(name, null.ok = TRUE)
+
   metadata <- attr(connectors, "metadata")
 
-  if (!is.null(attr)) {
-    metadata <- metadata[[attr]]
+  if (!is.null(name)) {
+    metadata <- metadata[[name]]
   }
 
   metadata
