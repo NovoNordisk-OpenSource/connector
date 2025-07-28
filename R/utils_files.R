@@ -13,17 +13,28 @@ find_file <- function(name, root) {
   )
 
   if (length(files) == 1) {
+    zephyr::msg(
+      "Found one file: {.file {files}}"
+    )
     return(files)
   }
 
-  files <- files[
-    tools::file_ext(files) == zephyr::get_option("default_ext", "connector")
-  ]
+  ext <- zephyr::get_option("default_ext", "connector")
+  files <- files[tools::file_ext(files) == ext]
+
   if (length(files) == 1) {
+    zephyr::msg(
+      "Found one file with default ({.field {ext}}) extension: {.file {files}}"
+    )
     return(files)
   }
 
-  stop("No file found or multiple files found with the same name")
+  cli::cli_abort(
+    c(
+      "Found several files with the same name: {.file {files}}",
+      "i" = "Please specify file extension"
+    )
+  )
 }
 
 #' List of supported files

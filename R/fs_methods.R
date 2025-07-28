@@ -61,11 +61,11 @@ write_cnt.ConnectorFS <- function(
   file <- file.path(connector_object$path, name)
 
   if (tools::file_ext(file) == "") {
-    file <- paste(
-      file,
-      zephyr::get_option("default_ext", "connector"),
-      sep = "."
+    ext <- zephyr::get_option("default_ext", "connector")
+    zephyr::msg(
+      "No file extension for {.file {name}} provided, using default: {.field {ext}}"
     )
+    file <- paste(file, ext, sep = ".")
   }
 
   write_file(
