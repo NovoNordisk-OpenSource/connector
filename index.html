@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -122,7 +122,7 @@
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → folder</span></span>
 <span><span class="co">#&gt; • connector::connector_fs</span></span>
-<span><span class="co">#&gt; • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpmRH6I7/file7113746ced8a</span></span>
+<span><span class="co">#&gt; • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpEybqUr/file7be92f16369e</span></span>
 <span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → database</span></span>
@@ -148,6 +148,7 @@
 <span><span class="co">#&gt; • `remove_cnt.ConnectorDBI()`</span></span>
 <span><span class="co">#&gt; • `tbl_cnt.ConnectorDBI()`</span></span>
 <span><span class="co">#&gt; • `write_cnt.ConnectorDBI()`</span></span>
+<span><span class="co">#&gt; • `check_resource.Connector()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
 <span><span class="co">#&gt; • conn: &lt;SQLiteConnection&gt;</span></span></code></pre></div>
 <p>We are now ready to use the <code>connectors</code>, so we can start by writing some data to the <code>folder</code> one:</p>
@@ -173,6 +174,7 @@
 <span><span class="co"># And we can read it back in</span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">folder</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/read_cnt.html">read_cnt</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"cars.parquet"</span><span class="op">)</span></span>
+<span><span class="co">#&gt; → Found one file: '/var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpEybqUr/file7be92f16369e/cars.parquet'</span></span>
 <span><span class="co">#&gt; # A tibble: 32 × 12</span></span>
 <span><span class="co">#&gt;    car           mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
@@ -234,6 +236,9 @@
 <code><a href="articles/connector.html">vignette("connector")</a></code> for more examples and how to use the package</li>
 <li>
 <code><a href="articles/customize.html">vignette("customize")</a></code> on how to create your own connector and customize behavior</li>
+<li>
+<code><a href="reference/connector-options.html">help("connector-options")</a></code> for all the options available to customize the behavior of <code>connector</code>
+</li>
 <li>
 <a href="https://novonordisk-opensource.github.io/R-packages/" class="external-link">NovoNordisk-OpenSource/R-packages</a> for an overview of connector and other R packages published by Novo Nordisk</li>
 </ul>
