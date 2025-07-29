@@ -89,7 +89,7 @@ db <- connect("_connector.yml")
 #> Connection to:
 #> → folder
 #> • connector::connector_fs
-#> • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpmRH6I7/file7113746ced8a
+#> • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpEybqUr/file7be92f16369e
 #> ────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → database
@@ -120,6 +120,7 @@ print(db$database)
 #> • `remove_cnt.ConnectorDBI()`
 #> • `tbl_cnt.ConnectorDBI()`
 #> • `write_cnt.ConnectorDBI()`
+#> • `check_resource.Connector()`
 #> Specifications:
 #> • conn: <SQLiteConnection>
 ```
@@ -149,6 +150,7 @@ db$folder |>
 # And we can read it back in
 db$folder |>
   read_cnt(name = "cars.parquet")
+#> → Found one file: '/var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpEybqUr/file7be92f16369e/cars.parquet'
 #> # A tibble: 32 × 12
 #>    car           mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
 #>    <chr>       <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
@@ -215,6 +217,8 @@ For more information on how to use the package, see the following links:
 - `vignette("connector")` for more examples and how to use the package
 - `vignette("customize")` on how to create your own connector and
   customize behavior
+- `help("connector-options")` for all the options available to customize
+  the behavior of `connector`
 - [NovoNordisk-OpenSource/R-packages](https://novonordisk-opensource.github.io/R-packages/)
   for an overview of connector and other R packages published by Novo
   Nordisk
