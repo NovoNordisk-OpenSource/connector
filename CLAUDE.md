@@ -154,7 +154,7 @@ The package uses GitHub Actions for continuous integration:
 - **megalinter**: Runs comprehensive linting across multiple languages
 
 ### Package Structure
-```
+```txt
 R/                          # Core package code
 ├── connect.R              # Main entry point - connect() function
 ├── cnt_generics.R         # S3 generic definitions
