@@ -203,24 +203,24 @@
 </div>
 <div class="section level3">
 <h3 id="package-structure">Package Structure<a class="anchor" aria-label="anchor" href="#package-structure"></a></h3>
-<pre><code>R/                          # Core package code
-├── connect.R              # Main entry point - connect() function
-├── cnt_generics.R         # S3 generic definitions
-├── connector.R            # Base R6 Connector class
-├── fs*.R                  # File system backend implementation
-├── dbi*.R                 # Database backend implementation
-└── *_methods.R            # S3 method implementations
-
-tests/testthat/            # Test suite
-├── test-*.R              # Component tests
-├── configs/              # Test configuration files
-└── scripts/              # Test helper scripts
-
-inst/
-├── config/               # Example configuration files
-└── examples/             # Usage examples
-
-dev/                      # Development utilities (not included in package)</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode txt"><code class="sourceCode default"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a>R/                          # Core package code</span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a>├── connect.R              # Main entry point - connect() function</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a>├── cnt_generics.R         # S3 generic definitions</span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a>├── connector.R            # Base R6 Connector class</span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a>├── fs*.R                  # File system backend implementation</span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a>├── dbi*.R                 # Database backend implementation</span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a>└── *_methods.R            # S3 method implementations</span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a>tests/testthat/            # Test suite</span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a>├── test-*.R              # Component tests</span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a>├── configs/              # Test configuration files</span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a>└── scripts/              # Test helper scripts</span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a>inst/</span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a>├── config/               # Example configuration files</span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a>└── examples/             # Usage examples</span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a>dev/                      # Development utilities (not included in package)</span></code></pre></div>
 </div>
 <div class="section level3">
 <h3 id="configuration-examples">Configuration Examples<a class="anchor" aria-label="anchor" href="#configuration-examples"></a></h3>
