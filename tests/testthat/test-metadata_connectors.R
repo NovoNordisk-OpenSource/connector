@@ -69,4 +69,15 @@ test_that("extract_metadata works with connect function", {
   # Test extracting non-existent field
   result_nonexistent <- extract_metadata(cnts, name = "nonexistent")
   expect_null(result_nonexistent)
+
+  # Error with .md as a data source
+  error_confg <- yaml_content_raw
+  error_confg$datasources[[1]]$name <- ".md"
+
+  expect_error(
+    connect(
+      error_confg
+    ),
+    "'.md' is a reserved name. It cannot be used as a name for a data source."
+  )
 })

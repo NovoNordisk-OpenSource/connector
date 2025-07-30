@@ -73,12 +73,25 @@ print_connectors <- function(x, ...) {
     as.character() |>
     rlang::set_names(" ")
 
-  cli::cli_bullets(
-    c(
-      "{.cls {class(x)}}",
-      classes
-    )
-  )
+  bullets <- c("{.cls {class(x)}}", classes)
+
+  # Add metadata if present
+  metadata <- attr(x, "metadata")
+  if (!is.null(metadata) && length(metadata) > 0) {
+    metadata_lines <- metadata |>
+      purrr::imap(\(value, name) {
+        glue::glue(
+          "<:cli::symbol$arrow_right:> <:name:>: {.val <:value:>}",
+          .open = "<:",
+          .close = ":>"
+        )
+      }) |>
+      rlang::set_names(" ")
+
+    bullets <- c(bullets, " " = "", " " = "Metadata:", metadata_lines)
+  }
+
+  cli::cli_bullets(bullets)
   return(invisible(x))
 }
 

@@ -151,6 +151,19 @@ connect_from_config <- function(config) {
 
   # Add metadata to the connections object
   if (!is.null(config$metadata)) {
+    names_co <- sapply(
+      config$datasources,
+      function(x) x[["name"]],
+      USE.NAMES = FALSE
+    )
+
+    test <- any(names_co %in% ".md")
+
+    if (test) {
+      cli::cli_abort(
+        "'.md' is a reserved name. It cannot be used as a name for a data source."
+      )
+    }
     # placeholder to be transformed as attribute in connectors
     connections$.md <- config[["metadata"]]
   }
