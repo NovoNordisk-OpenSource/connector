@@ -1,4 +1,5 @@
-# connector 0.1.1.9004 (development version)
+
+# connector 0.1.1.9*** (development version)
 
 ## Breaking Changes
 * **Parameter name changes**: The `upload_cnt()`, `download_cnt()`, `upload_directory_cnt()`, and `download_directory_cnt()` functions now use `src` and `dest` parameters instead of `name`/`file` and `dir`/`name` for consistency across the API. Update your code accordingly:
@@ -10,6 +11,7 @@
 ## Enhancements
 * Added upload_cnt and download_cnt methods for ConnectorLogger
 * Added resource validation system with `validate_resource()` function and `check_resource()` S3 methods
+* Added "metadata" attribute to connectors object and extract_metadata() to extract metadata from connectors
 * Added `default_ext` option to set a default extension to use when reading and writing files
 
 ## Bugs
