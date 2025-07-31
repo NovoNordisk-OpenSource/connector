@@ -81,3 +81,30 @@ test_that("extract_metadata works with connect function", {
     "'.md' is a reserved name. It cannot be used as a name for a data source."
   )
 })
+
+cli::test_that_cli("print metadata infos", {
+  temp_dir <- withr::local_tempdir("connector_test_md")
+
+  withr::with_tempdir(tmpdir = temp_dir, {
+    config <- list(
+      metadata = list(
+        extra_class = "test2"
+      ),
+      datasources = list(
+        list(
+          name = "test",
+          backend = list(
+            type = "connector_fs",
+            path = ".",
+            extra_class = "{metadata.extra_class}"
+          )
+        )
+      )
+    )
+
+    cnts <- connect(
+      config = config
+    )
+    expect_snapshot(cnts)
+  })
+})

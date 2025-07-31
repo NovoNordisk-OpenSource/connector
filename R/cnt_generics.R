@@ -211,7 +211,12 @@ upload_directory_cnt.default <- function(connector_object, ...) {
 #' @param ... `r rd_connector_utils("...")`
 #' @return `r rd_connector_utils("inv_connector")`
 #' @export
-download_directory_cnt <- function(connector_object, src, dest = basename(src), ...) {
+download_directory_cnt <- function(
+  connector_object,
+  src,
+  dest = basename(src),
+  ...
+) {
   UseMethod("download_directory_cnt")
 }
 
