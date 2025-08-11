@@ -2,11 +2,9 @@ test_that("Testing use_template", {
   withr::with_tempdir(pattern = "test_use_template", {
     rlang::local_interactive(FALSE)
 
-    usethis::create_project(path = ".") |>
-      expect_message() |>
-      suppressMessages()
+    usethis::local_project(".")
 
-    use_template("readme.yml", config_file = "_connector.yml") |>
+    use_connector() |>
       expect_message() |>
       suppressMessages()
 
