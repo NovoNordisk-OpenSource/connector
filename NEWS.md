@@ -12,6 +12,7 @@
 * Added resource validation system with `validate_resource()` function and `check_resource()` S3 methods
 * Added "metadata" attribute to connectors object and extract_metadata() to extract metadata from connectors
 * Added `default_ext` option to set a default extension to use when reading and writing files
+* Added `use_connector()` function to create a template for connector configuration files
 
 ## Bugs
 
