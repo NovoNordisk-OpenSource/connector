@@ -5,6 +5,7 @@ reference:
   - title: Use connector
     contents:
     - connect
+    - use_connector
     - connector-options
   - title: Connectors
     contents:
