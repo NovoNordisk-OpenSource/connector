@@ -2,7 +2,7 @@ test_that("Testing use_template", {
   withr::with_tempdir(pattern = "test_use_template", {
     rlang::local_interactive(FALSE)
 
-    usethis::local_project(".")
+    usethis::local_project(".", force = TRUE)
 
     use_connector() |>
       expect_message() |>
