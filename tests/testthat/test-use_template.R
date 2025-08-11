@@ -11,5 +11,6 @@ test_that("Testing use_template", {
     config_file_path <- "_connector.yml"
     expect_true(file.exists(config_file_path))
     expect_snapshot(readLines(config_file_path))
+    withr::deferred_clear()
   })
 })
