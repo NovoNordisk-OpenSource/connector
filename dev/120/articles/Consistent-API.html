@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -66,7 +66,7 @@
       <img src="../logo.png" class="logo" alt=""><h1>Understanding Connector Package Methods</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/release_1.0.0/vignettes/articles/Consistent-API.Rmd" class="external-link"><code>vignettes/articles/Consistent-API.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/release_1.0.0/vignettes/Consistent-API.Rmd" class="external-link"><code>vignettes/Consistent-API.Rmd</code></a></small>
       <div class="d-none name"><code>Consistent-API.Rmd</code></div>
     </div>
 
@@ -74,15 +74,6 @@
     
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
-</h2>
-<p>This vignette provides best practices for users and developers on
-what is returned by each method in connector packages. Understanding
-these methods and their return values is crucial for both users of
-connector packages and developers who want to create their own connector
-packages.</p>
-</div>
-<div class="section level2">
-<h2 id="why-this-vignette">Why This Vignette?<a class="anchor" aria-label="anchor" href="#why-this-vignette"></a>
 </h2>
 <p>We realized it might be confusing for users to understand which
 method returns which value. This vignette explains what each method does
@@ -230,21 +221,21 @@ directory.</p>
 <code>Connector</code> object, allowing for further operations and
 confirming the removal was successful.</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="upload_directory_cnt">
+<div class="section level3">
+<h3 id="upload_directory_cnt">
 <code>upload_directory_cnt()</code><a class="anchor" aria-label="anchor" href="#upload_directory_cnt"></a>
-</h2>
+</h3>
 <p>Returns the current <code>Connector</code> object or a new one if the
 directory was opened (<code>open = TRUE</code>), allowing for immediate
 use of the uploaded directory.</p>
 </div>
-<div class="section level2">
-<h2 id="download_directory_cnt">
+<div class="section level3">
+<h3 id="download_directory_cnt">
 <code>download_directory_cnt()</code><a class="anchor" aria-label="anchor" href="#download_directory_cnt"></a>
-</h2>
+</h3>
 <p>Returns the <code>Connector</code> object to allow for method
 chaining.</p>
+</div>
 <div class="section level3">
 <h3 id="tbl_cnt">
 <code>tbl_cnt()</code><a class="anchor" aria-label="anchor" href="#tbl_cnt"></a>
@@ -254,19 +245,6 @@ file-based connectors, it typically uses <code><a href="../reference/read_cnt.ht
 the content. For database connections (<code>DBI</code>), it returns a
 <code><a href="https://dplyr.tidyverse.org/reference/tbl.html" class="external-link">dplyr::tbl()</a></code> representation of the data.</p>
 </div>
-</div>
-<div class="section level2">
-<h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
-</h2>
-<p>Understanding these return values is crucial for effectively using
-and developing connector packages. By maintaining consistency in what
-each method returns, we ensure that different connector packages can be
-used interchangeably, promoting code reusability and a smoother user
-experience.</p>
-<p>For developers creating new connector packages, adhering to these
-return value conventions will help maintain compatibility with existing
-tools and workflows that expect certain return types from these
-methods.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

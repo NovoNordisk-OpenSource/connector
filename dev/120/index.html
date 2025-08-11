@@ -28,7 +28,7 @@
 
     <a class="navbar-brand me-2" href="index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9004</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -70,6 +70,20 @@
 <!-- badges: start -->
 
 <div class="section level2">
+<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
+</h2>
+<p><code>connector</code> provides a seamless and consistent interface for connecting to different data sources, such as as simple file storage systems and databases.</p>
+<p>It also gives the option to use a central configuration file to manage your connections in your project, which ensures a consistent reference to the same data source across different scripts in your project, and enables you to easily switch between different data sources.</p>
+<p>The connector package comes with the possibilities of creating connections to file system folders using <code><a href="reference/connector_fs.html">connector_fs()</a></code> and general databases using <code><a href="reference/connector_dbi.html">connector_dbi()</a></code>, which is built on top of the <a href="https://dbi.r-dbi.org" class="external-link">DBI</a> package.</p>
+<p>connector also has a series of expansion packages that allows you to easily connect to more specific data sources:</p>
+<ul>
+<li>
+<a href="https://novonordisk-opensource.github.io/connector.databricks/"><code>{connector.databricks}</code></a>: Connect to Databricks</li>
+<li>
+<a href="https://novonordisk-opensource.github.io/connector.sharepoint/"><code>{connector.sharepoint}</code></a>: Connect to SharePoint sites</li>
+</ul>
+</div>
+<div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -77,20 +91,6 @@
 <span><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html" class="external-link">install.packages</a></span><span class="op">(</span><span class="st">"connector"</span><span class="op">)</span></span>
 <span><span class="co"># Install the development version from GitHub:</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"NovoNordisk-OpenSource/connector"</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
-</h2>
-<p><code>connector</code> provides a seamless and consistent interface for connecting to different data sources, such as as simple file storage systems and databases.</p>
-<p>It also gives the option to use a central configuration file to manage your connections in your project, which ensures a consistent reference to the same data source across different scripts in your project, and enables you to easily switch between different data sources.</p>
-<p>The connector package comes with the possibilities of creating connections to file system folders using <code>connector_fs</code> and general databases using <code>connector_dbi</code>, which is built on top of the <a href="https://dbi.r-dbi.org" class="external-link">DBI</a> package.</p>
-<p>connector also has a series of expansion packages that allows you to easily connect to more specific data sources:</p>
-<ul>
-<li>
-<code>{connector.databricks}</code>: Connect to Databricks</li>
-<li>
-<code>{connector.sharepoint}</code>: Connect to SharePoint sites</li>
-</ul>
 </div>
 <div class="section level2">
 <h2 id="usage">Usage<a class="anchor" aria-label="anchor" href="#usage"></a>
@@ -111,19 +111,23 @@
 <span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="at">        </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector::connector_dbi"</span></span>
 <span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a><span class="at">        </span><span class="fu">drv</span><span class="kw">:</span><span class="at"> </span><span class="st">"RSQLite::SQLite()"</span></span>
 <span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a><span class="at">        </span><span class="fu">dbname</span><span class="kw">:</span><span class="at"> </span><span class="st">":memory:"</span></span></code></pre></div>
-<p>First we specify common metadata for the connectors, which here is a temporary folder that we want to use. Afterwards we specify the datasources needed in the project, and their specifications.</p>
-<p>The first we name “folder”, specify the type to be <code><a href="reference/connector_fs.html">connector_fs()</a></code>, and the path to the folder. The second is a database connector to an in memory SQLite database, that we specify using the <code><a href="reference/connector_dbi.html">connector_dbi()</a></code> type, which uses <code><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">DBI::dbConnect()</a></code> to initalize the connection. Therefor we also give the <code>DBI driver</code> to use, and arguments to it.</p>
-<p>To connect and create the conenctors we use <code><a href="reference/connect.html">connect()</a></code> with the configuration file as input:</p>
+<p>It is easy to initialize this file with:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">connector</span><span class="fu">::</span><span class="fu"><a href="reference/use_connector.html">use_connector</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p>First we specify common metadata for the connectors, which here is a temporary folder that we want to use. Afterwards we specify the datasources needed in the project, and their specifications.</p>
+<p>The first we name “folder”, specify the type to be <code><a href="reference/connector_fs.html">connector_fs()</a></code>, and the path to the folder. The second is a database connector to an in memory SQLite database, that we specify using the <code><a href="reference/connector_dbi.html">connector_dbi()</a></code> type, which uses <code><a href="https://dbi.r-dbi.org/reference/dbConnect.html" class="external-link">DBI::dbConnect()</a></code> to initalize the connection. Therefore we also give the <code>DBI driver</code> to use, and arguments to it.</p>
+<p>To connect and create the conenctors we use <code><a href="reference/connect.html">connect()</a></code> with the configuration file as input:</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector/">connector</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/connect.html">connect</a></span><span class="op">(</span><span class="st">"_connector.yml"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; ───────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → folder</span></span>
 <span><span class="co">#&gt; • connector::connector_fs</span></span>
-<span><span class="co">#&gt; • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpEybqUr/file7be92f16369e</span></span>
-<span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
+<span><span class="co">#&gt; • /var/folders/kv/q2rqqp3s0s5f9rxn_854l2lm0000gp/T//RtmpMlcjzV/file151272fbf7ccb</span></span>
+<span><span class="co">#&gt; [1] "ConnectorFS" "Connector"   "R6"</span></span>
+<span><span class="co">#&gt; ───────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → database</span></span>
 <span><span class="co">#&gt; • connector::connector_dbi</span></span>
@@ -134,7 +138,7 @@
 <span><span class="co">#&gt;   $folder &lt;ConnectorFS&gt;</span></span>
 <span><span class="co">#&gt;   $database &lt;ConnectorDBI&gt;</span></span></code></pre></div>
 <p>This creates a <code>connectors</code> objects that contains each <code>connector</code>. When printing the individual <code>connector</code> you get the some general information on their methods and specifications.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/print.html" class="external-link">print</a></span><span class="op">(</span><span class="va">db</span><span class="op">$</span><span class="va">database</span><span class="op">)</span></span>
 <span><span class="co">#&gt; &lt;ConnectorDBI&gt;</span></span>
 <span><span class="co">#&gt; Inherits from: &lt;Connector&gt;</span></span>
@@ -148,11 +152,10 @@
 <span><span class="co">#&gt; • `remove_cnt.ConnectorDBI()`</span></span>
 <span><span class="co">#&gt; • `tbl_cnt.ConnectorDBI()`</span></span>
 <span><span class="co">#&gt; • `write_cnt.ConnectorDBI()`</span></span>
-<span><span class="co">#&gt; • `check_resource.Connector()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
 <span><span class="co">#&gt; • conn: &lt;SQLiteConnection&gt;</span></span></code></pre></div>
 <p>We are now ready to use the <code>connectors</code>, so we can start by writing some data to the <code>folder</code> one:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Initially it is empty</span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">folder</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
@@ -174,7 +177,6 @@
 <span><span class="co"># And we can read it back in</span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">folder</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/read_cnt.html">read_cnt</a></span><span class="op">(</span>name <span class="op">=</span> <span class="st">"cars.parquet"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; → Found one file: '/var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpEybqUr/file7be92f16369e/cars.parquet'</span></span>
 <span><span class="co">#&gt; # A tibble: 32 × 12</span></span>
 <span><span class="co">#&gt;    car           mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb</span></span>
 <span><span class="co">#&gt;    &lt;chr&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;</span></span>
@@ -191,7 +193,7 @@
 <span><span class="co">#&gt; # ℹ 22 more rows</span></span></code></pre></div>
 <p>Here the parquet format has been used, but when using a <code>connector_fs</code> it is possible to read and write several different file types. See <code><a href="reference/read_file.html">read_file()</a></code> and <code><a href="reference/write_file.html">write_file()</a></code> for more information.</p>
 <p>For the <code>database</code> connector it works in the same way:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Initially no tables exists</span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">database</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
