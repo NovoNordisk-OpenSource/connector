@@ -24,11 +24,6 @@ reference:
     contents:
     - read_file
     - write_file
-    - write_datasources
-    - add_datasource
-    - remove_datasource
-    - add_metadata
-    - remove_metadata
   - title: Logs
     contents:
     - add_logs
@@ -38,3 +33,8 @@ reference:
     - datasources
     - extract_metadata
     - resource-validation
+    - write_datasources
+    - add_datasource
+    - remove_datasource
+    - add_metadata
+    - remove_metadata
