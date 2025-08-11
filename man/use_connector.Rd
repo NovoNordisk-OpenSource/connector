@@ -4,10 +4,7 @@
 \alias{use_connector}
 \title{Use connector}
 \usage{
-use_connector(config_file = "_connector.yml")
-}
-\arguments{
-\item{config_file}{Path to the connector config file, relative to the project}
+use_connector()
 }
 \description{
 Utility function to setup connections with connector in your project:
