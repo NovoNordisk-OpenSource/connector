@@ -64,6 +64,10 @@ The underlying function used, and thereby also the arguments available
 through \code{...} depends on the file extension.
 }
 
+If no file extension is provided in the \code{name}, the default extension will be
+automatically appended (configurable via \code{options(connector.default_ext = "csv")},
+defaults to "csv").
+
 \itemize{
 \item \link{ConnectorLogger}: Logs the write operation and calls the underlying connector method.
 }

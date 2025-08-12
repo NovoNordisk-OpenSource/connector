@@ -39,6 +39,11 @@ The underlying function used, and thereby also the arguments available
 through \code{...} depends on the file extension.
 }
 
+The file is located using \code{\link[=find_file]{find_file()}}, which searches for files matching
+the provided name. If multiple files match and no extension is specified,
+it will use the default extension (configurable via
+\code{options(connector.default_ext = "csv")}, defaults to "csv").
+
 \itemize{
 \item \link{ConnectorLogger}: Logs the read operation and calls the underlying connector method.
 }

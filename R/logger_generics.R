@@ -3,8 +3,8 @@
 #' @title Create a New Connector Logger
 #' @description Creates a new empty connector logger object of class
 #' "ConnectorLogger".
-#' This is an S3 class constructor that initializes a logging structure for
-#' connector operations.
+#' This is an internal utility class that initializes a logging structure for
+#' connector operations. Logs are added to connectors using [add_logs()].
 #'
 #' @param x object to print
 #' @param ... parameters passed to the print method

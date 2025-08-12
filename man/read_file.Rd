@@ -101,6 +101,7 @@ Below is a list of all the pre-defined methods:
 # Read CSV file
 temp_csv <- tempfile("iris", fileext = ".csv")
 write.csv(iris, temp_csv, row.names = FALSE)
-read_file(temp_csv)
+# Read the CSV file using read_ext.csv
+read_file(temp_csv, show_col_types = FALSE)
 
 }

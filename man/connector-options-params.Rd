@@ -12,9 +12,14 @@ See \link{connector-options} for details. Default can be set globally with
 \code{options(connector.overwrite = TRUE/FALSE)} or environment variable
 \code{R_CONNECTOR_OVERWRITE}.. Default: \code{FALSE}.}
 
-\item{logging}{Add logs to the console as well as to the whirl log html files. Default: \code{FALSE}.}
+\item{logging}{Add logging capability to connectors using \code{\link[=add_logs]{add_logs()}}.
+When \code{TRUE}, all connector operations will be logged to the console and
+to whirl log HTML files. See \link{logger_generics} for available
+logging functions.. Default: \code{FALSE}.}
 
-\item{default_ext}{Default extension to use when writing and reading files. Default: \code{"csv"}.}
+\item{default_ext}{Default extension to use when reading and writing files when not
+specified in the file name. E.g. with the default 'csv', files are assumed
+to be in CSV format if not specified.. Default: \code{"csv"}.}
 }
 \description{
 Internal parameters for reuse in functions

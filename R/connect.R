@@ -39,11 +39,9 @@
 #'
 #' @examples
 #'
-#' tmp_dir <- withr::local_tempdir("examples_connector")
+#' withr::local_dir(withr::local_tempdir("test"))
 #' # Create dir for the example in tmpdir
-#' dir.create(file.path(tmp_dir, "example/demo_trial/adam"), recursive = TRUE)
-#' # Set working directory to the example folder
-#' old <- setwd(tmp_dir)
+#' dir.create("example/demo_trial/adam", recursive = TRUE)
 #'
 #' # Create a config file in the example folder
 #' config <- system.file("config", "_connector.yml", package = "connector")
@@ -81,7 +79,6 @@
 #' cnts_nested
 #'
 #' cnts_nested$study1
-#' setwd(old)
 #' @export
 connect <- function(
   config = "_connector.yml",

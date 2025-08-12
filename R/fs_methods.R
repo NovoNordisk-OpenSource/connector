@@ -2,6 +2,11 @@
 #' * [ConnectorFS]: Uses [read_file()] to read a given file.
 #' The underlying function used, and thereby also the arguments available
 #' through `...` depends on the file extension.
+#' 
+#' The file is located using [find_file()], which searches for files matching 
+#' the provided name. If multiple files match and no extension is specified, 
+#' it will use the default extension (configurable via 
+#' `options(connector.default_ext = "csv")`, defaults to "csv").
 #'
 #' @examples
 #' # Write and read a CSV file using the file storage connector
@@ -28,6 +33,10 @@ read_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #' * [ConnectorFS]: Uses [write_file()] to Write a file based on the file extension.
 #' The underlying function used, and thereby also the arguments available
 #' through `...` depends on the file extension.
+#' 
+#' If no file extension is provided in the `name`, the default extension will be 
+#' automatically appended (configurable via `options(connector.default_ext = "csv")`, 
+#' defaults to "csv").
 #'
 #' @examples
 #' # Write different file types to a file storage

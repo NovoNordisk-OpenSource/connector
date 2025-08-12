@@ -30,7 +30,10 @@ See \link{connector-options} for details. Default can be set globally with
 
 \subsection{logging}{
 
-Add logs to the console as well as to the whirl log html files
+Add logging capability to connectors using \code{\link[=add_logs]{add_logs()}}.
+When \code{TRUE}, all connector operations will be logged to the console and
+to whirl log HTML files. See \link{logger_generics} for available
+logging functions.
 \itemize{
 \item Default: \code{FALSE}
 \item Option: \code{connector.logging}
@@ -40,7 +43,9 @@ Add logs to the console as well as to the whirl log html files
 
 \subsection{default_ext}{
 
-Default extension to use when writing and reading files
+Default extension to use when reading and writing files when not
+specified in the file name. E.g. with the default 'csv', files are assumed
+to be in CSV format if not specified.
 \itemize{
 \item Default: \code{"csv"}
 \item Option: \code{connector.default_ext}
