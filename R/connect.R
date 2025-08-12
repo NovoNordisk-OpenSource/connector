@@ -32,19 +32,21 @@
 #' @param metadata [list] Replace, add or create elements to the metadata field found in config
 #' @param datasource [character] Name(s) of the datasource(s) to connect to.
 #' If `NULL` (the default) all datasources are connected.
-#' @param set_env [logical] Should environment variables from the yaml file be set? Default is TRUE.
+#' @param set_env [logical] Should environment variables from the yaml file be set? Default is `TRUE`.
 #' @inheritParams connector-options-params
 #'
 #' @return [connectors]
 #'
 #' @examples
-#' withr::with_tempdir({
+#'
+#' tmp_dir <- withr::local_tempdir("examples_connector")
 #' # Create dir for the example in tmpdir
-#' dir.create("example/demo_trial/adam", recursive = TRUE)
+#' dir.create(file.path(tmp_dir, "example/demo_trial/adam"), recursive = TRUE)
+#' # Set working directory to the example folder
+#' old <- setwd(tmp_dir)
 #'
+#' # Create a config file in the example folder
 #' config <- system.file("config", "_connector.yml", package = "connector")
-#'
-#' config
 #'
 #' # Show the raw configuration file
 #' readLines(config) |>
@@ -79,8 +81,7 @@
 #' cnts_nested
 #'
 #' cnts_nested$study1
-#'
-#' })
+#' setwd(old)
 #' @export
 connect <- function(
   config = "_connector.yml",
