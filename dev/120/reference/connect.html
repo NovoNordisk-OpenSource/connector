@@ -90,7 +90,7 @@ If <code>NULL</code> (the default) all datasources are connected.</p></dd>
 
 
 <dt id="arg-set-env">set_env<a class="anchor" aria-label="anchor" href="#arg-set-env"></a></dt>
-<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> Should environment variables from the yaml file be set? Default is TRUE.</p></dd>
+<dd><p><a href="https://rdrr.io/r/base/logical.html" class="external-link">logical</a> Should environment variables from the yaml file be set? Default is <code>TRUE</code>.</p></dd>
 
 
 <dt id="arg-logging">logging<a class="anchor" aria-label="anchor" href="#arg-logging"></a></dt>
@@ -118,49 +118,22 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">with_tempdir</a></span><span class="op">(</span><span class="op">{</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">tmp_dir</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="st">"examples_connector"</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Create dir for the example in tmpdir</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="st">"example/demo_trial/adam"</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp_dir</span>, <span class="st">"example/demo_trial/adam"</span><span class="op">)</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Set working directory to the example folder</span></span></span>
+<span class="r-in"><span><span class="va">old</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Create a config file in the example folder</span></span></span>
 <span class="r-in"><span><span class="va">config</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"config"</span>, <span class="st">"_connector.yml"</span>, package <span class="op">=</span> <span class="st">"connector"</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">config</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/home/runner/work/_temp/Library/connector/config/_connector.yml"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Show the raw configuration file</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">config</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Connect to the datasources specified in it</span></span></span>
-<span class="r-in"><span><span class="va">cnts</span> <span class="op">&lt;-</span> <span class="fu">connect</span><span class="op">(</span><span class="va">config</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="va">cnts</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Content of each connector</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">cnts</span><span class="op">$</span><span class="va">adam</span></span></span>
-<span class="r-in"><span><span class="va">cnts</span><span class="op">$</span><span class="va">sdtm</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Overwrite metadata informations</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">connect</span><span class="op">(</span><span class="va">config</span>, metadata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>extra_class <span class="op">=</span> <span class="st">"my_class"</span><span class="op">)</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Connect only to the adam datasource</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu">connect</span><span class="op">(</span><span class="va">config</span>, datasource <span class="op">=</span> <span class="st">"adam"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="co"># Connect to several projects in a nested structure</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">config_nested</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"config"</span>, <span class="st">"_nested_connector.yml"</span>, package <span class="op">=</span> <span class="st">"connector"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">config_nested</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
-<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">cnts_nested</span> <span class="op">&lt;-</span> <span class="fu">connect</span><span class="op">(</span><span class="va">config_nested</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">cnts_nested</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">cnts_nested</span><span class="op">$</span><span class="va">study1</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="op">}</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # A example of the configuration file for FS and Database</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> metadata:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   trial: "demo_trial"</span>
@@ -178,6 +151,9 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 <span class="r-out co"><span class="r-pr">#&gt;</span>         type: "connector_dbi"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         drv: "RSQLite::SQLite()"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>         dbname: ":memory:"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Connect to the datasources specified in it</span></span></span>
+<span class="r-in"><span><span class="va">cnts</span> <span class="op">&lt;-</span> <span class="fu">connect</span><span class="op">(</span><span class="va">config</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Connection to:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="font-weight: bold;">adam</span></span>
@@ -188,6 +164,59 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 <span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="font-weight: bold;">sdtm</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> connector_dbi</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> RSQLite::SQLite() and :memory:</span>
+<span class="r-in"><span><span class="va">cnts</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   $adam <span style="color: #0000BB;">&lt;test2&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   $sdtm <span style="color: #0000BB;">&lt;ConnectorDBI&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   Metadata:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   → trial: <span style="color: #0000BB;">"demo_trial"</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   → root_path: <span style="color: #0000BB;">"example"</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   → extra_class: <span style="color: #0000BB;">"test2"</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Content of each connector</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cnts</span><span class="op">$</span><span class="va">adam</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;test2/ConnectorFS&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Inherits from: <span style="color: #0000BB;">&lt;Connector&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Registered methods:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `check_resource.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `create_directory_cnt.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `download_cnt.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `download_directory_cnt.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `list_content_cnt.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `log_read_connector.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `log_remove_connector.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `log_write_connector.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `read_cnt.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `remove_cnt.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `remove_directory_cnt.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `tbl_cnt.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `upload_cnt.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `upload_directory_cnt.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorFS()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Specifications:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> path: example/demo_trial/adam</span>
+<span class="r-in"><span><span class="va">cnts</span><span class="op">$</span><span class="va">sdtm</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;ConnectorDBI&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Inherits from: <span style="color: #0000BB;">&lt;Connector&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Registered methods:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `disconnect_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `list_content_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `log_read_connector.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `log_remove_connector.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `log_write_connector.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `read_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `remove_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `tbl_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorDBI()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> `check_resource.Connector()`</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> Specifications:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> conn: <span style="color: #0000BB;">&lt;SQLiteConnection&gt;</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Overwrite metadata informations</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">connect</span><span class="op">(</span><span class="va">config</span>, metadata <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>extra_class <span class="op">=</span> <span class="st">"my_class"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Replace some metadata informations...</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Connection to:</span>
@@ -199,11 +228,37 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 <span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="font-weight: bold;">sdtm</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> connector_dbi</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> RSQLite::SQLite() and :memory:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   $adam <span style="color: #0000BB;">&lt;my_class&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   $sdtm <span style="color: #0000BB;">&lt;ConnectorDBI&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   Metadata:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   → trial: <span style="color: #0000BB;">"demo_trial"</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   → root_path: <span style="color: #0000BB;">"example"</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   → extra_class: <span style="color: #0000BB;">"my_class"</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Connect only to the adam datasource</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">connect</span><span class="op">(</span><span class="va">config</span>, datasource <span class="op">=</span> <span class="st">"adam"</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Connection to:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="font-weight: bold;">adam</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> connector_fs</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> example/demo_trial/adam and test2</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   $adam <span style="color: #0000BB;">&lt;test2&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   </span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   Metadata:</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   → trial: <span style="color: #0000BB;">"demo_trial"</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   → root_path: <span style="color: #0000BB;">"example"</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   → extra_class: <span style="color: #0000BB;">"test2"</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Connect to several projects in a nested structure</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">config_nested</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"config"</span>, <span class="st">"_nested_connector.yml"</span>, package <span class="op">=</span> <span class="st">"connector"</span><span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">config_nested</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html" class="external-link">cat</a></span><span class="op">(</span>sep <span class="op">=</span> <span class="st">"\n"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> # A example of the configuration file nested connectors</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> - name: "study1"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   metadata:</span>
@@ -224,6 +279,8 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 <span class="r-out co"><span class="r-pr">#&gt;</span>       backend:</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           type: "connector_fs"</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>           path: "{metadata.root_path}/{metadata.trial}/adam"</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cnts_nested</span> <span class="op">&lt;-</span> <span class="fu">connect</span><span class="op">(</span><span class="va">config_nested</span><span class="op">)</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> ────────────────────────────────────────────────────────────────────────────────</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> Connection to:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="font-weight: bold;">adam_fs</span></span>
@@ -234,12 +291,20 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 <span class="r-msg co"><span class="r-pr">#&gt;</span> → <span style="font-weight: bold;">adam_fs</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> connector_fs</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">•</span> example/demo_trial/adam</span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cnts_nested</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;nested_connectors&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   $study1 <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span>   $study2 <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="va">cnts_nested</span><span class="op">$</span><span class="va">study1</span></span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB;">&lt;connectors&gt;</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   $adam_fs <span style="color: #0000BB;">&lt;ConnectorFS&gt;</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Metadata:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   → trial: <span style="color: #0000BB;">"demo_trial"</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   → root_path: <span style="color: #0000BB;">"example"</span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">old</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
