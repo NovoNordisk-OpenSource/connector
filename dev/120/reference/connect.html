@@ -94,7 +94,10 @@ If <code>NULL</code> (the default) all datasources are connected.</p></dd>
 
 
 <dt id="arg-logging">logging<a class="anchor" aria-label="anchor" href="#arg-logging"></a></dt>
-<dd><p>Add logs to the console as well as to the whirl log html files. Default: <code>FALSE</code>.</p></dd>
+<dd><p>Add logging capability to connectors using <code><a href="add_logs.html">add_logs()</a></code>.
+When <code>TRUE</code>, all connector operations will be logged to the console and
+to whirl log HTML files. See logger_generics for available
+logging functions.. Default: <code>FALSE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
@@ -119,17 +122,12 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">tmp_dir</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="st">"examples_connector"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_dir.html" class="external-link">local_dir</a></span><span class="op">(</span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="st">"test"</span><span class="op">)</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="co"># Create dir for the example in tmpdir</span></span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp_dir</span>, <span class="st">"example/demo_trial/adam"</span><span class="op">)</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
-<span class="r-in"><span><span class="co"># Set working directory to the example folder</span></span></span>
-<span class="r-in"><span><span class="va">old</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">tmp_dir</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="st">"example/demo_trial/adam"</span>, recursive <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Create a config file in the example folder</span></span></span>
 <span class="r-in"><span><span class="va">config</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"config"</span>, <span class="st">"_connector.yml"</span>, package <span class="op">=</span> <span class="st">"connector"</span><span class="op">)</span></span></span>
-<span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">config</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "/home/runner/work/_temp/Library/connector/config/_connector.yml"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Show the raw configuration file</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/readLines.html" class="external-link">readLines</a></span><span class="op">(</span><span class="va">config</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
@@ -304,7 +302,6 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Metadata:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   → trial: <span style="color: #0000BB;">"demo_trial"</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   → root_path: <span style="color: #0000BB;">"example"</span></span>
-<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html" class="external-link">setwd</a></span><span class="op">(</span><span class="va">old</span><span class="op">)</span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
