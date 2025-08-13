@@ -11,7 +11,7 @@ The configuration file can be in any format that can be read through read_file()
 contains a list. If a yaml file is provided, expressions are evaluated when parsing it
 using yaml::read_yaml() with eval.expr = TRUE.
 See also vignette("connector") on how to use configuration files in your project,
-details below for the required structure of the configuration.'><meta property="og:image" content="https://novonordisk-opensource.github.io/connector/logo.png"></head><body>
+details below for the required structure of the configuration.'></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -46,7 +46,8 @@ details below for the required structure of the configuration.'><meta property="
 </nav><div class="container template-reference-topic">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Connect to datasources specified in a config file</h1>
+
+      <h1>Connect to datasources specified in a config file</h1>
       <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/release_1.0.0/R/connect.R" class="external-link"><code>R/connect.R</code></a></small>
       <div class="d-none name"><code>connect.Rd</code></div>
     </div>
@@ -96,7 +97,7 @@ If <code>NULL</code> (the default) all datasources are connected.</p></dd>
 <dt id="arg-logging">logging<a class="anchor" aria-label="anchor" href="#arg-logging"></a></dt>
 <dd><p>Add logging capability to connectors using <code><a href="add_logs.html">add_logs()</a></code>.
 When <code>TRUE</code>, all connector operations will be logged to the console and
-to whirl log HTML files. See logger_generics for available
+to whirl log HTML files. See <a href="log-functions.html">log-functions</a> for available
 logging functions.. Default: <code>FALSE</code>.</p></dd>
 
 </dl></div>
@@ -302,6 +303,9 @@ returns a nested <a href="connectors.html">connectors</a> object. See example be
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   Metadata:</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   → trial: <span style="color: #0000BB;">"demo_trial"</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span>   → root_path: <span style="color: #0000BB;">"example"</span></span>
+<span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/defer.html" class="external-link">deferred_run</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> No deferred expressions to run</span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

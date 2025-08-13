@@ -23,7 +23,7 @@ ConnectorFS: Uses fs::file_delete() to delete the file.
 
 ConnectorLogger: Logs the remove operation and calls the underlying connector method.
 
-"><meta property="og:image" content="https://novonordisk-opensource.github.io/connector/logo.png"></head><body>
+"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -58,7 +58,8 @@ ConnectorLogger: Logs the remove operation and calls the underlying connector me
 </nav><div class="container template-reference-topic">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Remove content from the connector</h1>
+
+      <h1>Remove content from the connector</h1>
       <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/release_1.0.0/R/cnt_generics.R" class="external-link"><code>R/cnt_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/release_1.0.0/R/dbi_methods.R" class="external-link"><code>R/dbi_methods.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/release_1.0.0/R/fs_methods.R" class="external-link"><code>R/fs_methods.R</code></a>, and 1 more</small>
       <div class="d-none name"><code>remove_cnt.Rd</code></div>
     </div>
@@ -122,48 +123,40 @@ ConnectorLogger: Logs the remove operation and calls the underlying connector me
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Remove a file from the file storage</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="st">"test"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connector_fs.html">connector_fs</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in validate_resource(self):</span> Invalid file system connector: <span style="color: #0000BB;">/tmp/RtmpRQLkJb/file1ebd12b7b615</span> does not</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> exist.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="st">"this is an example"</span>, <span class="st">"example.txt"</span><span class="op">)</span></span></span>
-<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>cannot open file 'this is an example': No such file or directory</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in file(file, "rt"):</span> cannot open the connection</span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"example.txt"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "example.txt"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"example.txt"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> no such table: example.txt</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Found one file: <span style="color: #0000BB;">/tmp/RtmpcnT94k/test1ea7ac0cf5a/example.txt</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "this is an example"</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">remove_cnt</span><span class="op">(</span><span class="st">"example.txt"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> no such table: example.txt</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"example.txt"</span><span class="op">)</span></span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Add logging to a connector and remove content</span></span></span>
-<span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="st">"test"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connectors.html">connectors</a></span><span class="op">(</span>data <span class="op">=</span> <span class="fu"><a href="connector_fs.html">connector_fs</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span><span class="op">)</span> <span class="op">|&gt;</span> <span class="fu"><a href="add_logs.html">add_logs</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in validate_resource(self):</span> Invalid file system connector: <span style="color: #0000BB;">/tmp/RtmpRQLkJb/file1ebd232ec5f8</span> does not</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> exist.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span><span class="op">$</span><span class="va">data</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.csv"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in method_error_msg(connector_object):</span> Method not implemented for class <span style="color: #0000BB;">&lt;NULL&gt;</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> See the customize (`vignette(connector::customize)`) vignette on how to</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>   create custom connectors and methods</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-08-13 11:18:01","type":"write","file":"iris.csv @ /tmp/RtmpcnT94k/test1ea76ac3451f"}</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span><span class="op">$</span><span class="va">data</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">remove_cnt</span><span class="op">(</span><span class="st">"iris.csv"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in method_error_msg(connector_object):</span> Method not implemented for class <span style="color: #0000BB;">&lt;NULL&gt;</span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> See the customize (`vignette(connector::customize)`) vignette on how to</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span>   create custom connectors and methods</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-08-13 11:18:01","type":"delete","file":"iris.csv @ /tmp/RtmpcnT94k/test1ea76ac3451f"}</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

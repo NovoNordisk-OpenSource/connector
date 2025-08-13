@@ -9,7 +9,7 @@ Mostly relevant for file storage connectors.
 
 ConnectorFS: Uses fs::dir_create() to create a directory at the path of the connector.
 
-"><meta property="og:image" content="https://novonordisk-opensource.github.io/connector/logo.png"></head><body>
+"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -44,7 +44,8 @@ ConnectorFS: Uses fs::dir_create() to create a directory at the path of the conn
 </nav><div class="container template-reference-topic">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Create a directory</h1>
+
+      <h1>Create a directory</h1>
       <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/release_1.0.0/R/cnt_generics.R" class="external-link"><code>R/cnt_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/release_1.0.0/R/fs_methods.R" class="external-link"><code>R/fs_methods.R</code></a></small>
       <div class="d-none name"><code>create_directory_cnt.Rd</code></div>
     </div>
@@ -92,27 +93,23 @@ Mostly relevant for file storage connectors.</p>
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="co"># Create a directory in a file storage</span></span></span>
 <span class="r-in"><span></span></span>
-<span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="st">"test"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connector_fs.html">connector_fs</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in validate_resource(self):</span> Invalid file system connector: <span style="color: #0000BB;">/tmp/RtmpRQLkJb/file1ebd3f02b9a</span> does not</span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> exist.</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"new_folder"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'cnt' not found</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> character(0)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">create_directory_cnt</span><span class="op">(</span><span class="st">"new_folder"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'cnt' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># This will return new connector object of a newly created folder</span></span></span>
 <span class="r-in"><span><span class="va">new_connector</span> <span class="op">&lt;-</span> <span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span>pattern <span class="op">=</span> <span class="st">"new_folder"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'cnt' not found</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="remove_directory_cnt.html">remove_directory_cnt</a></span><span class="op">(</span><span class="st">"new_folder"</span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'cnt' not found</span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
     </div>

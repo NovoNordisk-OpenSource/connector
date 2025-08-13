@@ -9,7 +9,7 @@ Mostly relevant for file storage connectors.
 
 ConnectorFS: Uses fs::dir_copy().
 
-"><meta property="og:image" content="https://novonordisk-opensource.github.io/connector/logo.png"></head><body>
+"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -44,7 +44,8 @@ ConnectorFS: Uses fs::dir_copy().
 </nav><div class="container template-reference-topic">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-      <img src="../logo.png" class="logo" alt=""><h1>Upload a directory</h1>
+
+      <h1>Upload a directory</h1>
       <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/release_1.0.0/R/cnt_generics.R" class="external-link"><code>R/cnt_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/release_1.0.0/R/fs_methods.R" class="external-link"><code>R/fs_methods.R</code></a></small>
       <div class="d-none name"><code>upload_directory_cnt.Rd</code></div>
     </div>
@@ -113,6 +114,28 @@ See <a href="connector-options.html">connector-options</a> for details. Default 
     <p><a href="https://rdrr.io/r/base/invisible.html" class="external-link">invisible</a> connector_object.</p>
     </div>
 
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span></span></span>
+<span class="r-in"><span><span class="co"># Upload a directory to a file storage</span></span></span>
+<span class="r-in"><span><span class="va">folder</span> <span class="op">&lt;-</span> <span class="fu">withr</span><span class="fu">::</span><span class="fu"><a href="https://withr.r-lib.org/reference/with_tempfile.html" class="external-link">local_tempdir</a></span><span class="op">(</span><span class="st">"test"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">cnt</span> <span class="op">&lt;-</span> <span class="fu"><a href="connector_fs.html">connector_fs</a></span><span class="op">(</span><span class="va">folder</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co"># Create a source directory</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">folder</span>, <span class="st">"src_dir"</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/writeLines.html" class="external-link">writeLines</a></span><span class="op">(</span></span></span>
+<span class="r-in"><span>  <span class="st">"This is a test file."</span>,</span></span>
+<span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">folder</span>, <span class="st">"src_dir"</span>, <span class="st">"test.txt"</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="co">#' # Upload the directory</span></span></span>
+<span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
+<span class="r-in"><span>  <span class="fu">upload_directory_cnt</span><span class="op">(</span></span></span>
+<span class="r-in"><span>    src <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">folder</span>, <span class="st">"src_dir"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    dest <span class="op">=</span> <span class="st">"uploaded_dir"</span></span></span>
+<span class="r-in"><span>  <span class="op">)</span></span></span>
+<span class="r-in"><span></span></span>
+</code></pre></div>
+    </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>
 
