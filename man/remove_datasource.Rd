@@ -25,11 +25,15 @@ file.copy(
   from = system.file("config", "_connector.yml", package = "connector"),
   to = config
 )
-
-config |>
+# Add a datasource first
+config <- config |>
   add_datasource(
     name = "new_datasource",
     backend = list(type = "connector_fs", path = "new_path")
-  ) |>
+  )
+config
+# Now remove it
+config <- config |>
   remove_datasource("new_datasource")
+config
 }

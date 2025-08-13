@@ -28,6 +28,7 @@ Imports:
     glue,
     haven,
     jsonlite,
+    lifecycle,
     purrr,
     R6 (>= 2.4.0),
     readr,

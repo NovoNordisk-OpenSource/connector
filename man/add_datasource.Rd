@@ -28,9 +28,10 @@ file.copy(
   to = config
 )
 
-config |>
+config <- config |>
   add_datasource(
     name = "new_datasource",
     backend = list(type = "connector_fs", path = "new_path")
   )
+config
 }

@@ -6,6 +6,7 @@
   - `download_cnt(name = "source", file = "path")` → `download_cnt(src = "source", dest = "path")`
   - `upload_directory_cnt(dir = "path", name = "target")` → `upload_directory_cnt(src = "path", dest = "target")`
   - `download_directory_cnt(name = "source", dir = "path")` → `download_directory_cnt(src = "source", dest = "path")`
+* `datasources()` deprecated in 1.0.0, use `list_datasources()` instead.
 
 ## Enhancements
 * Added upload_cnt and download_cnt methods for ConnectorLogger

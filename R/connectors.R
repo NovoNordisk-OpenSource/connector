@@ -9,20 +9,20 @@
 #' @examples
 #' # Create connectors objects
 #'
-#' con <- connectors(
+#' cnts <- connectors(
 #'   sdtm = connector_fs(path = tempdir()),
 #'   adam = connector_dbi(drv = RSQLite::SQLite())
 #' )
 #'
 #' # Print for overview
 #'
-#' con
+#' cnts
 #'
 #' # Print the individual connector for more information
 #'
-#' con$sdtm
+#' cnts$sdtm
 #'
-#' con$adam
+#' cnts$adam
 #'
 #' @export
 connectors <- function(...) {
@@ -119,80 +119,6 @@ as_datasources <- function(...) {
     ...,
     class = "cnts_datasources"
   )
-}
-
-#' Extract data sources from connectors
-#'
-#' This function extracts the "datasources" attribute from a connectors object.
-#'
-#' @param connectors An object containing connectors with a "datasources" attribute.
-#'
-#' @return An object containing the data sources extracted from the "datasources" attribute.
-#'
-#' @details
-#' The function uses the `attr()` function to access the "datasources" attribute
-#' of the `connectors` object. It directly returns this attribute without any
-#' modification.
-#'
-#' @examples
-#' # Assume we have a 'mock_connectors' object with a 'datasources' attribute
-#' mock_connectors <- structure(list(), class = "connectors")
-#' attr(mock_connectors, "datasources") <- list(source1 = "data1", source2 = "data2")
-#'
-#' # Using the function
-#' result <- datasources(mock_connectors)
-#' print(result)
-#'
-#' @export
-datasources <- function(connectors) {
-  if (!is_connectors(connectors)) {
-    cli::cli_abort("param connectors should be a connectors object.")
-  }
-
-  ds <- attr(connectors, "datasources")
-  ds
-}
-
-#' Extract metadata from connectors
-#'
-#' This function extracts the "metadata" attribute from a connectors object,
-#' with optional filtering to return only a specific metadata field.
-#'
-#' @param connectors An object containing connectors with a "metadata" attribute.
-#' @param name A character string specifying which metadata attribute to extract.
-#'   If `NULL` (default), returns all metadata.
-#'
-#' @return A list containing the metadata extracted from the "metadata" attribute,
-#'   or the specific attribute value if `name` is specified.
-#'
-#' @examples
-#' # Assume we have a 'mock_connectors' object with a 'metadata' attribute
-#' mock_connectors <- structure(list(), class = "connectors")
-#' attr(mock_connectors, "metadata") <- list(study = "demo", version = "1.0")
-#'
-#' # Extract all metadata
-#' result <- extract_metadata(mock_connectors)
-#' print(result)
-#'
-#' # Extract specific metadata field
-#' study_name <- extract_metadata(mock_connectors, name = "study")
-#' print(study_name)
-#'
-#' @export
-extract_metadata <- function(connectors, name = NULL) {
-  if (!is_connectors(connectors)) {
-    cli::cli_abort("param connectors should be a connectors object.")
-  }
-
-  checkmate::assert_character(name, null.ok = TRUE)
-
-  metadata <- attr(connectors, "metadata")
-
-  if (!is.null(name)) {
-    metadata <- metadata[[name]]
-  }
-
-  metadata
 }
 
 #' Create a nested connectors object

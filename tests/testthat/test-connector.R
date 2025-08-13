@@ -23,7 +23,7 @@ test_that("can create Connector object", {
       )
     )
 
-    expect_error(datasources(NULL))
+    expect_error(list_datasources(NULL))
   })
 })
 
@@ -50,7 +50,7 @@ cli::test_that_cli("can create Connector object", {
       test_2 = base::as.data.frame(x = iris)
     )
 
-    expect_snapshot_out(print(datasources(connector_obj)))
+    expect_snapshot_out(print(list_datasources(connector_obj)))
   })
 })
 
