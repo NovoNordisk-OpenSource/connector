@@ -5,7 +5,7 @@ write, remove, and list operations across different connector types, enabling
 transparent audit trails and operation tracking."><meta property="og:description" content="A comprehensive set of generic functions and methods for logging connector
 operations. These functions provide automatic logging capabilities for read,
 write, remove, and list operations across different connector types, enabling
-transparent audit trails and operation tracking."></head><body>
+transparent audit trails and operation tracking."><meta property="og:image" content="https://novonordisk-opensource.github.io/connector/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
 
@@ -40,8 +40,7 @@ transparent audit trails and operation tracking."></head><body>
 </nav><div class="container template-reference-topic">
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
-
-      <h1>Connector Logging Functions</h1>
+      <img src="../logo.png" class="logo" alt=""><h1>Connector Logging Functions</h1>
       <small class="dont-index">Source: <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/release_1.0.0/R/logger_generics.R" class="external-link"><code>R/logger_generics.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/release_1.0.0/R/logger_log_dbi.R" class="external-link"><code>R/logger_log_dbi.R</code></a>, <a href="https://github.com/NovoNordisk-OpenSource/connector/blob/release_1.0.0/R/logger_log_fs.R" class="external-link"><code>R/logger_log_fs.R</code></a></small>
       <div class="d-none name"><code>log-functions.Rd</code></div>
     </div>
@@ -184,12 +183,12 @@ Example log: <code>"table_name @ driver: SQLiteDriver, dbname: mydb.sqlite"</cod
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Write operation (automatically logged)</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">logged_fs</span><span class="op">$</span><span class="va">data</span>, <span class="va">mtcars</span>, <span class="st">"cars.csv"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-08-13 12:33:56","type":"write","file":"cars.csv @ /tmp/Rtmppr3IER"}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-08-13 12:46:03","type":"write","file":"cars.csv @ /tmp/RtmpT7GJmq"}</span>
 <span class="r-in"><span><span class="co"># Output: "cars.csv @ /tmp/RtmpXXX"</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co">#' # Read operation (automatically logged)</span></span></span>
 <span class="r-in"><span><span class="va">data</span> <span class="op">&lt;-</span> <span class="fu"><a href="read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="va">logged_fs</span><span class="op">$</span><span class="va">data</span>, <span class="st">"cars.csv"</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Found one file: <span style="color: #0000BB;">/tmp/Rtmppr3IER/cars.csv</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Found one file: <span style="color: #0000BB;">/tmp/RtmpT7GJmq/cars.csv</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">32</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">11</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
@@ -197,7 +196,7 @@ Example log: <code>"table_name @ driver: SQLiteDriver, dbname: mydb.sqlite"</cod
 <span class="r-msg co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Use `spec()` to retrieve the full column specification for this data.</span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">ℹ</span> Specify the column types or set `show_col_types = FALSE` to quiet this message.</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-08-13 12:33:56","type":"read","file":"cars.csv @ /tmp/Rtmppr3IER"}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-08-13 12:46:03","type":"read","file":"cars.csv @ /tmp/RtmpT7GJmq"}</span>
 <span class="r-in"><span><span class="co"># Output: "dataset.csv @ /tmp/RtmpXXX"</span></span></span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Database connector example</span></span></span>
@@ -205,7 +204,7 @@ Example log: <code>"table_name @ driver: SQLiteDriver, dbname: mydb.sqlite"</cod
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="co"># Operations are logged with database context</span></span></span>
 <span class="r-in"><span><span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">logged_db</span><span class="op">$</span><span class="va">db</span>, <span class="va">iris</span>, <span class="st">"iris_table"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-08-13 12:33:56","type":"write","file":"iris_table @ driver: SQLiteConnection, dbname: :memory:"}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-08-13 12:46:03","type":"write","file":"iris_table @ driver: SQLiteConnection, dbname: :memory:"}</span>
 <span class="r-in"><span><span class="co"># Output: "iris_table @ driver: SQLiteDriver, dbname: :memory:"</span></span></span>
 <span class="r-in"><span></span></span>
 </code></pre></div>
