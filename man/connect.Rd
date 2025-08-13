@@ -24,7 +24,7 @@ If \code{NULL} (the default) all datasources are connected.}
 
 \item{logging}{Add logging capability to connectors using \code{\link[=add_logs]{add_logs()}}.
 When \code{TRUE}, all connector operations will be logged to the console and
-to whirl log HTML files. See \link{logger_generics} for available
+to whirl log HTML files. See \link{log-functions} for available
 logging functions.. Default: \code{FALSE}.}
 }
 \value{
@@ -103,4 +103,6 @@ cnts_nested <- connect(config_nested)
 cnts_nested
 
 cnts_nested$study1
+
+withr::deferred_run()
 }

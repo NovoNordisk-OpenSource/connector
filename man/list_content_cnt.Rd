@@ -47,10 +47,16 @@ cnt |>
   list_content_cnt()
 
 # List content in a file storage
-cnt <- connector_fs(tempdir())
+folder <- withr::local_tempdir("test")
+dir.create(folder)
+cnt <- connector_fs(folder)
 
 cnt |>
   list_content_cnt()
+
+#' # Write a file to the file storage
+cnt |>
+  write_cnt(iris, "iris.csv")
 
 # Only list CSV files using the pattern argument of list.files
 
@@ -58,7 +64,8 @@ cnt |>
   list_content_cnt(pattern = "\\\\.csv$")
 
 # Add logging to a connector and list contents
-folder <- withr::local_tempdir()
+folder <- withr::local_tempdir("test")
+dir.create(folder)
 cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 
 cnt$data |>

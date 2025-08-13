@@ -79,6 +79,8 @@
 #' cnts_nested
 #'
 #' cnts_nested$study1
+#'
+#' withr::deferred_run()
 #' @export
 connect <- function(
   config = "_connector.yml",

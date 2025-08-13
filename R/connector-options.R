@@ -33,7 +33,7 @@ zephyr::create_option(
   default = FALSE,
   desc = "Add logging capability to connectors using [add_logs()]. 
   When `TRUE`, all connector operations will be logged to the console and 
-  to whirl log HTML files. See [logger_generics] for available 
+  to whirl log HTML files. See [log-functions] for available 
   logging functions."
 )
 

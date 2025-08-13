@@ -57,7 +57,7 @@ connector_fs <- function(path, extra_class = NULL) {
 #' @examples
 #' # Create file storage connector
 #'
-#' folder <- withr::local_tempdir()
+#' folder <- withr::local_tempdir("test")
 #'
 #' dir.create(folder)
 #'

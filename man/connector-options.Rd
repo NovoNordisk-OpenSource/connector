@@ -32,7 +32,7 @@ See \link{connector-options} for details. Default can be set globally with
 
 Add logging capability to connectors using \code{\link[=add_logs]{add_logs()}}.
 When \code{TRUE}, all connector operations will be logged to the console and
-to whirl log HTML files. See \link{logger_generics} for available
+to whirl log HTML files. See \link{log-functions} for available
 logging functions.
 \itemize{
 \item Default: \code{FALSE}

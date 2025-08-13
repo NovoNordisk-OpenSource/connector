@@ -14,7 +14,7 @@ See \link{connector-options} for details. Default can be set globally with
 
 \item{logging}{Add logging capability to connectors using \code{\link[=add_logs]{add_logs()}}.
 When \code{TRUE}, all connector operations will be logged to the console and
-to whirl log HTML files. See \link{logger_generics} for available
+to whirl log HTML files. See \link{log-functions} for available
 logging functions.. Default: \code{FALSE}.}
 
 \item{default_ext}{Default extension to use when reading and writing files when not

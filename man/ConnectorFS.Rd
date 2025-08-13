@@ -15,7 +15,7 @@ approach to initialize the ConnectorFS class and its associated functionalities.
 \examples{
 # Create file storage connector
 
-folder <- withr::local_tempdir()
+folder <- withr::local_tempdir("test")
 
 dir.create(folder)
 

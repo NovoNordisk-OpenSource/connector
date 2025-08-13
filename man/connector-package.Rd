@@ -5,8 +5,6 @@
 \alias{connector-package}
 \title{connector: Streamlining Data Access in Clinical Research}
 \description{
-\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
-
 Provides a consistent interface for connecting R to various data sources including file systems and databases. Designed for clinical research, 'connector' streamlines access to 'ADAM', 'SDTM' for example. It helps to deal with multiple data formats through a standardized API and centralized configuration.
 }
 \seealso{
