@@ -43,22 +43,18 @@ connectors_to_datasources <- function(data) {
 #'   connect function
 #'
 #' @examples
-#' withr::with_tempdir({
-#' # Create dir for the example in tmpdir
-#' dir.create("example/demo_trial/adam", recursive = TRUE)
-#'
-#' # Connect to the datasources specified in it
-#' config <- system.file("config", "_connector.yml", package = "connector")
-#' cnts <- connect(config)
+#' folder <- withr::local_tempdir("test")
+#' dir.create(folder)
+#' cnt <- connectors(fs = connector_fs(folder))
 #'
 #' # Extract the datasources to a config file
 #' yml_file <- tempfile(fileext = ".yml")
-#' write_datasources(cnts, yml_file)
-#'
+#' write_datasources(cnt, yml_file)
+#' # Check the content of the file
+#' cat(readLines(yml_file), sep = "\n")
 #' # Reconnect using the new config file
 #' re_connect <- connect(yml_file)
 #' re_connect
-#' })
 #' @export
 write_datasources <- function(connectors, file) {
   checkmate::assert_character(file, null.ok = FALSE, any.missing = FALSE)
@@ -264,13 +260,17 @@ get_r6_specific_info <- function(package_name, func_name) {
 extract_and_process_params <- function(expr, formal_args) {
   # Extract parameters from the function call
   params <- rlang::call_args(expr)
-
   # Convert symbols to strings and evaluate expressions
   params <- purrr::map(
     params,
     ~ {
       if (is_symbol(.x)) {
-        as.character(.x)
+        obj <- try(eval(.x), silent = TRUE)
+        if (is.character(obj)) {
+          return(obj)
+        } else {
+          as.character(.x)
+        }
       } else if (is_call(.x)) {
         as.character(deparse(.x))
       } else {
