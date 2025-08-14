@@ -93,9 +93,10 @@ remove_metadata <- function(config_path, key) {
 #'   adam = connector_dbi(drv = RSQLite::SQLite())
 #' )
 #'
-#' # Using the function
+#' # Using the function (returns datasources attribute)
 #' result <- list_datasources(cnts)
-#' print(result)
+#' # Check if result contains datasource information
+#' result$datasources
 #'
 #' @name list_datasources
 #' @export

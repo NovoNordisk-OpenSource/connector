@@ -272,7 +272,12 @@ extract_and_process_params <- function(expr, formal_args) {
           as.character(.x)
         }
       } else if (is_call(.x)) {
-        as.character(deparse(.x))
+        obj <- try(eval(.x), silent = TRUE)
+        if (is.character(obj)) {
+          return(obj)
+        } else {
+          as.character(deparse(.x))
+        }
       } else {
         as.character(.x)
       }
