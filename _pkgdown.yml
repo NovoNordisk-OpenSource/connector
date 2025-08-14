@@ -34,7 +34,7 @@ reference:
     - matches("log_.*")
   - title: Utils
     contents:
-    - datasources
+    - list_datasources
     - extract_metadata
     - resource-validation
     - write_datasources
