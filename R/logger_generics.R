@@ -139,8 +139,8 @@ log_read_connector.default <- function(connector_object, name, ...) {
 #'
 #' @examples
 #' # Add logging to a file system connector
-#' folder <- withr::local_tempdir("test")
-#' dir.create(folder)
+#' folder <- withr::local_tempdir("test", clean = FALSE)
+#'
 #' cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 #'
 #' cnt$data |>
@@ -210,8 +210,8 @@ log_remove_connector.default <- function(connector_object, name, ...) {
 #'
 #' @examples
 #' # Add logging to a connector and remove content
-#' folder <- withr::local_tempdir("test")
-#' dir.create(folder)
+#' folder <- withr::local_tempdir("test", clean = FALSE)
+#'
 #' cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 #'
 #' cnt$data |>
@@ -239,8 +239,8 @@ log_list_content_connector <- function(connector_object, ...) {
 #'
 #' @examples
 #' # Add logging to a connector and list contents
-#' folder <- withr::local_tempdir("test")
-#' dir.create(folder)
+#' folder <- withr::local_tempdir("test", clean = FALSE)
+#'
 #' cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 #'
 #' cnt$data |>
@@ -262,8 +262,8 @@ list_content_cnt.ConnectorLogger <- function(connector_object, ...) {
 #'
 #' @examples
 #' # Add logging to a file system connector for uploads
-#' folder <- withr::local_tempdir("test")
-#' dir.create(folder)
+#' folder <- withr::local_tempdir("test", clean = FALSE)
+#'
 #' cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 #'
 #' # Create a temporary file
@@ -294,8 +294,8 @@ upload_cnt.ConnectorLogger <- function(
 #'
 #' @examples
 #' # Add logging to a file system connector for downloads
-#' folder <- withr::local_tempdir("test")
-#' dir.create(folder)
+#' folder <- withr::local_tempdir("test", clean = FALSE)
+#'
 #' cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 #'
 #' cnt$data |>

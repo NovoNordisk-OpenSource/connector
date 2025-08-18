@@ -30,8 +30,8 @@ Mostly relevant for file storage connectors.
 \examples{
 # Remove a directory from a file storage
 
-folder <- withr::local_tempdir("test")
-dir.create(folder)
+folder <- withr::local_tempdir("test", clean = FALSE)
+
 cnt <- connector_fs(folder)
 
 cnt |>

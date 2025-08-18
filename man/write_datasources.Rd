@@ -21,8 +21,8 @@ Reproduce your workflow by creating a config file based on a connectors
 object and the associated datasource attributes.
 }
 \examples{
-folder <- withr::local_tempdir("test")
-dir.create(folder)
+folder <- withr::local_tempdir("test", clean = FALSE)
+
 cnt <- connectors(fs = connector_fs(folder))
 
 # Extract the datasources to a config file

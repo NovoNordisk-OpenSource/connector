@@ -39,7 +39,7 @@
 #'
 #' @examples
 #'
-#' withr::local_dir(withr::local_tempdir("test"))
+#' withr::local_dir(withr::local_tempdir("test", clean = FALSE))
 #' # Create dir for the example in tmpdir
 #' dir.create("example/demo_trial/adam", recursive = TRUE)
 #'
