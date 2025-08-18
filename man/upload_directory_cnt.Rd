@@ -62,7 +62,7 @@ writeLines(
   "This is a test file.",
   file.path(folder, "src_dir", "test.txt")
 )
-#' # Upload the directory
+# Upload the directory
 cnt |>
   upload_directory_cnt(
     src = file.path(folder, "src_dir"),

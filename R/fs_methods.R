@@ -345,7 +345,7 @@ remove_directory_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #'   "This is a test file.",
 #'   file.path(folder, "src_dir", "test.txt")
 #' )
-#' #' # Upload the directory
+#' # Upload the directory
 #' cnt |>
 #'   upload_directory_cnt(
 #'     src = file.path(folder, "src_dir"),
@@ -387,7 +387,7 @@ upload_directory_cnt.ConnectorFS <- function(
 #'
 #' @examples
 #'
-#' # Upload a directory to a file storage
+#' # Download a directory to a file storage
 #' folder <- withr::local_tempdir("test")
 #' dir.create(folder)
 #' cnt <- connector_fs(folder)
@@ -397,7 +397,7 @@ upload_directory_cnt.ConnectorFS <- function(
 #'   "This is a test file.",
 #'   file.path(folder, "src_dir", "test.txt")
 #' )
-#' #' # Upload the directory
+#' # Download the directory
 #' cnt |>
 #'  download_directory_cnt(
 #'    src = "src_dir",
