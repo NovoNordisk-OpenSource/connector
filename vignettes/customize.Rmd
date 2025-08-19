@@ -32,7 +32,7 @@ requirements.
 It serves as the foundation for all other connectors, that should inherit from it in their `R6::R6Class()` definition -
 either directly or indirectly. Both `ConnectorFS` and `ConnectorDBI` inherit from `Connector` in this way.
 
-Before we start creating our own connector classes, you can read the vignette on the [Consistent API](https://novonordisk-opensource.github.io/connector/Consistent-API.html) to understand how the methods are structured and what they return.
+Before we start creating our own connector classes, you can read the vignette on the [Consistent API](https://novonordisk-opensource.github.io/connector/articles/Consistent-API.html) to understand how the methods are structured and what they return.
 
 ## Creating a new connector
 
