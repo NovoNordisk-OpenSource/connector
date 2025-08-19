@@ -130,7 +130,6 @@ list_content_cnt.ConnectorFS <- function(connector_object, ...) {
 #'
 #' cnt |>
 #'   write_cnt("this is an example", "example.txt")
-
 #' cnt |>
 #'   list_content_cnt(pattern = "example.txt")
 #'
