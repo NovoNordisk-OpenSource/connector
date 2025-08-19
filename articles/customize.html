@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -76,11 +76,18 @@
 vignette will show you how to create your own connector classes, and how
 to customize the existing ones, and their methods.</p>
 <p>The basic <code>Connector</code> class is a simple <a href="https://r6.r-lib.org" class="external-link">R6</a>
-object, with no additional functionality. It serves as the foundation
-for all other connectors, that should inherit from it in their
-<code><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6::R6Class()</a></code> definition - either directly or indirectly.
-Both <code>ConnectorFS</code> and <code>ConnectorDBI</code> inherit from
-<code>Connector</code> in this way.</p>
+object, with no methods but provides <code><a href="../reference/resource-validation.html">check_resource()</a></code> as a
+default validation mechanism that can be overridden by child classes to
+verify their specific resource requirements.</p>
+<p>It serves as the foundation for all other connectors, that should
+inherit from it in their <code><a href="https://r6.r-lib.org/reference/R6Class.html" class="external-link">R6::R6Class()</a></code> definition - either
+directly or indirectly. Both <code>ConnectorFS</code> and
+<code>ConnectorDBI</code> inherit from <code>Connector</code> in this
+way.</p>
+<p>Before we start creating our own connector classes, you can read the
+vignette on the <a href="https://novonordisk-opensource.github.io/connector/Consistent-API.html">Consistent
+API</a> to understand how the methods are structured and what they
+return.</p>
 <div class="section level2">
 <h2 id="creating-a-new-connector">Creating a new connector<a class="anchor" aria-label="anchor" href="#creating-a-new-connector"></a>
 </h2>
@@ -135,7 +142,7 @@ argument, they provide the <code>project</code> name, and the
 <p>This way of extending connector could e.g. be relevant inside an
 organisation where all projects are stored in a common folder
 structure.</p>
-<p>When we not initialize a <code>connector_project</code> you can see
+<p>When we now initialize a <code>connector_project</code> you can see
 that it still has all the methods from <code>ConnectorFS</code>, and
 that the path has been assigned correctly based on the
 <code>project</code> argument:</p>
@@ -162,7 +169,7 @@ that the path has been assigned correctly based on the
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpJ4jEfd/file231a5b82d3d1/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmppqUY9q/file2a6c391577d2/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> project: my_project</span></span></code></pre></div>
 <p>We can now use this <code>connector</code> to read and write data,
 just as we would with <code>ConnectorFS</code>:</p>
@@ -184,7 +191,7 @@ just as we would with <code>ConnectorFS</code>:</p>
 <span><span class="co"># Read the content:</span></span>
 <span><span class="va">my_project</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"my_file.txt"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; → Found one file: <span style="color: #0000BB;">/tmp/RtmpJ4jEfd/file231a5b82d3d1/my_root_path/my_project/my_file.txt</span></span></span>
+<span><span class="co">#&gt; → Found one file: <span style="color: #0000BB;">/tmp/RtmppqUY9q/file2a6c391577d2/my_root_path/my_project/my_file.txt</span></span></span>
 <span><span class="co">#&gt; [1] "Hello world!"</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -205,7 +212,7 @@ class.</p>
 <span><span class="co">#&gt; {</span></span>
 <span><span class="co">#&gt;     UseMethod("list_content_cnt")</span></span>
 <span><span class="co">#&gt; }</span></span>
-<span><span class="co">#&gt; &lt;bytecode: 0x55e2d9bd66e8&gt;</span></span>
+<span><span class="co">#&gt; &lt;bytecode: 0x55830dc15878&gt;</span></span>
 <span><span class="co">#&gt; &lt;environment: namespace:connector&gt;</span></span>
 <span></span>
 <span><span class="co"># List the registered s3 methods</span></span>
@@ -259,7 +266,7 @@ associated with the <code>connector_project</code> class:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpJ4jEfd/file231a5b82d3d1/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmppqUY9q/file2a6c391577d2/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> project: my_project</span></span></code></pre></div>
 <p>And when we use <code><a href="../reference/list_content_cnt.html">list_content_cnt()</a></code> on our
 <code>my_project</code> object, we see that the custom method is used
@@ -282,7 +289,7 @@ the creating the connector, meaning that for any generic dispatch, such
 as of <code><a href="../reference/list_content_cnt.html">list_content_cnt()</a></code>, a method for this class will be
 used before any of the connector classes.</p>
 <p>To redo the two examples above we make a new <code>ConnectorFS</code>
-with the extra class <code>demo_extra</code>:</p>
+with the extra class <code>extra_class</code>:</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">my_project_extra</span> <span class="op">&lt;-</span> <span class="va"><a href="../reference/ConnectorFS.html">ConnectorFS</a></span><span class="op">$</span><span class="fu">new</span><span class="op">(</span></span>
 <span>  path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">tmp</span>, <span class="st">"my_root_path"</span>, <span class="st">"my_project"</span><span class="op">)</span>,</span>
@@ -309,12 +316,12 @@ with the extra class <code>demo_extra</code>:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpJ4jEfd/file231a5b82d3d1/my_root_path/my_project</span></span></code></pre></div>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmppqUY9q/file2a6c391577d2/my_root_path/my_project</span></span></code></pre></div>
 <p>As you can see here we have all the methods from
-<code>ConnectorFS</code>, but the <code>demo_extra</code> is now the
+<code>ConnectorFS</code>, but the <code>extra_class</code> is now the
 first class in the class hierarchy.</p>
 <p>To create a custom method for <code><a href="../reference/list_content_cnt.html">list_content_cnt()</a></code> for the
-<code>demo_extra</code> we do the same as for the
+<code>extra_class</code> we do the same as for the
 <code>connector_project</code> above:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">list_content_cnt.my_extra_class</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">connector_object</span>, <span class="va">...</span><span class="op">)</span> <span class="op">{</span></span>
@@ -352,12 +359,12 @@ print the path instead, but otherwise everything is the same:</p>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `upload_directory_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> `write_cnt.ConnectorFS()`</span></span>
 <span><span class="co">#&gt; Specifications:</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmpJ4jEfd/file231a5b82d3d1/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> path: /tmp/RtmppqUY9q/file2a6c391577d2/my_root_path/my_project</span></span>
 <span></span>
 <span><span class="co"># List content to see the new message</span></span>
 <span><span class="va">my_project_extra</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; → Listing content of /tmp/RtmpJ4jEfd/file231a5b82d3d1/my_root_path/my_project</span></span>
+<span><span class="co">#&gt; → Listing content of /tmp/RtmppqUY9q/file2a6c391577d2/my_root_path/my_project</span></span>
 <span><span class="co">#&gt; [1] "my_file.txt"</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -431,7 +438,7 @@ out existing <code>my_project</code> connector:</p>
 <span><span class="co"># Read the content:</span></span>
 <span><span class="va">my_project</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"new_file.myformat"</span><span class="op">)</span></span>
-<span><span class="co">#&gt; → Found one file: <span style="color: #0000BB;">/tmp/RtmpJ4jEfd/file231a5b82d3d1/my_root_path/my_project/new_file.myformat</span></span></span>
+<span><span class="co">#&gt; → Found one file: <span style="color: #0000BB;">/tmp/RtmppqUY9q/file2a6c391577d2/my_root_path/my_project/new_file.myformat</span></span></span>
 <span><span class="co">#&gt; → Reading myformat file</span></span>
 <span><span class="co">#&gt; [1] "Hello new format!"</span></span></code></pre></div>
 </div>

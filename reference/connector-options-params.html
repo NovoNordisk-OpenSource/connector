@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,11 +61,16 @@ See <a href="connector-options.html">connector-options</a> for details. Default 
 
 
 <dt id="arg-logging">logging<a class="anchor" aria-label="anchor" href="#arg-logging"></a></dt>
-<dd><p>Add logs to the console as well as to the whirl log html files. Default: <code>FALSE</code>.</p></dd>
+<dd><p>Add logging capability to connectors using <code><a href="add_logs.html">add_logs()</a></code>.
+When <code>TRUE</code>, all connector operations will be logged to the console and
+to whirl log HTML files. See <a href="log-functions.html">log-functions</a> for available
+logging functions.. Default: <code>FALSE</code>.</p></dd>
 
 
 <dt id="arg-default-ext">default_ext<a class="anchor" aria-label="anchor" href="#arg-default-ext"></a></dt>
-<dd><p>Default extension to use when writing and reading files. Default: <code>"csv"</code>.</p></dd>
+<dd><p>Default extension to use when reading and writing files when not
+specified in the file name. E.g. with the default 'csv', files are assumed
+to be in CSV format if not specified.. Default: <code>"csv"</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

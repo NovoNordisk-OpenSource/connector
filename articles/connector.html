@@ -25,7 +25,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -72,282 +72,108 @@
 
     
     
-<p><code>connector</code> is a package that provides a set of functions
-<strong>to connect to different data sources</strong> (such as
-databases, APIs, and file systems) and read and write data from
-them.</p>
-<p>It is designed to be a generic package that is extensible, so that
-new data sources can be added easily.</p>
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
+<p>The <code>connector</code> package provides a set of functions to
+connect to different data sources (such as databases and file systems)
+and read and write data from them using a consistent interface.</p>
+<p>It is designed to be a generic and extensible package, so that new
+data sources can be added easily.</p>
 <p>This vignette demonstrates how to use the <code>connector</code>
 package to connect to either a <strong>file system</strong> or a
 <strong>database</strong> to access different types of data.</p>
-<p>First let’s load all the packages we’re going to use in this
-vignette:</p>
-<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector/">connector</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">connector.databricks</span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">connector.sharepoint</span><span class="op">)</span></span></code></pre></div>
-<p>You may notice we’re not loading only connector package, but
-<code>connector.databricks</code><br>
-and <code>connector.sharepoint</code> as well. These are packages that
-extend the functionality of the <code>connector</code> package to
-connect to <code>Databricks</code> and <code>SharePoint</code>,
-respectively.</p>
 </div>
 <div class="section level2">
 <h2 id="connector-configuration">Connector configuration<a class="anchor" aria-label="anchor" href="#connector-configuration"></a>
 </h2>
-<p>Main function in this package is <code><a href="../reference/connect.html">connect()</a></code>. This
-function based on a configuration file or a list creates a
-<code><a href="../reference/connectors.html">connectors()</a></code> object with a <code>connector</code> for each
-of the specified datasources. The configuration file can be in any
-format that can be read through <code><a href="../reference/read_file.html">read_file()</a></code>, and contains a
-list. If a yaml file is provided, expressions are evaluated when parsing
-it using <code><a href="https://rdrr.io/pkg/yaml/man/read_yaml.html" class="external-link">yaml::read_yaml()</a></code> with
-<code>eval.expr = TRUE</code>.</p>
-<p>The input list (or configuration file) has to have the following
+<p>The main function in this package is <code><a href="../reference/connect.html">connect()</a></code>. This
+function, based on a configuration file or a list, creates a
+<code>connectors</code> object with a <code>connector</code> for each of
+the specified data sources. The configuration file can be in list
+format, JSON, or YAML format.</p>
+<p>The input list (or configuration file) must have the following
 structure:</p>
 <ul>
-<li>Only metadata, env, connections, and datasources fields are
-allowed.</li>
+<li>Only <code>metadata</code>, <code>env</code>, and
+<code>datasources</code> fields are allowed.</li>
 <li>All elements must be named.</li>
 <li>
-<strong>datasources</strong> is mandatory.</li>
+<strong><code>datasources</code></strong> is mandatory.</li>
 <li>
-<strong>metadata</strong> and <strong>env</strong> must each be a
-list of named character vectors of length 1 specified.</li>
+<strong><code>metadata</code></strong> and
+<strong><code>env</code></strong> must each be a list of named character
+vectors of length 1.</li>
 <li>
-<strong>datasources</strong> must each be a list of unnamed
+<strong><code>datasources</code></strong> must be a list of unnamed
 lists.</li>
-<li>Each datasources must have the named character element
-<strong>name</strong> and the named list element
-<strong>backend</strong>
-</li>
-<li>For each connection <strong>backend</strong>.<strong>type</strong>
-must be provided</li>
+<li>Each datasource must have the named character element
+<strong><code>name</code></strong> and the named list element
+<strong><code>backend</code></strong>.</li>
+<li>For each backend, <strong><code>type</code></strong> must be
+provided.</li>
 </ul>
-<p>Here is an example of a configuration file with different types of
-connections:</p>
-<pre><code>metadata:
-  trial: "my_trial"
-  project: "my_project"
-  instance: "current"
-  http_path:  !!expr Sys.getenv("DATABRICKS_HTTP_PATH")
-  catalog:  !!expr Sys.getenv("DATABRICKS_CATALOG_NAME")
-  sharepoint: "https://my_organisation.sharepoint.com"
-  root_path: "/home/my_root_path"
-datasources:
-  - name: "adam"
-    backend:
-        type: "connector::connector_fs"
-        path: "{metadata.root_path}/{metadata.project}/{metadata.trial}/{metadata.instance}/adam"
-  - name: "tfl"
-    backend:
-      type: "connector.databricks::connector_databricks_volume"
-      catalog: "{metadata.catalog}"
-      schema: "{metadata.project}_{metadata.trial}_tfl"
-      path: "output"
-
-  - name: "metadata"
-    backend:
-      type: "connector.databricks::connector_databricks_dbi"
-      http_path: "{metadata.http_path}"
-      catalog: "{metadata.catalog}"
-      schema: "{metadata.project}_{metadata.trial}_metadata"
-
-  - name: "output_sh"
-    backend:
-      type: "connector.sharepoint::connector_sharepoint"
-      site_url: "{metadata.sharepoint}/sites/{metadata.project}_{metadata.trial}_output"
-</code></pre>
-<p>In this example we have multiple connections to multiple data
-sources. ADaM data is stored on the file system, metadata resides on
-Databricks Tables, TFL is also on Databricks, but on Volumes, because
-this is where the unstructured data is stored. Finally, the output is
-stored on SharePoint.</p>
-</div>
-<div class="section level2">
-<h2 id="connect-to-datasources">Connect to datasources<a class="anchor" aria-label="anchor" href="#connect-to-datasources"></a>
-</h2>
-<p>When we want to connect to datasources we can use the
-<code><a href="../reference/connect.html">connect()</a></code> function.</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># Load data connections</span></span>
-<span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p>This creates list of connectors, which can be accessed by their
-names:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># ADaM data</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span></span>
-<span></span>
-<span><span class="co"># TFL data</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">tfl</span></span>
-<span></span>
-<span><span class="co"># Metadata</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">metadata</span></span>
-<span></span>
-<span><span class="co"># Output on SharePoint</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">output_sh</span></span></code></pre></div>
-<p>After the setup is done we can use these connections to read and
-write data from datasources.</p>
-</div>
-<div class="section level2">
-<h2 id="reading-and-writing-data">Reading and writing data<a class="anchor" aria-label="anchor" href="#reading-and-writing-data"></a>
-</h2>
-<p>The <code>connector</code> packages provide a set of functions to
-read and write data from the datasources. They all have similar
-interface, so it’s easy to switch between them.</p>
-<p>Now, we will show how to read and write different types data from/to
-different datasources. In these examples we will be using
-<code>iris</code> and <code>mtcars</code> datasets.</p>
-<p>Here is an example of writing data to the ADaM table:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Manipulate data</span></span>
-<span></span>
-<span><span class="co">## Iris data</span></span>
-<span><span class="va">setosa</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">mean_for_all_iris</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html" class="external-link">summarise_all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">mean</span>, <span class="va">median</span>, <span class="va">sd</span>, <span class="va">min</span>, <span class="va">max</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Mtcars data</span></span>
-<span><span class="va">cars</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">mpg</span> <span class="op">&gt;</span> <span class="fl">22</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">mean_for_all_mtcars</span> <span class="op">&lt;-</span> <span class="va">mtcars</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">gear</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise.html" class="external-link">summarise</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/across.html" class="external-link">across</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="https://tidyselect.r-lib.org/reference/everything.html" class="external-link">everything</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"mean"</span> <span class="op">=</span> <span class="va">mean</span>, <span class="st">"median"</span> <span class="op">=</span> <span class="va">median</span>, <span class="st">"sd"</span> <span class="op">=</span> <span class="va">sd</span>, <span class="st">"min"</span> <span class="op">=</span> <span class="va">min</span>, <span class="st">"max"</span> <span class="op">=</span> <span class="va">max</span><span class="op">)</span>,</span>
-<span>      .names <span class="op">=</span> <span class="st">"{.col}_{.fn}"</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">tidyr</span><span class="fu">::</span><span class="fu"><a href="https://tidyr.tidyverse.org/reference/pivot_longer.html" class="external-link">pivot_longer</a></span><span class="op">(</span></span>
-<span>    cols <span class="op">=</span> <span class="op">-</span><span class="va">gear</span>,</span>
-<span>    names_to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">".value"</span>, <span class="st">"stat"</span><span class="op">)</span>,</span>
-<span>    names_sep <span class="op">=</span> <span class="st">"_"</span></span>
-<span>  <span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Store data</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">setosa</span>, <span class="st">"setosa"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">mean_for_all_iris</span>, <span class="st">"mean_iris"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">cars</span>, <span class="st">"cars_mpg"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">mean_for_all_mtcars</span>, <span class="st">"mean_mtcars"</span>, overwrite <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
-<p>Now, let’s read the data back manipulate it a bit and write it to the
-SharePoint and DataBricks. This way we can save different types of data
-in different formats.</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://gt.rstudio.com" class="external-link">gt</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyr.tidyverse.org" class="external-link">tidyr</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># List and load data</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">table</span> <span class="op">&lt;-</span> <span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"mean_mtcars"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">gttable</span> <span class="op">&lt;-</span> <span class="va">table</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu">gt</span><span class="op">(</span>groupname_col <span class="op">=</span> <span class="st">"gear"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Save table</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">tfl</span><span class="op">$</span><span class="fu">write_cnt</span><span class="op">(</span><span class="va">gttable</span><span class="op">$</span><span class="va">`_data`</span>, <span class="st">"tmeanallmtcars.csv"</span><span class="op">)</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">tfl</span><span class="op">$</span><span class="fu">write_cnt</span><span class="op">(</span><span class="va">gttable</span>, <span class="st">"tmeanallmtcars.rds"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Using Sharepoint</span></span>
-<span><span class="va">tmp_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".docx"</span><span class="op">)</span></span>
-<span><span class="fu">gtsave</span><span class="op">(</span><span class="va">gttable</span>, <span class="va">tmp_file</span><span class="op">)</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">output_sh</span><span class="op">$</span><span class="fu">upload_cnt</span><span class="op">(</span><span class="va">tmp_file</span>, <span class="st">"tmeanallmtcars.docx"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Manipulate data</span></span>
-<span><span class="va">setosa_fsetosa</span> <span class="op">&lt;-</span> <span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"setosa"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Sepal.Length</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">fsetosa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">setosa</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sepal.Length</span>, y <span class="op">=</span> <span class="va">Sepal.Width</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Using Databricks Volumes</span></span>
-<span><span class="co">## Store TFLs</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">tfl</span><span class="op">$</span><span class="fu">write_cnt</span><span class="op">(</span><span class="va">fsetosa</span><span class="op">$</span><span class="va">data</span>, <span class="st">"fsetosa.csv"</span><span class="op">)</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">tfl</span><span class="op">$</span><span class="fu">write_cnt</span><span class="op">(</span><span class="va">fsetosa</span>, <span class="st">"fsetosa.rds"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Using Sharepoint</span></span>
-<span><span class="va">tmp_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".png"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="va">tmp_file</span>, <span class="va">fsetosa</span><span class="op">)</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">output_sh</span><span class="op">$</span><span class="fu">upload</span><span class="op">(</span><span class="va">tmp_file</span>, <span class="st">"fsetosa.png"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Using Databricks Volumes</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">tfl</span><span class="op">$</span><span class="fu">upload_cnt</span><span class="op">(</span>contents <span class="op">=</span> <span class="va">tmp_file</span>, file_path <span class="op">=</span> <span class="st">"fsetosa.png"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
 <h2 id="working-example">Working example<a class="anchor" aria-label="anchor" href="#working-example"></a>
 </h2>
 <p>Here is an example anyone can run to see how the
 <code>connector</code> package works. We will use the configuration file
-provided below, which will only use file system as type of connection
-for ADaM and TFL data.</p>
+provided below, which uses the file system as the connection type for
+ADaM and TFL data.</p>
 <p><code>_connector.yml:</code></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="at">metadata</span><span class="fu">:,   adam_path</span><span class="kw">:</span><span class="at"> !expr file.path(getwd(), "adam"),   tfl_path: !expr file.path(getwd(), "tfl"), , datasources:,   - name: "adam",     backend:,       type: "connector::connector_fs",       path: "{metadata.adam_path}",   - name: "tfl",     backend:,       type: "connector::connector_fs",       path: "{metadata.tfl_path}", </span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">metadata</span><span class="kw">:</span></span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="at">  </span><span class="fu">adam_path</span><span class="kw">:</span><span class="at"> !expr file.path(getwd(), "adam")</span></span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="at">  </span><span class="fu">tfl_path</span><span class="kw">:</span><span class="at"> !expr file.path(getwd(), "tfl")</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a><span class="fu">datasources</span><span class="kw">:</span></span>
+<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"adam"</span></span>
+<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
+<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector::connector_fs"</span></span>
+<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a><span class="at">      </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.adam_path}"</span></span>
+<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a><span class="at">  </span><span class="kw">-</span><span class="at"> </span><span class="fu">name</span><span class="kw">:</span><span class="at"> </span><span class="st">"tfl"</span></span>
+<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a><span class="at">    </span><span class="fu">backend</span><span class="kw">:</span></span>
+<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="at">      </span><span class="fu">type</span><span class="kw">:</span><span class="at"> </span><span class="st">"connector::connector_fs"</span></span>
+<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="at">      </span><span class="fu">path</span><span class="kw">:</span><span class="at"> </span><span class="st">"{metadata.tfl_path}"</span></span></code></pre></div>
+<p>As you can see, the configuration file contains metadata about the
+paths to the directories where the data will be stored, and two data
+sources: <code>adam</code> and <code>tfl</code>, both using the
+<code>connector_fs</code> backend to connect to file system folders.
+Note that the paths to the directories are defined using metadata
+variables (e.g., <code>{metadata.adam_path}</code>), which allows you to
+easily change the paths in one place.</p>
 <p>Now, let’s run the example:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://novonordisk-opensource.github.io/connector/">connector</a></span><span class="op">)</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://dplyr.tidyverse.org" class="external-link">dplyr</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'dplyr'</span></span>
-<span><span class="co">#&gt; The following objects are masked from 'package:stats':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     filter, lag</span></span>
-<span><span class="co">#&gt; The following objects are masked from 'package:base':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     intersect, setdiff, setequal, union</span></span>
-<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org" class="external-link">ggplot2</a></span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Let's create ADaM and TFL directories</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="st">"adam"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/files2.html" class="external-link">dir.create</a></span><span class="op">(</span><span class="st">"tfl"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Load data connections</span></span>
+<p>The first step is to create the connections to the data sources.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Load data connections</span></span>
 <span><span class="va">db</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/connect.html">connect</a></span><span class="op">(</span><span class="op">)</span></span>
 <span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → <span style="font-weight: bold;">adam</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> connector::connector_fs</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpFHhnpe/file2264475d56cd/adam</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/Rtmp1DJGyW/file29dc1083b028/adam</span></span>
 <span><span class="co">#&gt; ────────────────────────────────────────────────────────────────────────────────</span></span>
 <span><span class="co">#&gt; Connection to:</span></span>
 <span><span class="co">#&gt; → <span style="font-weight: bold;">tfl</span></span></span>
 <span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> connector::connector_fs</span></span>
-<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/RtmpFHhnpe/file2264475d56cd/tfl</span></span>
-<span></span>
-<span><span class="co">## Iris data</span></span>
+<span><span class="co">#&gt; <span style="color: #00BBBB;">•</span> /tmp/Rtmp1DJGyW/file29dc1083b028/tfl</span></span></code></pre></div>
+<p>Next, we manipulate the iris dataset and store it in the
+<code>adam</code> connector. This means we will create a subset of the
+iris dataset and save it as an RDS file in the <code>adam</code>
+directory.</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">## Iris data</span></span>
 <span><span class="va">setosa</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">mean_for_all_iris</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/group_by.html" class="external-link">group_by</a></span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/summarise_all.html" class="external-link">summarise_all</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">mean</span>, <span class="va">median</span>, <span class="va">sd</span>, <span class="va">min</span>, <span class="va">max</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Species</span> <span class="op">==</span> <span class="st">"setosa"</span><span class="op">)</span></span>
 <span><span class="co">## Store data</span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">setosa</span>, <span class="st">"setosa.rds"</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">setosa</span>, <span class="st">"setosa.rds"</span><span class="op">)</span></span></code></pre></div>
+<p>We can also create more complex summaries and store them in the same
+connector.</p>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mean_for_all_iris</span> <span class="op">&lt;-</span> <span class="va">iris</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">group_by</span><span class="op">(</span><span class="va">Species</span><span class="op">)</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu">summarise_all</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="va">mean</span>, <span class="va">median</span>, <span class="va">sd</span>, <span class="va">min</span>, <span class="va">max</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">mean_for_all_iris</span>, <span class="st">"mean_iris.rds"</span><span class="op">)</span></span>
@@ -355,42 +181,40 @@ for ADaM and TFL data.</p>
 <span><span class="co">## List and load data</span></span>
 <span><span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "mean_iris.rds" "setosa.rds"</span></span>
-<span></span>
-<span><span class="co"># Manipulate data</span></span>
-<span><span class="va">setosa_fsetosa</span> <span class="op">&lt;-</span> <span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
+<span><span class="co">#&gt; [1] "mean_iris.rds" "setosa.rds"</span></span></code></pre></div>
+<p>We can also read back the data we just created and filter it further
+using the <code><a href="../reference/read_cnt.html">read_cnt()</a></code> function.</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Read and filter data</span></span>
+<span><span class="va">setosa_filtered</span> <span class="op">&lt;-</span> <span class="va">db</span><span class="op">$</span><span class="va">adam</span> <span class="op">|&gt;</span></span>
 <span>  <span class="fu"><a href="../reference/read_cnt.html">read_cnt</a></span><span class="op">(</span><span class="st">"setosa"</span><span class="op">)</span> <span class="op">|&gt;</span></span>
-<span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Sepal.Length</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span></span>
-<span><span class="co">#&gt; → Found one file: <span style="color: #0000BB;">/tmp/RtmpFHhnpe/file2264475d56cd/adam/setosa.rds</span></span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/stats/filter.html" class="external-link">filter</a></span><span class="op">(</span><span class="va">Sepal.Length</span> <span class="op">&gt;</span> <span class="fl">5</span><span class="op">)</span></span>
+<span><span class="co">#&gt; → Found one file: <span style="color: #0000BB;">/tmp/Rtmp1DJGyW/file29dc1083b028/adam/setosa.rds</span></span></span></code></pre></div>
+<p>Finally, we can create a plot with the <code>ggplot2</code> package
+and store it in the <code>tfl</code> connector.</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Create a plot</span></span>
+<span><span class="va">plot_setosa</span> <span class="op">&lt;-</span> <span class="fu">ggplot</span><span class="op">(</span><span class="va">setosa_filtered</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">aes</span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sepal.Length</span>, y <span class="op">=</span> <span class="va">Sepal.Width</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu">geom_point</span><span class="op">(</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">fsetosa</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html" class="external-link">ggplot</a></span><span class="op">(</span><span class="va">setosa</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">Sepal.Length</span>, y <span class="op">=</span> <span class="va">Sepal.Width</span><span class="op">)</span> <span class="op">+</span></span>
-<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">## Store data and plot objects</span></span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">tfl</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">plot_setosa</span><span class="op">$</span><span class="va">data</span>, <span class="st">"setosa_data.csv"</span><span class="op">)</span></span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">tfl</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">plot_setosa</span>, <span class="st">"setosa_plot.rds"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">## Store TFLs</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">tfl</span><span class="op">$</span><span class="fu">write_cnt</span><span class="op">(</span><span class="va">fsetosa</span><span class="op">$</span><span class="va">data</span>, <span class="st">"fsetosa.csv"</span><span class="op">)</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">tfl</span><span class="op">$</span><span class="fu">write_cnt</span><span class="op">(</span><span class="va">fsetosa</span>, <span class="st">"fsetosa.rds"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co">## Store images</span></span>
+<span><span class="co">## Store plot image</span></span>
 <span><span class="va">tmp_file</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempfile</a></span><span class="op">(</span>fileext <span class="op">=</span> <span class="st">".png"</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggsave.html" class="external-link">ggsave</a></span><span class="op">(</span><span class="va">tmp_file</span>, <span class="va">fsetosa</span><span class="op">)</span></span>
+<span><span class="fu">ggsave</span><span class="op">(</span><span class="va">tmp_file</span>, <span class="va">plot_setosa</span><span class="op">)</span></span>
 <span><span class="co">#&gt; Saving 7.29 x 4.51 in image</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">tfl</span><span class="op">$</span><span class="fu">upload_cnt</span><span class="op">(</span><span class="va">tmp_file</span>, <span class="st">"fsetosa.png"</span><span class="op">)</span></span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">tfl</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/upload_cnt.html">upload_cnt</a></span><span class="op">(</span><span class="va">tmp_file</span>, <span class="st">"setosa_plot.png"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co"># Check if everything is written into temporary TFL directory</span></span>
-<span><span class="va">db</span><span class="op">$</span><span class="va">tfl</span><span class="op">$</span><span class="fu">list_content_cnt</span><span class="op">(</span><span class="op">)</span></span>
-<span><span class="co">#&gt; [1] "fsetosa.csv" "fsetosa.png" "fsetosa.rds"</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
-</h2>
-<p>In this vignette we showed how to connect to different datasources,
-read and write data from them. We used <code>connector.databricks</code>
-and <code>connector.sharepoint</code> packages to extend the
-functionality of the <code>connector</code> package to connect to
-<code>Databricks</code> and <code>SharePoint</code>, respectively.</p>
-<p>This package is designed to be extensible, so that new data sources
-can be added easily.</p>
+<span><span class="co"># List all files in the TFL directory</span></span>
+<span><span class="va">db</span><span class="op">$</span><span class="va">tfl</span> <span class="op">|&gt;</span></span>
+<span>  <span class="fu"><a href="../reference/list_content_cnt.html">list_content_cnt</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "setosa_data.csv" "setosa_plot.png" "setosa_plot.rds"</span></span></code></pre></div>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

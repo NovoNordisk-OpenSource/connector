@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9003</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9005</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -39,9 +39,9 @@
     </div>
 
     <div class="section level2">
-<h2 class="pkg-version" data-toc-text="0.1.1.9" id="connector-0119-development-version">connector 0.1.1.9*** (development version)<a class="anchor" aria-label="anchor" href="#connector-0119-development-version"></a></h2>
+<h2 class="pkg-version" data-toc-text="1.0.0" id="connector-100">connector 1.0.0<a class="anchor" aria-label="anchor" href="#connector-100"></a></h2>
 <div class="section level3">
-<h3 id="breaking-changes-0-1-1-9">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-0-1-1-9"></a></h3>
+<h3 id="breaking-changes-1-0-0">Breaking Changes<a class="anchor" aria-label="anchor" href="#breaking-changes-1-0-0"></a></h3>
 <ul><li>
 <strong>Parameter name changes</strong>: The <code><a href="../reference/upload_cnt.html">upload_cnt()</a></code>, <code><a href="../reference/download_cnt.html">download_cnt()</a></code>, <code><a href="../reference/upload_directory_cnt.html">upload_directory_cnt()</a></code>, and <code><a href="../reference/download_directory_cnt.html">download_directory_cnt()</a></code> functions now use <code>src</code> and <code>dest</code> parameters instead of <code>name</code>/<code>file</code> and <code>dir</code>/<code>name</code> for consistency across the API. Update your code accordingly:
 <ul><li>
@@ -57,20 +57,23 @@
 <code>download_directory_cnt(name = "source", dir = "path")</code> → <code>download_directory_cnt(src = "source", dest = "path")</code>
 </li>
 </ul></li>
+<li>
+<code><a href="../reference/datasources.html">datasources()</a></code> deprecated in 1.0.0, use <code><a href="../reference/list_datasources.html">list_datasources()</a></code> instead.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="enhancements-0-1-1-9">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-0-1-1-9"></a></h3>
+<h3 id="enhancements-1-0-0">Enhancements<a class="anchor" aria-label="anchor" href="#enhancements-1-0-0"></a></h3>
 <ul><li>Added upload_cnt and download_cnt methods for ConnectorLogger</li>
 <li>Added resource validation system with <code><a href="../reference/resource-validation.html">validate_resource()</a></code> function and <code><a href="../reference/resource-validation.html">check_resource()</a></code> S3 methods</li>
 <li>Added “metadata” attribute to connectors object and extract_metadata() to extract metadata from connectors</li>
 <li>Added <code>default_ext</code> option to set a default extension to use when reading and writing files</li>
+<li>Added <code><a href="../reference/use_connector.html">use_connector()</a></code> function to create a template for connector configuration files</li>
 </ul></div>
 <div class="section level3">
-<h3 id="bugs-0-1-1-9">Bugs<a class="anchor" aria-label="anchor" href="#bugs-0-1-1-9"></a></h3>
+<h3 id="bugs-1-0-0">Bugs<a class="anchor" aria-label="anchor" href="#bugs-1-0-0"></a></h3>
 <ul><li>Fixed bug in connectors function. You can now pass a R Object.</li>
 </ul></div>
 <div class="section level3">
-<h3 id="other-0-1-1-9">Other<a class="anchor" aria-label="anchor" href="#other-0-1-1-9"></a></h3>
+<h3 id="other-1-0-0">Other<a class="anchor" aria-label="anchor" href="#other-1-0-0"></a></h3>
 <ul><li>Reformat code with air</li>
 <li>Update unit tests</li>
 <li>Rearrange documentation</li>
