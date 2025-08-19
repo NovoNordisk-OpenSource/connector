@@ -20,9 +20,12 @@ connect(
 \item{datasource}{\link{character} Name(s) of the datasource(s) to connect to.
 If \code{NULL} (the default) all datasources are connected.}
 
-\item{set_env}{\link{logical} Should environment variables from the yaml file be set? Default is TRUE.}
+\item{set_env}{\link{logical} Should environment variables from the yaml file be set? Default is \code{TRUE}.}
 
-\item{logging}{Add logs to the console as well as to the whirl log html files. Default: \code{FALSE}.}
+\item{logging}{Add logging capability to connectors using \code{\link[=add_logs]{add_logs()}}.
+When \code{TRUE}, all connector operations will be logged to the console and
+to whirl log HTML files. See \link{log-functions} for available
+logging functions.. Default: \code{FALSE}.}
 }
 \value{
 \link{connectors}
@@ -59,13 +62,13 @@ Each specification of a single \link{connectors}  have to have the following str
 }
 }
 \examples{
-withr::with_tempdir({
+
+withr::local_dir(withr::local_tempdir("test", .local_envir = .GlobalEnv))
 # Create dir for the example in tmpdir
 dir.create("example/demo_trial/adam", recursive = TRUE)
 
+# Create a config file in the example folder
 config <- system.file("config", "_connector.yml", package = "connector")
-
-config
 
 # Show the raw configuration file
 readLines(config) |>
@@ -101,5 +104,5 @@ cnts_nested
 
 cnts_nested$study1
 
-})
+withr::deferred_run()
 }

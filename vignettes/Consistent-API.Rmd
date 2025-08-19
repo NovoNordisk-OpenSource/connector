@@ -16,10 +16,6 @@ knitr::opts_chunk$set(
 
 ## Introduction
 
-This vignette provides best practices for users and developers on what is returned by each method in connector packages. Understanding these methods and their return values is crucial for both users of connector packages and developers who want to create their own connector packages.
-
-## Why This Vignette?
-
 We realized it might be confusing for users to understand which method returns which value. This vignette explains what each method does and provides an overview of general rules. This information is also helpful for developers creating their own connector packages, as it outlines what each method should return to maintain consistency and interoperability between different connector packages.
 
 ## Methods and Return Values
@@ -68,19 +64,13 @@ This method returns the `Connector` object. If the `open` parameter is set to `T
 ### `remove_directory_cnt()`
 After removing a directory, this method returns the `Connector` object, allowing for further operations and confirming the removal was successful.
 
-## `upload_directory_cnt()` 
+### `upload_directory_cnt()` 
 Returns the current `Connector` object or a new one if the directory was opened (`open = TRUE`), allowing for immediate use of the uploaded directory.
 
-## `download_directory_cnt()`
+### `download_directory_cnt()`
 Returns the `Connector` object to allow for method chaining.
 
 ### `tbl_cnt()`
 This method returns the content of a file in a tabular format. 
 For file-based connectors, it typically uses `read_cnt()` to get the content. 
 For database connections (`DBI`), it returns a `dplyr::tbl()` representation of the data.
-
-## Conclusion
-
-Understanding these return values is crucial for effectively using and developing connector packages. By maintaining consistency in what each method returns, we ensure that different connector packages can be used interchangeably, promoting code reusability and a smoother user experience.
-
-For developers creating new connector packages, adhering to these return value conventions will help maintain compatibility with existing tools and workflows that expect certain return types from these methods.

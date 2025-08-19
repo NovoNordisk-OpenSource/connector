@@ -25,9 +25,14 @@ library(connector)
 `connector` is build to be easily extensible. This vignette will show you how to create your own connector classes, 
 and how to customize the existing ones, and their methods.
 
-The basic `Connector` class is a simple `{R6}` object, with no additional functionality.
+The basic `Connector` class is a simple `{R6}` object, with no methods but provides `check_resource()` as a
+default validation mechanism that can be overridden by child classes to verify their specific resource
+requirements.
+
 It serves as the foundation for all other connectors, that should inherit from it in their `R6::R6Class()` definition -
 either directly or indirectly. Both `ConnectorFS` and `ConnectorDBI` inherit from `Connector` in this way.
+
+Before we start creating our own connector classes, you can read the vignette on the [Consistent API](https://novonordisk-opensource.github.io/connector/Consistent-API.html) to understand how the methods are structured and what they return.
 
 ## Creating a new connector
 
@@ -77,7 +82,7 @@ connector_project <- R6::R6Class(
 This way of extending connector could e.g. be relevant inside an organisation where 
 all projects are stored in a common folder structure.
 
-When we not initialize a `connector_project` you can see that it still has all the methods from `ConnectorFS`,
+When we now initialize a `connector_project` you can see that it still has all the methods from `ConnectorFS`,
 and that the path has been assigned correctly based on the `project` argument:
 
 ```{r}
@@ -159,7 +164,7 @@ This argument adds the `extra_class` as the first class of the creating the conn
 meaning that for any generic dispatch, such as of `list_content_cnt()`, a method for this class will
 be used before any of the connector classes.
 
-To redo the two examples above we make a new `ConnectorFS` with the extra class `demo_extra`:
+To redo the two examples above we make a new `ConnectorFS` with the extra class `extra_class`:
 
 ```{r}
 my_project_extra <- ConnectorFS$new(
@@ -169,9 +174,9 @@ my_project_extra <- ConnectorFS$new(
 
 print(my_project_extra)
 ```
-As you can see here we have all the methods from `ConnectorFS`, but the `demo_extra` is now the first class in the class hierarchy.
+As you can see here we have all the methods from `ConnectorFS`, but the `extra_class` is now the first class in the class hierarchy.
 
-To create a custom method for `list_content_cnt()` for the `demo_extra` we do the same as for the `connector_project` above:
+To create a custom method for `list_content_cnt()` for the `extra_class` we do the same as for the `connector_project` above:
 
 ```{r}
 list_content_cnt.my_extra_class <- function(connector_object, ...) {

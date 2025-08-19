@@ -28,8 +28,8 @@ An S3 object of class "ConnectorLogger" containing:
 \description{
 Creates a new empty connector logger object of class
 "ConnectorLogger".
-This is an S3 class constructor that initializes a logging structure for
-connector operations.
+This is an internal utility class that initializes a logging structure for
+connector operations. Logs are added to connectors using \code{\link[=add_logs]{add_logs()}}.
 }
 \details{
 Create a New Connector Logger

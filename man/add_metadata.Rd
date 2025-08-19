@@ -28,10 +28,11 @@ file.copy(
   to = config
 )
 
-config |>
+config <- config |>
   add_metadata(
     key = "new_metadata",
     value = "new_value"
   )
+config
 
 }

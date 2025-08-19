@@ -16,3 +16,4 @@
 ^CRAN-SUBMISSION$
 ^\.claude$
 ^CLAUDE.md$
+^_connector.yml$

@@ -14,226 +14,30 @@ knitr::opts_chunk$set(
 )
 ```
 
-`connector` is a package that provides a set of functions **to connect to 
-different data sources** (such as databases, APIs, and file systems) and read 
-and write data from them. 
-
-It is designed to be a generic package that is extensible, so 
-that new data sources can be added easily.
-
 ## Introduction
 
-This vignette demonstrates how to use the `connector` package to connect to 
-either a **file system** or a **database** to access different types of data.
+The `connector` package provides a set of functions to connect to different data sources (such as databases and file systems) and read and write data from them using a consistent interface.
 
+It is designed to be a generic and extensible package, so that new data sources can be added easily.
 
-First let's load all the packages we're going to use in this vignette:
-```{r eval=FALSE}
-library(connector)
-library(connector.databricks)
-library(connector.sharepoint)
-```
-
-You may notice we're not loading only connector package, but `connector.databricks`  
-and `connector.sharepoint` as well. These are packages that extend the functionality
-of the `connector` package to connect to `Databricks` and `SharePoint`, respectively.
+This vignette demonstrates how to use the `connector` package to connect to either a **file system** or a **database** to access different types of data.
 
 ## Connector configuration
 
-Main function in this package is `connect()`. This function based on a 
-configuration file or a list creates a `connectors()` object with a `connector`
-for each of the specified datasources. The configuration file can be in any format 
-that can be read through `read_file()`, and contains a list. If a yaml file is 
-provided, expressions are evaluated when parsing it using `yaml::read_yaml()` 
-with `eval.expr = TRUE`.
+The main function in this package is `connect()`. This function, based on a 
+configuration file or a list, creates a `connectors` object with a `connector`
+for each of the specified data sources. 
+The configuration file can be in list format, JSON, or YAML format.
 
-The input list (or configuration file) has to have the following structure:
+The input list (or configuration file) must have the following structure:
 
- * Only metadata, env, connections, and datasources fields are allowed.
+ * Only `metadata`, `env`, and `datasources` fields are allowed.
  * All elements must be named.
- * **datasources** is mandatory.
- * **metadata** and **env** must each be a list of named character vectors of 
- length 1  specified.
- * **datasources** must each be a list of unnamed lists.
- * Each datasources must have the named character element **name** and the named list element **backend**
- * For each connection **backend**.**type** must be provided
-
-Here is an example of a configuration file with different types of connections:
-
-```
-metadata:
-  trial: "my_trial"
-  project: "my_project"
-  instance: "current"
-  http_path:  !!expr Sys.getenv("DATABRICKS_HTTP_PATH")
-  catalog:  !!expr Sys.getenv("DATABRICKS_CATALOG_NAME")
-  sharepoint: "https://my_organisation.sharepoint.com"
-  root_path: "/home/my_root_path"
-datasources:
-  - name: "adam"
-    backend:
-        type: "connector::connector_fs"
-        path: "{metadata.root_path}/{metadata.project}/{metadata.trial}/{metadata.instance}/adam"
-  - name: "tfl"
-    backend:
-      type: "connector.databricks::connector_databricks_volume"
-      catalog: "{metadata.catalog}"
-      schema: "{metadata.project}_{metadata.trial}_tfl"
-      path: "output"
-
-  - name: "metadata"
-    backend:
-      type: "connector.databricks::connector_databricks_dbi"
-      http_path: "{metadata.http_path}"
-      catalog: "{metadata.catalog}"
-      schema: "{metadata.project}_{metadata.trial}_metadata"
-
-  - name: "output_sh"
-    backend:
-      type: "connector.sharepoint::connector_sharepoint"
-      site_url: "{metadata.sharepoint}/sites/{metadata.project}_{metadata.trial}_output"
-
-```
-
-In this example we have multiple connections to multiple data sources.
-ADaM data is stored on the file system, metadata resides on Databricks Tables, 
-TFL is also on Databricks, but on Volumes, because this is where the 
-unstructured data is stored. Finally, the output is stored on SharePoint.
-
-## Connect to datasources
-
-When we want to connect to datasources we can use the `connect()` function.
-
-```{r eval=FALSE}  
-# Load data connections
-db <- connect()
-```
-
-This creates list of connectors, which can be accessed by their names:
-
-```{r eval=FALSE}
-# ADaM data
-db$adam
-
-# TFL data
-db$tfl
-
-# Metadata
-db$metadata
-
-# Output on SharePoint
-db$output_sh
-```
-
-After the setup is done we can use these connections to read and write data from
-datasources.
-
-## Reading and writing data
-
-The `connector` packages provide a set of functions to read and write data from
-the datasources. They all have similar interface, so it's easy to switch between
-them.
-
-Now, we will show how to read and write different types data from/to different 
-datasources. In these examples we will be using `iris` and `mtcars` datasets.
-
-Here is an example of writing data to the ADaM table:
-
-```{r eval=FALSE}
-library(dplyr)
-
-# Manipulate data
-
-## Iris data
-setosa <- iris |>
-  filter(Species == "setosa")
-
-mean_for_all_iris <- iris |>
-  group_by(Species) |>
-  summarise_all(list(mean, median, sd, min, max))
-
-## Mtcars data
-cars <- mtcars |>
-  filter(mpg > 22)
-
-mean_for_all_mtcars <- mtcars |>
-  group_by(gear) |>
-  summarise(
-    across(
-      everything(),
-      list("mean" = mean, "median" = median, "sd" = sd, "min" = min, "max" = max),
-      .names = "{.col}_{.fn}"
-    )
-  ) |>
-  tidyr::pivot_longer(
-    cols = -gear,
-    names_to = c(".value", "stat"),
-    names_sep = "_"
-  )
-
-## Store data
-db$adam |>
-  write_cnt(setosa, "setosa", overwrite = TRUE)
-
-db$adam |>
-  write_cnt(mean_for_all_iris, "mean_iris", overwrite = TRUE)
-
-db$adam |>
-  write_cnt(cars, "cars_mpg", overwrite = TRUE)
-
-db$adam |>
-  write_cnt(mean_for_all_mtcars, "mean_mtcars", overwrite = TRUE)
-```
-
-Now, let's read the data back manipulate it a bit and write it to the SharePoint
-and DataBricks. This way we can save different types of data in different formats.
-
-```{r eval=FALSE}
-library(gt)
-library(tidyr)
-library(ggplot2)
-
-# List and load data
-db$adam |>
-  list_content_cnt()
-
-table <- db$adam |>
-  read_cnt("mean_mtcars")
-
-gttable <- table |>
-  gt(groupname_col = "gear")
-
-## Save table
-db$tfl$write_cnt(gttable$`_data`, "tmeanallmtcars.csv")
-db$tfl$write_cnt(gttable, "tmeanallmtcars.rds")
-
-## Using Sharepoint
-tmp_file <- tempfile(fileext = ".docx")
-gtsave(gttable, tmp_file)
-db$output_sh$upload_cnt(tmp_file, "tmeanallmtcars.docx")
-
-# Manipulate data
-setosa_fsetosa <- db$adam |>
-  read_cnt("setosa") |>
-  filter(Sepal.Length > 5)
-
-fsetosa <- ggplot(setosa) +
-  aes(x = Sepal.Length, y = Sepal.Width) +
-  geom_point()
-
-## Using Databricks Volumes
-## Store TFLs
-db$tfl$write_cnt(fsetosa$data, "fsetosa.csv")
-db$tfl$write_cnt(fsetosa, "fsetosa.rds")
-
-## Using Sharepoint
-tmp_file <- tempfile(fileext = ".png")
-ggsave(tmp_file, fsetosa)
-db$output_sh$upload(tmp_file, "fsetosa.png")
-
-## Using Databricks Volumes
-db$tfl$upload_cnt(contents = tmp_file, file_path = "fsetosa.png")
-```
+ * **`datasources`** is mandatory.
+ * **`metadata`** and **`env`** must each be a list of named character vectors of length 1.
+ * **`datasources`** must be a list of unnamed lists.
+ * Each datasource must have the named character element **`name`** and the named list element **`backend`**.
+ * For each backend, **`type`** must be provided.
 
 ## Working example
 
@@ -244,8 +48,8 @@ knitr::opts_knit$set(root.dir = tmp)
 ```
 
 Here is an example anyone can run to see how the `connector` package works.
-We will use the configuration file provided below, which will only use file
-system as type of connection for ADaM and TFL data.
+We will use the configuration file provided below, which uses the file
+system as the connection type for ADaM and TFL data.
 
 ```{r, include = FALSE}
 'metadata:
@@ -261,17 +65,33 @@ datasources:
     backend:
       type: "connector::connector_fs"
       path: "{metadata.tfl_path}"
-' |> writeLines("_connector.yml")
+' |>
+  writeLines("_connector.yml")
 ```
 
 `_connector.yml:`
 ```yaml
-`r readLines("_connector.yml")`
+metadata:
+  adam_path: !expr file.path(getwd(), "adam")
+  tfl_path: !expr file.path(getwd(), "tfl")
+
+datasources:
+  - name: "adam"
+    backend:
+      type: "connector::connector_fs"
+      path: "{metadata.adam_path}"
+  - name: "tfl"
+    backend:
+      type: "connector::connector_fs"
+      path: "{metadata.tfl_path}"
 ```
+
+As you can see, the configuration file contains metadata about the paths to the directories where the data will be stored, and two data sources: `adam` and `tfl`, both using the `connector_fs` backend to connect to file system folders.
+Note that the paths to the directories are defined using metadata variables (e.g., `{metadata.adam_path}`), which allows you to easily change the paths in one place.
 
 Now, let's run the example:
 
-```{r}
+```{r, include = FALSE}
 library(connector)
 library(dplyr)
 library(ggplot2)
@@ -279,21 +99,34 @@ library(ggplot2)
 # Let's create ADaM and TFL directories
 dir.create("adam")
 dir.create("tfl")
+```
 
+The first step is to create the connections to the data sources.
+
+```{r}
 # Load data connections
 db <- connect()
+```
 
+
+Next, we manipulate the iris dataset and store it in the `adam` connector.
+This means we will create a subset of the iris dataset and save it as an RDS file in the `adam` directory.
+
+```{r}
 ## Iris data
 setosa <- iris |>
   filter(Species == "setosa")
-
-mean_for_all_iris <- iris |>
-  group_by(Species) |>
-  summarise_all(list(mean, median, sd, min, max))
-
 ## Store data
 db$adam |>
   write_cnt(setosa, "setosa.rds")
+```
+
+We can also create more complex summaries and store them in the same connector.
+
+```{r}
+mean_for_all_iris <- iris |>
+  group_by(Species) |>
+  summarise_all(list(mean, median, sd, min, max))
 
 db$adam |>
   write_cnt(mean_for_all_iris, "mean_iris.rds")
@@ -301,34 +134,39 @@ db$adam |>
 ## List and load data
 db$adam |>
   list_content_cnt()
+```
 
-# Manipulate data
-setosa_fsetosa <- db$adam |>
+
+We can also read back the data we just created and filter it further using the `read_cnt()` function.
+
+```{r}
+# Read and filter data
+setosa_filtered <- db$adam |>
   read_cnt("setosa") |>
   filter(Sepal.Length > 5)
+```
 
-fsetosa <- ggplot(setosa) +
+Finally, we can create a plot with the `ggplot2` package and store it in the `tfl` connector.
+
+```{r}
+# Create a plot
+plot_setosa <- ggplot(setosa_filtered) +
   aes(x = Sepal.Length, y = Sepal.Width) +
   geom_point()
 
-## Store TFLs
-db$tfl$write_cnt(fsetosa$data, "fsetosa.csv")
-db$tfl$write_cnt(fsetosa, "fsetosa.rds")
+## Store data and plot objects
+db$tfl |>
+  write_cnt(plot_setosa$data, "setosa_data.csv")
+db$tfl |>
+  write_cnt(plot_setosa, "setosa_plot.rds")
 
-## Store images
+## Store plot image
 tmp_file <- tempfile(fileext = ".png")
-ggsave(tmp_file, fsetosa)
-db$tfl$upload_cnt(tmp_file, "fsetosa.png")
+ggsave(tmp_file, plot_setosa)
+db$tfl |>
+  upload_cnt(tmp_file, "setosa_plot.png")
 
-# Check if everything is written into temporary TFL directory
-db$tfl$list_content_cnt()
+# List all files in the TFL directory
+db$tfl |>
+  list_content_cnt()
 ```
-## Conclusion
-
-In this vignette we showed how to connect to different datasources, read and write
-data from them. We used `connector.databricks` and `connector.sharepoint` packages
-to extend the functionality of the `connector` package to connect to `Databricks`
-and `SharePoint`, respectively.
-
-This package is designed to be extensible, so that new data sources can be added
-easily.

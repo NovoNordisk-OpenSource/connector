@@ -29,3 +29,23 @@ Mostly relevant for file storage connectors.
 \item \link{ConnectorFS}: Uses \code{\link[fs:copy]{fs::dir_copy()}}.
 }
 }
+\examples{
+
+# Download a directory to a file storage
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
+
+cnt <- connector_fs(folder)
+# Create a source directory
+dir.create(file.path(folder, "src_dir"))
+writeLines(
+  "This is a test file.",
+  file.path(folder, "src_dir", "test.txt")
+)
+# Download the directory
+cnt |>
+ download_directory_cnt(
+   src = "src_dir",
+   dest = file.path(folder, "downloaded_dir")
+  )
+
+}

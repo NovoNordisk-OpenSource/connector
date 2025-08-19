@@ -39,6 +39,11 @@ The underlying function used, and thereby also the arguments available
 through \code{...} depends on the file extension.
 }
 
+The file is located using internal function, which searches for files matching
+the provided name. If multiple files match and no extension is specified,
+it will use the default extension (configurable via
+\code{options(connector.default_ext = "csv")}, defaults to "csv").
+
 \itemize{
 \item \link{ConnectorLogger}: Logs the read operation and calls the underlying connector method.
 }
@@ -59,7 +64,8 @@ cnt |>
 
 # Write and read a CSV file using the file storage connector
 
-folder <- withr::local_tempdir()
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
+
 cnt <- connector_fs(folder)
 
 cnt |>
@@ -70,14 +76,15 @@ cnt |>
   head()
 
 # Add logging to a file system connector
-folder <- withr::local_tempdir()
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
+
 cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 
 cnt$data |>
   write_cnt(iris, "iris.csv")
 
 cnt$data |>
-  read_cnt("iris.csv") |>
+  read_cnt("iris.csv", show_col_types = FALSE) |>
   head()
 
 }

@@ -28,10 +28,12 @@ The function performs the following steps:
 }
 }
 \examples{
-con <- connectors(
+cnts <- connectors(
   sdtm = connector_fs(path = tempdir())
  )
 
-logged_connections <- add_logs(con)
+logged_connections <- add_logs(cnts)
+
+logged_connections
 
 }

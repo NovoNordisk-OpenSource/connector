@@ -17,11 +17,13 @@
 #' 1. Iterates through each connection in the list and prepends the "ConnectorLogger" class.
 #'
 #' @examples
-#' con <- connectors(
+#' cnts <- connectors(
 #'   sdtm = connector_fs(path = tempdir())
 #'  )
 #'
-#' logged_connections <- add_logs(con)
+#' logged_connections <- add_logs(cnts)
+#'
+#' logged_connections
 #'
 #' @export
 add_logs <- function(connections) {

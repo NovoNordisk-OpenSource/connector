@@ -31,11 +31,16 @@ zephyr::create_option(
 zephyr::create_option(
   name = "logging",
   default = FALSE,
-  desc = "Add logs to the console as well as to the whirl log html files"
+  desc = "Add logging capability to connectors using [add_logs()]. 
+  When `TRUE`, all connector operations will be logged to the console and 
+  to whirl log HTML files. See [log-functions] for available 
+  logging functions."
 )
 
 zephyr::create_option(
   name = "default_ext",
   default = "csv",
-  desc = "Default extension to use when writing and reading files"
+  desc = "Default extension to use when reading and writing files when not 
+  specified in the file name. E.g. with the default 'csv', files are assumed 
+  to be in CSV format if not specified."
 )

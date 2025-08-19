@@ -32,7 +32,8 @@ Mostly relevant for file storage connectors.
 \examples{
 # Create a directory in a file storage
 
-folder <- withr::local_tempdir()
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
+
 cnt <- connector_fs(folder)
 
 cnt |>

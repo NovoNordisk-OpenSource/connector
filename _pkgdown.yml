@@ -5,6 +5,7 @@ reference:
   - title: Use connector
     contents:
     - connect
+    - use_connector
     - connector-options
   - title: Connectors
     contents:
@@ -14,26 +15,31 @@ reference:
     - ConnectorFS
     - connector_dbi
     - ConnectorDBI
-    - ConnectorLogger
     - nested_connectors
   - title: Connector functions
     contents:
+    - read_cnt
+    - write_cnt
+    - remove_cnt
+    - list_content_cnt
     - matches(".*_cnt$")
   - title: Read and write files
     contents:
     - read_file
     - write_file
+  - title: Logs
+    contents:
+    - ConnectorLogger
+    - add_logs
+    - matches("log_.*")
+  - title: Utils
+    contents:
+    - list_datasources
+    - datasources
+    - extract_metadata
+    - resource-validation
     - write_datasources
     - add_datasource
     - remove_datasource
     - add_metadata
     - remove_metadata
-  - title: Logs
-    contents:
-    - add_logs
-    - matches("log_.*")
-  - title: Utils
-    contents:
-    - datasources
-    - extract_metadata
-    - resource-validation

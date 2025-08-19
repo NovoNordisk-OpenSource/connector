@@ -25,12 +25,16 @@ file.copy(
   from = system.file("config", "_connector.yml", package = "connector"),
   to = config
 )
-
-config |>
+# Add metadata first
+config <- config |>
   add_metadata(
     key = "new_metadata",
     value = "new_value"
-  ) |>
+  )
+config
+#' # Now remove it
+config <- config |>
   remove_metadata("new_metadata")
+config
 
 }

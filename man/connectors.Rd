@@ -16,19 +16,19 @@ connections in your project.
 \examples{
 # Create connectors objects
 
-con <- connectors(
+cnts <- connectors(
   sdtm = connector_fs(path = tempdir()),
   adam = connector_dbi(drv = RSQLite::SQLite())
 )
 
 # Print for overview
 
-con
+cnts
 
 # Print the individual connector for more information
 
-con$sdtm
+cnts$sdtm
 
-con$adam
+cnts$adam
 
 }

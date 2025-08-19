@@ -62,14 +62,15 @@ iris_cnt |>
 
 # Use dplyr verbs on a table
 
-folder <- withr::local_tempdir()
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
+
 cnt <- connector_fs(folder)
 
 cnt |>
   write_cnt(iris, "iris.csv")
 
 iris_cnt <- cnt |>
-  tbl_cnt("iris.csv")
+  tbl_cnt("iris.csv", show_col_types = FALSE)
 
 iris_cnt
 

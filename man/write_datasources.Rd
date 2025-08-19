@@ -21,20 +21,16 @@ Reproduce your workflow by creating a config file based on a connectors
 object and the associated datasource attributes.
 }
 \examples{
-withr::with_tempdir({
-# Create dir for the example in tmpdir
-dir.create("example/demo_trial/adam", recursive = TRUE)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 
-# Connect to the datasources specified in it
-config <- system.file("config", "_connector.yml", package = "connector")
-cnts <- connect(config)
+cnt <- connectors(fs = connector_fs(folder))
 
 # Extract the datasources to a config file
 yml_file <- tempfile(fileext = ".yml")
-write_datasources(cnts, yml_file)
-
+write_datasources(cnt, yml_file)
+# Check the content of the file
+cat(readLines(yml_file), sep = "\n")
 # Reconnect using the new config file
 re_connect <- connect(yml_file)
 re_connect
-})
 }

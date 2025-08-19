@@ -10,15 +10,6 @@ coverage](https://codecov.io/gh/NovoNordisk-OpenSource/connector/graph/badge.svg
 status](https://www.r-pkg.org/badges/version/connector)](https://CRAN.R-project.org/package=connector)
 <!-- badges: end -->
 
-## Installation
-
-``` r
-# Install the released version from CRAN:
-install.packages("connector")
-# Install the development version from GitHub:
-pak::pak("NovoNordisk-OpenSource/connector")
-```
-
 ## Overview
 
 `connector` provides a seamless and consistent interface for connecting
@@ -31,15 +22,26 @@ to the same data source across different scripts in your project, and
 enables you to easily switch between different data sources.
 
 The connector package comes with the possibilities of creating
-connections to file system folders using `connector_fs` and general
-databases using `connector_dbi`, which is built on top of the `{DBI}`
+connections to file system folders using `connector_fs()` and general
+databases using `connector_dbi()`, which is built on top of the `{DBI}`
 package.
 
 connector also has a series of expansion packages that allows you to
 easily connect to more specific data sources:
 
-- `{connector.databricks}`: Connect to Databricks
-- `{connector.sharepoint}`: Connect to SharePoint sites
+- [`{connector.databricks}`](https://novonordisk-opensource.github.io/connector.databricks/):
+  Connect to Databricks
+- [`{connector.sharepoint}`](https://novonordisk-opensource.github.io/connector.sharepoint/):
+  Connect to SharePoint sites
+
+## Installation
+
+``` r
+# Install the released version from CRAN:
+install.packages("connector")
+# Install the development version from GitHub:
+pak::pak("NovoNordisk-OpenSource/connector")
+```
 
 ## Usage
 
@@ -68,6 +70,12 @@ datasources:
         dbname: ":memory:"
 ```
 
+It is easy to initialize this file with:
+
+``` r
+connector::use_connector()
+```
+
 First we specify common metadata for the connectors, which here is a
 temporary folder that we want to use. Afterwards we specify the
 datasources needed in the project, and their specifications.
@@ -76,7 +84,7 @@ The first we name “folder”, specify the type to be `connector_fs()`, and
 the path to the folder. The second is a database connector to an in
 memory SQLite database, that we specify using the `connector_dbi()`
 type, which uses `DBI::dbConnect()` to initalize the connection.
-Therefor we also give the `DBI driver` to use, and arguments to it.
+Therefore we also give the `DBI driver` to use, and arguments to it.
 
 To connect and create the conenctors we use `connect()` with the
 configuration file as input:
@@ -85,12 +93,13 @@ configuration file as input:
 library(connector)
 
 db <- connect("_connector.yml")
-#> ────────────────────────────────────────────────────────────────────────────────
+#> ───────────────────────────────────────────────────
 #> Connection to:
 #> → folder
 #> • connector::connector_fs
-#> • /var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpEybqUr/file7be92f16369e
-#> ────────────────────────────────────────────────────────────────────────────────
+#> • /var/folders/kv/q2rqqp3s0s5f9rxn_854l2lm0000gp/T//RtmpMlcjzV/file151272fbf7ccb
+#> [1] "ConnectorFS" "Connector"   "R6"
+#> ───────────────────────────────────────────────────
 #> Connection to:
 #> → database
 #> • connector::connector_dbi
@@ -120,7 +129,6 @@ print(db$database)
 #> • `remove_cnt.ConnectorDBI()`
 #> • `tbl_cnt.ConnectorDBI()`
 #> • `write_cnt.ConnectorDBI()`
-#> • `check_resource.Connector()`
 #> Specifications:
 #> • conn: <SQLiteConnection>
 ```
@@ -150,7 +158,6 @@ db$folder |>
 # And we can read it back in
 db$folder |>
   read_cnt(name = "cars.parquet")
-#> → Found one file: '/var/folders/fx/71by3f551qzb5wkxt82cv15m0000gp/T//RtmpEybqUr/file7be92f16369e/cars.parquet'
 #> # A tibble: 32 × 12
 #>    car           mpg   cyl  disp    hp  drat    wt  qsec    vs    am  gear  carb
 #>    <chr>       <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl> <dbl>
