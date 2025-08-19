@@ -87,8 +87,7 @@ cnt |>
 
 # Write different file types to a file storage
 
-folder <- withr::local_tempdir("test")
-dir.create(folder)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 
 cnt <- connector_fs(folder)
 

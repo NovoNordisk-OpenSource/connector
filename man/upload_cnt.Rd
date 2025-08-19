@@ -64,8 +64,8 @@ Generic implementing of how to upload files to a connector:
 
 writeLines("this is an example", "example.txt")
 
-folder <- withr::local_tempdir("test")
-dir.create(folder)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
+
 cnt <- connector_fs(folder)
 
 cnt |>
@@ -83,8 +83,8 @@ cnt |>
 file.remove("example.txt")
 
 # Add logging to a file system connector for uploads
-folder <- withr::local_tempdir("test")
-dir.create(folder)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
+
 cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 
 # Create a temporary file

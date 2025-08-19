@@ -63,7 +63,7 @@ Each specification of a single \link{connectors}  have to have the following str
 }
 \examples{
 
-withr::local_dir(withr::local_tempdir("test"))
+withr::local_dir(withr::local_tempdir("test", .local_envir = .GlobalEnv))
 # Create dir for the example in tmpdir
 dir.create("example/demo_trial/adam", recursive = TRUE)
 

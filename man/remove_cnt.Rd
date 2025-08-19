@@ -55,8 +55,8 @@ cnt |>
 
 # Remove a file from the file storage
 
-folder <- withr::local_tempdir("test")
-dir.create(folder)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
+
 cnt <- connector_fs(folder)
 
 cnt |>
@@ -74,8 +74,8 @@ cnt |>
   list_content_cnt(pattern = "example.txt")
 
 # Add logging to a connector and remove content
-folder <- withr::local_tempdir("test")
-dir.create(folder)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
+
 cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 
 cnt$data |>

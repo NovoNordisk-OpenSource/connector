@@ -40,8 +40,8 @@ to the desired \code{file}.
 \examples{
 # Download file from a file storage
 
-folder <- withr::local_tempdir("test")
-dir.create(folder)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
+
 cnt <- connector_fs(folder)
 
 cnt |>
@@ -59,8 +59,8 @@ cnt |>
   remove_cnt("example.txt")
 
 # Add logging to a file system connector for downloads
-folder <- withr::local_tempdir("test")
-dir.create(folder)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
+
 cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 
 cnt$data |>

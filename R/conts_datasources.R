@@ -43,8 +43,8 @@ connectors_to_datasources <- function(data) {
 #'   connect function
 #'
 #' @examples
-#' folder <- withr::local_tempdir("test")
-#' dir.create(folder)
+#' folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
+#'
 #' cnt <- connectors(fs = connector_fs(folder))
 #'
 #' # Extract the datasources to a config file
