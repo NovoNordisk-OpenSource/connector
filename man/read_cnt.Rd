@@ -64,7 +64,7 @@ cnt |>
 
 # Write and read a CSV file using the file storage connector
 
-folder <- withr::local_tempdir("test", clean = FALSE)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 
 cnt <- connector_fs(folder)
 
@@ -76,7 +76,7 @@ cnt |>
   head()
 
 # Add logging to a file system connector
-folder <- withr::local_tempdir("test", clean = FALSE)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 
 cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 

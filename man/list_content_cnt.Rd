@@ -47,7 +47,7 @@ cnt |>
   list_content_cnt()
 
 # List content in a file storage
-folder <- withr::local_tempdir("test", clean = FALSE)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 
 cnt <- connector_fs(folder)
 
@@ -64,7 +64,7 @@ cnt |>
   list_content_cnt(pattern = "\\\\.csv$")
 
 # Add logging to a connector and list contents
-folder <- withr::local_tempdir("test", clean = FALSE)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 
 cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 

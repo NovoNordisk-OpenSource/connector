@@ -30,7 +30,7 @@ Mostly relevant for file storage connectors.
 \examples{
 # Remove a directory from a file storage
 
-folder <- withr::local_tempdir("test", clean = FALSE)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 
 cnt <- connector_fs(folder)
 

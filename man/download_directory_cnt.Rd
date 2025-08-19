@@ -32,7 +32,7 @@ Mostly relevant for file storage connectors.
 \examples{
 
 # Download a directory to a file storage
-folder <- withr::local_tempdir("test", clean = FALSE)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 
 cnt <- connector_fs(folder)
 # Create a source directory

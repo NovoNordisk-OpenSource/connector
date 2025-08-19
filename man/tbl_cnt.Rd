@@ -62,7 +62,7 @@ iris_cnt |>
 
 # Use dplyr verbs on a table
 
-folder <- withr::local_tempdir("test", clean = FALSE)
+folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 
 cnt <- connector_fs(folder)
 

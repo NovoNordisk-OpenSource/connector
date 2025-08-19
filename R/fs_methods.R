@@ -11,7 +11,7 @@
 #' @examples
 #' # Write and read a CSV file using the file storage connector
 #'
-#' folder <- withr::local_tempdir("test", clean = FALSE)
+#' folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 #'
 #' cnt <- connector_fs(folder)
 #'
@@ -42,7 +42,7 @@ read_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #' @examples
 #' # Write different file types to a file storage
 #'
-#' folder <- withr::local_tempdir("test", clean = FALSE)
+#' folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 #'
 #' cnt <- connector_fs(folder)
 #'
@@ -95,7 +95,7 @@ write_cnt.ConnectorFS <- function(
 #'
 #' @examples
 #' # List content in a file storage
-#' folder <- withr::local_tempdir("test", clean = FALSE)
+#' folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 #'
 #' cnt <- connector_fs(folder)
 #'
@@ -124,7 +124,7 @@ list_content_cnt.ConnectorFS <- function(connector_object, ...) {
 #' @examples
 #' # Remove a file from the file storage
 #'
-#' folder <- withr::local_tempdir("test", clean = FALSE)
+#' folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 #'
 #' cnt <- connector_fs(folder)
 #'
@@ -165,7 +165,7 @@ remove_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #' @examples
 #' # Download file from a file storage
 #'
-#' folder <- withr::local_tempdir("test", clean = FALSE)
+#' folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 #'
 #' cnt <- connector_fs(folder)
 #'
@@ -208,7 +208,7 @@ download_cnt.ConnectorFS <- function(
 #'
 #' writeLines("this is an example", "example.txt")
 #'
-#' folder <- withr::local_tempdir("test", clean = FALSE)
+#' folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 #'
 #' cnt <- connector_fs(folder)
 #'
@@ -249,7 +249,7 @@ upload_cnt.ConnectorFS <- function(
 #' @examples
 #' # Create a directory in a file storage
 #'
-#' folder <- withr::local_tempdir("test", clean = FALSE)
+#' folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 #'
 #' cnt <- connector_fs(folder)
 #'
@@ -299,7 +299,7 @@ create_directory_cnt.ConnectorFS <- function(
 #' @examples
 #' # Remove a directory from a file storage
 #'
-#' folder <- withr::local_tempdir("test", clean = FALSE)
+#' folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 #'
 #' cnt <- connector_fs(folder)
 #'
@@ -335,7 +335,7 @@ remove_directory_cnt.ConnectorFS <- function(connector_object, name, ...) {
 #' @examples
 #'
 #' # Upload a directory to a file storage
-#' folder <- withr::local_tempdir("test", clean = FALSE)
+#' folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 #'
 #' cnt <- connector_fs(folder)
 #' # Create a source directory
@@ -387,7 +387,7 @@ upload_directory_cnt.ConnectorFS <- function(
 #' @examples
 #'
 #' # Download a directory to a file storage
-#' folder <- withr::local_tempdir("test", clean = FALSE)
+#' folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 #'
 #' cnt <- connector_fs(folder)
 #' # Create a source directory
@@ -425,7 +425,7 @@ download_directory_cnt.ConnectorFS <- function(
 #' @examples
 #' # Use dplyr verbs on a table
 #'
-#' folder <- withr::local_tempdir("test", clean = FALSE)
+#' folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 #'
 #' cnt <- connector_fs(folder)
 #'

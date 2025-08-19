@@ -43,7 +43,7 @@ connectors_to_datasources <- function(data) {
 #'   connect function
 #'
 #' @examples
-#' folder <- withr::local_tempdir("test", clean = FALSE)
+#' folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 #'
 #' cnt <- connectors(fs = connector_fs(folder))
 #'
