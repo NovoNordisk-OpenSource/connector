@@ -1,4 +1,5 @@
 test_that("Testing use_template", {
+  testthat::skip_on_cran()
   withr::with_tempdir(pattern = "test_use_template", {
     rlang::local_interactive(FALSE)
 
