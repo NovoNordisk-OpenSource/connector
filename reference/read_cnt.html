@@ -43,7 +43,7 @@ ConnectorLogger: Logs the read operation and calls the underlying connector meth
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.1.1.9005</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -158,7 +158,7 @@ it will use the default extension (configurable via
 <span class="r-in"><span><span class="va">cnt</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">read_cnt</span><span class="op">(</span><span class="st">"iris.csv"</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Found one file: <span style="color: #0000BB;">/tmp/RtmpU65LVi/test1fc6447e1f9b/iris.csv</span></span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Found one file: <span style="color: #0000BB;">/tmp/Rtmpp1dzyw/test1ebe3dc535a1/iris.csv</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Rows: </span><span style="color: #0000BB;">150</span> <span style="font-weight: bold;">Columns: </span><span style="color: #0000BB;">5</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="color: #00BBBB;">──</span> <span style="font-weight: bold;">Column specification</span> <span style="color: #00BBBB;">────────────────────────────────────────────────────────</span></span>
 <span class="r-msg co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Delimiter:</span> ","</span>
@@ -184,13 +184,13 @@ it will use the default extension (configurable via
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span><span class="op">$</span><span class="va">data</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="write_cnt.html">write_cnt</a></span><span class="op">(</span><span class="va">iris</span>, <span class="st">"iris.csv"</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-08-19 11:26:14","type":"write","file":"iris.csv @ /tmp/RtmpU65LVi/test1fc65eaa88fa"}</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-08-20 06:16:03","type":"write","file":"iris.csv @ /tmp/Rtmpp1dzyw/test1ebe477b5f4b"}</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="va">cnt</span><span class="op">$</span><span class="va">data</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu">read_cnt</span><span class="op">(</span><span class="st">"iris.csv"</span>, show_col_types <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="op">)</span></span></span>
-<span class="r-msg co"><span class="r-pr">#&gt;</span> → Found one file: <span style="color: #0000BB;">/tmp/RtmpU65LVi/test1fc65eaa88fa/iris.csv</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-08-19 11:26:14","type":"read","file":"iris.csv @ /tmp/RtmpU65LVi/test1fc65eaa88fa"}</span>
+<span class="r-msg co"><span class="r-pr">#&gt;</span> → Found one file: <span style="color: #0000BB;">/tmp/Rtmpp1dzyw/test1ebe477b5f4b/iris.csv</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> {"time":"2025-08-20 06:16:03","type":"read","file":"iris.csv @ /tmp/Rtmpp1dzyw/test1ebe477b5f4b"}</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #949494;"># A tibble: 6 × 5</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species</span>
 <span class="r-out co"><span class="r-pr">#&gt;</span>          <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>        <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>       <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;chr&gt;</span>  </span>
