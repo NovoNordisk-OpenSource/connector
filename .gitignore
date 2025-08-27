@@ -58,3 +58,4 @@ megalinter-reports/
 /.quarto/
 CRAN-SUBMISSION
 .claude/
+CLAUDE.md

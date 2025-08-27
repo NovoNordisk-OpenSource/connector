@@ -25,9 +25,17 @@ test_that("ConnectorLogger integration test with whirl", {
       whirl::run("_whirl.yml")
     )
 
-    expect_equal(
-      length(list.files(".")),
-      5
+    lapply(
+      c(
+        "_connector.yml",
+        "_whirl.yml",
+        "example_log.html",
+        "example.R",
+        "summary.html"
+      ),
+      function(file) {
+        expect_true(file.exists(file))
+      }
     )
   })
 
