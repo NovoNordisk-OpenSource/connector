@@ -1,24 +1,24 @@
 Package: connector
 Title: Streamlining Data Access in Clinical Research
-Version: 1.0.0
+Version: 1.0.0.9000
 Authors@R: c(
     person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
     person("Aksel", "Thomsen", , "oath@novonordisk.com", role = "aut"),
     person("Vladimir", "Obucina", , "vlob@novonordisk.com", role = "aut"),
     person("Novo Nordisk A/S", role = "cph")
   )
-Description: Provides a consistent interface for connecting R to various 
-    data sources including file systems and databases. 
-    Designed for clinical research, 'connector' streamlines access to 'ADAM', 
-    'SDTM' for example. It helps to deal with multiple data formats through a standardized API and centralized 
+Description: Provides a consistent interface for connecting R to various
+    data sources including file systems and databases.
+    Designed for clinical research, 'connector' streamlines access to 'ADAM',
+    'SDTM' for example. It helps to deal with multiple data formats through a standardized API and centralized
     configuration.
 License: Apache License (>= 2)
 URL: https://novonordisk-opensource.github.io/connector/,
     https://github.com/NovoNordisk-OpenSource/connector/
 BugReports: https://github.com/NovoNordisk-OpenSource/connector/issues
-Depends: 
+Depends:
     R (>= 4.1)
-Imports: 
+Imports:
     arrow,
     checkmate,
     cli,
@@ -52,7 +52,7 @@ Suggests:
     usethis,
     whirl (>= 0.2.0),
     withr
-VignetteBuilder: 
+VignetteBuilder:
     knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
