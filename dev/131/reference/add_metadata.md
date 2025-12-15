@@ -44,5 +44,5 @@ config <- config |>
     value = "new_value"
   )
 config
-#> [1] "/tmp/RtmpJLE7aX/file1f1b2c3cd08d.yml"
+#> [1] "/tmp/RtmplYQFR2/file1b0356b64c56.yml"
 ```

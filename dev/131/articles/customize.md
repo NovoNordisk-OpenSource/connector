@@ -108,7 +108,7 @@ print(my_project)
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/Rtmpggkqr3/file29c01ffc04b0/my_root_path/my_project
+#> • path: /tmp/Rtmpnfznjb/file25a81aa8c3ec/my_root_path/my_project
 #> • project: my_project
 ```
 
@@ -158,7 +158,7 @@ print(list_content_cnt)
 #> {
 #>     UseMethod("list_content_cnt")
 #> }
-#> <bytecode: 0x55606de20bb0>
+#> <bytecode: 0x55c3ee67d470>
 #> <environment: namespace:connector>
 
 # List the registered s3 methods
@@ -219,7 +219,7 @@ print(my_project)
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/Rtmpggkqr3/file29c01ffc04b0/my_root_path/my_project
+#> • path: /tmp/Rtmpnfznjb/file25a81aa8c3ec/my_root_path/my_project
 #> • project: my_project
 ```
 
@@ -276,7 +276,7 @@ print(my_project_extra)
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/Rtmpggkqr3/file29c01ffc04b0/my_root_path/my_project
+#> • path: /tmp/Rtmpnfznjb/file25a81aa8c3ec/my_root_path/my_project
 ```
 
 As you can see here we have all the methods from `ConnectorFS`, but the
@@ -326,12 +326,12 @@ print(my_project_extra)
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/Rtmpggkqr3/file29c01ffc04b0/my_root_path/my_project
+#> • path: /tmp/Rtmpnfznjb/file25a81aa8c3ec/my_root_path/my_project
 
 # List content to see the new message
 my_project_extra |>
   list_content_cnt()
-#> → Listing content of /tmp/Rtmpggkqr3/file29c01ffc04b0/my_root_path/my_project
+#> → Listing content of /tmp/Rtmpnfznjb/file25a81aa8c3ec/my_root_path/my_project
 #> [1] "my_file.txt"
 ```
 

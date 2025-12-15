@@ -48,7 +48,7 @@ cnts <- connect(config)
 #> Connection to:
 #> → adam
 #> • connector_fs
-#> • /tmp/RtmpJLE7aX
+#> • /tmp/RtmplYQFR2
 
 # Extract all metadata
 result <- extract_metadata(cnts)
