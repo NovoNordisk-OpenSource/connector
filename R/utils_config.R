@@ -28,9 +28,34 @@ add_metadata <- function(config_path, key, value) {
   checkmate::assert_string(key)
   checkmate::assert_string(value)
 
-  config <- read_file(config_path, eval.expr = TRUE)
-  config$metadata[[key]] <- value
-  write_file(x = config, file = config_path, overwrite = TRUE)
+  config <- readLines(config_path)
+
+  metadata_idx <- grep("^metadata:", config)
+
+  if (length(metadata_idx) == 0) {
+    config <- c("metadata:", paste0("  ", key, ": '", value, "'"), config)
+  } else {
+    datasources_idx <- grep("^datasources:", config)
+    env_idx <- grep("^env:", config)
+
+    last_metadata_line <- metadata_idx
+    for (i in seq(metadata_idx + 1, length(config))) {
+      if (grepl("^  [a-zA-Z_]", config[i])) {
+        last_metadata_line <- i
+      } else {
+        break
+      }
+    }
+
+    new_line <- paste0("  ", key, ": '", value, "'")
+    config <- c(
+      config[seq_len(last_metadata_line)],
+      new_line,
+      config[seq(last_metadata_line + 1, length(config))]
+    )
+  }
+
+  writeLines(text = config, con = config_path)
   return(invisible(config_path))
 }
 
@@ -66,9 +91,16 @@ remove_metadata <- function(config_path, key) {
   checkmate::assert_file_exists(config_path)
   checkmate::assert_string(key)
 
-  config <- read_file(config_path, eval.expr = TRUE)
-  config$metadata[[key]] <- NULL
-  write_file(x = config, file = config_path, overwrite = TRUE)
+  config <- readLines(config_path)
+
+  pattern <- paste0("^  ", key, ":")
+  line_to_remove <- grep(pattern, config)
+
+  if (length(line_to_remove) > 0) {
+    config <- config[-line_to_remove]
+  }
+
+  writeLines(text = config, con = config_path)
   return(invisible(config_path))
 }
 
@@ -155,13 +187,24 @@ add_datasource <- function(config_path, name, backend) {
   checkmate::assert_string(name)
   checkmate::assert_list(backend)
 
-  config <- read_file(config_path, eval.expr = TRUE)
-  new_datasource <- list(
-    name = name,
-    backend = backend
+  config <- readLines(config_path)
+
+  new_datasource_lines <- c(
+    paste0("  - name: \"", name, "\""),
+    "    backend:"
   )
-  config$datasources <- c(config$datasources, list(new_datasource))
-  write_file(x = config, file = config_path, overwrite = TRUE)
+
+  for (backend_key in names(backend)) {
+    backend_value <- backend[[backend_key]]
+    new_datasource_lines <- c(
+      new_datasource_lines,
+      paste0("        ", backend_key, ": \"", backend_value, "\"")
+    )
+  }
+
+  config <- c(config, new_datasource_lines)
+
+  writeLines(text = config, con = config_path)
   return(invisible(config_path))
 }
 
@@ -197,11 +240,29 @@ remove_datasource <- function(config_path, name) {
   checkmate::assert_file_exists(config_path)
   checkmate::assert_string(name)
 
-  config <- read_file(config_path, eval.expr = TRUE)
-  config$datasources <- config$datasources[
-    !(sapply(config$datasources, function(x) x$name) == name)
-  ]
-  write_file(x = config, file = config_path, overwrite = TRUE)
+  config <- readLines(config_path)
+
+  pattern <- paste0("^  - name: \"", name, "\"")
+  datasource_start <- grep(pattern, config)
+
+  if (length(datasource_start) > 0) {
+    datasource_idx <- datasource_start[1]
+
+    next_datasource <- grep("^  - name:", config)
+    next_datasource <- next_datasource[next_datasource > datasource_idx]
+
+    if (length(next_datasource) > 0) {
+      datasource_end <- next_datasource[1] - 1
+    } else {
+      datasource_end <- length(config)
+    }
+
+    lines_to_keep <- seq_along(config)
+    lines_to_remove <- datasource_idx:datasource_end
+    config <- config[!(lines_to_keep %in% lines_to_remove)]
+  }
+
+  writeLines(text = config, con = config_path)
   return(invisible(config_path))
 }
 
