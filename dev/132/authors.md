@@ -16,13 +16,13 @@ Source:
 [`DESCRIPTION`](https://github.com/NovoNordisk-OpenSource/connector/blob/fix/metadata/DESCRIPTION)
 
 Girard C, Thomsen A, Obucina V (2025). *connector: Streamlining Data
-Access in Clinical Research*. R package version 1.0.0.9000,
+Access in Clinical Research*. R package version 1.0.0,
 <https://novonordisk-opensource.github.io/connector/>.
 
     @Manual{,
       title = {connector: Streamlining Data Access in Clinical Research},
       author = {Cervan Girard and Aksel Thomsen and Vladimir Obucina},
       year = {2025},
-      note = {R package version 1.0.0.9000},
+      note = {R package version 1.0.0},
       url = {https://novonordisk-opensource.github.io/connector/},
     }

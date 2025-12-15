@@ -331,7 +331,7 @@ cnt
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/Rtmptz0BAX/test1ee712198baa
+#> • path: /tmp/RtmpjeBf7Q/test201b73c0fa43
 
 # You can do the same thing using wrapper function connector_fs()
 cnt <- connector_fs(folder)
@@ -355,7 +355,7 @@ cnt
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/Rtmptz0BAX/test1ee712198baa
+#> • path: /tmp/RtmpjeBf7Q/test201b73c0fa43
 
 # List content
 cnt$list_content_cnt()
@@ -371,7 +371,7 @@ cnt$list_content_cnt()
 # Read the result back
 cnt$read_cnt("iris.rds") |>
   head()
-#> → Found one file: /tmp/Rtmptz0BAX/test1ee712198baa/iris.rds
+#> → Found one file: /tmp/RtmpjeBf7Q/test201b73c0fa43/iris.rds
 #>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #> 1          5.1         3.5          1.4         0.2  setosa
 #> 2          4.9         3.0          1.4         0.2  setosa

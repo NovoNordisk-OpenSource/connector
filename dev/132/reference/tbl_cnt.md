@@ -121,7 +121,7 @@ cnt |>
 
 iris_cnt <- cnt |>
   tbl_cnt("iris.csv", show_col_types = FALSE)
-#> → Found one file: /tmp/Rtmptz0BAX/test1ee76884b148/iris.csv
+#> → Found one file: /tmp/RtmpjeBf7Q/test201b47b9a9bb/iris.csv
 
 iris_cnt
 #> # A tibble: 150 × 5

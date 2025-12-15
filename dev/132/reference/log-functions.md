@@ -162,12 +162,12 @@ logged_fs <- add_logs(connectors(data = connector_fs(path = tempdir())))
 
 # Write operation (automatically logged)
 write_cnt(logged_fs$data, mtcars, "cars.csv")
-#> {"time":"2025-12-15 18:48:17","type":"write","file":"cars.csv @ /tmp/Rtmptz0BAX"}
+#> {"time":"2025-12-15 19:07:00","type":"write","file":"cars.csv @ /tmp/RtmpjeBf7Q"}
 # Output: "cars.csv @ /tmp/RtmpXXX"
 
 #' # Read operation (automatically logged)
 data <- read_cnt(logged_fs$data, "cars.csv")
-#> → Found one file: /tmp/Rtmptz0BAX/cars.csv
+#> → Found one file: /tmp/RtmpjeBf7Q/cars.csv
 #> Rows: 32 Columns: 11
 #> ── Column specification ────────────────────────────────────────────────────────
 #> Delimiter: ","
@@ -175,7 +175,7 @@ data <- read_cnt(logged_fs$data, "cars.csv")
 #> 
 #> ℹ Use `spec()` to retrieve the full column specification for this data.
 #> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-#> {"time":"2025-12-15 18:48:17","type":"read","file":"cars.csv @ /tmp/Rtmptz0BAX"}
+#> {"time":"2025-12-15 19:07:00","type":"read","file":"cars.csv @ /tmp/RtmpjeBf7Q"}
 # Output: "dataset.csv @ /tmp/RtmpXXX"
 
 # Database connector example
@@ -183,6 +183,6 @@ logged_db <- add_logs(connectors(db = connector_dbi(RSQLite::SQLite(), ":memory:
 
 # Operations are logged with database context
 write_cnt(logged_db$db, iris, "iris_table")
-#> {"time":"2025-12-15 18:48:17","type":"write","file":"iris_table @ driver: SQLiteConnection, dbname: :memory:"}
+#> {"time":"2025-12-15 19:07:00","type":"write","file":"iris_table @ driver: SQLiteConnection, dbname: :memory:"}
 # Output: "iris_table @ driver: SQLiteDriver, dbname: :memory:"
 ```
