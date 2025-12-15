@@ -98,7 +98,7 @@ test_that("ConnectorLogger list_content method works with real FS connector", {
 
 test_that("ConnectorLogger upload and download methods work with real FS connector", {
   temp_dir <- withr::local_tempdir("connector_logger_test")
-  dir.create(temp_dir)
+
   setup <- create_logged_fs_connector(temp_dir)
 
   test_file <- file.path(setup$temp_dir, "upload_test.txt")

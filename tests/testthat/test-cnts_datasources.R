@@ -17,7 +17,7 @@ test_that("write_datasources works correctly", {
     ~ expect_no_error(write_datasources(test_connectors, .x))
   )
   # Test file content
-  original_sources <- datasources(test_connectors)
+  original_sources <- list_datasources(test_connectors)
   written_sources <- read_file(temp_files["yml"])
   written_sources <- as_datasources(written_sources)
   expect_equal(original_sources, written_sources)

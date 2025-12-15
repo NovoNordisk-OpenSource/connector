@@ -1,9 +1,8 @@
 test_that("ConnectorLogger integration test with whirl", {
   testthat::skip_on_cran()
 
-  dir_tmp <- tempdir()
-  dir.create(path = file.path(dir_tmp, "connector_whirl"))
-  dir_ <- file.path(dir_tmp, "connector_whirl")
+  dir_ <- withr::local_tempdir("connector_logger_test")
+
   # copy files for test
   file.copy(
     file.path(test_path("scripts"), "example.R"),
@@ -30,7 +29,4 @@ test_that("ConnectorLogger integration test with whirl", {
       5
     )
   })
-
-  # Clean folder
-  unlink(dir_, recursive = TRUE, force = TRUE)
 })
