@@ -3,7 +3,6 @@ test_that("ConnectorLogger integration test with whirl", {
 
   dir_ <- withr::local_tempdir("connector_logger_test")
 
-  # copy files for test
   file.copy(
     file.path(test_path("scripts"), "example.R"),
     file.path(dir_, "example.R")
@@ -19,14 +18,23 @@ test_that("ConnectorLogger integration test with whirl", {
     file.path(dir_, "_connector.yml")
   )
 
-  withr::with_dir(dir_, {
-    expect_no_error(
-      whirl::run("_whirl.yml")
-    )
+  res <- withr::with_dir(
+    new = dir_,
+    code = {
+      whirl::run(
+        input = "_whirl.yml",
+        check_renv = FALSE
+      )
+    }
+  ) |>
+    expect_no_error()
 
-    expect_equal(
-      length(list.files(".")),
-      5
-    )
-  })
+  list.files(dir_) |>
+    expect_contains(c("summary.html", "example_log.html"))
+
+  res$result[[1]]$files |>
+    expect_type("list") |>
+    expect_length(3) |>
+    names() |>
+    expect_contains(c("read", "write", "delete"))
 })
