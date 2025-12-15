@@ -1,16 +1,33 @@
 #' Find File
 #'
+#' Finds files in the following order:
+#'
+#' 1. The file is fully specified and exists (no message)
+#' 2. Only one file is found with that name (with message)
+#' 3. A file with the default extension exists (with message)
+#'
 #' @param name Name of a file
 #' @param root Path to the root folder
-#'
 #' @return A full name path to the file or a error if multiples files or 0.
 #' @noRd
 find_file <- function(name, root) {
+  file <- file.path(root, name)
+
+  if (file.exists(file)) {
+    return(file)
+  }
+
   files <- list.files(
     path = root,
-    pattern = paste0("^", name, "(\\.|$)"),
+    pattern = paste0("^", name, "(\\.[[:alnum:]]+|)$"),
     full.names = TRUE
   )
+
+  if (!length(files)) {
+    cli::cli_abort(
+      "No file found with name: {.field {name}}"
+    )
+  }
 
   if (length(files) == 1) {
     zephyr::msg(
@@ -20,13 +37,13 @@ find_file <- function(name, root) {
   }
 
   ext <- zephyr::get_option("default_ext", "connector")
-  files <- files[tools::file_ext(files) == ext]
+  file_ext <- files[tools::file_ext(files) == ext]
 
-  if (length(files) == 1) {
+  if (length(file_ext) == 1) {
     zephyr::msg(
-      "Found one file with default ({.field {ext}}) extension: {.file {files}}"
+      "Found one file with default ({.field {ext}}) extension: {.file {file_ext}}"
     )
-    return(files)
+    return(file_ext)
   }
 
   cli::cli_abort(
