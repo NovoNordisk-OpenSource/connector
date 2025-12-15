@@ -162,7 +162,7 @@ logged_fs <- add_logs(connectors(data = connector_fs(path = tempdir())))
 
 # Write operation (automatically logged)
 write_cnt(logged_fs$data, mtcars, "cars.csv")
-#> {"time":"2025-12-15 12:35:57","type":"write","file":"cars.csv @ /tmp/Rtmpvys6NC"}
+#> {"time":"2025-12-15 12:51:11","type":"write","file":"cars.csv @ /tmp/RtmpagAbWU"}
 # Output: "cars.csv @ /tmp/RtmpXXX"
 
 #' # Read operation (automatically logged)
@@ -174,7 +174,7 @@ data <- read_cnt(logged_fs$data, "cars.csv")
 #> 
 #> ℹ Use `spec()` to retrieve the full column specification for this data.
 #> ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-#> {"time":"2025-12-15 12:35:57","type":"read","file":"cars.csv @ /tmp/Rtmpvys6NC"}
+#> {"time":"2025-12-15 12:51:11","type":"read","file":"cars.csv @ /tmp/RtmpagAbWU"}
 # Output: "dataset.csv @ /tmp/RtmpXXX"
 
 # Database connector example
@@ -182,6 +182,6 @@ logged_db <- add_logs(connectors(db = connector_dbi(RSQLite::SQLite(), ":memory:
 
 # Operations are logged with database context
 write_cnt(logged_db$db, iris, "iris_table")
-#> {"time":"2025-12-15 12:35:57","type":"write","file":"iris_table @ driver: SQLiteConnection, dbname: :memory:"}
+#> {"time":"2025-12-15 12:51:11","type":"write","file":"iris_table @ driver: SQLiteConnection, dbname: :memory:"}
 # Output: "iris_table @ driver: SQLiteDriver, dbname: :memory:"
 ```
