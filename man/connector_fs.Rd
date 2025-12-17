@@ -4,12 +4,14 @@
 \alias{connector_fs}
 \title{Create \code{fs} connector}
 \usage{
-connector_fs(path, extra_class = NULL)
+connector_fs(path, extra_class = NULL, metadata = NULL)
 }
 \arguments{
 \item{path}{\link{character} Path to the file storage.}
 
 \item{extra_class}{\link{character} Extra class to assign to the new connector.}
+
+\item{metadata}{\link{list} Optional metadata to attach to the connector object}
 }
 \value{
 A new \link{ConnectorFS} object
@@ -23,6 +25,9 @@ The \code{extra_class} parameter allows you to create a subclass of the
 \code{ConnectorFS} object. This can be useful if you want to create
 a custom connection object for easier dispatch of new s3 methods, while still
 inheriting the methods from the \code{ConnectorFS} object.
+
+The \code{metadata} parameter allows you to attach additional information. By default,
+it is stored as an attribute named "metadata" on the connector object.
 }
 \examples{
 # Create FS connector
@@ -36,5 +41,11 @@ cnt_subclass <- connector_fs(
 )
 cnt_subclass
 class(cnt_subclass)
+
+# Attach metadata
+cnt_with_metadata <- connector_fs(
+path = tempdir(),
+metadata = list(owner = "user1", purpose = "testing")
+)
 
 }
