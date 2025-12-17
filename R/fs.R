@@ -146,8 +146,13 @@ ConnectorFS <- R6::R6Class(
     #' @param name [character] The name of the directory to create
     #' @return [ConnectorFS] object of a newly created directory
     create_directory_cnt = function(name, ...) {
-      self |>
+
+      # This creates a new directory and returns a connector
+      child_cnt <- self |>
         create_directory_cnt(name, ...)
+
+      # Since a new connector has been made we propagate metadata to child
+      propagate_metadata(parent_cnt = self, child_cnt = child_cnt)
     },
 
     #' @description
