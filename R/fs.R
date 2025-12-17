@@ -6,6 +6,7 @@
 #'
 #' @param path [character] Path to the file storage.
 #' @param extra_class `r rd_connector_utils("extra_class")`
+#' @param metadata [list] Optional metadata to attach to the connector object
 #'
 #' @return A new [ConnectorFS] object
 #'
@@ -14,6 +15,9 @@
 #' `ConnectorFS` object. This can be useful if you want to create
 #' a custom connection object for easier dispatch of new s3 methods, while still
 #' inheriting the methods from the `ConnectorFS` object.
+#'
+#' The `metadata` parameter allows you to attach additional information. By default,
+#' it is stored as an attribute named "metadata" on the connector object.
 #'
 #' @examples
 #' # Create FS connector
@@ -28,12 +32,30 @@
 #' cnt_subclass
 #' class(cnt_subclass)
 #'
+#' # Attach metadata
+#' cnt_with_metadata <- connector_fs(
+#' path = tempdir(),
+#' metadata = list(owner = "user1", purpose = "testing")
+#' )
+#'
 #' @export
-connector_fs <- function(path, extra_class = NULL) {
-  ConnectorFS$new(
+connector_fs <- function(path, extra_class = NULL, metadata = NULL) {
+
+  # Validate metadata input
+  checkmate::assert_list(metadata, names = "unique", null.ok = TRUE)
+
+  # Create the connector object
+  cnt <- ConnectorFS$new(
     path = path,
     extra_class = extra_class
   )
+
+  # Attach metadata as attribute as done on "connectors" object (if provided)
+  if (!is.null(metadata)) {
+    attr(cnt, "metadata") <- metadata
+  }
+
+  cnt
 }
 
 
@@ -176,6 +198,15 @@ ConnectorFS <- R6::R6Class(
         private$.path
       } else {
         stop("Can't set `$path` field", call. = FALSE)
+      }
+    },
+
+    #' @field metadata [list] metadata associated with the connector
+    metadata = function(value) {
+      if (missing(value)) {
+        attr(self, "metadata", exact = TRUE)
+      } else {
+        stop("Can't set `$metadata` field", call. = FALSE)
       }
     }
   ),
