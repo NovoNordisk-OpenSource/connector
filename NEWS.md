@@ -1,3 +1,8 @@
+# connector dev
+
+## Enhancement
+* Fix issues with adding/removing metadata/datasource fields from config(#130)
+
 # connector 1.0.0
 
 ## Breaking Changes
@@ -29,7 +34,7 @@
 
 ## Enhancements
 * Added pkgdown url to Description
-* Added codecov in the workflow and badge 
+* Added codecov in the workflow and badge
 * Used an invisible return of the path for yaml manipulation functions
 
 ## Other
