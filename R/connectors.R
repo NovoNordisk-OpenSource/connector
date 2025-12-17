@@ -46,8 +46,18 @@ connectors <- function(...) {
 
   checkmate::assert_list(x = x, names = "named")
 
+  # Create connectors object
+  connectors_obj <- x[!(names(x) %in% c("datasources", ".md"))]
+
+  # If we have metadata, we propagate it to each individual connector
+  if (length(md_) > 0) {
+    for (name in names(connectors_obj)) {
+      attr(connectors_obj[[name]], "metadata") <- md_
+    }
+  }
+
   structure(
-    x[!(names(x) %in% c("datasources", ".md"))],
+    connectors_obj,
     class = c("connectors"),
     datasources = datasources,
     metadata = md_

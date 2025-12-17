@@ -47,6 +47,8 @@ cnt$read_cnt("iris.rds") |>
 \if{html}{\out{<div class="r6-active-bindings">}}
 \describe{
 \item{\code{path}}{\link{character} Path to the file storage}
+
+\item{\code{metadata}}{\link{list} metadata associated with the connector}
 }
 \if{html}{\out{</div>}}
 }
