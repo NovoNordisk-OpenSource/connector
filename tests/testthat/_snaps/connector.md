@@ -3,7 +3,7 @@
     Code
       connector_obj
     Message
-      <connectors>
+      <connector::connectors/list/S7_object>
         $test <ConnectorFS>
 
 # Test connector creation [plain]
@@ -122,21 +122,11 @@
        [5] ""                                                                                
        [6] "* Backend Type: \"NA; R object instead of a call.\""                             
        [7] ""                                                                                
-       [8] "-- test_2 --"                                                                    
+       [8] "-- Datasources -----------------------------------------------------------------"
        [9] ""                                                                                
-      [10] "* Backend Type: \"base::as.data.frame\""                                         
-      [11] "* x: \"iris\""                                                                   
-      [12] ""                                                                                
-      [13] "-- Datasources -----------------------------------------------------------------"
-      [14] ""                                                                                
-      [15] "-- test --"                                                                      
-      [16] ""                                                                                
-      [17] "* Backend Type: \"NA; R object instead of a call.\""                             
-      [18] ""                                                                                
-      [19] "-- test_2 --"                                                                    
-      [20] ""                                                                                
-      [21] "* Backend Type: \"base::as.data.frame\""                                         
-      [22] "* x: \"iris\""                                                                   
+      [10] "-- test --"                                                                      
+      [11] ""                                                                                
+      [12] "* Backend Type: \"NA; R object instead of a call.\""                             
 
 # can create Connector object [ansi]
 
@@ -150,21 +140,11 @@
        [5] ""                                                                                                                               
        [6] "* Backend Type: \033[34m\"NA; R object instead of a call.\"\033[39m"                                                            
        [7] ""                                                                                                                               
-       [8] "-- \033[1m\033[1mtest_2\033[1m\033[22m --"                                                                                      
+       [8] "\033[36m--\033[39m \033[1mDatasources\033[22m \033[36m-----------------------------------------------------------------\033[39m"
        [9] ""                                                                                                                               
-      [10] "* Backend Type: \033[34m\"base::as.data.frame\"\033[39m"                                                                        
-      [11] "* x: \033[34m\"iris\"\033[39m"                                                                                                  
-      [12] ""                                                                                                                               
-      [13] "\033[36m--\033[39m \033[1mDatasources\033[22m \033[36m-----------------------------------------------------------------\033[39m"
-      [14] ""                                                                                                                               
-      [15] "-- \033[1m\033[1mtest\033[1m\033[22m --"                                                                                        
-      [16] ""                                                                                                                               
-      [17] "* Backend Type: \033[34m\"NA; R object instead of a call.\"\033[39m"                                                            
-      [18] ""                                                                                                                               
-      [19] "-- \033[1m\033[1mtest_2\033[1m\033[22m --"                                                                                      
-      [20] ""                                                                                                                               
-      [21] "* Backend Type: \033[34m\"base::as.data.frame\"\033[39m"                                                                        
-      [22] "* x: \033[34m\"iris\"\033[39m"                                                                                                  
+      [10] "-- \033[1m\033[1mtest\033[1m\033[22m --"                                                                                        
+      [11] ""                                                                                                                               
+      [12] "* Backend Type: \033[34m\"NA; R object instead of a call.\"\033[39m"                                                            
 
 # can create Connector object [unicode]
 
@@ -178,21 +158,11 @@
        [5] ""                                                                                
        [6] "• Backend Type: \"NA; R object instead of a call.\""                             
        [7] ""                                                                                
-       [8] "── test_2 ──"                                                                    
+       [8] "── Datasources ─────────────────────────────────────────────────────────────────"
        [9] ""                                                                                
-      [10] "• Backend Type: \"base::as.data.frame\""                                         
-      [11] "• x: \"iris\""                                                                   
-      [12] ""                                                                                
-      [13] "── Datasources ─────────────────────────────────────────────────────────────────"
-      [14] ""                                                                                
-      [15] "── test ──"                                                                      
-      [16] ""                                                                                
-      [17] "• Backend Type: \"NA; R object instead of a call.\""                             
-      [18] ""                                                                                
-      [19] "── test_2 ──"                                                                    
-      [20] ""                                                                                
-      [21] "• Backend Type: \"base::as.data.frame\""                                         
-      [22] "• x: \"iris\""                                                                   
+      [10] "── test ──"                                                                      
+      [11] ""                                                                                
+      [12] "• Backend Type: \"NA; R object instead of a call.\""                             
 
 # can create Connector object [fancy]
 
@@ -206,19 +176,9 @@
        [5] ""                                                                                                                               
        [6] "• Backend Type: \033[34m\"NA; R object instead of a call.\"\033[39m"                                                            
        [7] ""                                                                                                                               
-       [8] "── \033[1m\033[1mtest_2\033[1m\033[22m ──"                                                                                      
+       [8] "\033[36m──\033[39m \033[1mDatasources\033[22m \033[36m─────────────────────────────────────────────────────────────────\033[39m"
        [9] ""                                                                                                                               
-      [10] "• Backend Type: \033[34m\"base::as.data.frame\"\033[39m"                                                                        
-      [11] "• x: \033[34m\"iris\"\033[39m"                                                                                                  
-      [12] ""                                                                                                                               
-      [13] "\033[36m──\033[39m \033[1mDatasources\033[22m \033[36m─────────────────────────────────────────────────────────────────\033[39m"
-      [14] ""                                                                                                                               
-      [15] "── \033[1m\033[1mtest\033[1m\033[22m ──"                                                                                        
-      [16] ""                                                                                                                               
-      [17] "• Backend Type: \033[34m\"NA; R object instead of a call.\"\033[39m"                                                            
-      [18] ""                                                                                                                               
-      [19] "── \033[1m\033[1mtest_2\033[1m\033[22m ──"                                                                                      
-      [20] ""                                                                                                                               
-      [21] "• Backend Type: \033[34m\"base::as.data.frame\"\033[39m"                                                                        
-      [22] "• x: \033[34m\"iris\"\033[39m"                                                                                                  
+      [10] "── \033[1m\033[1mtest\033[1m\033[22m ──"                                                                                        
+      [11] ""                                                                                                                               
+      [12] "• Backend Type: \033[34m\"NA; R object instead of a call.\"\033[39m"                                                            
 

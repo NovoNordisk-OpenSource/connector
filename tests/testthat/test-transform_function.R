@@ -41,11 +41,12 @@ test_that("transform_as_datasources works correctly", {
   backend2 <- transform_as_backend(mock_info2, "logistic_model")
 
   # Test
-  result <- transform_as_datasources(list(backend1, backend2))
+  result <- datasources(list(backend1, backend2))
 
   expect_type(result, "list")
-  expect_named(result, "datasources")
-  expect_length(result$datasources, 2)
-  expect_equal(result$datasources[[1]]$name, "linear_model")
-  expect_equal(result$datasources[[2]]$name, "logistic_model")
+  expect_s3_class(result, "connector::datasources")
+  expect_null(names(result))
+  expect_length(result, 2)
+  expect_equal(result[[1]]$name, "linear_model")
+  expect_equal(result[[2]]$name, "logistic_model")
 })

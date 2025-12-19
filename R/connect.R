@@ -104,7 +104,7 @@ connect <- function(
   if (is.null(names(config))) {
     names(config) <- purrr::map(config, "name")
     cnts <- config |>
-      purrr::map(\(x) connect(x, metadata, datasource, set_env))
+      purrr::map(\(x) connect(x, metadata, datasource, set_env, logging))
 
     return(do.call(nested_connectors, cnts))
   }
@@ -147,7 +147,7 @@ connect_from_config <- function(config) {
     config$datasources[[i]]$name <- config$datasources[[i]]$name[[1]]
   }
 
-  connections$datasources <- datasources(config["datasources"])
+  connections$.datasources <- datasources(config[["datasources"]])
 
   # Add metadata to the connections object
   if (!is.null(config$metadata)) {

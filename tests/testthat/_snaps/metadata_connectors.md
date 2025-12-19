@@ -3,7 +3,7 @@
     Code
       cnts
     Message
-      <connectors>
+      <connector::connectors/list/S7_object>
         $test <test2>
         
         Metadata:
@@ -14,7 +14,7 @@
     Code
       cnts
     Message
-      [34m<connectors>[39m
+      [34m<connector::connectors/list/S7_object>[39m
         $test [34m<test2>[39m
         
         Metadata:
@@ -25,7 +25,7 @@
     Code
       cnts
     Message
-      <connectors>
+      <connector::connectors/list/S7_object>
         $test <test2>
         
         Metadata:
@@ -36,7 +36,7 @@
     Code
       cnts
     Message
-      [34m<connectors>[39m
+      [34m<connector::connectors/list/S7_object>[39m
         $test [34m<test2>[39m
         
         Metadata:

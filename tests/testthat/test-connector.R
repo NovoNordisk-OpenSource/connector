@@ -6,7 +6,7 @@ test_that("can create Connector object", {
       test = ConnectorFS$new(path = ".")
     )
 
-    expect_s3_class(connector_obj, "connectors")
+    expect_s3_class(connector_obj, "connector::connectors")
 
     expect_snapshot(connector_obj)
 
@@ -46,8 +46,7 @@ cli::test_that_cli("can create Connector object", {
     test <- ConnectorFS$new(path = ".")
 
     connector_obj <- connectors(
-      test = test,
-      test_2 = base::as.data.frame(x = iris)
+      test = test
     )
 
     expect_snapshot_out(print(list_datasources(connector_obj)))
