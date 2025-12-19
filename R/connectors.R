@@ -24,39 +24,109 @@
 #'
 #' cnts$adam
 #'
-#' @export
-connectors <- function(...) {
-  x <- rlang::list2(...)
-  ds_ <- x[["datasources"]]
+#' @name connectors
+NULL
 
-  md_ <- if (is.null(x[[".md"]])) list() else x[[".md"]]
-
-  if (!is.null(ds_) && !inherits(ds_, "cnts_datasources")) {
-    cli::cli_abort(
-      "'datasources' is a reserved name. It cannot be used as a name for a data source."
-    )
-  }
-
-  if (is.null(ds_)) {
+#' @noRd
+construct_connectors <- function(
+  ...,
+  .metadata = list(),
+  .datasources = NULL
+) {
+  if (is.null(.datasources)) {
     cnts <- substitute(rlang::list2(...))
-    datasources <- connectors_to_datasources(cnts)
-  } else {
-    datasources <- ds_
+    .datasources <- connectors_to_datasources(cnts)
   }
 
-  checkmate::assert_list(x = x, names = "named")
-
-  structure(
-    x[!(names(x) %in% c("datasources", ".md"))],
-    class = c("connectors"),
-    datasources = datasources,
-    metadata = md_
+  S7::new_object(
+    .parent = list(...),
+    metadata = .metadata,
+    datasources = .datasources
   )
 }
 
+#' @noRd
+validate_named <- function(x) {
+  if (!rlang::is_named2(x)) {
+    return("All elements must be named")
+  }
+}
+
+#' @noRd
+validate_unnamed <- function(x) {
+  if (any(rlang::have_name(x))) {
+    return("All elements must be not be named")
+  }
+}
+
+#' @noRd
+validate_connectors <- function(x) {
+  if (!length(x)) {
+    return("At least one Connector must be supplied")
+  }
+
+  if (
+    !all(
+      vapply(
+        X = x,
+        FUN = \(x) is_connector(x),
+        FUN.VALUE = logical(1)
+      )
+    )
+  ) {
+    return("All elements must be a Connector object")
+  }
+
+  validate_named(x)
+}
+
+#' @noRd
+prop_metadata <- S7::new_property(
+  class = S7::class_list,
+  getter = \(self) self@metadata,
+  validator = \(value) validate_named(value)
+)
+
+#' @noRd
+datasources <- S7::new_class(
+  name = "datasources",
+  parent = S7::class_list,
+  validator = \(self) validate_unnamed(self)
+)
+
+#' @noRd
+prop_datasources <- S7::new_property(
+  class = datasources,
+  getter = \(self) self@datasources
+)
+
+#' @rdname connectors
 #' @export
-print.connectors <- function(x, ...) {
+connectors <- S7::new_class(
+  name = "connectors",
+  parent = S7::class_list,
+  properties = list(
+    metadata = prop_metadata,
+    datasources = prop_datasources
+  ),
+  constructor = construct_connectors,
+  validator = \(self) validate_connectors(self)
+)
+
+#' @noRd
+S7::method(print, connectors) <- function(x, ...) {
   print_connectors(x, ...)
+}
+
+#' @noRd
+S7::method(print, datasources) <- function(x, ...) {
+  print_datasources(x, ...)
+}
+
+#' @noRd
+is_connectors <- function(x) {
+  S7::S7_inherits(x, connectors) |
+    S7::S7_inherits(x, nested_connectors)
 }
 
 #' @noRd
@@ -95,11 +165,11 @@ print_connectors <- function(x, ...) {
   return(invisible(x))
 }
 
-#' @export
-print.cnts_datasources <- function(x, ...) {
+#' @noRd
+print_datasources <- function(x, ...) {
   cli::cli_h1("Datasources")
 
-  for (ds in x[["datasources"]]) {
+  for (ds in x) {
     cli::cli_h2(ds$name)
     cli::cli_ul()
     cli::cli_li("Backend Type: {.val {ds$backend$type}}")
@@ -111,38 +181,4 @@ print.cnts_datasources <- function(x, ...) {
   }
 
   return(x)
-}
-
-#' @noRd
-as_datasources <- function(...) {
-  structure(
-    ...,
-    class = "cnts_datasources"
-  )
-}
-
-#' Create a nested connectors object
-#'
-#' This function creates a nested connectors object from the provided arguments.
-#'
-#' @param ... Any number of connectors object.
-#'
-#' @return A list with class "nested_connectors" containing the provided arguments.
-#' @export
-nested_connectors <- function(...) {
-  x <- rlang::list2(...)
-  structure(
-    x,
-    class = c("nested_connectors")
-  )
-}
-
-#' @export
-print.nested_connectors <- function(x, ...) {
-  print_connectors(x, ...)
-}
-
-#' @noRd
-is_connectors <- function(connectors) {
-  inherits(connectors, "connectors")
 }

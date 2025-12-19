@@ -27,7 +27,7 @@ connectors_to_datasources <- function(data) {
       }
     ) |>
     unname() |>
-    transform_as_datasources()
+    datasources()
 }
 
 #' Write datasources attribute into a config file
@@ -106,28 +106,6 @@ transform_as_backend <- function(infos, name) {
   bk$backend[names(infos$parameters)] <- infos$parameters
 
   return(bk)
-}
-
-#' Transform Multiple Backends to Datasources Format
-#'
-#' This function takes a list of backends (typically created by
-#' `transform_as_backend`) and wraps them in a 'datasources' list. This is
-#' useful for creating a structure that represents multiple data sources or
-#' backends.
-#'
-#' @param bks A list of backends, each typically created by
-#'   `transform_as_backend`.
-#'
-#' @return A list with a single 'datasources' element containing all input
-#'   backends.
-#'
-#' @noRd
-transform_as_datasources <- function(bks) {
-  as_datasources(
-    list(
-      datasources = bks
-    )
-  )
 }
 
 #' Extract Function Information

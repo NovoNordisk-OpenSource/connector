@@ -4,7 +4,7 @@
 \alias{connectors}
 \title{Collection of connector objects}
 \usage{
-connectors(...)
+connectors(..., .metadata = list(), .datasources = NULL)
 }
 \arguments{
 \item{...}{Named individual \link{Connector} objects}

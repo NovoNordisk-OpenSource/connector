@@ -27,7 +27,7 @@
 #'
 #' @export
 add_logs <- function(connections) {
-  checkmate::assert_class(connections, "connectors")
+  checkmate::assert_class(connections, "connector::connectors")
 
   for (i in seq_along(connections)) {
     class(connections[[i]]) <- c("ConnectorLogger", class(connections[[i]]))

@@ -109,23 +109,6 @@ list_datasources <- function(connectors) {
   ds
 }
 
-#' Previously used to extract data sources from connectors
-#'
-#' @description
-#' `r lifecycle::badge("deprecated")`. Look for `[list_datasources()]` instead.
-#'
-#' @param connectors An object containing connectors with a "datasources" attribute.
-#'
-#' @export
-datasources <- function(connectors) {
-  lifecycle::deprecate_soft(
-    when = "1.0.0",
-    what = "connector::datasources()",
-    with = "connector::list_datasources()"
-  )
-  list_datasources(connectors)
-}
-
 #' Add a new datasource to a YAML configuration file
 #'
 #' This function adds a new datasource to a YAML configuration file by appending the

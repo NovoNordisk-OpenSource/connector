@@ -147,7 +147,7 @@ connect_from_config <- function(config) {
     config$datasources[[i]]$name <- config$datasources[[i]]$name[[1]]
   }
 
-  connections$datasources <- as_datasources(config["datasources"])
+  connections$datasources <- datasources(config["datasources"])
 
   # Add metadata to the connections object
   if (!is.null(config$metadata)) {
@@ -157,15 +157,15 @@ connect_from_config <- function(config) {
       USE.NAMES = FALSE
     )
 
-    test <- any(names_co %in% ".md")
+    test <- any(names_co %in% ".metadata")
 
     if (test) {
       cli::cli_abort(
-        "'.md' is a reserved name. It cannot be used as a name for a data source."
+        "'.metadata' is a reserved name. It cannot be used as a name for a data source."
       )
     }
     # placeholder to be transformed as attribute in connectors
-    connections$.md <- config[["metadata"]]
+    connections$.metadata <- config[["metadata"]]
   }
 
   do.call(what = connectors, args = connections)
