@@ -18,8 +18,7 @@
 write_file <- function(x, file, overwrite = FALSE, ...) {
   check_file_exists(file, overwrite, ...)
 
-  find_ext <- tools::file_ext(file) |>
-    assert_ext("write_ext")
+  find_ext <- tools::file_ext(file)
 
   class(file) <- c(find_ext, class(file))
 

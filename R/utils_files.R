@@ -68,23 +68,6 @@ supported_fs <- function() {
     as.character()
 }
 
-#' Test the extension of files
-#'
-#' @param ext the extension to test
-#' @param method the S3 method to get methods
-#'
-#' @return An error if the extension method doesn't exists
-#' @noRd
-assert_ext <- function(ext, method) {
-  valid <- sub(
-    pattern = "^[^\\.]+\\.",
-    replacement = "",
-    x = as.character(utils::methods(method))
-  )
-
-  checkmate::assert_choice(x = ext, choices = valid)
-}
-
 #' Error extension
 #' Function to call when no method is found for the extension
 #' @noRd
