@@ -7,7 +7,12 @@
 connectors(..., .metadata = list(), .datasources = NULL)
 }
 \arguments{
-\item{...}{Named individual \link{Connector} objects}
+\item{...}{Named individual \link{Connector} objects.}
+
+\item{.metadata}{\code{list()} of named metadata to store in the \verb{@metadata} property.}
+
+\item{.datasources}{\code{list()} of datasource specifications to store in the \verb{@datasources} property.
+If \code{NULL} (default) will be derived based on \code{...}.}
 }
 \description{
 Holds a special list of individual connector objects for consistent use of

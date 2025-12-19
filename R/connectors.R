@@ -4,7 +4,10 @@
 #' Holds a special list of individual connector objects for consistent use of
 #' connections in your project.
 #'
-#' @param ... Named individual [Connector] objects
+#' @param ... Named individual [Connector] objects.
+#' @param .metadata `list()` of named metadata to store in the `@metadata` property.
+#' @param .datasources `list()` of datasource specifications to store in the `@datasources` property.
+#' If `NULL` (default) will be derived based on `...`.
 #'
 #' @examples
 #' # Create connectors objects

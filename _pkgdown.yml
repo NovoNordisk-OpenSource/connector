@@ -35,7 +35,6 @@ reference:
   - title: Utils
     contents:
     - list_datasources
-    - datasources
     - extract_metadata
     - resource-validation
     - write_datasources

@@ -65,7 +65,7 @@ write_datasources <- function(connectors, file) {
   ext <- tools::file_ext(file)
   stopifnot(ext %in% c("yaml", "yml", "json", "rds"))
   ## using our own write function from connector
-  dts <- list_datasources(connectors)
+  dts <- list(datasources = list_datasources(connectors))
 
   ## Remove class for json to avoid S3 class problem
   if (ext == "json") {
