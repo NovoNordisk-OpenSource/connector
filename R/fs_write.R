@@ -22,7 +22,7 @@ write_file <- function(x, file, overwrite = FALSE, ...) {
 
   class(file) <- c(find_ext, class(file))
 
-  write_ext(file, x, ...)
+  write_ext(x, file, ...)
 
   return(invisible(file))
 }
