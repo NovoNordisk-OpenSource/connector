@@ -18,12 +18,11 @@
 write_file <- function(x, file, overwrite = FALSE, ...) {
   check_file_exists(file, overwrite, ...)
 
-  find_ext <- tools::file_ext(file) |>
-    assert_ext("write_ext")
+  find_ext <- tools::file_ext(file)
 
   class(file) <- c(find_ext, class(file))
 
-  write_ext(file, x, ...)
+  write_ext(x, file, ...)
 
   return(invisible(file))
 }
@@ -44,94 +43,46 @@ check_file_exists <- function(file, overwrite, ..., .envir = parent.frame()) {
   }
 }
 
-#' @description
-#' `write_ext()` has methods defined for the following file extensions:
-#'
-#' @return `write_ext()`: The return of the functions behind the individual methods.
-#' @rdname write_file
-#' @export
-write_ext <- function(file, x, ...) {
-  UseMethod("write_ext")
-}
 
+#' Write Objects to Files Using S7 Method Dispatch
+#'
 #' @description
-#' * `txt`: [readr::write_lines()]
+#' `write_ext` is an S7 generic function that supports double dispatch for writing objects.
+#' It allows you to define methods based on both the type of the object being written.
 #'
-#' @rdname write_file
-#' @export
-write_ext.txt <- function(file, x, ...) {
-  readr::write_lines(x = x, file = file, ...)
-}
-
-#' @description
-#' * `csv`: [readr::write_csv()]
+#' @details
+#' This generic is designed to support the connector package's workflow for writing files, but
+#' also to allow for extensibility through S7 method dispatch based on file extensions.
+#' This makes it possible for users to create custom methods for saving different types of objects.
 #'
-#' @param delim [character()] Delimiter to use. Default is `","`.
+#' When writing files through a connector, the file extension
+#' is automatically detected and added as a class to the file path. This enables
+#' double dispatch based on both the object type (`x`) and the file extension (`file`),
+#' allowing you to define specialized save methods for different combinations.
 #'
-#' @examples
-#' # Write CSV file
-#' temp_csv <- tempfile("iris", fileext = ".csv")
-#' write_file(iris, temp_csv)
+#' ## Method Dispatch
+#' The generic dispatches on two arguments:
+#' \itemize{
+#'   \item `x`: The object to be written (e.g., data.frame, list, S7 object)
+#'   \item `file`: The file path with the file extension as its class
+#' }
 #'
-#' @rdname write_file
-#' @export
-write_ext.csv <- function(file, x, delim = ",", ...) {
-  readr::write_delim(x = x, file = file, delim = delim, ...)
-}
-
-#' @description
-#' * `parquet`: [arrow::write_parquet()]
+#' This allows you to create methods like:
+#' \itemize{
+#'   \item `write_ext(data.frame, "csv")` - for saving data frames to CSV
+#'   \item `write_ext(list, "json")` - for saving lists to JSON
+#'   \item `write_ext(S7_object, "rds")` - for saving S7 objects to RDS
+#' }
 #'
-#' @rdname write_file
-#' @export
-write_ext.parquet <- function(file, x, ...) {
-  arrow::write_parquet(x = x, sink = file, ...)
-}
-
-#' @description
-#' * `rds`: [readr::write_rds()]
+#' @param x The object to write to the file. Can be any R object.
+#' @param file A character string specifying the file path. The file extension
+#'   will be used for method dispatch.
+#' @param ... Additional arguments passed to the underlying write function.
+#'   These arguments are specific to the data format being written and may include
+#'   parameters such as file encoding, compression options, or format-specific settings.
 #'
-#' @rdname write_file
-#' @export
-write_ext.rds <- function(file, x, ...) {
-  readr::write_rds(x = x, file = file, ...)
-}
-
-#' @description
-#' * `xpt`: [haven::write_xpt()]
-#'
-#' @rdname write_file
-#' @export
-write_ext.xpt <- function(file, x, ...) {
-  haven::write_xpt(data = x, path = file, ...)
-}
-
-#' @description
-#' * `yml`/`yaml`: [yaml::write_yaml()]
-#'
-#' @rdname write_file
-#' @export
-write_ext.yml <- function(file, x, ...) {
-  yaml::write_yaml(x = x, file = file, ...)
-}
+#' @return The file path (invisibly), or whatever the specific method returns.
 
 #' @export
-write_ext.yaml <- write_ext.yml
+write_ext <- S7::new_generic("write_ext", c("x","file"))
 
-#' @description
-#' * `json`: [jsonlite::write_json()]
-#'
-#' @rdname write_file
-#' @export
-write_ext.json <- function(file, x, ...) {
-  jsonlite::write_json(x = x, path = file, ...)
-}
-
-#' @description
-#' * `excel`: [writexl::write_xlsx()]
-#'
-#' @rdname write_file
-#' @export
-write_ext.xlsx <- function(file, x, ...) {
-  writexl::write_xlsx(x = x, path = file, ...)
-}

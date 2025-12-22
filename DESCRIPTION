@@ -1,6 +1,6 @@
 Package: connector
 Title: Streamlining Data Access in Clinical Research
-Version: 1.0.0.9000
+Version: 1.0.0.9001
 Authors@R: c(
     person("Cervan", "Girard", , "cgid@novonordisk.com", role = c("aut", "cre")),
     person("Aksel", "Thomsen", , "oath@novonordisk.com", role = "aut"),
@@ -34,6 +34,7 @@ Imports:
     readr,
     readxl,
     rlang,
+    S7,
     utils,
     vroom,
     writexl,
