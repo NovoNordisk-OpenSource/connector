@@ -7,7 +7,7 @@
 #' @param ... Named individual [Connector] objects.
 #' @param .metadata `list()` of named metadata to store in the `@metadata` property.
 #' @param .datasources `list()` of datasource specifications to store in the `@datasources` property.
-#' If `NULL` (default) will be derived based on `...`.
+#' If `NULL` (default) will be derived based on `...` input.
 #'
 #' @examples
 #' # Create connectors objects
@@ -21,7 +21,7 @@
 #'
 #' cnts
 #'
-#' # Print the individual connector for more information
+#' # Print the individual Connector for more information
 #'
 #' cnts$sdtm
 #'
