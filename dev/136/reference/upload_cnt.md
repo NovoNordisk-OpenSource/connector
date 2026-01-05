@@ -114,5 +114,5 @@ write.csv(iris, temp_file, row.names = FALSE)
 
 cnt$data |>
   upload_cnt(temp_file, "uploaded_iris.csv")
-#> {"time":"2026-01-05 12:31:07","type":"write","file":"uploaded_iris.csv @ /tmp/RtmpAUXnEM/test1d57129a5828"}
+#> {"time":"2026-01-05 15:16:36","type":"write","file":"uploaded_iris.csv @ /tmp/RtmpDZhcXt/test1d5054a0b834"}
 ```
