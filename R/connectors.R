@@ -44,7 +44,7 @@ construct_connectors <- function(
   S7::new_object(
     .parent = list(...),
     metadata = .metadata,
-    datasources = .datasources
+    datasources = datasources(.datasources)
   )
 }
 
@@ -103,6 +103,10 @@ validate_connectors <- function(x) {
     )
   ) {
     return("All elements must be a Connector object")
+  }
+
+  if (length(x) != length(x@datasources)) {
+    return("Each 'Connector' must have a corresponding datasource")
   }
 
   validate_named(x)

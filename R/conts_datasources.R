@@ -26,8 +26,7 @@ connectors_to_datasources <- function(data) {
         }
       }
     ) |>
-    unname() |>
-    datasources()
+    unname()
 }
 
 #' Write datasources attribute into a config file

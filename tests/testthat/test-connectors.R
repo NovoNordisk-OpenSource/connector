@@ -16,6 +16,29 @@ test_that("connectors() - correct error handling", {
 
   connectors(
     a = connector_fs(withr::local_tempdir()),
+    connector_fs(withr::local_tempdir())
+  ) |>
+    expect_error("All elements must be named")
+
+  connectors(
+    a = connector_fs(withr::local_tempdir()),
+    .datasources = list(
+      list(type = "connector_fs")
+    )
+  ) |>
+    expect_error()
+
+  connectors(
+    a = connector_fs(withr::local_tempdir()),
+    b = connector_fs(withr::local_tempdir()),
+    .datasources = list(
+      list(name = "a", backend = list(type = "b"))
+    )
+  ) |>
+    expect_error("Each 'Connector' must have a corresponding datasource")
+
+  connectors(
+    a = connector_fs(withr::local_tempdir()),
     b = connector_fs(withr::local_tempdir())
   ) |>
     expect_no_error()
@@ -26,6 +49,14 @@ test_that("connectors() - functionality", {
     a = connector_fs(withr::local_tempdir()),
     b = connector_fs(withr::local_tempdir())
   )
+
+  expect_error({
+    x@metadata <- list(a = 1)
+  })
+
+  expect_error({
+    x@datasources <- list(b = 1)
+  })
 
   print(x) |>
     expect_snapshot()
