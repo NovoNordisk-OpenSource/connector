@@ -26,7 +26,7 @@ connectors(..., .metadata = list(), .datasources = NULL)
 
   [`list()`](https://rdrr.io/r/base/list.html) of datasource
   specifications to store in the `@datasources` property. If `NULL`
-  (default) will be derived based on `...`.
+  (default) will be derived based on `...` input.
 
 ## Examples
 
@@ -45,7 +45,7 @@ cnts
 #>   $sdtm <ConnectorFS>
 #>   $adam <ConnectorDBI>
 
-# Print the individual connector for more information
+# Print the individual Connector for more information
 
 cnts$sdtm
 #> <ConnectorFS>
@@ -67,7 +67,7 @@ cnts$sdtm
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpMb10rt
+#> • path: /tmp/RtmpAUXnEM
 
 cnts$adam
 #> <ConnectorDBI>
