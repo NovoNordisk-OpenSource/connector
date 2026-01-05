@@ -56,11 +56,36 @@ validate_named <- function(x) {
 }
 
 #' @noRd
-validate_unnamed <- function(x) {
+validate_datasources <- function(x) {
   if (any(rlang::have_name(x))) {
     return("All elements must be not be named")
   }
+
+  if (
+    any(
+      vapply(
+        X = x,
+        FUN = \(x) !setequal(c("name", "backend"), names(x)),
+        FUN.VALUE = logical(1)
+      )
+    )
+  ) {
+    return("Each datasource must have (only) 'name' and 'backend' specified")
+  }
+
+  if (
+    any(
+      vapply(
+        X = x,
+        FUN = \(x) !"type" %in% names(x[["backend"]]),
+        FUN.VALUE = logical(1)
+      )
+    )
+  ) {
+    return("Each datasource must have backend type specified")
+  }
 }
+
 
 #' @noRd
 validate_connectors <- function(x) {
@@ -94,7 +119,7 @@ prop_metadata <- S7::new_property(
 datasources <- S7::new_class(
   name = "datasources",
   parent = S7::class_list,
-  validator = \(self) validate_unnamed(self)
+  validator = \(self) validate_datasources(self)
 )
 
 #' @noRd
@@ -183,5 +208,5 @@ print_datasources <- function(x, ...) {
     cli::cli_end()
   }
 
-  return(x)
+  return(invisible(x))
 }
