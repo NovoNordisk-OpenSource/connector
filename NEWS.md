@@ -1,3 +1,11 @@
+# connector dev
+
+## Breaking Changes
+* Previously deprecated `datasources()` function removed.
+
+## Enhancements
+* Changed `connectors()` and `nested_connectors()` to be S7 classes for more robust creation and use.
+
 # connector 1.0.0
 
 ## Breaking Changes
