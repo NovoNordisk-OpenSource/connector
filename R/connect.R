@@ -157,11 +157,11 @@ connect_from_config <- function(config) {
       USE.NAMES = FALSE
     )
 
-    test <- any(names_co %in% ".metadata")
+    test <- any(names_co %in% c(".metadata", ".datasources"))
 
     if (test) {
       cli::cli_abort(
-        "'.metadata' is a reserved name. It cannot be used as a name for a data source."
+        "'.metadata' and '.datasources' are reserved names. They cannot be used as a name for a data source."
       )
     }
     # placeholder to be transformed as attribute in connectors
