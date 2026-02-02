@@ -52,14 +52,26 @@ connectors_to_datasources <- function(data) {
 #' # Check the content of the file
 #' cat(readLines(yml_file), sep = "\n")
 #' # Reconnect using the new config file
-#' re_connect <- connect(yml_file)
+#' re_connect <- connect(yml_fil e)
 #' re_connect
 #' @export
-write_datasources <- function(connectors, file) {
-  checkmate::assert_character(file, null.ok = FALSE, any.missing = FALSE)
-  if (!is_connectors(connectors)) {
-    cli::cli_abort("param 'connectors' should be a connectors object.")
+write_datasources <- S7::new_generic(
+  name = "write_datasources",
+  dispatch_args = "connectors",
+  fun = \(connectors, file) {
+    S7::S7_dispatch()
   }
+)
+
+#' @noRd
+S7::method(write_datasources, connectors) <- function(connectors, file) {
+  write_datasources_connectors(connectors, file)
+}
+
+#' @noRd
+write_datasources_connectors <- function(connectors, file) {
+  checkmate::assert_character(file, null.ok = FALSE, any.missing = FALSE)
+
   # testing extension of file
   ext <- tools::file_ext(file)
   stopifnot(ext %in% c("yaml", "yml", "json", "rds"))
