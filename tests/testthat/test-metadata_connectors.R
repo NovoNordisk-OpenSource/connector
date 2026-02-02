@@ -76,7 +76,7 @@ test_that("extract_metadata works with connect function", {
     connect(
       error_confg
     ),
-    "'.metadata' is a reserved name. It cannot be used as a name for a data source."
+    "'.metadata' and '.datasources' are reserved names. They cannot be used as a name for a data source."
   )
 })
 
