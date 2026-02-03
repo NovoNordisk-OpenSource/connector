@@ -23,8 +23,7 @@ CRAN release: 2025-08-19
     `upload_directory_cnt(src = "path", dest = "target")`
   - `download_directory_cnt(name = "source", dir = "path")` →
     `download_directory_cnt(src = "source", dest = "path")`
-- [`datasources()`](https://novonordisk-opensource.github.io/connector/reference/datasources.md)
-  deprecated in 1.0.0, use
+- `datasources()` deprecated in 1.0.0, use
   [`list_datasources()`](https://novonordisk-opensource.github.io/connector/reference/list_datasources.md)
   instead.
 

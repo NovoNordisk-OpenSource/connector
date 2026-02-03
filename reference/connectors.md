@@ -6,7 +6,7 @@ of connections in your project.
 ## Usage
 
 ``` r
-connectors(...)
+connectors(..., .metadata = list(), .datasources = NULL)
 ```
 
 ## Arguments
@@ -15,7 +15,18 @@ connectors(...)
 
   Named individual
   [Connector](https://novonordisk-opensource.github.io/connector/reference/Connector.md)
-  objects
+  objects.
+
+- .metadata:
+
+  [`list()`](https://rdrr.io/r/base/list.html) of named metadata to
+  store in the `@metadata` property.
+
+- .datasources:
+
+  [`list()`](https://rdrr.io/r/base/list.html) of datasource
+  specifications to store in the `@datasources` property. If `NULL`
+  (default) will be derived based on `...` input.
 
 ## Examples
 
@@ -30,11 +41,11 @@ cnts <- connectors(
 # Print for overview
 
 cnts
-#> <connectors>
+#> <connector::connectors/list/S7_object>
 #>   $sdtm <ConnectorFS>
 #>   $adam <ConnectorDBI>
 
-# Print the individual connector for more information
+# Print the individual Connector for more information
 
 cnts$sdtm
 #> <ConnectorFS>
@@ -56,7 +67,7 @@ cnts$sdtm
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpDbHqZq
+#> • path: /tmp/RtmpRHFAeR
 
 cnts$adam
 #> <ConnectorDBI>

@@ -146,7 +146,7 @@ cnts <- connect(config)
 #> • connector_dbi
 #> • RSQLite::SQLite() and :memory:
 cnts
-#> <connectors>
+#> <connector::connectors/list/S7_object>
 #>   $adam <test2>
 #>   $sdtm <ConnectorDBI>
 #>   
@@ -209,7 +209,7 @@ connect(config, metadata = list(extra_class = "my_class"))
 #> → sdtm
 #> • connector_dbi
 #> • RSQLite::SQLite() and :memory:
-#> <connectors>
+#> <connector::connectors/list/S7_object>
 #>   $adam <my_class>
 #>   $sdtm <ConnectorDBI>
 #>   
@@ -226,7 +226,7 @@ connect(config, datasource = "adam")
 #> → adam
 #> • connector_fs
 #> • example/demo_trial/adam and test2
-#> <connectors>
+#> <connector::connectors/list/S7_object>
 #>   $adam <test2>
 #>   
 #>   Metadata:
@@ -274,12 +274,12 @@ cnts_nested <- connect(config_nested)
 #> • example/demo_trial/adam
 
 cnts_nested
-#> <nested_connectors>
-#>   $study1 <connectors>
-#>   $study2 <connectors>
+#> <connector::nested_connectors/list/S7_object>
+#>   $study1 <connector::connectors>
+#>   $study2 <connector::connectors>
 
 cnts_nested$study1
-#> <connectors>
+#> <connector::connectors/list/S7_object>
 #>   $adam_fs <ConnectorFS>
 #>   
 #>   Metadata:

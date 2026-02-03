@@ -149,7 +149,7 @@ my_connectors <- connectors(
 )
 
 my_connectors
-#> <connectors>
+#> <connector::connectors/list/S7_object>
 #>   $staging <ConnectorFS>
 #>   $analysis <ConnectorFS>
 ```

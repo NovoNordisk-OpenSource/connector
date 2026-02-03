@@ -39,30 +39,5 @@ cnts <- connectors(
 result <- list_datasources(cnts)
 # Check if result contains datasource information
 result$datasources
-#> [[1]]
-#> [[1]]$name
-#> [1] "sdtm"
-#> 
-#> [[1]]$backend
-#> [[1]]$backend$type
-#> [1] "connector::connector_fs"
-#> 
-#> [[1]]$backend$path
-#> [1] "/tmp/RtmpDbHqZq"
-#> 
-#> 
-#> 
-#> [[2]]
-#> [[2]]$name
-#> [1] "adam"
-#> 
-#> [[2]]$backend
-#> [[2]]$backend$type
-#> [1] "connector::connector_dbi"
-#> 
-#> [[2]]$backend$drv
-#> [1] "RSQLite::SQLite()"
-#> 
-#> 
-#> 
+#> NULL
 ```

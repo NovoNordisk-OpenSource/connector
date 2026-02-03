@@ -90,9 +90,6 @@
 
 - [`list_datasources()`](https://novonordisk-opensource.github.io/connector/reference/list_datasources.md)
   : Extract data sources from connectors
-- [`datasources()`](https://novonordisk-opensource.github.io/connector/reference/datasources.md)
-  **\[deprecated\]** : Previously used to extract data sources from
-  connectors
 - [`extract_metadata()`](https://novonordisk-opensource.github.io/connector/reference/extract_metadata.md)
   : Extract metadata from connectors
 - [`validate_resource()`](https://novonordisk-opensource.github.io/connector/reference/resource-validation.md)

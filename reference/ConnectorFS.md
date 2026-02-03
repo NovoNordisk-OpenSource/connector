@@ -331,7 +331,7 @@ cnt
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpDbHqZq/test1f1750cd3e71
+#> • path: /tmp/RtmpRHFAeR/test1e1b10ac52ca
 
 # You can do the same thing using wrapper function connector_fs()
 cnt <- connector_fs(folder)
@@ -355,7 +355,7 @@ cnt
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpDbHqZq/test1f1750cd3e71
+#> • path: /tmp/RtmpRHFAeR/test1e1b10ac52ca
 
 # List content
 cnt$list_content_cnt()

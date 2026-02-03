@@ -44,6 +44,6 @@ cnts <- connectors(
 logged_connections <- add_logs(cnts)
 
 logged_connections
-#> <connectors>
+#> <connector::connectors/list/S7_object>
 #>   $sdtm <ConnectorLogger>
 ```
