@@ -1,9 +1,6 @@
 test_that("ConnectorLogger integration test with whirl", {
   skip_on_cran()
 
-  # Relevant until https://github.com/NovoNordisk-OpenSource/whirl/pull/226 is merged and published
-  skip_if_not_installed("renv")
-
   dir_ <- withr::local_tempdir("connector_logger_test")
 
   file.copy(
