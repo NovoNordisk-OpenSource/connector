@@ -100,9 +100,9 @@ cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 
 cnt$data |>
   write_cnt(iris, "iris.csv")
-#> {"time":"2026-02-02 12:07:18","type":"write","file":"iris.csv @ /tmp/RtmpH9kIBZ/test1dfb7900de34"}
+#> {"time":"2026-02-03 09:58:00","type":"write","file":"iris.csv @ /tmp/RtmpuskfsN/test1dce799273f1"}
 
 cnt$data |>
   remove_cnt("iris.csv")
-#> {"time":"2026-02-02 12:07:18","type":"delete","file":"iris.csv @ /tmp/RtmpH9kIBZ/test1dfb7900de34"}
+#> {"time":"2026-02-03 09:58:00","type":"delete","file":"iris.csv @ /tmp/RtmpuskfsN/test1dce799273f1"}
 ```
