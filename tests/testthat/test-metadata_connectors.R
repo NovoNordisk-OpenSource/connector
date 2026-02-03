@@ -1,17 +1,16 @@
 test_that("extract_metadata works with metadata present", {
-  # Create a mock connectors object with metadata
-  mock_connectors <- structure(
-    list(adam = "dummy_connector"),
-    class = "connectors"
-  )
-  attr(mock_connectors, "metadata") <- list(
-    study = "demo_study",
-    version = "1.0",
-    author = "test_user"
+  # Create a connectors object with metadata
+  x <- connectors(
+    adam = connector_fs(path = tempdir()),
+    .metadata = list(
+      study = "demo_study",
+      version = "1.0",
+      author = "test_user"
+    )
   )
 
   # Test extracting all metadata
-  result_all <- extract_metadata(mock_connectors)
+  result_all <- extract_metadata(x)
   expected_all <- list(
     study = "demo_study",
     version = "1.0",
@@ -20,32 +19,31 @@ test_that("extract_metadata works with metadata present", {
   expect_equal(result_all, expected_all)
 
   # Test extracting specific metadata field
-  result_study <- extract_metadata(mock_connectors, name = "study")
-  expect_equal(result_study, "demo_study")
+  extract_metadata(x, name = "study") |>
+    expect_equal("demo_study")
 
   # Test extracting non-existent field
-  result_nonexistent <- extract_metadata(mock_connectors, name = "nonexistent")
-  expect_null(result_nonexistent)
+  extract_metadata(x, name = "nonexistent") |>
+    expect_null()
 
-  extract_metadata(mock_connectors, name = 123) |>
+  extract_metadata(x, name = 123) |>
     expect_error("Assertion on 'name' failed")
 })
 
-test_that("extract_metadata works with NULL metadata", {
-  # Create a mock connectors object without metadata
-  mock_connectors <- structure(
-    list(adam = "dummy_connector"),
-    class = "connectors"
+test_that("extract_metadata works with no metadata", {
+  # Create a connectors object without metadata
+  x <- connectors(
+    adam = connector_fs(path = tempdir())
   )
-  attr(mock_connectors, "metadata") <- NULL
 
-  # Test extracting all metadata (should return NULL)
-  result_all <- extract_metadata(mock_connectors)
-  expect_null(result_all)
+  # Test extracting all metadata (should return empty list)
+  extract_metadata(x) |>
+    expect_type("list") |>
+    expect_length(0)
 
   # Test extracting specific field from NULL metadata (should return NULL)
-  result_specific <- extract_metadata(mock_connectors, name = "study")
-  expect_null(result_specific)
+  extract_metadata(x, name = "study") |>
+    expect_null()
 })
 
 test_that("extract_metadata works with connect function", {
@@ -70,15 +68,15 @@ test_that("extract_metadata works with connect function", {
   result_nonexistent <- extract_metadata(cnts, name = "nonexistent")
   expect_null(result_nonexistent)
 
-  # Error with .md as a data source
+  # Error with .metadata as a data source
   error_confg <- yaml_content_raw
-  error_confg$datasources[[1]]$name <- ".md"
+  error_confg$datasources[[1]]$name <- ".metadata"
 
   expect_error(
     connect(
       error_confg
     ),
-    "'.md' is a reserved name. It cannot be used as a name for a data source."
+    "'.metadata' and '.datasources' are reserved names. They cannot be used as a name for a data source."
   )
 })
 

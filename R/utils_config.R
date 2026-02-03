@@ -109,23 +109,6 @@ list_datasources <- function(connectors) {
   ds
 }
 
-#' Previously used to extract data sources from connectors
-#'
-#' @description
-#' `r lifecycle::badge("deprecated")`. Look for `[list_datasources()]` instead.
-#'
-#' @param connectors An object containing connectors with a "datasources" attribute.
-#'
-#' @export
-datasources <- function(connectors) {
-  lifecycle::deprecate_soft(
-    when = "1.0.0",
-    what = "connector::datasources()",
-    with = "connector::list_datasources()"
-  )
-  list_datasources(connectors)
-}
-
 #' Add a new datasource to a YAML configuration file
 #'
 #' This function adds a new datasource to a YAML configuration file by appending the
@@ -244,11 +227,21 @@ remove_datasource <- function(config_path, name) {
 #' print(study_name)
 #'
 #' @export
-extract_metadata <- function(connectors, name = NULL) {
-  if (!is_connectors(connectors)) {
-    cli::cli_abort("param connectors should be a connectors object.")
+extract_metadata <- S7::new_generic(
+  name = "extract_metadata",
+  dispatch_args = "connectors",
+  fun = \(connectors, name = NULL) {
+    S7::S7_dispatch()
   }
+)
 
+#' @noRd
+S7::method(extract_metadata, connectors) <- function(connectors, name = NULL) {
+  extract_metadata_connectors(connectors, name)
+}
+
+#' @noRd
+extract_metadata_connectors <- function(connectors, name = NULL) {
   checkmate::assert_character(name, null.ok = TRUE)
 
   metadata <- attr(connectors, "metadata")

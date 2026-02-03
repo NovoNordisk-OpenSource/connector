@@ -1,5 +1,5 @@
 test_that("ConnectorLogger integration test with whirl", {
-  testthat::skip_on_cran()
+  skip_on_cran()
 
   dir_ <- withr::local_tempdir("connector_logger_test")
 

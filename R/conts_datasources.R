@@ -26,8 +26,7 @@ connectors_to_datasources <- function(data) {
         }
       }
     ) |>
-    unname() |>
-    transform_as_datasources()
+    unname()
 }
 
 #' Write datasources attribute into a config file
@@ -53,19 +52,31 @@ connectors_to_datasources <- function(data) {
 #' # Check the content of the file
 #' cat(readLines(yml_file), sep = "\n")
 #' # Reconnect using the new config file
-#' re_connect <- connect(yml_file)
+#' re_connect <- connect(yml_fil e)
 #' re_connect
 #' @export
-write_datasources <- function(connectors, file) {
-  checkmate::assert_character(file, null.ok = FALSE, any.missing = FALSE)
-  if (!is_connectors(connectors)) {
-    cli::cli_abort("param 'connectors' should be a connectors object.")
+write_datasources <- S7::new_generic(
+  name = "write_datasources",
+  dispatch_args = "connectors",
+  fun = \(connectors, file) {
+    S7::S7_dispatch()
   }
+)
+
+#' @noRd
+S7::method(write_datasources, connectors) <- function(connectors, file) {
+  write_datasources_connectors(connectors, file)
+}
+
+#' @noRd
+write_datasources_connectors <- function(connectors, file) {
+  checkmate::assert_character(file, null.ok = FALSE, any.missing = FALSE)
+
   # testing extension of file
   ext <- tools::file_ext(file)
   stopifnot(ext %in% c("yaml", "yml", "json", "rds"))
   ## using our own write function from connector
-  dts <- list_datasources(connectors)
+  dts <- list(datasources = list_datasources(connectors))
 
   ## Remove class for json to avoid S3 class problem
   if (ext == "json") {
@@ -106,28 +117,6 @@ transform_as_backend <- function(infos, name) {
   bk$backend[names(infos$parameters)] <- infos$parameters
 
   return(bk)
-}
-
-#' Transform Multiple Backends to Datasources Format
-#'
-#' This function takes a list of backends (typically created by
-#' `transform_as_backend`) and wraps them in a 'datasources' list. This is
-#' useful for creating a structure that represents multiple data sources or
-#' backends.
-#'
-#' @param bks A list of backends, each typically created by
-#'   `transform_as_backend`.
-#'
-#' @return A list with a single 'datasources' element containing all input
-#'   backends.
-#'
-#' @noRd
-transform_as_datasources <- function(bks) {
-  as_datasources(
-    list(
-      datasources = bks
-    )
-  )
 }
 
 #' Extract Function Information

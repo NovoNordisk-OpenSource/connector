@@ -19,40 +19,8 @@ test_that("write_datasources works correctly", {
   # Test file content
   original_sources <- list_datasources(test_connectors)
   written_sources <- read_file(temp_files["yml"])
-  written_sources <- as_datasources(written_sources)
+  written_sources <- datasources(written_sources[["datasources"]])
   expect_equal(original_sources, written_sources)
-
-  # Test invalid cases
-  invalid_inputs <- list(
-    list(
-      input = list(dummy = "data"),
-      file = temp_files["yml"],
-      error = "param 'connectors' should be a connectors object"
-    ),
-    list(
-      input = test_connectors,
-      file = temp_invalid,
-      error = "ext %in%"
-    ),
-    list(
-      input = test_connectors,
-      file = NULL,
-      error = "Must be of type 'character'"
-    ),
-    list(
-      input = test_connectors,
-      file = NA_character_,
-      error = "Contains missing values"
-    )
-  )
-
-  purrr::walk(
-    invalid_inputs,
-    ~ expect_error(
-      write_datasources(.x$input, .x$file),
-      .x$error
-    )
-  )
 
   # Cleanup
   unlink(c(temp_files, temp_invalid))

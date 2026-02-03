@@ -4,10 +4,15 @@
 \alias{connectors}
 \title{Collection of connector objects}
 \usage{
-connectors(...)
+connectors(..., .metadata = list(), .datasources = NULL)
 }
 \arguments{
-\item{...}{Named individual \link{Connector} objects}
+\item{...}{Named individual \link{Connector} objects.}
+
+\item{.metadata}{\code{list()} of named metadata to store in the \verb{@metadata} property.}
+
+\item{.datasources}{\code{list()} of datasource specifications to store in the \verb{@datasources} property.
+If \code{NULL} (default) will be derived based on \code{...} input.}
 }
 \description{
 Holds a special list of individual connector objects for consistent use of
@@ -25,7 +30,7 @@ cnts <- connectors(
 
 cnts
 
-# Print the individual connector for more information
+# Print the individual Connector for more information
 
 cnts$sdtm
 

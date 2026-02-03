@@ -2,7 +2,9 @@ test_that("Connect datasources to the connections for a yaml file", {
   # create the connections
   cnts <- connect(yaml_file)
 
-  expect_s3_class(cnts, "connectors")
+  is_connectors(cnts) |>
+    expect_true()
+
   expect_named(cnts, c("adam", "sdtm"))
 
   ## write and read for a system file
