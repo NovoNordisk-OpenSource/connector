@@ -122,12 +122,12 @@ cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 
 cnt$data |>
   write_cnt(iris, "iris.csv")
-#> {"time":"2026-02-03 10:05:55","type":"write","file":"iris.csv @ /tmp/RtmpRHFAeR/test1e1b7b334eec"}
+#> {"time":"2026-02-04 13:32:24","type":"write","file":"iris.csv @ /tmp/RtmpNYgVLi/test1dcd2ab412e2"}
 
 cnt$data |>
   read_cnt("iris.csv", show_col_types = FALSE) |>
   head()
-#> {"time":"2026-02-03 10:05:55","type":"read","file":"iris.csv @ /tmp/RtmpRHFAeR/test1e1b7b334eec"}
+#> {"time":"2026-02-04 13:32:24","type":"read","file":"iris.csv @ /tmp/RtmpNYgVLi/test1dcd2ab412e2"}
 #> # A tibble: 6 × 5
 #>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #>          <dbl>       <dbl>        <dbl>       <dbl> <chr>  

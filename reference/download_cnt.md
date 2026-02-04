@@ -82,9 +82,9 @@ cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 
 cnt$data |>
   write_cnt(iris, "iris.csv")
-#> {"time":"2026-02-03 10:05:53","type":"write","file":"iris.csv @ /tmp/RtmpRHFAeR/test1e1b74075afd"}
+#> {"time":"2026-02-04 13:32:23","type":"write","file":"iris.csv @ /tmp/RtmpNYgVLi/test1dcd5f227c4c"}
 
 cnt$data |>
   download_cnt("iris.csv", tempfile(fileext = ".csv"))
-#> {"time":"2026-02-03 10:05:53","type":"read","file":"iris.csv @ /tmp/RtmpRHFAeR/test1e1b74075afd"}
+#> {"time":"2026-02-04 13:32:23","type":"read","file":"iris.csv @ /tmp/RtmpNYgVLi/test1dcd5f227c4c"}
 ```
