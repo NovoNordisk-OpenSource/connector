@@ -33,7 +33,7 @@ Imports:
     readr,
     readxl,
     rlang,
-    S7,
+    S7 (>= 0.2.0),
     utils,
     vroom,
     writexl,
