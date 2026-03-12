@@ -20,7 +20,8 @@ find_file <- function(name, root) {
   files <- list.files(
     path = root,
     pattern = paste0("^", name, "(\\.[[:alnum:]]+|)$"),
-    full.names = TRUE
+    full.names = TRUE,
+    ignore.case = zephyr::get_option("fs_ignore_case", "connector")
   )
 
   if (!length(files)) {
