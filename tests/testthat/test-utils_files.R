@@ -38,6 +38,21 @@ test_that("Test utils for file", {
     expect_equal("test.txt")
 })
 
+test_that("find_file() respects fs_ignore_case option", {
+  temp_dir <- withr::local_tempdir()
+  file.create(file.path(temp_dir, "dm.csv"))
+
+  expect_error(find_file("DM", temp_dir))
+
+  withr::with_options(
+    new = list(connector.fs_ignore_case = TRUE),
+    code = find_file("DM", temp_dir)
+  ) |>
+    expect_no_error() |>
+    basename() |>
+    expect_equal("dm.csv")
+})
+
 test_that("find_file() integration in read_cnt()", {
   withr::local_options(
     connector.verbosity_level = "verbose"

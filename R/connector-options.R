@@ -40,7 +40,15 @@ zephyr::create_option(
 zephyr::create_option(
   name = "default_ext",
   default = "csv",
-  desc = "Default extension to use when reading and writing files when not 
-  specified in the file name. E.g. with the default 'csv', files are assumed 
+  desc = "Default extension to use when reading and writing files when not
+  specified in the file name. E.g. with the default 'csv', files are assumed
   to be in CSV format if not specified."
+)
+
+zephyr::create_option(
+  name = "fs_ignore_case",
+  default = FALSE,
+  desc = "Use case-insensitive file matching when reading files with a
+  `ConnectorFS` object? When TRUE, file lookups will match regardless of
+  case (e.g., 'DM.csv' finds 'dm.csv')."
 )
