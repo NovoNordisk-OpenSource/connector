@@ -64,7 +64,7 @@ iris_cnt <- cnt |>
 
 iris_cnt
 #> # Source:   table<`iris`> [?? x 5]
-#> # Database: sqlite 3.51.1 []
+#> # Database: sqlite 3.51.2 []
 #>    Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #>           <dbl>       <dbl>        <dbl>       <dbl> <chr>  
 #>  1          5.1         3.5          1.4         0.2 setosa 
