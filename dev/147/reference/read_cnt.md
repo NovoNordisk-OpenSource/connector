@@ -21,6 +21,11 @@ matching the provided name. If multiple files match and no extension is
 specified, it will use the default extension (configurable via
 `options(connector.default_ext = "csv")`, defaults to "csv").
 
+Case sensitivity of the file name lookup can be controlled via
+`options(connector.fs_ignore_case = TRUE)` (defaults to `FALSE`). See
+[connector-options](https://novonordisk-opensource.github.io/connector/reference/connector-options.md)
+for details.
+
 - [ConnectorLogger](https://novonordisk-opensource.github.io/connector/reference/ConnectorLogger.md):
   Logs the read operation and calls the underlying connector method.
 
@@ -122,12 +127,12 @@ cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 
 cnt$data |>
   write_cnt(iris, "iris.csv")
-#> {"time":"2026-03-23 09:17:47","type":"write","file":"iris.csv @ /tmp/RtmpLNMdiu/test1e665a7f0972"}
+#> {"time":"2026-03-23 09:21:40","type":"write","file":"iris.csv @ /tmp/RtmplxRRSn/test1e3664da02"}
 
 cnt$data |>
   read_cnt("iris.csv", show_col_types = FALSE) |>
   head()
-#> {"time":"2026-03-23 09:17:47","type":"read","file":"iris.csv @ /tmp/RtmpLNMdiu/test1e665a7f0972"}
+#> {"time":"2026-03-23 09:21:40","type":"read","file":"iris.csv @ /tmp/RtmplxRRSn/test1e3664da02"}
 #> # A tibble: 6 × 5
 #>   Sepal.Length Sepal.Width Petal.Length Petal.Width Species
 #>          <dbl>       <dbl>        <dbl>       <dbl> <chr>  
