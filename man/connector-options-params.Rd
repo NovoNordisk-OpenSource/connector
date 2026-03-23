@@ -20,6 +20,10 @@ logging functions.. Default: \code{FALSE}.}
 \item{default_ext}{Default extension to use when reading and writing files when not
 specified in the file name. E.g. with the default 'csv', files are assumed
 to be in CSV format if not specified.. Default: \code{"csv"}.}
+
+\item{fs_ignore_case}{Use case-insensitive file matching when reading files with a
+\code{ConnectorFS} object? When TRUE, file lookups will match regardless of
+case (e.g., 'DM.csv' finds 'dm.csv').. Default: \code{FALSE}.}
 }
 \description{
 Internal parameters for reuse in functions

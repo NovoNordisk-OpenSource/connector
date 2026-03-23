@@ -31,6 +31,6 @@ write_datasources(cnt, yml_file)
 # Check the content of the file
 cat(readLines(yml_file), sep = "\n")
 # Reconnect using the new config file
-re_connect <- connect(yml_file)
+re_connect <- connect(yml_fil e)
 re_connect
 }
