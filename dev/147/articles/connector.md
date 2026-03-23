@@ -77,12 +77,12 @@ db <- connect()
 #> Connection to:
 #> → adam
 #> • connector::connector_fs
-#> • /tmp/RtmpZuUzLg/file28153552365a/adam
+#> • /tmp/Rtmp4DMszO/file2872d8492c9/adam
 #> ────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → tfl
 #> • connector::connector_fs
-#> • /tmp/RtmpZuUzLg/file28153552365a/tfl
+#> • /tmp/Rtmp4DMszO/file2872d8492c9/tfl
 ```
 
 Next, we manipulate the iris dataset and store it in the `adam`
@@ -125,7 +125,7 @@ function.
 setosa_filtered <- db$adam |>
   read_cnt("setosa") |>
   filter(Sepal.Length > 5)
-#> → Found one file: /tmp/RtmpZuUzLg/file28153552365a/adam/setosa.rds
+#> → Found one file: /tmp/Rtmp4DMszO/file2872d8492c9/adam/setosa.rds
 ```
 
 Finally, we can create a plot with the `ggplot2` package and store it in

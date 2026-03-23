@@ -46,5 +46,5 @@ config <- config |>
     backend = list(type = "connector_fs", path = "new_path")
   )
 config
-#> [1] "/tmp/RtmpP1aEE7/file1e056f329a9a.yml"
+#> [1] "/tmp/RtmpLNMdiu/file1e661f6875e4.yml"
 ```

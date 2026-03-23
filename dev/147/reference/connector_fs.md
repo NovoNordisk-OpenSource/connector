@@ -60,7 +60,7 @@ cnt
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpP1aEE7
+#> • path: /tmp/RtmpLNMdiu
 
 # Create subclass connection
 cnt_subclass <- connector_fs(
@@ -87,7 +87,7 @@ cnt_subclass
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpP1aEE7
+#> • path: /tmp/RtmpLNMdiu
 class(cnt_subclass)
 #> [1] "subclass"    "ConnectorFS" "Connector"   "R6"         
 ```

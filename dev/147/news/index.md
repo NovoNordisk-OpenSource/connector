@@ -1,7 +1,5 @@
 # Changelog
 
-## connector (development version)
-
 ## connector 1.0.0
 
 CRAN release: 2025-08-19

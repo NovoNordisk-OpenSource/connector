@@ -41,10 +41,10 @@ config <- config |>
     backend = list(type = "connector_fs", path = "new_path")
   )
 config
-#> [1] "/tmp/RtmpP1aEE7/file1e053d1fa16b.yml"
+#> [1] "/tmp/RtmpLNMdiu/file1e6667e22133.yml"
 # Now remove it
 config <- config |>
   remove_datasource("new_datasource")
 config
-#> [1] "/tmp/RtmpP1aEE7/file1e053d1fa16b.yml"
+#> [1] "/tmp/RtmpLNMdiu/file1e6667e22133.yml"
 ```
