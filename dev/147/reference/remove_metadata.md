@@ -40,10 +40,10 @@ config <- config |>
     value = "new_value"
   )
 config
-#> [1] "/tmp/RtmplxRRSn/file1e363fb6d046.yml"
+#> [1] "/tmp/RtmpqehMJz/file1e4969285b66.yml"
 #' # Now remove it
 config <- config |>
   remove_metadata("new_metadata")
 config
-#> [1] "/tmp/RtmplxRRSn/file1e363fb6d046.yml"
+#> [1] "/tmp/RtmpqehMJz/file1e4969285b66.yml"
 ```
