@@ -8,6 +8,10 @@
 #' it will use the default extension (configurable via
 #' `options(connector.default_ext = "csv")`, defaults to "csv").
 #'
+#' Case sensitivity of the file name lookup can be controlled via
+#' `options(connector.fs_ignore_case = TRUE)` (defaults to `FALSE`).
+#' See [connector-options] for details.
+#'
 #' @examples
 #' # Write and read a CSV file using the file storage connector
 #'

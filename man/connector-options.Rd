@@ -52,4 +52,16 @@ to be in CSV format if not specified.
 \item Environment: \code{R_CONNECTOR_DEFAULT_EXT}
 }
 }
+
+\subsection{fs_ignore_case}{
+
+Use case-insensitive file matching when reading files with a
+\code{ConnectorFS} object? When TRUE, file lookups will match regardless of
+case (e.g., 'DM.csv' finds 'dm.csv').
+\itemize{
+\item Default: \code{FALSE}
+\item Option: \code{connector.fs_ignore_case}
+\item Environment: \code{R_CONNECTOR_FS_IGNORE_CASE}
+}
+}
 }

@@ -44,6 +44,10 @@ the provided name. If multiple files match and no extension is specified,
 it will use the default extension (configurable via
 \code{options(connector.default_ext = "csv")}, defaults to "csv").
 
+Case sensitivity of the file name lookup can be controlled via
+\code{options(connector.fs_ignore_case = TRUE)} (defaults to \code{FALSE}).
+See \link{connector-options} for details.
+
 \itemize{
 \item \link{ConnectorLogger}: Logs the read operation and calls the underlying connector method.
 }

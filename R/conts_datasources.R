@@ -52,7 +52,7 @@ connectors_to_datasources <- function(data) {
 #' # Check the content of the file
 #' cat(readLines(yml_file), sep = "\n")
 #' # Reconnect using the new config file
-#' re_connect <- connect(yml_fil e)
+#' re_connect <- connect(yml_file)
 #' re_connect
 #' @export
 write_datasources <- S7::new_generic(
