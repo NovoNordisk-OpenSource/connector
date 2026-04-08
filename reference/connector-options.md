@@ -51,3 +51,15 @@ assumed to be in CSV format if not specified.
 - Option: `connector.default_ext`
 
 - Environment: `R_CONNECTOR_DEFAULT_EXT`
+
+### fs_ignore_case
+
+Use case-insensitive file matching when reading files with a
+`ConnectorFS` object? When TRUE, file lookups will match regardless of
+case (e.g., 'DM.csv' finds 'dm.csv').
+
+- Default: `FALSE`
+
+- Option: `connector.fs_ignore_case`
+
+- Environment: `R_CONNECTOR_FS_IGNORE_CASE`

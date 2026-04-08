@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,6 +71,12 @@ logging functions.. Default: <code>FALSE</code>.</p></dd>
 <dd><p>Default extension to use when reading and writing files when not
 specified in the file name. E.g. with the default 'csv', files are assumed
 to be in CSV format if not specified.. Default: <code>"csv"</code>.</p></dd>
+
+
+<dt id="arg-fs-ignore-case">fs_ignore_case<a class="anchor" aria-label="anchor" href="#arg-fs-ignore-case"></a></dt>
+<dd><p>Use case-insensitive file matching when reading files with a
+<code>ConnectorFS</code> object? When TRUE, file lookups will match regardless of
+case (e.g., 'DM.csv' finds 'dm.csv').. Default: <code>FALSE</code>.</p></dd>
 
 </dl></div>
     <div class="section level2">

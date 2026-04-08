@@ -33,6 +33,12 @@ Internal parameters for reuse in functions
   specified in the file name. E.g. with the default 'csv', files are
   assumed to be in CSV format if not specified.. Default: `"csv"`.
 
+- fs_ignore_case:
+
+  Use case-insensitive file matching when reading files with a
+  `ConnectorFS` object? When TRUE, file lookups will match regardless of
+  case (e.g., 'DM.csv' finds 'dm.csv').. Default: `FALSE`.
+
 ## Details
 
 See

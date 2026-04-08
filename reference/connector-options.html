@@ -56,6 +56,20 @@ Environment: R_CONNECTOR_DEFAULT_EXT
 
 
 
+
+
+fs_ignore_case
+
+
+Use case-insensitive file matching when reading files with a
+ConnectorFS object? When TRUE, file lookups will match regardless of
+case (e.g., 'DM.csv' finds 'dm.csv').
+Default: FALSE
+Option: connector.fs_ignore_case
+Environment: R_CONNECTOR_FS_IGNORE_CASE
+
+
+
 "><meta property="og:description" content="
 
 verbosity_level
@@ -113,6 +127,20 @@ Environment: R_CONNECTOR_DEFAULT_EXT
 
 
 
+
+
+fs_ignore_case
+
+
+Use case-insensitive file matching when reading files with a
+ConnectorFS object? When TRUE, file lookups will match regardless of
+case (e.g., 'DM.csv' finds 'dm.csv').
+Default: FALSE
+Option: connector.fs_ignore_case
+Environment: R_CONNECTOR_FS_IGNORE_CASE
+
+
+
 "><meta property="og:image" content="https://novonordisk-opensource.github.io/connector/logo.png"></head><body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
 
@@ -121,7 +149,7 @@ Environment: R_CONNECTOR_DEFAULT_EXT
 
     <a class="navbar-brand me-2" href="../index.html">connector</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9002</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">1.0.0.9003</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -198,6 +226,17 @@ specified in the file name. E.g. with the default 'csv', files are assumed
 to be in CSV format if not specified.</p><ul><li><p>Default: <code>"csv"</code></p></li>
 <li><p>Option: <code>connector.default_ext</code></p></li>
 <li><p>Environment: <code>R_CONNECTOR_DEFAULT_EXT</code></p></li>
+</ul></div>
+
+<div class="section">
+<h3 id="fs-ignore-case">fs_ignore_case<a class="anchor" aria-label="anchor" href="#fs-ignore-case"></a></h3>
+
+
+<p>Use case-insensitive file matching when reading files with a
+<code>ConnectorFS</code> object? When TRUE, file lookups will match regardless of
+case (e.g., 'DM.csv' finds 'dm.csv').</p><ul><li><p>Default: <code>FALSE</code></p></li>
+<li><p>Option: <code>connector.fs_ignore_case</code></p></li>
+<li><p>Environment: <code>R_CONNECTOR_FS_IGNORE_CASE</code></p></li>
 </ul></div>
 
     </div>
