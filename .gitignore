@@ -58,3 +58,7 @@ megalinter-reports/
 /.quarto/
 CRAN-SUBMISSION
 .claude/
+
+.env
+.env.*
+!.env.example
