@@ -7,9 +7,7 @@ on:
     branches:
       - main
       - master
-permissions:
-  contents: write
-  pull-requests: write
+permissions: {}
 name: All actions
 env:
   R_KEEP_PKG_SOURCE: true
@@ -17,22 +15,33 @@ env:
 jobs:
   check-current-version:
     name: Check current version
-    uses: >-
-      NovoNordisk-OpenSource/r.workflows/.github/workflows/check_current_version.yaml@main
+    permissions:
+      contents: read
+    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/check_current_version.yaml@fa1f70cce8b5544ddb31d8ea31dc2b917af1a4b3 # v0.1.0
     with:
       use_local_setup_action: true
   pkgdown:
     name: Pkgdown site
-    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/pkgdown.yaml@main
+    permissions:
+      contents: write
+      pull-requests: write
+    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/pkgdown.yaml@fa1f70cce8b5544ddb31d8ea31dc2b917af1a4b3 # v0.1.0
     with:
       use_local_setup_action: true
   coverage:
     name: Coverage report
-    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/coverage.yaml@main
-    secrets: inherit
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/coverage.yaml@fa1f70cce8b5544ddb31d8ea31dc2b917af1a4b3 # v0.1.0
+    secrets:
+      CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     with:
       use_local_setup_action: true
       use_codecov: true
   megalinter:
     name: Megalinter
-    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/megalinter.yaml@main
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/megalinter.yaml@fa1f70cce8b5544ddb31d8ea31dc2b917af1a4b3 # v0.1.0
