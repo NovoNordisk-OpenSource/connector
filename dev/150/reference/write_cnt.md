@@ -134,5 +134,5 @@ cnt <- connectors(data = connector_dbi(RSQLite::SQLite())) |> add_logs()
 
 cnt$data |>
   write_cnt(mtcars, "cars")
-#> {"time":"2026-07-03 13:31:40","type":"write","file":"cars @ driver: SQLiteConnection, dbname: "}
+#> {"time":"2026-07-03 13:34:45","type":"write","file":"cars @ driver: SQLiteConnection, dbname: "}
 ```
