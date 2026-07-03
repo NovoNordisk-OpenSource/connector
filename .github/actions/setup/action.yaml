@@ -6,6 +6,8 @@ runs:
     - name: Start local postgres server with Docker
       if: runner.os == 'Linux'
       shell: bash
+      env:
+        POSTGRES_IMAGE: postgres@sha256:4aabea78cf39b90e834caf3af7d602a18565f6fe2508705c8d01aa63245c2e20 # v18.4
       run: |
-       docker pull postgres
-       docker run --name my-postgres --env POSTGRES_PASSWORD=password --publish 5432:5432 --detach postgres
+       docker pull "$POSTGRES_IMAGE"
+       docker run --name my-postgres --env POSTGRES_PASSWORD=password --publish 5432:5432 --detach "$POSTGRES_IMAGE"
