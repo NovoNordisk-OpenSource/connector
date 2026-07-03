@@ -6,4 +6,6 @@ runs:
     - name: Start local postgres server with Docker
       if: runner.os == 'Linux'
       shell: bash
-      run: docker compose -f "${{ github.action_path }}/docker-compose.yaml" up --detach
+      env:
+        ACTION_PATH: ${{ github.action_path }}
+      run: docker compose -f "$ACTION_PATH/docker-compose.yaml" up --detach
