@@ -1,0 +1,6 @@
+{
+  "ignore": [
+    "inst/demo_trial/**",
+    "tests/testthat/demo_trial/**"
+  ]
+}
