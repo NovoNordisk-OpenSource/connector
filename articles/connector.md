@@ -71,18 +71,19 @@ Now, let’s run the example:
 The first step is to create the connections to the data sources.
 
 ``` r
+
 # Load data connections
 db <- connect()
 #> ────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → adam
 #> • connector::connector_fs
-#> • /tmp/RtmpBketVb/file290641ebe844/adam
+#> • /tmp/RtmpcSRA5M/file27745b8cafbf/adam
 #> ────────────────────────────────────────────────────────────────────────────────
 #> Connection to:
 #> → tfl
 #> • connector::connector_fs
-#> • /tmp/RtmpBketVb/file290641ebe844/tfl
+#> • /tmp/RtmpcSRA5M/file27745b8cafbf/tfl
 ```
 
 Next, we manipulate the iris dataset and store it in the `adam`
@@ -90,6 +91,7 @@ connector. This means we will create a subset of the iris dataset and
 save it as an RDS file in the `adam` directory.
 
 ``` r
+
 ## Iris data
 setosa <- iris |>
   filter(Species == "setosa")
@@ -102,6 +104,7 @@ We can also create more complex summaries and store them in the same
 connector.
 
 ``` r
+
 mean_for_all_iris <- iris |>
   group_by(Species) |>
   summarise_all(list(mean, median, sd, min, max))
@@ -121,17 +124,19 @@ using the
 function.
 
 ``` r
+
 # Read and filter data
 setosa_filtered <- db$adam |>
   read_cnt("setosa") |>
   filter(Sepal.Length > 5)
-#> → Found one file: /tmp/RtmpBketVb/file290641ebe844/adam/setosa.rds
+#> → Found one file: /tmp/RtmpcSRA5M/file27745b8cafbf/adam/setosa.rds
 ```
 
 Finally, we can create a plot with the `ggplot2` package and store it in
 the `tfl` connector.
 
 ``` r
+
 # Create a plot
 plot_setosa <- ggplot(setosa_filtered) +
   aes(x = Sepal.Length, y = Sepal.Width) +

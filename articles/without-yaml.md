@@ -1,6 +1,7 @@
 # Using connector without YAML files
 
 ``` r
+
 library(connector)
 library(dplyr)
 #> 
@@ -39,6 +40,7 @@ directory path, and the connector handles reading and writing files in
 various formats based on file extensions.
 
 ``` r
+
 # Create a file system connector pointing to the 'data' directory
 fs_conn <- connector_fs(path = "data")
 fs_conn
@@ -73,6 +75,7 @@ interface. This works with any DBI-compatible database driver (SQLite,
 PostgreSQL, MySQL, etc.).
 
 ``` r
+
 # Create a database connector using SQLite in-memory database
 db_conn <- connector_dbi(
   drv = RSQLite::SQLite(),
@@ -103,6 +106,7 @@ whether it’s a file system or database connector. This consistency makes
 it easy to switch storage backends in your analysis.
 
 ``` r
+
 # Write and read data using the file system connector
 sample_data <- mtcars[1:5, 1:3]
 
@@ -142,6 +146,7 @@ meaningful names. This is useful for organizing different stages of your
 data pipeline or different types of storage.
 
 ``` r
+
 # Create a collection of connectors for different data stages
 my_connectors <- connectors(
   staging = connector_fs(path = "staging"),
@@ -161,6 +166,7 @@ different connectors for different purposes. Access each connector by
 name using the `$` operator.
 
 ``` r
+
 # Use different connectors for different stages of analysis
 iris_sample <- iris[1:10, ]
 
@@ -190,6 +196,7 @@ interface. This lets you choose the best storage method for each type of
 data.
 
 ``` r
+
 # Mix file system and database connectors in one collection
 mixed_connectors <- connectors(
   files = connector_fs(path = "output"),

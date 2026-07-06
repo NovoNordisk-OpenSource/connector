@@ -29,6 +29,7 @@ object. It directly returns this attribute without any modification.
 ## Examples
 
 ``` r
+
 # Connectors object with data sources
 cnts <- connectors(
   sdtm = connector_fs(path = tempdir()),

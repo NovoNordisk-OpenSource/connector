@@ -29,6 +29,7 @@ easily connect to more specific data sources:
 ## Installation
 
 ``` r
+
 # Install the released version from CRAN:
 install.packages("connector")
 # Install the development version from GitHub:
@@ -65,6 +66,7 @@ datasources:
 It is easy to initialize this file with:
 
 ``` r
+
 connector::use_connector()
 ```
 
@@ -87,6 +89,7 @@ To connect and create the conenctors we use
 with the configuration file as input:
 
 ``` r
+
 library(connector)
 
 db <- connect("_connector.yml")
@@ -113,6 +116,7 @@ printing the individual `connector` you get the some general information
 on their methods and specifications.
 
 ``` r
+
 print(db$database)
 #> <ConnectorDBI>
 #> Inherits from: <Connector>
@@ -134,6 +138,7 @@ We are now ready to use the `connectors`, so we can start by writing
 some data to the `folder` one:
 
 ``` r
+
 # Initially it is empty
 db$folder |>
   list_content_cnt()
@@ -181,6 +186,7 @@ for more information.
 For the `database` connector it works in the same way:
 
 ``` r
+
 # Initially no tables exists
 db$database |>
   list_content_cnt()

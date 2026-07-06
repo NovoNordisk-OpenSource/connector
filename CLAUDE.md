@@ -16,6 +16,7 @@ code.
 ### Package Development
 
 ``` r
+
 # Load package for development
 devtools::load_all()
 
@@ -44,6 +45,7 @@ devtools::install()
 ### Code Quality
 
 ``` r
+
 # Style check and auto-format
 styler::style_pkg()
 
@@ -60,6 +62,7 @@ spelling::spell_check_package()
 ### Vignette and Documentation
 
 ``` r
+
 # Build vignettes
 devtools::build_vignettes()
 

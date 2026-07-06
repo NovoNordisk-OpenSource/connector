@@ -43,6 +43,7 @@ inheriting the methods from the `ConnectorDBI` object.
 ## Examples
 
 ``` r
+
 # Create DBI connector
 cnt <- connector_dbi(RSQLite::SQLite(), ":memory:")
 cnt

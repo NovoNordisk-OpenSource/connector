@@ -44,6 +44,7 @@ download_directory_cnt(connector_object, src, dest = basename(src), ...)
 ## Examples
 
 ``` r
+
 # Download a directory to a file storage
 folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 

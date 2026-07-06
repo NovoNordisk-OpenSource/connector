@@ -71,6 +71,7 @@ upload_directory_cnt(
 ## Examples
 
 ``` r
+
 # Upload a directory to a file storage
 folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 

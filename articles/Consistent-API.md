@@ -13,19 +13,19 @@ interoperability between different connector packages.
 
 Below is a table summarizing the methods and their return values:
 
-| Method                                                                                                               | Return Value                                                                                                                                                                                   |
-|----------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [`read_cnt()`](https://novonordisk-opensource.github.io/connector/reference/read_cnt.md)                             | Content of the file                                                                                                                                                                            |
-| [`write_cnt()`](https://novonordisk-opensource.github.io/connector/reference/write_cnt.md)                           | `Connector` object                                                                                                                                                                             |
-| [`list_content_cnt()`](https://novonordisk-opensource.github.io/connector/reference/list_content_cnt.md)             | Vector of items                                                                                                                                                                                |
-| [`remove_cnt()`](https://novonordisk-opensource.github.io/connector/reference/remove_cnt.md)                         | `Connector` object                                                                                                                                                                             |
-| [`download_cnt()`](https://novonordisk-opensource.github.io/connector/reference/download_cnt.md)                     | `Connector` object                                                                                                                                                                             |
-| [`upload_cnt()`](https://novonordisk-opensource.github.io/connector/reference/upload_cnt.md)                         | `Connector` object                                                                                                                                                                             |
-| [`create_directory_cnt()`](https://novonordisk-opensource.github.io/connector/reference/create_directory_cnt.md)     | `Connector` object, if `open = TRUE`, then new `Connector` object                                                                                                                              |
-| [`remove_directory_cnt()`](https://novonordisk-opensource.github.io/connector/reference/remove_directory_cnt.md)     | `Connector` object                                                                                                                                                                             |
-| [`upload_directory_cnt()`](https://novonordisk-opensource.github.io/connector/reference/upload_directory_cnt.md)     | `Connector` object, if `open = TRUE`, then new `Connector` object                                                                                                                              |
-| [`download_directory_cnt()`](https://novonordisk-opensource.github.io/connector/reference/download_directory_cnt.md) | `Connector` object                                                                                                                                                                             |
-| [`tbl_cnt()`](https://novonordisk-opensource.github.io/connector/reference/tbl_cnt.md)                               | Content of the table. Either [`dplyr::tbl()`](https://dplyr.tidyverse.org/reference/tbl.html) or from [`read_cnt()`](https://novonordisk-opensource.github.io/connector/reference/read_cnt.md) |
+| Method | Return Value |
+|----|----|
+| [`read_cnt()`](https://novonordisk-opensource.github.io/connector/reference/read_cnt.md) | Content of the file |
+| [`write_cnt()`](https://novonordisk-opensource.github.io/connector/reference/write_cnt.md) | `Connector` object |
+| [`list_content_cnt()`](https://novonordisk-opensource.github.io/connector/reference/list_content_cnt.md) | Vector of items |
+| [`remove_cnt()`](https://novonordisk-opensource.github.io/connector/reference/remove_cnt.md) | `Connector` object |
+| [`download_cnt()`](https://novonordisk-opensource.github.io/connector/reference/download_cnt.md) | `Connector` object |
+| [`upload_cnt()`](https://novonordisk-opensource.github.io/connector/reference/upload_cnt.md) | `Connector` object |
+| [`create_directory_cnt()`](https://novonordisk-opensource.github.io/connector/reference/create_directory_cnt.md) | `Connector` object, if `open = TRUE`, then new `Connector` object |
+| [`remove_directory_cnt()`](https://novonordisk-opensource.github.io/connector/reference/remove_directory_cnt.md) | `Connector` object |
+| [`upload_directory_cnt()`](https://novonordisk-opensource.github.io/connector/reference/upload_directory_cnt.md) | `Connector` object, if `open = TRUE`, then new `Connector` object |
+| [`download_directory_cnt()`](https://novonordisk-opensource.github.io/connector/reference/download_directory_cnt.md) | `Connector` object |
+| [`tbl_cnt()`](https://novonordisk-opensource.github.io/connector/reference/tbl_cnt.md) | Content of the table. Either [`dplyr::tbl()`](https://dplyr.tidyverse.org/reference/tbl.html) or from [`read_cnt()`](https://novonordisk-opensource.github.io/connector/reference/read_cnt.md) |
 
 ## Detailed Explanations
 

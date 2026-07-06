@@ -27,6 +27,7 @@ We can create a new connector by creating a new R6 class that inherits
 from `Connector`:
 
 ``` r
+
 connector_myclass <- R6::R6Class(
   "connector_myclass",
   inherit = Connector
@@ -57,6 +58,7 @@ the `path` to the folder as an argument, they provide the `project`
 name, and the `path` is constructed from that.
 
 ``` r
+
 connector_project <- R6::R6Class(
   "connector_project",
   inherit = ConnectorFS,
@@ -86,6 +88,7 @@ has all the methods from `ConnectorFS`, and that the path has been
 assigned correctly based on the `project` argument:
 
 ``` r
+
 my_project <- connector_project$new(project = "my_project")
 
 print(my_project)
@@ -108,7 +111,7 @@ print(my_project)
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpJ63Sqa/file29976df997a1/my_root_path/my_project
+#> • path: /tmp/RtmpwwyaSP/file2804324d7028/my_root_path/my_project
 #> • project: my_project
 ```
 
@@ -116,6 +119,7 @@ We can now use this `connector` to read and write data, just as we would
 with `ConnectorFS`:
 
 ``` r
+
 # First list current content:
 my_project |>
   list_content_cnt()
@@ -152,13 +156,14 @@ To illustrate this we can take a look at the
 generic:
 
 ``` r
+
 # Print the generic
 print(list_content_cnt)
 #> function (connector_object, ...) 
 #> {
 #>     UseMethod("list_content_cnt")
 #> }
-#> <bytecode: 0x55f7b3a51560>
+#> <bytecode: 0x561a69d64428>
 #> <environment: namespace:connector>
 
 # List the registered s3 methods
@@ -176,6 +181,7 @@ for the `connector_project` class, to be used instead of
 `list_content_cnt.ConnectorFS`:
 
 ``` r
+
 list_content_cnt.connector_project <- function(connector_object, ...) {
   cli::cli_alert("Listing content of {connector_object$project}")
   NextMethod()
@@ -189,6 +195,7 @@ We can now see that this method is available and that is it associated
 with the `connector_project` class:
 
 ``` r
+
 # List methods again
 methods("list_content_cnt") |>
   cat(sep = "\n")
@@ -219,7 +226,7 @@ print(my_project)
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpJ63Sqa/file29976df997a1/my_root_path/my_project
+#> • path: /tmp/RtmpwwyaSP/file2804324d7028/my_root_path/my_project
 #> • project: my_project
 ```
 
@@ -229,6 +236,7 @@ on our `my_project` object, we see that the custom method is used and we
 get the message:
 
 ``` r
+
 my_project |>
   list_content_cnt()
 #> → Listing content of my_project
@@ -251,6 +259,7 @@ To redo the two examples above we make a new `ConnectorFS` with the
 extra class `extra_class`:
 
 ``` r
+
 my_project_extra <- ConnectorFS$new(
   path = file.path(tmp, "my_root_path", "my_project"),
   extra_class = "my_extra_class"
@@ -276,7 +285,7 @@ print(my_project_extra)
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpJ63Sqa/file29976df997a1/my_root_path/my_project
+#> • path: /tmp/RtmpwwyaSP/file2804324d7028/my_root_path/my_project
 ```
 
 As you can see here we have all the methods from `ConnectorFS`, but the
@@ -288,6 +297,7 @@ for the `extra_class` we do the same as for the `connector_project`
 above:
 
 ``` r
+
 list_content_cnt.my_extra_class <- function(connector_object, ...) {
   cli::cli_alert("Listing content of {connector_object$path}")
   NextMethod()
@@ -298,6 +308,7 @@ The project information is of course not available now, so we just print
 the path instead, but otherwise everything is the same:
 
 ``` r
+
 # List methods
 methods("list_content_cnt")
 #> [1] list_content_cnt.connector_project list_content_cnt.ConnectorDBI*    
@@ -326,12 +337,12 @@ print(my_project_extra)
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpJ63Sqa/file29976df997a1/my_root_path/my_project
+#> • path: /tmp/RtmpwwyaSP/file2804324d7028/my_root_path/my_project
 
 # List content to see the new message
 my_project_extra |>
   list_content_cnt()
-#> → Listing content of /tmp/RtmpJ63Sqa/file29976df997a1/my_root_path/my_project
+#> → Listing content of /tmp/RtmpwwyaSP/file2804324d7028/my_root_path/my_project
 #> [1] "my_file.txt"
 ```
 
@@ -397,6 +408,7 @@ and
 methods:
 
 ``` r
+
 read_ext.myformat <- function(path, ...) {
   cli::cli_alert("Reading myformat file")
   readLines(con = path)
@@ -412,6 +424,7 @@ And we can now use them to write and read our new file format with out
 existing `my_project` connector:
 
 ``` r
+
 # List already existing content:
 my_project |>
   list_content_cnt()
