@@ -57,9 +57,7 @@ read_ext.txt <- function(path, ...) {
 }
 
 #' @description
-#' * `csv`: [readr::read_csv()]
-#'
-#' @param delim [character()] Delimiter to use. Default is `","`.
+#' * `csv`: [readr::read_delim()] with `delim = ","` by default
 #'
 #' @examples
 #' # Read CSV file
