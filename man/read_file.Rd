@@ -66,7 +66,7 @@ Below is a list of all the pre-defined methods:
 }
 
 \itemize{
-\item \code{csv}: \code{\link[readr:read_delim]{readr::read_csv()}}
+\item \code{csv}: \code{\link[readr:read_delim]{readr::read_delim()}} with \code{delim = ","} by default
 }
 
 \itemize{

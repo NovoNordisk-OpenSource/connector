@@ -219,7 +219,7 @@ then called on the path of the file.
 `read_file()` here is only a helper function, that then calls `read_ext()` which is a 
 generic that dispatches based on file extension of the file, and uses general functions
 from other packages to read the file. As an example any file with the extension `.csv` 
-will be read using `readr::read_csv()`.
+will be read using `readr::read_delim()`.
 
 The same logic applies to `write_cnt()`.
 
