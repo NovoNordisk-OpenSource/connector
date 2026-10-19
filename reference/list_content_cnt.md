@@ -87,10 +87,10 @@ cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 
 cnt$data |>
   write_cnt(iris, "iris.csv")
-#> {"time":"2026-07-06 10:19:58","type":"write","file":"iris.csv @ /tmp/RtmpRmflYz/test1d6621970b1e"}
+#> {"time":"2026-10-19 15:02:55","type":"write","file":"iris.csv @ /tmp/RtmpO2P6wJ/test1cf3325768f0"}
 
 cnt$data |>
   list_content_cnt()
-#> {"time":"2026-07-06 10:19:58","type":"read","file":". @ /tmp/RtmpRmflYz/test1d6621970b1e"}
+#> {"time":"2026-10-19 15:02:55","type":"read","file":". @ /tmp/RtmpO2P6wJ/test1cf3325768f0"}
 #> [1] "iris.csv"
 ```

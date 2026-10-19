@@ -111,7 +111,7 @@ print(my_project)
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpwwyaSP/file2804324d7028/my_root_path/my_project
+#> • path: /tmp/RtmplTEpoD/file279021e7631/my_root_path/my_project
 #> • project: my_project
 ```
 
@@ -163,7 +163,7 @@ print(list_content_cnt)
 #> {
 #>     UseMethod("list_content_cnt")
 #> }
-#> <bytecode: 0x561a69d64428>
+#> <bytecode: 0x564f73002030>
 #> <environment: namespace:connector>
 
 # List the registered s3 methods
@@ -226,7 +226,7 @@ print(my_project)
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpwwyaSP/file2804324d7028/my_root_path/my_project
+#> • path: /tmp/RtmplTEpoD/file279021e7631/my_root_path/my_project
 #> • project: my_project
 ```
 
@@ -285,7 +285,7 @@ print(my_project_extra)
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpwwyaSP/file2804324d7028/my_root_path/my_project
+#> • path: /tmp/RtmplTEpoD/file279021e7631/my_root_path/my_project
 ```
 
 As you can see here we have all the methods from `ConnectorFS`, but the
@@ -337,12 +337,12 @@ print(my_project_extra)
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpwwyaSP/file2804324d7028/my_root_path/my_project
+#> • path: /tmp/RtmplTEpoD/file279021e7631/my_root_path/my_project
 
 # List content to see the new message
 my_project_extra |>
   list_content_cnt()
-#> → Listing content of /tmp/RtmpwwyaSP/file2804324d7028/my_root_path/my_project
+#> → Listing content of /tmp/RtmplTEpoD/file279021e7631/my_root_path/my_project
 #> [1] "my_file.txt"
 ```
 
@@ -386,7 +386,7 @@ here is only a helper function, that then calls
 which is a generic that dispatches based on file extension of the file,
 and uses general functions from other packages to read the file. As an
 example any file with the extension `.csv` will be read using
-[`readr::read_csv()`](https://readr.tidyverse.org/reference/read_delim.html).
+[`readr::read_delim()`](https://readr.tidyverse.org/reference/read_delim.html).
 
 The same logic applies to
 [`write_cnt()`](https://novonordisk-opensource.github.io/connector/reference/write_cnt.md).

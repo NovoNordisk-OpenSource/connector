@@ -22,7 +22,8 @@ methods:
 &nbsp;
 
 - `csv`:
-  [`readr::read_csv()`](https://readr.tidyverse.org/reference/read_delim.html)
+  [`readr::read_delim()`](https://readr.tidyverse.org/reference/read_delim.html)
+  with `delim = ","` by default
 
 &nbsp;
 
