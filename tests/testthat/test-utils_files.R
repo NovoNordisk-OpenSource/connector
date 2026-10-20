@@ -53,6 +53,52 @@ test_that("find_file() respects fs_ignore_case option", {
     expect_equal("dm.csv")
 })
 
+test_that("find_file() finds files in subdirectories", {
+  # Arrange
+  withr::with_tempdir({
+    file <- file.path("compare", "adsl.csv")
+    dir.create(dirname(file), recursive = TRUE)
+    file.create(file)
+    root <- "."
+
+    # Act
+    result <- find_file(tools::file_path_sans_ext(file), root)
+
+    # Assert
+    expect_equal(result, file.path(root, file))
+  })
+})
+
+test_that("find_file() finds files in nested subdirectories", {
+  withr::with_tempdir({
+    # Arrange
+    file <- file.path("one", "two", "adsl.csv")
+    dir.create(dirname(file), recursive = TRUE)
+    file.create(file)
+    root <- "."
+
+    # Act
+    result <- find_file(tools::file_path_sans_ext(file), root)
+
+    # Assert
+    expect_equal(result, file.path(root, file))
+  })
+})
+
+test_that("find_file() errors when no file is found in a subdirectory", {
+  withr::with_tempdir({
+    # Arrange
+    dir.create("one")
+    file.create(file.path("one", "adsl.csv"))
+
+    # Act and Assert
+    expect_error(
+      find_file(file.path("one", "missing"), "."),
+      regexp = "No file found"
+    )
+  })
+})
+
 test_that("find_file() integration in read_cnt()", {
   withr::local_options(
     connector.verbosity_level = "verbose"
@@ -95,4 +141,20 @@ test_that("find_file() integration in read_cnt()", {
 
   x$read_cnt("does_not_exist.xlsx") |>
     expect_error(regexp = "No file found")
+})
+
+test_that("read_cnt() reads files from subdirectories without extension", {
+  withr::with_tempdir({
+    # Arrange
+    file <- file.path("compare", "iris.rds")
+    dir.create(dirname(file))
+    cnt <- connector_fs(path = ".")
+    cnt$write_cnt(iris, file)
+
+    # Act
+    result <- cnt$read_cnt(tools::file_path_sans_ext(file))
+
+    # Assert
+    expect_equal(result, iris)
+  })
 })

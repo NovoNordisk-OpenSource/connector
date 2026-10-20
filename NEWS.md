@@ -5,6 +5,7 @@
 
 ## Enhancements
 * Changed `connectors()` and `nested_connectors()` to be S7 classes for more robust creation and use.
+* `read_cnt()` for `ConnectorFS` now finds files without an extension in subdirectories, e.g. `read_cnt(file.path("nested", "adsl"))` (#141).
 
 # connector 1.0.0
 

@@ -8,6 +8,9 @@
 #' it will use the default extension (configurable via
 #' `options(connector.default_ext = "csv")`, defaults to "csv").
 #'
+#' `name` can include subdirectories relative to the connector path,
+#' e.g. `file.path("compare", "adsl")`.
+#'
 #' Case sensitivity of the file name lookup can be controlled via
 #' `options(connector.fs_ignore_case = TRUE)` (defaults to `FALSE`).
 #' See [connector-options] for details.
@@ -114,6 +117,10 @@ write_cnt.ConnectorFS <- function(
 #'
 #' cnt |>
 #'   list_content_cnt(pattern = "\\.csv$")
+#'
+#' # Include files in subdirectories
+#' cnt |>
+#'   list_content_cnt(recursive = TRUE)
 #'
 #' @rdname list_content_cnt
 #' @export
