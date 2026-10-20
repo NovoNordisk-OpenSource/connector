@@ -80,6 +80,11 @@ cnt |>
   list_content_cnt(pattern = "\\.csv$")
 #> [1] "iris.csv"
 
+# Include files in subdirectories
+cnt |>
+  list_content_cnt(recursive = TRUE)
+#> [1] "iris.csv"
+
 # Add logging to a connector and list contents
 folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 
@@ -87,10 +92,10 @@ cnt <- connectors(data = connector_fs(folder)) |> add_logs()
 
 cnt$data |>
   write_cnt(iris, "iris.csv")
-#> {"time":"2026-10-20 08:38:02","type":"write","file":"iris.csv @ /tmp/RtmpccfjZl/test1bc215716cf4"}
+#> {"time":"2026-10-20 08:40:01","type":"write","file":"iris.csv @ /tmp/RtmpdjiQOt/test1c61370bb4e"}
 
 cnt$data |>
   list_content_cnt()
-#> {"time":"2026-10-20 08:38:02","type":"read","file":". @ /tmp/RtmpccfjZl/test1bc215716cf4"}
+#> {"time":"2026-10-20 08:40:01","type":"read","file":". @ /tmp/RtmpdjiQOt/test1c61370bb4e"}
 #> [1] "iris.csv"
 ```
