@@ -67,7 +67,7 @@ cnts$sdtm
 #> • `upload_directory_cnt.ConnectorFS()`
 #> • `write_cnt.ConnectorFS()`
 #> Specifications:
-#> • path: /tmp/RtmpYX7Wm3
+#> • path: /tmp/RtmptjHOlx
 
 cnts$adam
 #> <ConnectorDBI>
