@@ -5,6 +5,7 @@
 
 ## Enhancements
 * Changed `connectors()` and `nested_connectors()` to be S7 classes for more robust creation and use.
+* `connect()` now names the datasource that failed to connect and keeps the original error as its cause (#91).
 
 # connector 1.0.0
 
