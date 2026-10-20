@@ -18,3 +18,38 @@
       10          5.4         3.4          1.7         0.2 setosa 
       # i 108 more rows
 
+# connect() names the datasource that failed to connect
+
+    Code
+      connect(config)
+    Condition
+      Error in `connect()`:
+      ! Failed to create connection to datasource "broken".
+      i Check the backend configuration of "broken".
+      Caused by error:
+      ! Could not connect to database:
+      unable to open database file
+
+# connect() names the datasource when its backend cannot be found
+
+    Code
+      connect(config)
+    Condition
+      Error in `connect()`:
+      ! Failed to create connection to datasource "broken".
+      i Check the backend configuration of "broken".
+      Caused by error in `loadNamespace()`:
+      ! there is no package called 'nonexistent'
+
+# connect() names the nested config that failed to connect
+
+    Code
+      connect(config)
+    Condition
+      Error in `connect()`:
+      ! Failed to create connections for "study2".
+      x Failed to create connection to datasource "broken".
+      i Check the backend configuration of "broken".
+      Caused by error in `loadNamespace()`:
+      ! there is no package called 'nonexistent'
+

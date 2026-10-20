@@ -20,7 +20,7 @@ create_backend <- function(backend) {
     params_from_user$drv <- get_backend_fct(backend$drv)()
   }
 
-  connect_ <- try_connect(connect_fct, params_from_user)
+  connect_ <- do.call(connect_fct, params_from_user)
 
   if (!is.null(backend$extra_class)) {
     class(connect_) <- c(backend$extra_class, class(connect_))
@@ -53,23 +53,4 @@ get_backend_fct <- function(backend_type) {
 
     return(getExportedValue(package_name, function_name))
   }
-}
-
-#' Create a backend
-#'
-#' @param connect_fct The connection function
-#' @param params_from_user  The parameters from the user
-#' @noRd
-try_connect <- function(connect_fct, params_from_user) {
-  connect_ <- try(do.call(connect_fct, params_from_user), silent = TRUE)
-
-  if (inherits(connect_, "try-error")) {
-    c(
-      "Problem in connection to the backend:",
-      connect_
-    ) |>
-      cli::cli_abort()
-  }
-
-  return(connect_)
 }
