@@ -22,7 +22,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/pkgdown.yaml@fa1f70cce8b5544ddb31d8ea31dc2b917af1a4b3 # v0.1.0
+    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/pkgdown.yaml@0e2ad584b07bb08b72b387587c50ff3e9fb4fab2 # v0.1.2
     with:
       use_local_setup_action: true
   coverage:
