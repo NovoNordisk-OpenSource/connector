@@ -1,4 +1,6 @@
-temp_dir <- withr::local_tempdir("connector_tests", clean = FALSE)
+temp_dir <- file.path(tempdir(), "connector_tests")
+unlink(temp_dir, recursive = TRUE)
+dir.create(temp_dir)
 
 system.file(package = "connector") |>
   list.files(full.names = TRUE) |>
