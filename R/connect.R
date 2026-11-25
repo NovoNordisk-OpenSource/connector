@@ -103,8 +103,27 @@ connect <- function(
 
   if (is.null(names(config))) {
     names(config) <- purrr::map(config, "name")
-    cnts <- config |>
-      purrr::map(\(x) connect(x, metadata, datasource, set_env, logging))
+    call <- rlang::current_env()
+    cnts <- lapply(names(config), \(name) {
+      rlang::try_fetch(
+        connect(config[[name]], metadata, datasource, set_env, logging),
+        error = function(cnd) {
+          # Merge with the inner connect() error instead of chaining it,
+          # so the message does not repeat "Caused by error in `connect()`"
+          cli::cli_abort(
+            c(
+              "Failed to create connections for {.val {name}}.",
+              "x" = "{rlang::cnd_header(cnd)}",
+              # escape braces so cli does not interpolate the formatted text again
+              gsub("([{}])", "\\1\\1", rlang::cnd_body(cnd))
+            ),
+            parent = cnd$parent,
+            call = call
+          )
+        }
+      )
+    }) |>
+      rlang::set_names(names(config))
 
     return(do.call(nested_connectors, cnts))
   }
@@ -136,9 +155,9 @@ connect <- function(
 
 #' Connect datasources to the connections from the yaml content
 #' @noRd
-connect_from_config <- function(config) {
+connect_from_config <- function(config, call = rlang::caller_env()) {
   connections <- config$datasources |>
-    purrr::map(create_connection) |>
+    lapply(create_connection, call = call) |>
     rlang::set_names(purrr::map_chr(config$datasources, list("name", 1)))
 
   ## clean datasources
@@ -194,20 +213,33 @@ info_config <- function(config) {
 
 #' Create a connection object depending on the backend type
 #' @param config [list] The configuration of a single connection
+#' @param call The calling environment used in error messages
 #' @noRd
-create_connection <- function(config) {
+create_connection <- function(config, call = rlang::caller_env()) {
   info_config(config)
 
-  switch(
-    config$backend$type,
-    "ConnectorFS" = {
-      create_backend_fs(config$backend)
-    },
-    "ConnectorDBI" = {
-      create_backend_dbi(config$backend)
-    },
-    {
-      create_backend(config$backend)
+  rlang::try_fetch(
+    switch(
+      config$backend$type,
+      "ConnectorFS" = {
+        create_backend_fs(config$backend)
+      },
+      "ConnectorDBI" = {
+        create_backend_dbi(config$backend)
+      },
+      {
+        create_backend(config$backend)
+      }
+    ),
+    error = function(cnd) {
+      cli::cli_abort(
+        c(
+          "Failed to create connection to datasource {.val {config$name[[1]]}}.",
+          "i" = "Check the {.field backend} configuration of {.val {config$name[[1]]}}."
+        ),
+        parent = cnd,
+        call = call
+      )
     }
   )
 }

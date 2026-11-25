@@ -153,3 +153,95 @@ test_that("Add logs to connectors object", {
     expect_s3_class(x, "ConnectorLogger")
   })
 })
+
+test_that("connect() names the datasource that failed to connect", {
+  # Arrange
+  config <- list(
+    datasources = list(
+      list(
+        name = "adam",
+        backend = list(type = "connector_fs", path = ".")
+      ),
+      list(
+        name = "broken",
+        backend = list(
+          type = "connector_dbi",
+          drv = "RSQLite::SQLite()",
+          dbname = file.path("does_not_exist", "db.sqlite")
+        )
+      )
+    )
+  )
+
+  # Act and Assert
+  expect_snapshot(connect(config), error = TRUE)
+})
+
+test_that("connect() names the datasource when its backend cannot be found", {
+  # Arrange
+  config <- list(
+    datasources = list(
+      list(
+        name = "broken",
+        backend = list(type = "nonexistent::connector_x")
+      )
+    )
+  )
+
+  # Act and Assert
+  expect_snapshot(connect(config), error = TRUE)
+})
+
+test_that("connect() names the nested config that failed to connect", {
+  # Arrange
+  config <- list(
+    list(
+      name = "study1",
+      datasources = list(
+        list(
+          name = "adam",
+          backend = list(type = "connector_fs", path = ".")
+        )
+      )
+    ),
+    list(
+      name = "study2",
+      datasources = list(
+        list(
+          name = "broken",
+          backend = list(type = "nonexistent::connector_x")
+        )
+      )
+    )
+  )
+
+  # Act and Assert
+  expect_snapshot(connect(config), error = TRUE)
+})
+
+test_that("connect() creates nested connectors from a list of configs", {
+  # Arrange
+  config <- list(
+    list(
+      name = "study1",
+      datasources = list(
+        list(name = "adam", backend = list(type = "connector_fs", path = "."))
+      )
+    ),
+    list(
+      name = "study2",
+      datasources = list(
+        list(name = "sdtm", backend = list(type = "connector_fs", path = "."))
+      )
+    )
+  )
+
+  # Act
+  cnts <- connect(config)
+
+  # Assert
+  expect_s3_class(cnts, "connector::nested_connectors")
+  expect_named(cnts, c("study1", "study2"))
+  expect_named(cnts$study1, "adam")
+  expect_named(cnts$study2, "sdtm")
+})
