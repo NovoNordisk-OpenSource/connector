@@ -7,6 +7,10 @@ updates:
     commit-message:
       prefix: "chore"
       include: "scope"
+    groups:
+      github-actions:
+        patterns:
+          - "*"
   - package-ecosystem: "docker-compose"
     directory: "/.github/actions/setup"
     schedule:
