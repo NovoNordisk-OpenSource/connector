@@ -63,6 +63,10 @@ cnt |>
 cnt |>
   list_content_cnt(pattern = "\\\\.csv$")
 
+# Include files in subdirectories
+cnt |>
+  list_content_cnt(recursive = TRUE)
+
 # Add logging to a connector and list contents
 folder <- withr::local_tempdir("test", .local_envir = .GlobalEnv)
 
