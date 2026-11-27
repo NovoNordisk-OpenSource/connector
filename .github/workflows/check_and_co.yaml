@@ -14,7 +14,7 @@ jobs:
     name: Check current version
     permissions:
       contents: read
-    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/check_current_version.yaml@0e2ad584b07bb08b72b387587c50ff3e9fb4fab2 # v0.1.2
+    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/check_current_version.yaml@b656df219de0117f1098db11a51c41625c12444e # v0.1.3
     with:
       use_local_setup_action: true
   pkgdown:
@@ -22,7 +22,7 @@ jobs:
     permissions:
       contents: write
       pull-requests: write
-    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/pkgdown.yaml@0e2ad584b07bb08b72b387587c50ff3e9fb4fab2 # v0.1.2
+    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/pkgdown.yaml@b656df219de0117f1098db11a51c41625c12444e # v0.1.3
     with:
       use_local_setup_action: true
   coverage:
@@ -30,7 +30,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/coverage.yaml@0e2ad584b07bb08b72b387587c50ff3e9fb4fab2 # v0.1.2
+    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/coverage.yaml@b656df219de0117f1098db11a51c41625c12444e # v0.1.3
     secrets:
       CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
     with:
@@ -41,4 +41,4 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
-    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/megalinter.yaml@0e2ad584b07bb08b72b387587c50ff3e9fb4fab2 # v0.1.2
+    uses: NovoNordisk-OpenSource/r.workflows/.github/workflows/megalinter.yaml@b656df219de0117f1098db11a51c41625c12444e # v0.1.3
